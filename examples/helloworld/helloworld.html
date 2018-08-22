@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="divLoadInfo">loading...</div>
+    <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif">
+    
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js"></script>
+    <script>
+        dynamsoft = self.dynamsoft || {};
+        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js/';
+        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
+        var reader;
+        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+            document.getElementById('divLoadInfo').innerHTML="load dbr wasm success.";
+            reader = new dynamsoft.BarcodeReader();
+        };
+        dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
+            document.getElementById('divLoadInfo').innerHTML="load wasm failed: "+status;
+        };
+    </script>
+    <script>
+        document.getElementById('uploadImage').addEventListener('change', function(){
+            var files = this.files;
+            reader.decodeFileInMemory(files[0]).then(function(results){
+                var txts = [];
+                for(var i=0;i<results.length;++i){
+                    txts.push(results[i].BarcodeText);
+                }
+                alert(txts.join("\n"));
+            }).catch(ex=>{
+                console.log(ex);
+            });
+            this.value = '';
+        });
+    </script>
+</body>
+</html>
