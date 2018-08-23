@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript Barcode Reader Demo (WebAssembly)</title>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel='stylesheet' href='css/foundation.min.css' />
+	<link rel='stylesheet' href='css/style.css?v=20180823' />
+</head>
+<body>
+    <div class="frame-video">
+        <video id="video-back" class="video-back" playsinline="true"></video>
+    </div
+    ><div id="frame-main" class="frame-main useRegion">
+        <div class="div-topbar">
+            <button id="btn-settings" class="btn-settings"><svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1152 896q0-106-75-181t-181-75-181 75-75 181 75 181 181 75 181-75 75-181zm512-109v222q0 12-8 23t-20 13l-185 28q-19 54-39 91 35 50 107 138 10 12 10 25t-9 23q-27 37-99 108t-94 71q-12 0-26-9l-138-108q-44 23-91 38-16 136-29 186-7 28-36 28h-222q-14 0-24.5-8.5t-11.5-21.5l-28-184q-49-16-90-37l-141 107q-10 9-25 9-14 0-25-11-126-114-165-168-7-10-7-23 0-12 8-23 15-21 51-66.5t54-70.5q-27-50-41-99l-183-27q-13-2-21-12.5t-8-23.5v-222q0-12 8-23t19-13l186-28q14-46 39-92-40-57-107-138-10-12-10-24 0-10 9-23 26-36 98.5-107.5t94.5-71.5q13 0 26 10l138 107q44-23 91-38 16-136 29-186 7-28 36-28h222q14 0 24.5 8.5t11.5 21.5l28 184q49 16 90 37l142-107q9-9 24-9 13 0 25 10 129 119 165 170 7 8 7 22 0 12-8 23-15 21-51 66.5t-54 70.5q26 50 41 98l183 28q13 2 21 12.5t8 23.5z"/></svg></button
+            ><label class="btn-more">
+                <input id="ipt-file" type="file" multiple accept="image/png,image/jpeg,image/bmp,image/gif" style="display:none;"
+                ><svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1600 736v192q0 40-28 68t-68 28h-416v416q0 40-28 68t-68 28h-192q-40 0-68-28t-28-68v-416h-416q-40 0-68-28t-28-68v-192q0-40 28-68t68-28h416v-416q0-40 28-68t68-28h192q40 0 68 28t28 68v416h416q40 0 68 28t28 68z"/></svg>
+            </label>
+        </div
+        ><div class="div-top">
+            <div id="div-topLog" class="div-topLog"></div>
+        </div
+        ><div class="div-snapshotOuter">
+            <div class="div-scanLight"></div>
+        </div
+        ><div class="div-bottom">
+            <button id="btn-readFullRegion" class="btn-readFullRegion">
+                <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M1411 541l-355 355 355 355 144-144q29-31 70-14 39 17 39 59v448q0 26-19 45t-45 19h-448q-42 0-59-40-17-39 14-69l144-144-355-355-355 355 144 144q31 30 14 69-17 40-59 40h-448q-26 0-45-19t-19-45v-448q0-42 40-59 39-17 69 14l144 144 355-355-355-355-144 144q-19 19-45 19-12 0-24-5-40-17-40-59v-448q0-26 19-45t45-19h448q42 0 59 40 17 39-14 69l-144 144 355 355 355-355-144-144q-31-30-14-69 17-40 59-40h448q26 0 45 19t19 45v448q0 42-39 59-13 5-25 5-26 0-45-19z"/></svg>
+            </button
+            ><button id="btn-readInRegion" class="btn-readInRegion" style="display:none">
+                <svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M896 960v448q0 26-19 45t-45 19-45-19l-144-144-332 332q-10 10-23 10t-23-10l-114-114q-10-10-10-23t10-23l332-332-144-144q-19-19-19-45t19-45 45-19h448q26 0 45 19t19 45zm755-672q0 13-10 23l-332 332 144 144q19 19 19 45t-19 45-45 19h-448q-26 0-45-19t-19-45v-448q0-26 19-45t45-19 45 19l144 144 332-332q10-10 23-10t23 10l114 114q10 10 10 23z"/></svg>
+            </button
+            ><div id="div-highLightResult" class="div-highLightResult">
+                <span>loading...</span>
+            </div>
+        </div>
+    </div
+    ><div id="frame-menu" class="frame-menu" style="display:none;">
+        <div class="div-leftMenu">
+            <ul id="ul-menu" class="vertical menu drilldown" data-drilldown data-auto-height="true" data-animate-height="true">
+                <li>
+                    <a>video source</a
+                    ><ul id="ul-videoList" class="ul-videoList menu vertical">
+                        <li><a>looking up camera...</a></li>
+                    </ul>
+                </li
+                ><li>
+                    <a>video resolution</a
+                    ><ul id="ul-resolutionList" class="menu vertical">
+                        <li class='li-resolution' data-width='2160' data-height='3840'><a>2160 x 3840</a></li
+                        ><li class='li-resolution' data-width='1080' data-height='1920'><a>1080 x 1920</a></li
+                        ><li class='li-resolution' data-width='1200' data-height='1600'><a>1200 x 1600</a></li
+                        ><li class='li-resolution selectedLi' data-width='720' data-height='1280'><a>720 x 1280</a></li
+                        ><li class='li-resolution' data-width='600' data-height='800'><a>600 x 800</a></li
+                        ><li class='li-resolution' data-width='480' data-height='640'><a>480 x 640</a></li
+                        ><li class='li-resolution' data-width='360' data-height='640'><a>360 x 640</a></li>
+                    </ul>
+                </li
+                ><li>
+                    <a class="a-readFullRegion">read full region
+                        <div class="switch tiny">
+                            <input id="cb-readFullRegion" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                            <label id="lb-readFullRegion" class="switch-paddle" for="cb-readFullRegion"></label>
+                        </div>
+                    </a>
+                </li
+                ><li>
+                    <a>reading interval</a
+                    ><ul id="ul-interval" class="menu vertical">
+                        <li class='li-interval' data-val='2000'><a>2s</a></li
+                        ><li class='li-interval selectedLi' data-val='1000'><a>1s</a></li
+                        ><li class='li-interval' data-val='500'><a>0.5s</a></li
+                        ><li class='li-interval' data-val='200'><a>0.2s</a></li
+                        ><li class='li-interval' data-val='100'><a>0.1s</a></li
+                        ><li class='li-interval' data-val='50'><a>50ms</a></li
+                        ><li class='li-interval' data-val='25'><a>25ms</a></li
+                        ><li class='li-interval' data-val='10'><a>10ms</a></li>
+                    </ul>
+                </li
+                ><li class="disableOnWasmLoading"><a id="a-barcodeFormat">barcode formats</a><ul id='ul-barcodeFormatId' class="menu vertical">
+                    <li class='li-barcodeFormatId' data-val='0x3ff'><a>1D</a></li>
+                    <li class='li-barcodeFormatId' data-val='0x2000000'><a>PDF 417</a></li>
+                    <li class='li-barcodeFormatId' data-val='0x4000000'><a>QR Code</a></li>
+                    <li class='li-barcodeFormatId' data-val='0x8000000'><a>DataMatrix</a></li>
+                    <li class='li-barcodeFormatId' data-val='0x10000000'><a>Aztec</a></li>
+                </ul></li
+                ><li class="disableOnWasmLoading">
+                    <a id='a-advance'>advanced</a
+                    ><ul id="ul-advance" class="ul-advance menu vertical">
+                        <li><a><label>AntiDamageLevel<input></label></a></li>
+                        <li><a><label>BarcodeInvertMode<input></label></a></li>
+                        <li><a><label>BinarizationBlockSize<input></label></a></li>
+                        <li><a><label>ColourImageConvertMode<input></label></a></li>
+                        <li><a><label>DeblurLevel<input></label></a></li>
+                        <li><a><label>EnableFillBinaryVacancy<input></label></a></li>
+                        <li><a><label>ExpectedBarcodesCount<input></label></a></li>
+                        <li><a><label>GrayEqualizationSensitivity<input></label></a></li>
+                        <li><a><label>LocalizationAlgorithmPriority<input></label></a></li>
+                        <li><a><label>MaxAlgorithmThreadCount<input></label></a></li>
+                        <li><a><label>MaxBarcodesCount<input></label></a></li>
+                        <li><a><label>MaxImageDimensionToLocalizeBarcodesOnFullImage<input></label></a></li>
+                        <li><a><label>PDFRasterDPI<input></label></a></li>
+                        <li><a><label>RegionPredetectionMode<input></label></a></li>
+                        <li><a><label>Reserved<input></label></a></li>
+                        <li><a><label>ScaleDownThreshold<input></label></a></li>
+                        <li><a><label>TextFilterMode<input></label></a></li>
+                        <li><a><label>TextureDetectionSensitivity<input></label></a></li>
+                        <li><a><label>Timeout<input></label></a></li>
+                    </ul>
+                </li
+                ><li>
+                    <a id="a-clearCache">clear cache</a>
+                </li
+                ><li>
+                    <a>About Dynamsoft</a
+                    ><ul class="menu vertical">
+                        <li><a class="a-aboutDynamsoftContent">
+                            Founded in Sep 2003 with the aim of being the dynamic center of software developers,
+                            Dynamsoft provides enterprise-class version control software,
+                            TWAIN software development kits (SDK) and other document imaging SDKs,
+                            with numerous generations for each product.
+                            Today many Fortune 500 Companies including HP, IBM, Intel,
+                            and Siemens trust Dynamsoft solutions for version control and TWAIN scanning SDK development.
+                        </a></li>
+                        <li><a href="https://www.dynamsoft.com/Company/Contact.aspx" target="_blank">Contact Us</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div
+        ><div id="div-menuRightMargin" class="div-menuRightMargin"></div>
+    </div
+    ><div id="frame-loadingAnimation" class="cm-spinner"></div
+    ><div id="frame-supportAndSetting" class="frame-supportAndSetting">
+        <p>Please read <a href="../Documents/guide.md" target="_blank">guide.md</a> or <a href="https://www.dynamsoft.com/help/Barcode-Reader-WASM/" target="_blank">online-document</a> first if you haven't read it!</p>
+        <p>The demo use a stable version. Click <a href="barcode_reader_javascript.html">this</a> to switch to a light version.</p>
+        <p>Dynamsoft Barcode Reader JavaScript Edition is a JavaScript API for barcode scanning based on the WebAssembly technology. This demo supports scanning bar codes directly from a live video stream.</p>
+        <ul class="accordion grid-x" data-accordion>
+            <li class="accordion-item cell large-6 is-active" data-accordion-item>
+                <a class="accordion-title">Supported Browsers for Desktop</a>
+                <div class="accordion-content" data-tab-content style="display:block;">
+                    <table class="table-zebra">
+                        <tr><td>Chrome</td><td>v57</td></tr>
+                        <tr><td>Edge</td><td>v16</td></tr>
+                        <tr><td>Firefox</td><td>v52</td></tr>
+                        <tr><td>Safari</td><td>v11<a href="https://bugs.webkit.org/show_bug.cgi?id=181781" target="_blank">*</a></td></tr>
+                        <tr><td>Internet Explorer</td><td>No</td></tr>
+                    </table>
+                </div>
+            </li>
+            <li class="accordion-item cell large-6" data-accordion-item>
+                <a class="accordion-title">Supported Browsers for Mobile</a>
+                <div class="accordion-content" data-tab-content>
+                    <table class="table-zebra">
+                        <tr><td>Chrome Android</td><td>v57</td></tr>
+                        <tr><td>Edge</td><td>Able<a href="https://nokiapoweruser.com/enabling-experimental-features-of-edge-spartan-browser-on-windows-10-mobile-changelog/" target="_blank">*</a></td></tr>
+                        <tr><td>Firefox Android</td><td>v52</td></tr>
+                        <tr><td>Safari</td><td>v11<a href="https://bugs.webkit.org/show_bug.cgi?id=181781" target="_blank">*</a></td></tr>
+                        <tr><td>Android webview</td><td>v57</td></tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
+        <h3>Barcode Format</h3>
+        <div class="grid-x">
+            <div class="cell auto">1D</div>
+            <div class="cell shrink">
+                <div class="switch tiny">
+                    <input id="cb-pre1D" value="0x3ff" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <label class="switch-paddle" for="cb-pre1D"></label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x">
+            <div class="cell auto">PDF 417</div>
+            <div class="cell shrink">
+                <div class="switch tiny">
+                    <input id="cb-prePDF417" value="0x2000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <label class="switch-paddle" for="cb-prePDF417"></label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x">
+            <div class="cell auto">QR Code</div>
+            <div class="cell shrink">
+                <div class="switch tiny">
+                    <input id="cb-preQRCode" value="0x4000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <label class="switch-paddle" for="cb-preQRCode"></label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x">
+            <div class="cell auto">DataMatrix</div>
+            <div class="cell shrink">
+                <div class="switch tiny">
+                    <input id="cb-preDataMatrix" value="0x8000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <label class="switch-paddle" for="cb-preDataMatrix"></label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-x">
+            <div class="cell auto">Aztec</div>
+            <div class="cell shrink">
+                <div class="switch tiny">
+                    <input id="cb-preAztec" value="0x10000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <label class="switch-paddle" for="cb-preAztec"></label>
+                </div>
+            </div>
+        </div>
+        <div class="div-forProceedBtn"><button id="btn-processSupportAndSettings" disabled="disabled">Proceed</button></div>
+    </div>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src='js/what-input.min.js'></script>
+    <script src='js/foundation.min.js'></script>
+	<script>
+		$(document).foundation();
+	</script>
+
+    <!-- an removable debug tool -->
+    <script src="js/kConsole.js"></script>
+
+    <script>
+        dynamsoft = self.dynamsoft || {};
+        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+
+        // by default, js would load `dbr-<version>.wasm` in the same folder of the context
+        // set it when you put `dbr-<version>.wasm` other place
+        // case you put `dbr-<version>.wasm` in 'js/dbr-<version>.wasm', set this 'js'
+        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+        
+        var bDbrWasmLoadSuccess = false;
+        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+            bDbrWasmLoadSuccess = true;
+            if(preSelBarcodeFormat){
+                initTestRuntimeSettings();
+                self.isLooping = true;
+                playvideo().then(loopReadVideo, ex=>{
+                    alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
+                });
+            }
+            $('#div-highLightResult span').text('reading...');
+            $('#frame-loadingAnimation').hide();
+            $('.disableOnWasmLoading').removeClass('disableOnWasmLoading');
+        };
+        dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
+            alert("load wasm failed: "+status);
+        };
+
+        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
+    </script>
+
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js"></script>
+    <script src="js/script.js?v=20180823"></script>
+</body>
+</html>
