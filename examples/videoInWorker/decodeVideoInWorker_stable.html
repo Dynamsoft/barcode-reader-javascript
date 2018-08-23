@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+    <p>'UseDbrInWorker' does not perform well in mobile browser in our test.</p>
+    <p>To enable video, please host the site in https!</p>
+    <div id="divLoading">loading...</div>
+    <div id="divReading" style="display:none">Reading...</div>
+    <button id="btn-startReadVideo">start read</button>
+    <button id="btn-stopReadVideo" style="display:none">stop read</button>
+    <div id="divVideoContainer" style="max-width:90%;position:relative;">
+        <video id="theVideo" style="width:100%;height:100%;" playsinline="true"></video>
+        <div id="divVideoRegion" style="position:absolute;margin:auto;left:0;top:0;right:0;bottom:0;width:100%;height:100%;border:3px solid #50A8E1;"></div>
+    </div>
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <!-- optional, a log tool -->
+    <script src="js/kConsole.js"></script>
+    <script>
+        var useDbrInWorker = new Worker("js/decodeVideoInWorker_stable.js");
+        var dbrWorkerCallbackDic = {};
+
+        // handle worker message
+        useDbrInWorker.onmessage = function(e){
+            e = e.data;
+            switch(e.type){
+                case "load":{
+                    if(e.success){
+                        playvideo();
+                    }
+                    break;
+                }
+                case "log": {
+                    kConsoleLog(e.body);
+                    if(typeof e.body == 'string' || e.body instanceof String){
+                        $('#divLoading').html(e.body);
+                    }
+                    break;
+                }
+                case "task": {
+                    try{
+                        dbrWorkerCallbackDic[e.id](e.body);
+                        dbrWorkerCallbackDic[e.id] = undefined;
+                    }catch(ex){
+                        dbrWorkerCallbackDic[e.id] = undefined;
+                        throw ex;
+                    }
+                }
+            }
+        };
+
+        var playvideo = ()=>{
+            kConsoleLog('======before video========');
+            navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: { ideal: 'environment' } } }).then((stream)=>{
+                kConsoleLog('======get video========');
+                var video = $('#theVideo')[0];
+                video.srcObject = stream;
+                video.onloadedmetadata = ()=>{
+                    kConsoleLog('======play video========');
+                    video.play();
+                    kConsoleLog('======played video========');
+                    setTimeout(function(){
+                        var $divVideoRegion = $('#divVideoRegion');
+                        var regionWH = Math.round(Math.min($divVideoRegion.width(), $divVideoRegion.height()) * 0.6);
+                        $divVideoRegion[0].style.width = regionWH + 'px';
+                        $divVideoRegion[0].style.height = regionWH + 'px';
+                    },0);
+                };
+            }).catch((ex)=>{
+                kConsoleLog(ex);
+            });
+        };
+        
+        $('#btn-startReadVideo').click(()=>{
+            $('#divReading').show();
+            $('#btn-startReadVideo').hide();
+            $('#btn-stopReadVideo').show();
+            isLooping = true;
+            $('#kConsoleShowHideBtn').click();
+            loopReadVideo();
+        });
+        $('#btn-stopReadVideo').click(()=>{
+            $('#btn-stopReadVideo').hide();
+            $('#btn-startReadVideo').show();
+            isLooping = false;
+            $('#divReading').hide();
+        });
+
+        var isLooping = false;
+        //worker can't send HTMLElement, so it's a little complex
+        var loopReadVideo = function(){
+            if(!isLooping){
+                return;
+            }
+            kConsoleLog('======= once read =======')
+            var timestart = (new Date()).getTime();
+
+            var video = $('#theVideo')[0];
+            var vw = video.videoWidth;
+            var vh = video.videoHeight;
+            var vw_2 = Math.round(vw * 0.2);
+            var vh_2 = Math.round(vh * 0.2);
+            var vw_6 = Math.round(vw * 0.6);
+            var vh_6 = Math.round(vh * 0.6);
+            
+            //crop a video region for decode
+            var cvs = document.createElement('canvas');
+            cvs.width = vw_6;
+            cvs.height = vw_6;
+            var ctx = cvs.getContext('2d');
+            ctx.drawImage(video,vw_2,vw_2,vw_6,vw_6,0,0,vw_6,vw_6);
+            
+            //convert to a worker available data format
+            new Promise(resolve=>{
+                if(cvs.toBlob){//Blob
+                    cvs.toBlob((blob)=>{
+                        resolve(blob);
+                    });
+                }else{//base64
+                    resolve(cvs.toDataURL());
+                }
+            }).then(source=>{
+                var taskId = Math.random();
+
+                //define callback
+                dbrWorkerCallbackDic[taskId] = function(response){
+                    if(response.success){
+                        var results = response.results;
+                        kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
+                        for(var i=0;i<results.length;++i){
+                            var result = results[i];
+                            kConsoleLog(result.BarcodeText);
+                        }
+                        // video in safair would stuck, so leave 2s for adjusting video 
+                        setTimeout(loopReadVideo, 2000);
+                    }else{
+                        kConsoleError(response.message);
+                        setTimeout(loopReadVideo, 2000);
+                        throw ex;
+                    }
+                };
+
+                //send to worker
+                if(cvs.toBlob){//blob
+                    useDbrInWorker.postMessage({type: "decodeFileInMemory", id: taskId, body: source});
+                }else{//base64
+                    useDbrInWorker.postMessage({type: "decodeBase64String", id: taskId, body: source});
+                }
+            });
+        };
+    </script>
+</body>
+</html>

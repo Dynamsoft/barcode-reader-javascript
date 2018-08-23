@@ -26,7 +26,10 @@ Configure the MIME Type for your web server:
 Load and initialize the barcode reader in HTML pages:
 
 ```html
+<!-- light build -->
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js"></script>
+<!-- stable build -->
+<!--<script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js"></script>-->
 <script>
         var reader;
         var dynamsoft = self.dynamsoft || {};
