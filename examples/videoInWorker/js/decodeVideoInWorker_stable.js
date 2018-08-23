@@ -15,7 +15,7 @@ dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
 // by default, js would load `dbr-<version>.wasm` in the same folder of the context
 // set it when you put `dbr-<version>.wasm` other place
 // case you put `dbr-<version>.wasm` in 'js/dbr-<version>.wasm', set this 'js'
-dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js/';
+dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
 
 dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
     postMessage({type:"log",body:"load dbr wasm success."});
@@ -34,12 +34,12 @@ importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
 onmessage = function(e){
     e = e.data;
     switch(e.type){
-        case "decodeFileInMemory": {
+        case "decodeBuffer": {
             var reader = new dynamsoft.BarcodeReader();
-            reader.decodeFileInMemory(e.body).then(results=>{
+            reader.decodeBuffer(e.body, e.width, e.height, e.width * 4, dynamsoft.BarcodeReader.EnumImagePixelFormat.IPF_ARGB_8888).then(results=>{
                 postMessage({type:"task", id: e.id, body: {success: true, results: results}});
             }).catch(ex=>{
-                postMessage({type:"task", id: e.id, body: {success: false, message:ex}});
+                postMessage({type:"task", id: e.id, body: {success: false, message:ex.message||ex}});
             });
             break;
         }
@@ -48,7 +48,7 @@ onmessage = function(e){
             reader.decodeBase64String(e.body).then(results=>{
                 postMessage({type:"task", id: e.id, body: {success: true, results: results}});
             }).catch(ex=>{
-                postMessage({type:"task", id: e.id, body: {success: false, message:ex}});
+                postMessage({type:"task", id: e.id, body: {success: false, message:ex.message||ex}});
             });
             break;
         }

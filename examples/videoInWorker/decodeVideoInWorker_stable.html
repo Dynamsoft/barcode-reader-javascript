@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 <body>
+    <p>Please read <a href="../../Documents/guide.md" target="_blank">guide.md</a> or <a href="https://www.dynamsoft.com/help/Barcode-Reader-WASM/" target="_blank">online-document</a> first if you haven't read it!</p>
+    <p>The sample use a stable version. Click <a href="decodeVideoInWorker.html">this</a> to switch to a light version.</p>
     <p>'UseDbrInWorker' does not perform well in mobile browser in our test.</p>
     <p>To enable video, please host the site in https!</p>
     <div id="divLoading">loading...</div>
     <div id="divReading" style="display:none">Reading...</div>
-    <button id="btn-startReadVideo">start read</button>
+    <button id="btn-startReadVideo" disabled>start read</button>
     <button id="btn-stopReadVideo" style="display:none">stop read</button>
     <div id="divVideoContainer" style="max-width:90%;position:relative;">
         <video id="theVideo" style="width:100%;height:100%;" playsinline="true"></video>
@@ -61,12 +63,8 @@
                     kConsoleLog('======play video========');
                     video.play();
                     kConsoleLog('======played video========');
-                    setTimeout(function(){
-                        var $divVideoRegion = $('#divVideoRegion');
-                        var regionWH = Math.round(Math.min($divVideoRegion.width(), $divVideoRegion.height()) * 0.6);
-                        $divVideoRegion[0].style.width = regionWH + 'px';
-                        $divVideoRegion[0].style.height = regionWH + 'px';
-                    },0);
+
+                    $('#btn-startReadVideo').removeAttr('disabled');
                 };
             }).catch((ex)=>{
                 kConsoleLog(ex);
@@ -100,24 +98,18 @@
             var video = $('#theVideo')[0];
             var vw = video.videoWidth;
             var vh = video.videoHeight;
-            var vw_2 = Math.round(vw * 0.2);
-            var vh_2 = Math.round(vh * 0.2);
-            var vw_6 = Math.round(vw * 0.6);
-            var vh_6 = Math.round(vh * 0.6);
             
             //crop a video region for decode
             var cvs = document.createElement('canvas');
-            cvs.width = vw_6;
-            cvs.height = vw_6;
+            cvs.width = vw;
+            cvs.height = vh;
             var ctx = cvs.getContext('2d');
-            ctx.drawImage(video,vw_2,vw_2,vw_6,vw_6,0,0,vw_6,vw_6);
+            ctx.drawImage(video,0,0);
             
             //convert to a worker available data format
             new Promise(resolve=>{
-                if(cvs.toBlob){//Blob
-                    cvs.toBlob((blob)=>{
-                        resolve(blob);
-                    });
+                if(ctx.getImageData){//Uint8ClampedArray
+                    resolve(ctx.getImageData(0,0,cvs.width,cvs.height).data);
                 }else{//base64
                     resolve(cvs.toDataURL());
                 }
@@ -138,13 +130,12 @@
                     }else{
                         kConsoleError(response.message);
                         setTimeout(loopReadVideo, 2000);
-                        throw ex;
                     }
                 };
 
                 //send to worker
-                if(cvs.toBlob){//blob
-                    useDbrInWorker.postMessage({type: "decodeFileInMemory", id: taskId, body: source});
+                if(ctx.getImageData){//Uint8ClampedArray
+                    useDbrInWorker.postMessage({type: "decodeBuffer", id: taskId, body: source, width: cvs.width, height: cvs.height});
                 }else{//base64
                     useDbrInWorker.postMessage({type: "decodeBase64String", id: taskId, body: source});
                 }
