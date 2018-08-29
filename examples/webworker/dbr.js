@@ -18,11 +18,6 @@ function browserRedirect() {
   return deviceType;
 }
 
-var videoElement = document.querySelector('video');
-var canvas = document.getElementById('pcCanvas');
-var mobileCanvas = document.getElementById('mobileCanvas');
-var ctx = canvas.getContext('2d');
-var mobileCtx = mobileCanvas.getContext('2d');
 var videoSelect = document.querySelector('select#videoSource');
 var videoOption = document.getElementById('videoOption');
 var buttonFile = document.getElementById('bt-file');
@@ -30,31 +25,35 @@ buttonFile.disabled = true;
 var buttonVideo = document.getElementById('bt-video');
 buttonVideo.disabled = true;
 var barcode_result = document.getElementById('dbr');
-var myWorker;
-var overlay;
-
-var isPaused = false;
-var videoWidth = canvas.width,
-  videoHeight = canvas.height;
-var mobileVideoWidth = 240,
-  mobileVideoHeight = 320;
-var isPC = true;
-var isVideoMode = false;
+var canvas, ctx, myWorker, overlay, videoElement;
+var isPaused = false,
+  isPC = true,
+  isVideoMode = false;
 
 if (browserRedirect() == 'pc') {
   isPC = true;
+  videoElement = document.getElementById('videoContainer');
   document.getElementById("videoview").style.display = 'block'
   overlay = document.getElementById("overlay");
+  canvas = document.getElementById('pcCanvas');
+  ctx = canvas.getContext('2d');
 } else {
   isPC = false;
+  videoElement = document.getElementById('videoContainer-mobile');
+  document.getElementById("videoview-mobile").style.display = 'block'
   overlay = document.getElementById("overlay-mobile");
+  canvas = document.getElementById('mobileCanvas');
+  ctx = mobileCanvas.getContext('2d');
 }
+
+var videoWidth = canvas.width,
+  videoHeight = canvas.height;
 
 function clearOverlay() {
   let context = overlay.getContext("2d");
   context.clearRect(0, 0, videoWidth, videoHeight);
   context.strokeStyle = '#ff0000';
-  context.lineWidth=5;
+  context.lineWidth = 5;
   return context;
 }
 
@@ -71,12 +70,16 @@ function drawResult(context, localization, text) {
   context.fillStyle = '#ff0000';
   let x = [localization.X1, localization.X2, localization.X3, localization.X4];
   let y = [localization.Y1, localization.Y2, localization.Y3, localization.Y4];
-  x.sort(function(a, b){return a - b});
-  y.sort(function(a, b){return b - a});
+  x.sort(function (a, b) {
+    return a - b
+  });
+  y.sort(function (a, b) {
+    return b - a
+  });
   let left = x[0];
   let top = y[0];
 
-  context.fillText(text, left, top + 50);  
+  context.fillText(text, left, top + 50);
 }
 
 // stackoverflow: http://stackoverflow.com/questions/4998908/convert-data-uri-to-file-then-append-to-formdata/5100158
@@ -164,19 +167,10 @@ buttonVideo.onclick = function () {
 function scanBarcode() {
   // barcode_result.textContent = "";
 
-  let context = null,
-    width = 0,
-    height = 0;
-
-  if (isPC) {
-    context = ctx;
-    width = videoWidth;
+  let context = ctx,
+    width = videoWidth,
     height = videoHeight;
-  } else {
-    context = mobileCtx;
-    width = mobileVideoWidth;
-    height = mobileVideoHeight;
-  }
+
   context.drawImage(videoElement, 0, 0, width, height);
   var barcodeCanvas = document.createElement("canvas");
   barcodeCanvas.width = width;
@@ -284,19 +278,6 @@ if (window.Worker) {
 
               if (isVideoMode) {
                 scanBarcode();
-                // if (txts.length == 0) {
-                //   scanBarcode();
-                //   console.log("No confident results");
-                // } else {
-                //   // barcode_result.textContent = txts.join(", ");
-                //   // barcode_result.innerHTML = txts.join("</br>");
-                //   buttonVideo.disabled = false;
-                //   if (isPC) {
-                //     canvas.style.display = 'block';
-                //   } else {
-                //     mobileCanvas.style.display = 'block';
-                //   }
-                // }
               }
             } catch (e) {
               if (isVideoMode) {
