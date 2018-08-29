@@ -1,7 +1,7 @@
 postMessage("I'm worker");
 
-importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
-
+// importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
+importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js');
 var reader;
 var dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
