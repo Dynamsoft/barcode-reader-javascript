@@ -1,7 +1,30 @@
-postMessage("I'm worker");
+// check devices
+function browserRedirect() {
+    var deviceType;
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+      deviceType = 'phone';
+    } else {
+      deviceType = 'pc';
+    }
+    return deviceType;
+}
 
-// importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
-importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js');
+if (browserRedirect() === 'pc') {
+    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
+}
+else {
+    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js');
+}
+
 var reader;
 var dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};

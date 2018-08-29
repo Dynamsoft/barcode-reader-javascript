@@ -30,7 +30,7 @@ var isPaused = false,
   isPC = true,
   isVideoMode = false;
 
-if (browserRedirect() == 'pc') {
+if (browserRedirect() === 'pc') {
   isPC = true;
   videoElement = document.getElementById('videoContainer');
   document.getElementById("videoview").style.display = 'block'
