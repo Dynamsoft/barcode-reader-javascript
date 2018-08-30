@@ -107,3 +107,9 @@ http://localhost:2018/helloworld/helloworld.html
 ```
 
 **Note: getUserMedia only works on secure origins. You have to run your camera apps with HTTPS. For the testing environment, you can use localhost.**
+
+### Configuring HTTPS Web Servers
+- [Nginx](https://nginx.org/en/docs/http/configuring_https_servers.html)
+- [IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
+- [Tomcat](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
+- [Node.js](https://nodejs.org/docs/v0.4.1/api/tls.html)
