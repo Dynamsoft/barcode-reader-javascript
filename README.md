@@ -17,12 +17,6 @@ https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
 https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html
 
 ## HowTo
-Configure the MIME Type for your web server:
-
-```xml
-<mimeMap fileExtension=".wasm" mimeType="application/wasm" />
-```
-
 Load and initialize the barcode reader in HTML pages:
 
 ```html
@@ -74,3 +68,38 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 })
 
 ```
+
+## Deployment
+If you want to deploy the SDK by yourself, download the [dist package](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js).
+
+Configure the MIME Type in your web server. In addition, you may need to [enable Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (CORS). Here is an example for IIS configuration:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <httpProtocol>
+            <customHeaders>
+                <add name="Access-Control-Allow-Origin" value="*" />
+            </customHeaders>
+        </httpProtocol>
+        <staticContent>
+            <mimeMap fileExtension=".wasm" mimeType="application/wasm" />
+        </staticContent>
+    </system.webServer>
+</configuration>
+```
+
+If you have [Node.js](https://nodejs.org/en/download/), create a web server with **express**.
+
+```
+cd examples
+npm i express
+node server.js
+```
+
+Open samples. For example
+
+```
+http://localhost:2018/barcode-scanner/barcode_reader_javascript_stable.html
+http://localhost:2018/helloworld/helloworld.html
