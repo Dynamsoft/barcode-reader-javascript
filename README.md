@@ -72,7 +72,7 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 ## Deployment
 If you want to deploy the SDK by yourself, download the [dist package](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js).
 
-Configure the MIME Type in your web server. In addition, you may need to [enable Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (CORS). Here is an example for IIS configuration:
+Configure the MIME Type in your web server. In addition, you may need to enable [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (CORS). Here is an example for IIS configuration:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -103,3 +103,7 @@ Open samples. For example
 ```
 http://localhost:2018/barcode-scanner/barcode_reader_javascript_stable.html
 http://localhost:2018/helloworld/helloworld.html
+
+```
+
+**Note: getUserMedia only works on secure origins. You have to run your camera apps with HTTPS. For the testing environment, you can use localhost.**
