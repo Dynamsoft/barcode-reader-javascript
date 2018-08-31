@@ -19,10 +19,10 @@ function browserRedirect() {
 }
 
 if (browserRedirect() === 'pc') {
-    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js');
+    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js');
 }
 else {
-    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js');
+    importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js');
 }
 
 var reader;
