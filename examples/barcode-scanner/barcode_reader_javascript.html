@@ -5,7 +5,7 @@
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<link rel='stylesheet' href='css/foundation.min.css' />
-	<link rel='stylesheet' href='css/style.css?v=20180823' />
+	<link rel='stylesheet' href='css/style.css' />
 </head>
 <body>
     <div class="frame-video">
@@ -133,8 +133,6 @@
     </div
     ><div id="frame-loadingAnimation" class="cm-spinner"></div
     ><div id="frame-supportAndSetting" class="frame-supportAndSetting">
-        <p>Please read <a href="../Documents/guide.md" target="_blank">guide.md</a> or <a href="https://www.dynamsoft.com/help/Barcode-Reader-WASM/" target="_blank">online-document</a> first if you haven't read it!</p>
-        <p>The demo use a light version. Click <a href="barcode_reader_javascript_stable.html">this</a> to switch to a stable version.</p>
         <p>Dynamsoft Barcode Reader JavaScript Edition is a JavaScript API for barcode scanning based on the WebAssembly technology. This demo supports scanning bar codes directly from a live video stream.</p>
         <ul class="accordion grid-x" data-accordion>
             <li class="accordion-item cell large-6 is-active" data-accordion-item>
@@ -210,7 +208,7 @@
         </div>
         <div class="div-forProceedBtn"><button id="btn-processSupportAndSettings" disabled="disabled">Proceed</button></div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src='js/what-input.min.js'></script>
     <script src='js/foundation.min.js'></script>
 	<script>
@@ -218,7 +216,7 @@
 	</script>
 
     <!-- an removable debug tool -->
-    <script src="js/kConsole.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 
     <script>
         dynamsoft = self.dynamsoft || {};
@@ -248,10 +246,26 @@
         };
 
         // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
+        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
     </script>
 
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js"></script>
-    <script src="js/script.js?v=20180823"></script>
+    <!-- <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js"></script> -->
+    <script>
+        (function(bMobileSafari){
+            var script = document.createElement('script');
+            if(!bMobileSafari){
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js";
+            }else{// bMobileSafari
+                // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js";
+            }
+            document.body.appendChild(script);
+        })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
+    </script>
+
+    <!-- https://github.com/webrtc/adapter -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 </head>
 <body>
-    <p>Please read <a href="../../Documents/guide.md" target="_blank">guide.md</a> or <a href="https://www.dynamsoft.com/help/Barcode-Reader-WASM/" target="_blank">online-document</a> first if you haven't read it!</p>
-    <p>The sample use a light version. Click <a href="decodeVideoInWorker_stable.html">this</a> to switch to a stable version.</p>
-    <p>'UseDbrInWorker' does not perform well in mobile browser in our test.</p>
     <p>To enable video, please host the site in https!</p>
     <div id="divLoading">loading...</div>
     <div id="divReading" style="display:none">Reading...</div>
@@ -17,9 +14,15 @@
         <video id="theVideo" style="width:100%;height:100%;" playsinline="true"></video>
         <div id="divVideoRegion" style="position:absolute;margin:auto;left:0;top:0;right:0;bottom:0;width:100%;height:100%;border:3px solid #50A8E1;"></div>
     </div>
-    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
     <!-- optional, a log tool -->
-    <script src="js/kConsole.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
+
+    <!-- https://github.com/webrtc/adapter -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
+
     <script>
         var useDbrInWorker = new Worker("js/decodeVideoInWorker.js");
         var dbrWorkerCallbackDic = {};
@@ -110,8 +113,6 @@
             new Promise(resolve=>{
                 if(ctx.getImageData){//Uint8ClampedArray
                     resolve(ctx.getImageData(0,0,cvs.width,cvs.height).data);
-                }else{//base64
-                    resolve(cvs.toDataURL());
                 }
             }).then(source=>{
                 var taskId = Math.random();
@@ -126,19 +127,15 @@
                             kConsoleLog(result.BarcodeText);
                         }
                         // video in safair would stuck, so leave 2s for adjusting video 
-                        setTimeout(loopReadVideo, 2000);
+                        setTimeout(loopReadVideo, 100);
                     }else{
                         kConsoleError(response.message);
-                        setTimeout(loopReadVideo, 2000);
+                        setTimeout(loopReadVideo, 100);
                     }
                 };
 
                 //send to worker
-                if(ctx.getImageData){//Uint8ClampedArray
-                    useDbrInWorker.postMessage({type: "decodeBuffer", id: taskId, body: source, width: cvs.width, height: cvs.height});
-                }else{//base64
-                    useDbrInWorker.postMessage({type: "decodeBase64String", id: taskId, body: source});
-                }
+                useDbrInWorker.postMessage({type: "decodeBuffer", id: taskId, body: source, width: cvs.width, height: cvs.height});
             });
         };
     </script>

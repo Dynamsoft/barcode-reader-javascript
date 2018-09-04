@@ -58,11 +58,7 @@ var playvideo = ()=>{
             video.play();
             kConsoleLog('======played video========');
 
-            var $divVideoRegion = $('#divVideoRegion');
-            var $divVideoContainer = $('#divVideoContainer');
-            var regionWH = Math.round(Math.min($divVideoContainer.width(), $divVideoContainer.height()) * 0.6);
-            $divVideoRegion[0].style.width = regionWH + 'px';
-            $divVideoRegion[0].style.height = regionWH + 'px';
+            $('#btn-startReadVideo').removeAttr('disabled');
 
             updateDevice();
         };
@@ -94,13 +90,7 @@ var loopReadVideo = function(){
     kConsoleLog('======= once read =======')
     var timestart = (new Date()).getTime();
     var video = $('#theVideo')[0];
-    var vw = video.videoWidth;
-    var vh = video.videoHeight;
-    var vw_2 = Math.round(vw * 0.2);
-    var vh_2 = Math.round(vh * 0.2);
-    var vw_6 = Math.round(vw * 0.6);
-    var vh_6 = Math.round(vh * 0.6);
-    barcodeReader.decodeVideo(video,vw_2,vh_2,vw_6,vh_6,vw_6,vh_6).then((results)=>{
+    barcodeReader.decodeVideo(video).then((results)=>{
         kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
         for(var i=0;i<results.length;++i){
             var result = results[i];

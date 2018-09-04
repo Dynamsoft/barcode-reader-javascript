@@ -27,9 +27,16 @@ dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
 };
 
 //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
+dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
 
-importScripts('https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.min.js');
+(function(bMobileSafari){
+    if(!bMobileSafari){
+        importScripts("https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js");
+    }else{// bMobileSafari
+        // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
+        importScripts("https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js");
+    }
+})(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
 
 onmessage = function(e){
     e = e.data;
@@ -37,15 +44,6 @@ onmessage = function(e){
         case "decodeBuffer": {
             var reader = new dynamsoft.BarcodeReader();
             reader.decodeBuffer(e.body, e.width, e.height, e.width * 4, dynamsoft.BarcodeReader.EnumImagePixelFormat.IPF_ARGB_8888).then(results=>{
-                postMessage({type:"task", id: e.id, body: {success: true, results: results}});
-            }).catch(ex=>{
-                postMessage({type:"task", id: e.id, body: {success: false, message:ex.message||ex}});
-            });
-            break;
-        }
-        case "decodeBase64String": {
-            var reader = new dynamsoft.BarcodeReader();
-            reader.decodeBase64String(e.body).then(results=>{
                 postMessage({type:"task", id: e.id, body: {success: true, results: results}});
             }).catch(ex=>{
                 postMessage({type:"task", id: e.id, body: {success: false, message:ex.message||ex}});
