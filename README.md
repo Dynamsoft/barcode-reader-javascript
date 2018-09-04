@@ -20,10 +20,7 @@ https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html
 Load and initialize the barcode reader in HTML pages:
 
 ```html
-<!-- light build -->
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js"></script>
-<!-- stable build -->
-<!--<script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.stable.min.js"></script>-->
 <script>
         var reader;
         var dynamsoft = self.dynamsoft || {};
@@ -35,6 +32,7 @@ Load and initialize the barcode reader in HTML pages:
         };
         dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
         };
+        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
 </script>
 
@@ -78,17 +76,23 @@ Configure the MIME Type in your web server. In addition, you may need to enable 
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <system.webServer>
-        <httpProtocol>
-            <customHeaders>
-                <add name="Access-Control-Allow-Origin" value="*" />
-            </customHeaders>
-        </httpProtocol>
         <staticContent>
+            <remove fileExtension=".wasm" />
             <mimeMap fileExtension=".wasm" mimeType="application/wasm" />
         </staticContent>
     </system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <remove name="Access-Control-Allow-Origin" />
+        <add name="Access-Control-Allow-Origin" value="*"/>
+      </customHeaders>
+    </httpProtocol>
 </configuration>
 ```
+
+- set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
+- set mimetype in javaee web app: [web.xml: mime-mapping](http://www.java2s.com/Code/JavaAPI/javax.servlet.http/webxmlmimemapping.htm)  
+- set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
 
 If you have [Node.js](https://nodejs.org/en/download/), create a web server with **express**.
 
