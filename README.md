@@ -35,7 +35,6 @@ Load and initialize the barcode reader in HTML pages:
         // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
 </script>
-
 ```
 
 Decode barcodes from an input file:
@@ -50,7 +49,6 @@ reader.decodeFileInMemory(files[0]).then(results=>{
             }).catch(ex=>{
                 console.log(ex);
             });
-
 ```
 
 Decode barcodes from the memory buffer:
@@ -63,8 +61,7 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
     }
-})
-
+});
 ```
 
 ## Deployment
@@ -107,7 +104,6 @@ Open samples. For example
 ```
 http://localhost:2018/barcode-scanner/barcode_reader_javascript_stable.html
 http://localhost:2018/helloworld/helloworld.html
-
 ```
 
 **Note: getUserMedia only works on secure origins. You have to run your camera apps with HTTPS. For the testing environment, you can use localhost.**
