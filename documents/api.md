@@ -35,10 +35,9 @@
 // All the settings are optional, even dynamsoft and dynamsoft.dbrEnv.
 dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
-// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
 dynamsoft.dbrEnv.licenseKey = "<a license key>",
 // The default value is true. It will load the wasm files automatically.
-// If you want to load the file manually, please set it to false before loading "dbr-<version>.min.js",
+// If you want to load the file manually, please set it to false before loading "dbr-<version>.min.js"
 // and call dynamsoft.BarcodeReader.loadWasm when needed.
 dynamsoft.dbrEnv.bAutoLoadWasm = true;
 // By default, js will load `dbr-<version>.wasm` in the same folder as the context.
@@ -60,13 +59,13 @@ dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
 
 *Syntax:* `new dynamsoft.BarcodeReader( [licenceKeys] )`
 
-New a instance of BarcodeReader.
-Don't forget `deleteInstance()` when you would not to use the reader again.
+New an instance of BarcodeReader.
+Don't forget to delete the instance using `deleteInstance()` when it will not be used again.
 
 | parameter | type | Description |
-| --- | --- | --- | 
+| --- | --- | --- |
 | *(Return value)* | `dynamsoft.BarcodeReader` |
-| licenceKeys *(optional)* | `String` | If not set, default value is `dynamsoft.dbrEnv.licenseKey`. |
+| licenceKeys *(optional)* | `String` | If not set, the default value is `dynamsoft.dbrEnv.licenseKey`. |
 
 *example:*
 ```js
@@ -78,7 +77,7 @@ var reader = new dynamsoft.BarcodeReader();
 ---
 ## `function` .deleteInstance()
 
-`BarcodeReader` need to be release when it would not be used again.
+`BarcodeReader` needs to be released when it will not be used again.
 
 *example:*
 ```js
@@ -92,7 +91,7 @@ reader.deleteInstance();
 
 *Syntax:* `dynamsoft.BarcodeReader.loadWasm()`
 
-Only need to call manually when you set `dynamsoft.dbrEnv.bAutoLoadWasm` as `false`. 
+Only need to call this manually when you set `dynamsoft.dbrEnv.bAutoLoadWasm` as `false`. 
 
 | parameter | type | Description |
 | --- | --- | --- | 
@@ -160,7 +159,7 @@ reader.decodeVideo(video).then(results=>{
 
 *example:*
 ```js
-// resize the video if the resolution is bigger than 512x512 to speed up decoding
+// resize the video if the size is bigger than 512x512 to speed up decoding
 // the success rate may decrease because of the smaller size
 reader.decodeVideo(video, Math.min(video.videoWidth, 512), Math.min(video.videoHeight, 512)).then(results=>{
     for(var i = 0; i < results.length; ++i){
