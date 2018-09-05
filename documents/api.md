@@ -42,12 +42,12 @@ dynamsoft.dbrEnv.licenseKey = "<a license key>",
 dynamsoft.dbrEnv.bAutoLoadWasm = true;
 // By default, js will load `dbr-<version>.wasm in the same folder as the context.
 // Modify this setting when you put `dbr-<version>.wasm` somewhere else.
-// Set this 'js' when you place 'dbr-<version>.wasm` at 'js/dbr-<version>.wasm'.
+// e.g. Set this as 'js' when you place 'dbr-<version>.wasm` at 'js/'.
 dynamsoft.dbrEnv.resourcesPath = 'js';
-dynamsoft.dbrEnv.onAutoLoadWasmSuccess: function(){
+dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
     console.log("success");
 };
-dynamsoft.dbrEnv.onAutoLoadWasmError: function(status){
+dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
     console.log("error");
 };
 ```
