@@ -32,17 +32,18 @@
 
 *example:*
 ```js
-// All settings are optional, even dynamsoft and dynamsoft.dbrEnv.
+// All the settings are optional, even dynamsoft and dynamsoft.dbrEnv.
 dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
 dynamsoft.dbrEnv.licenseKey = "<a license key>",
-// Default true.
-// If false, you need to define before loading "dbr-<version>.min.js",
-// and manually call dynamsoft.BarcodeReader.loadWasm.
+// The default value is true. It will load the wasm files automatically.
+// If you want to load the file manually, please set it to false before loading "dbr-<version>.min.js",
+// and call dynamsoft.BarcodeReader.loadWasm when needed.
 dynamsoft.dbrEnv.bAutoLoadWasm = true;
-// By default, js will load `dbr-<version>.wasm in the same folder as the context.
+// By default, js will load `dbr-<version>.wasm` in the same folder as the context.
 // Modify this setting when you put `dbr-<version>.wasm` somewhere else.
-// e.g. Set this as 'js' when you place 'dbr-<version>.wasm` at 'js/'.
+// e.g. Set this as 'js' when you place `dbr-<version>.wasm` at 'js/'.
 dynamsoft.dbrEnv.resourcesPath = 'js';
 dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
     console.log("success");
@@ -115,7 +116,7 @@ Only need to call manually when you set `dynamsoft.dbrEnv.bAutoLoadWasm` as `fal
 reader.decodeFileInMemory('./imgs/example.png').then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
-        // Confidence >= 30 is reliable
+        // If Confidence >= 30, the barcode results are reliable
         console.log(results[i].LocalizationResult.ExtendedResultArray[0].Confidence);
     }
 })
@@ -140,7 +141,7 @@ A useful function when you want to decode video. It use built in [drawImage](htt
 reader.decodeVideo(video).then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
-        // Confidence >= 30 is reliable
+        // If Confidence >= 30, the barcode results are reliable
         console.log(results[i].LocalizationResult.ExtendedResultArray[0].Confidence);
     }
 })
@@ -159,12 +160,12 @@ reader.decodeVideo(video).then(results=>{
 
 *example:*
 ```js
-// resize image if bigger than 512x512 to speed up decoding
-// may decrease success rate
+// resize the video if the resolution is bigger than 512x512 to speed up decoding
+// the success rate may decrease because of the smaller size
 reader.decodeVideo(video, Math.min(video.videoWidth, 512), Math.min(video.videoHeight, 512)).then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
-        // Confidence >= 30 is reliable
+        // If Confidence >= 30, the barcode results are reliable
         console.log(results[i].LocalizationResult.ExtendedResultArray[0].Confidence);
     }
 })
@@ -291,7 +292,7 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 
 *example:*
 ```js
-//get a settings
+//get the settings
 var settings = reader.getRuntimeSettings();
 //modify it
 settings.mExpectedBarcodesCount = 3;
