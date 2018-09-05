@@ -14,8 +14,11 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
 https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
 
 ## API Documentation
+
 [guide.md](documents/guide.md)
+
 [api.md](documents/api.md)
+
 https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html
 
 ## HowTo
