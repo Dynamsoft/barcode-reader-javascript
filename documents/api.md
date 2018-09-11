@@ -126,7 +126,7 @@ reader.decodeFileInMemory('./imgs/example.png').then(results=>{
 ---
 ## `function` .decodeVideo()
 
-A useful function when you want to decode video. It use built in [drawImage](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage) before decoding.
+A useful function when you want to decode video. It uses built in [drawImage](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage) before decoding.
 
 *Syntax:* `.decodeVideo(video)`
 

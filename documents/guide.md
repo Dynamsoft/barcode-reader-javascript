@@ -23,7 +23,7 @@ Please check the settings below for different environments.
 
 * set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
 
-* set mimetype in asp.net: [web.config](conf/web.config)
+* set mimetype in asp.net: [Web.config](conf/Web.config)
 
 * set mimetype in javaee web app: [web.xml](conf/web.xml)
     
