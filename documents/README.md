@@ -1,39 +1,61 @@
-# Introduction
+# Summary
 
-`DBR_WASM` uses [Webassembly](https://developer.mozilla.org/en-US/docs/WebAssembly) technology which requires a higher browser version.
+## Overview
+* [Introduction](README.md)
+* [Guide](guide.md)
+* [License Agreement](LicenseAgreement.md)
+* [How to choose the proper license](ChooseLicense.md)
 
-In most browsers, you need to deploy page **to the site** and set `.wasm` `mimetype` to `application/wasm` on the server side to debug and run it. Please check the settings below for different environments.
+## API List - Web Assembly Edition
+* [Object Constructor](ObjectConstructor.md)
+    * [object dynamsoft.dbrEnv](object-dynamsoftdbrenv.md)
+    * [object dynamsoft.BarcodeReader()](constructor-dynamsoftbarcodereader.md)
+    * [object LocalizationResult](objectLocalizationResult.md)
+        * [PSExtendedResult](structSExtendedResult.md)
+    * [object PublicRuntimeSettings](PublicRuntimeSettings.md)
+        * [mTimeout](mTimeout.md)
+        * [mPDFRasterDPI](mPDFRasterDPI.md)
+        * [enumTextFilterMode](enumTextFilterMode.md)
+        * [mTextFilterMode](mTextFilterMode.md)
+        * [enumRegionPredetectionMode](enumRegionPredetectionMode.md)
+        * [mRegionPredetectionMode](mRegionPredetectionMode.md)
+        * [mLocalizationAlgorithmPriority](mLocalizationAlgorithmPriority.md)
+        * [mBarcodeFormatIds](mBarcodeFormatIds.md)
+        * [mMaxAlgorithmThreadCount](mMaxAlgorithmThreadCount.md)
+        * [mTextureDetectionSensitivity](mTextureDetectionSensitivity.md)
+        * [mDeblurLevel](mDeblurLevel.md)
+        * [mAntiDamageLevel](mAntiDamageLevel.md)
+        * [mMaxImageDimensionToLocalizeBarcodesOnFullImage](mMaxImageDimensionToLocalizeBarcodesOnFullImage.md)
+        * [mMaxBarcodesCount](mMaxBarcodesCount.md)
+        * [enumBarcodeInvertMode](enumBarcodeInvertMode.md)
+        * [mBarcodeInvertMode](mBarcodeInvertMode.md)
+        * [mScaleDownThreshold](mScaleDownThreshold.md)
+        * [mGrayEqualizationSensitivity](mGrayEqualizationSensitivity.md)
+        * [mEnableFillBinaryVacancy](mEnableFillBinaryVacancy.md)
+        * [mReserved](mReserved.md)
+        * [enumColourImageConvertMode](enumColourImageConvertMode.md)
+        * [mColourImageConvertMode](mColourImageConvertMode.md)
+        * [mExpectedBarcodesCount](mExpectedBarcodesCount.md)
+        * [mBinarizationBlockSize](mBinarizationBlockSize.md)
+    * [object TextResult](objectTextResult.md)
+* [Error dynamsoft.BarcodeReader.BarcodeReaderException](error-dynamsoftbarcodereaderbarcodereaderexception.md)
+* [Function](Function.md)
+    * [function .deleteInstance()](function-deleteinstance.md)
+    * [function dynamsoft.BarcodeReader.loadWasm()](function-dynamsoftbarcodereaderloadwasm.md)
+    * [function .decodeBase64String()](function-decodebase64string.md)
+    * [function .decodeFileInMemory()](function-decodefileinmemery.md)
+    * [function .decodeVideo()](function-decodevideo.md)
+    * [function .decodeVideo()](function-decodevideo1.md)
+    * [function .decodeVideo()](function-decodevideo2.md)
+    * [function .decodeBuffer()](function-decodebuffer.md)
+    * [function .getAllLocalizationResults()](function-getalllocalizationresults.md)
+    * [function .getRuntimeSettings()](functiongetruntimesettings.md)
+    * [function .resetRuntimeSettings()](functionresetruntimesettings.md)
+    * [function .updateRuntimeSettings()](functionupdateruntimesettings.md)
+* [Enumeration](Enumeration.md)
+    * [enum dynamsoft.BarcodeReader.EnumImagePixelFormat](enum-dynamsoftbarcodereaderenumimagepixelformat.md)
+    * [enum dynamsoft.BarcodeReader.EnumBarcodeFormat](enum-dynamsoftbarcodereaderenumbarcodeformat.md)
+    * [enum dynamsoft.BarcodeReader.EnumErrorCode](enum-dynamsoftbarcodereaderenumerrorcode.md)
+    * [enum dynamsoft.BarcodeReader.EnumResultType](enum-dynamsoftbarcodereaderenumresulttype.md)
+    * [enum dynamsoft.BarcodeReader.EnumTerminateStage](enum-dynamsoftbarcodereaderenumterminatestage.md)
 
-* set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
-
-* set mimetype in asp.net: <a href="web.config.txt" target="_blank">web.config</a>
-
-* set mimetype in javaee web app: <a href="WEB-INF/web.xml.txt" target="_blank">web.xml</a>
-    
-* set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
-
-On Firefox, you can open the page and debug/run directly from the file browser
-
-You may encounter this error when you run several other samples with video
-
-> [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
-
-That's because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). Below are some samples for configuring an HTTPS server.
-
-* nginx: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
-
-* iis: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
-
-* tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
-
-* nodejs: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
-
-If you really need to access video on an http site, you can use our [DCS](https://www.dynamsoft.com/Products/webcam-sdk-features.aspx) product.
-
-> ### For mobile browser 
->
-> If you want to use DBR_WASM on your mobile browser (most developers is under this usage scenario), you need to be aware that the mobile devices' memory is very limited.
->
-> Before decoding a large image(e.g. in [our demo](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html), we have a limit of 480*480), you'd better intercept or compress the image. It will prevent your site from crash though the decode rate will decrease.
->
-> We provide a special interface for processing video [decodeVideo](function-decodevideo.md) to capture and decode a small area of the video on the video.
