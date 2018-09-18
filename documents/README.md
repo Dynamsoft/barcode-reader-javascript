@@ -1,7 +1,7 @@
 # Summary
 
 ## Overview
-* [Introduction](Contents/README.md)
+* [Introduction](Introduction.md)
 * [Guide](guide.md)
 * [License Agreement](LicenseAgreement.md)
 * [How to choose the proper license](ChooseLicense.md)
