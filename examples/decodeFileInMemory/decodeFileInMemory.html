@@ -52,8 +52,10 @@
                 for(var i=0;i<results.length;++i){
                     txts.push(results[i].BarcodeText);
                 }
+                reader.deleteInstance();
                 alert(txts.join("\n"));
             }).catch(ex => {
+                reader.deleteInstance();
                 alert((ex.message || ex)+". If the light version can't decode the image, try stable version instand.");
                 console.log(ex);
             });

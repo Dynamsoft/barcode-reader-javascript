@@ -1,7 +1,7 @@
 ﻿# guide
 
-- [Guide](guide.md)
-- [API](api.md)
+- [Guide](guide-original.md)
+- [API](api-original.md)
 
 <br>
 
