@@ -15,9 +15,7 @@ https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
 
 ## API Documentation
 
-[guide.md](documents/guide.md)
-
-[api.md](documents/api.md)
+https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/documents
 
 https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html
 
