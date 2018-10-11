@@ -26,12 +26,17 @@ Add `dbr-<version>.mobile.js`(smaller, compile quicker, need less memory, but no
 Build Dynamsoft Barcode Reader 6.3.0 to JS(webassembly) version.
 
 ## License
+
 Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
 
 ## Contact Us
+
 <support@dynamsoft.com>
 
 ## Online Demo
+
+https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
+
 https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html
 
 ## API Documentation
