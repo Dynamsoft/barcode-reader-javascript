@@ -139,9 +139,9 @@ $('#cb-readFullRegion').change(function(){
 $('#btn-readFullRegion').click(function(){$('#lb-readFullRegion').click();});
 $('#btn-readInRegion').click(function(){$('#lb-readFullRegion').click();});
 (function(bPC){
-    if(bPC){ // use best resolution & read full region on PC
+    if(bPC){ // use upper resolution & read full region on PC
         $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
-        $('#ul-resolutionList .li-resolution').first().addClass('selectedLi');
+        $('#ul-resolutionList .li-resolution[data-width="1080"][data-height="1920"]').addClass('selectedLi');
         $('#lb-readFullRegion').click();
     }
 })(!navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i));
@@ -479,7 +479,7 @@ $('#ipt-file').change(function(){
                 }
                 readOne();
             }).catch(ex=>{
-                message.push((ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
+                message.push("Error: "+(ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
                 readOne();
             });
         };

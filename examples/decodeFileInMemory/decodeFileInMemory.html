@@ -56,7 +56,7 @@
                 alert(txts.join("\n"));
             }).catch(ex => {
                 reader.deleteInstance();
-                alert((ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
+                alert("Error: "+(ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
                 console.log(ex);
             });
             this.value = '';
