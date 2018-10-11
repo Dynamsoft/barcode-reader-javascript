@@ -43,7 +43,7 @@ https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barco
 
 [api](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)(6.3.0.2)
 
-https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html(6.3.0.1)
+https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html (6.3.0.1)
 
 ## HowTo
 Load and initialize the barcode reader in HTML pages:
