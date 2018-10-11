@@ -29,14 +29,12 @@ Build Dynamsoft Barcode Reader 6.3.0 to JS(webassembly) version.
 
 Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
 
-## Contact Us
-
-<support@dynamsoft.com>
-
 ## Online Demo
 
+(version 6.3.0)
 https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
 
+(version 6.3.0.2)
 https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html
 
 ## API Documentation
@@ -97,7 +95,7 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 
 ## Deployment
 
-If you want to deploy the SDK by yourself, download the [dist package](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js).
+If you want to deploy the SDK by yourself, download the [dist package](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)(version 6.3.0.1).
 
 ### Configure the MIME Type in your web server
 
@@ -130,5 +128,7 @@ Modify `dynamsoft.dbrEnv.resourcesPath` to match the `dbr-<version>.min.js` path
 ### Visit Your Page from Https
 
 We insert a debug tool in our samples, you could click the button `console` in top right of the screen.
+
+## Contact Us
 
 If there is any questions, please feel free to contact <a href="mailto:support@dynamsoft.com?subject=DBR%20webassembly">support@dynamsoft.com</a>.
