@@ -17,7 +17,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
 
 ### 6.3.0.1
 
-Set `dbr-<version>.js(stable)` as the main branch.
+Set `dbr-<version>.js`(stable) as the main branch.
 
 Add `dbr-<version>.mobile.js`(smaller, compile quicker, need less memory, but not that stable) for the mobile safari.
 
