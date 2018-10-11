@@ -1,8 +1,29 @@
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.3
+Version 6.3.0.2
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
+
+## Update Notes
+
+### 6.3.0.2
+
+Add built-in worker support.
+
+```js
+// The default value is false. Set it true to decode in another thread. By this way, UI would not stuck.
+dynamsoft.dbrEnv.bUseWorker = true;
+```
+
+### 6.3.0.1
+
+Set `dbr-<version>`.js(stable) as the main branch.
+
+Add `dbr-<version>`.mobile.js(smaller, compile quicker, need less memory, but not that stable) for the mobile safari.
+
+### 6.3.0
+
+Build Dynamsoft Barcode Reader 6.3.0 to JS(webassembly) version.
 
 ## License
 Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallicense.aspx).
@@ -25,7 +46,7 @@ https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html
 Load and initialize the barcode reader in HTML pages:
 
 ```html
-<script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js"></script>
+<script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js"></script>
 <script>
         var reader;
         var dynamsoft = self.dynamsoft || {};

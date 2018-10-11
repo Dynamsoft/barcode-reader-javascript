@@ -8,60 +8,114 @@
     <p>To enable video, please host the site in https!</p>
     <div id="divLoading">loading...</div>
     <div id="divReading" style="display:none">Reading...</div>
-    <div>
-        video source: <select id="selectVideo"></select>
-        <button id="btn-startReadVideo" disabled>start read</button>
-        <button id="btn-stopReadVideo" style="display:none">stop read</button>
-    </div>
+    <button id="btn-startReadVideo" disabled>start read</button>
+    <button id="btn-stopReadVideo" style="display:none">stop read</button>
     <div id="divVideoContainer" style="max-width:90%;position:relative;">
         <video id="theVideo" style="width:100%;height:100%;" playsinline="true"></video>
         <div id="divVideoRegion" style="position:absolute;margin:auto;left:0;top:0;right:0;bottom:0;width:100%;height:100%;border:3px solid #50A8E1;"></div>
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <!-- an removable debug tool -->
+
+    <!-- optional, a log tool -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 
-    <script>
-        dynamsoft = self.dynamsoft || {};
-        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+    <!-- https://github.com/webrtc/adapter -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
 
-        // by default, js would load `dbr-<version>.wasm` in the same folder of the context
-        // set it when you put `dbr-<version>.wasm` other place
-        // case you put `dbr-<version>.wasm` in 'js/dbr-<version>.wasm', set this 'js'
-        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
-        
-        var barcodeReader;
-        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
-            $('#divLoading').hide();
-            barcodeReader = new dynamsoft.BarcodeReader();
-            kConsoleLog("load dbr wasm success.");
-            playvideo();
-        };
-        dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
-            $('#divLoading').html("load wasm failed");
-            console.error(status);
-            kConsoleError(status);
-        };
-        
-        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
-    </script>
     <script>
         (function(bMobileSafari){
             var script = document.createElement('script');
             if(!bMobileSafari){
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js";
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js";
             }else{// bMobileSafari
                 // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js";
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js";
             }
             document.body.appendChild(script);
         })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
     </script>
 
-    <!-- https://github.com/webrtc/adapter -->
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
-    
-    <script src="js/decodeVideo.js"></script>
+    <script>
+        dynamsoft = self.dynamsoft || {};
+        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+        
+        // By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
+        // `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
+        // Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.
+        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+
+        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
+
+        dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
+        
+        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+            playvideo();
+            $('#divLoading').text('load dbr worker success');
+        };
+        dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
+            kConsoleLog(ex);
+            $('#divLoading').text('load dbr worker fail: '+(ex.message || ex));
+        };
+
+        var playvideo = ()=>{
+            kConsoleLog('======before video========');
+            navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: { ideal: 'environment' } } }).then((stream)=>{
+                kConsoleLog('======get video========');
+                var video = $('#theVideo')[0];
+                video.srcObject = stream;
+                video.onloadedmetadata = ()=>{
+                    kConsoleLog('======play video========');
+                    video.play();
+                    kConsoleLog('======played video========');
+
+                    $('#btn-startReadVideo').removeAttr('disabled');
+                };
+            }).catch((ex)=>{
+                kConsoleLog(ex);
+            });
+        };
+        
+        $('#btn-startReadVideo').click(()=>{
+            $('#divReading').show();
+            $('#btn-startReadVideo').hide();
+            $('#btn-stopReadVideo').show();
+            isLooping = true;
+            $('#kConsoleShowHideBtn').click();
+            loopReadVideo();
+        });
+        $('#btn-stopReadVideo').click(()=>{
+            $('#btn-stopReadVideo').hide();
+            $('#btn-startReadVideo').show();
+            isLooping = false;
+            $('#divReading').hide();
+        });
+
+        var isLooping = false;
+        
+        var loopReadVideo = function(){
+            if(!isLooping){
+                return;
+            }
+            kConsoleLog('======= once read =======')
+            var timestart = (new Date()).getTime();
+
+            var reader = new dynamsoft.BarcodeReader();
+            reader.decodeFileInMemory($('#theVideo')[0]).then(results=>{
+                kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
+                for(var i=0;i<results.length;++i){
+                    var result = results[i];
+                    kConsoleLog(result.BarcodeText);
+                }
+                setTimeout(loopReadVideo, 0);
+                return reader.deleteInstance();
+            }).catch(ex=>{
+                kConsoleError(ex.message || ex);
+                setTimeout(loopReadVideo, 0);
+                reader.deleteInstance();
+            });
+        };
+    </script>
 </body>
 </html>

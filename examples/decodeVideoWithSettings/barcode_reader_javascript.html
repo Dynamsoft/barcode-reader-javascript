@@ -61,7 +61,7 @@
                 ><li>
                     <a class="a-readFullRegion">read full region
                         <div class="switch tiny">
-                            <input id="cb-readFullRegion" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                            <input id="cb-readFullRegion" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                             <label id="lb-readFullRegion" class="switch-paddle" for="cb-readFullRegion"></label>
                         </div>
                     </a>
@@ -70,13 +70,13 @@
                     <a>reading interval</a
                     ><ul id="ul-interval" class="menu vertical">
                         <li class='li-interval' data-val='2000'><a>2s</a></li
-                        ><li class='li-interval selectedLi' data-val='1000'><a>1s</a></li
+                        ><li class='li-interval' data-val='1000'><a>1s</a></li
                         ><li class='li-interval' data-val='500'><a>0.5s</a></li
                         ><li class='li-interval' data-val='200'><a>0.2s</a></li
                         ><li class='li-interval' data-val='100'><a>0.1s</a></li
                         ><li class='li-interval' data-val='50'><a>50ms</a></li
                         ><li class='li-interval' data-val='25'><a>25ms</a></li
-                        ><li class='li-interval' data-val='10'><a>10ms</a></li>
+                        ><li class='li-interval selectedLi' data-val='10'><a>10ms</a></li>
                     </ul>
                 </li
                 ><li class="disableOnWasmLoading"><a id="a-barcodeFormat">barcode formats</a><ul id='ul-barcodeFormatId' class="menu vertical">
@@ -165,7 +165,7 @@
             <div class="cell auto">1D</div>
             <div class="cell shrink">
                 <div class="switch tiny">
-                    <input id="cb-pre1D" value="0x3ff" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <input id="cb-pre1D" value="0x3ff" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-pre1D"></label>
                 </div>
             </div>
@@ -174,7 +174,7 @@
             <div class="cell auto">PDF 417</div>
             <div class="cell shrink">
                 <div class="switch tiny">
-                    <input id="cb-prePDF417" value="0x2000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <input id="cb-prePDF417" value="0x2000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-prePDF417"></label>
                 </div>
             </div>
@@ -183,7 +183,7 @@
             <div class="cell auto">QR Code</div>
             <div class="cell shrink">
                 <div class="switch tiny">
-                    <input id="cb-preQRCode" value="0x4000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <input id="cb-preQRCode" value="0x4000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preQRCode"></label>
                 </div>
             </div>
@@ -192,7 +192,7 @@
             <div class="cell auto">DataMatrix</div>
             <div class="cell shrink">
                 <div class="switch tiny">
-                    <input id="cb-preDataMatrix" value="0x8000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <input id="cb-preDataMatrix" value="0x8000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preDataMatrix"></label>
                 </div>
             </div>
@@ -201,7 +201,7 @@
             <div class="cell auto">Aztec</div>
             <div class="cell shrink">
                 <div class="switch tiny">
-                    <input id="cb-preAztec" value="0x10000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch">
+                    <input id="cb-preAztec" value="0x10000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preAztec"></label>
                 </div>
             </div>
@@ -217,47 +217,15 @@
 
     <!-- an removable debug tool -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
-
-    <script>
-        dynamsoft = self.dynamsoft || {};
-        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
-
-        // by default, js would load `dbr-<version>.wasm` in the same folder of the context
-        // set it when you put `dbr-<version>.wasm` other place
-        // case you put `dbr-<version>.wasm` in 'js/dbr-<version>.wasm', set this 'js'
-        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
-        
-        var bDbrWasmLoadSuccess = false;
-        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
-            bDbrWasmLoadSuccess = true;
-            if(preSelBarcodeFormat){
-                initTestRuntimeSettings();
-                self.isLooping = true;
-                playvideo().then(loopReadVideo, ex=>{
-                    alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
-                });
-            }
-            $('#div-highLightResult span').text('reading...');
-            $('#frame-loadingAnimation').hide();
-            $('.disableOnWasmLoading').removeClass('disableOnWasmLoading');
-        };
-        dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
-            alert("load wasm failed: "+status);
-        };
-
-        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
-    </script>
-
-    <!-- <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js"></script> -->
+    
     <script>
         (function(bMobileSafari){
             var script = document.createElement('script');
             if(!bMobileSafari){
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js";
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js";
             }else{// bMobileSafari
                 // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js";
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js";
             }
             document.body.appendChild(script);
         })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));

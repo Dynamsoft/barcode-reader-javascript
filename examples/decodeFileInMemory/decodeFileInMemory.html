@@ -11,15 +11,28 @@
     <!-- an removable debug tool, need jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
-
+    <script>
+        (function(bMobileSafari){
+            var script = document.createElement('script');
+            if(!bMobileSafari){
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js";
+            }else{// bMobileSafari
+                // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
+                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js";
+            }
+            document.body.appendChild(script);
+        })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
+    </script>
     <script>
         dynamsoft = self.dynamsoft || {};
         dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
 
-        // by default, js would load `dbr-<version>.wasm` in the same folder of the context
-        // set it when you put `dbr-<version>.wasm` other place
-        // case you put `dbr-<version>.wasm` in 'js/dbr-<version>.wasm', set this 'js'
+        // By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
+        // `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
+        // Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+
+        //dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
 
         dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
             document.getElementById('divLoadInfo').innerHTML="load dbr wasm success.";
@@ -29,21 +42,8 @@
         };
         
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
-    </script>
-    <script>
-        (function(bMobileSafari){
-            var script = document.createElement('script');
-            if(!bMobileSafari){
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.min.js";
-            }else{// bMobileSafari
-                // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.1.mobile.min.js";
-            }
-            document.body.appendChild(script);
-        })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
-    </script>
-    <script>
+        dynamsoft.dbrEnv.licenseKey = "t0068NQAAACiuY2z/wK3HOACPspU89GIzDKVZYi+XihPnYjA6sNJewXdekCGIuOXxSG9w6ng0RzWEMnJjrsKkEPejopTO3iU=";
+        
         document.getElementById('uploadImage').addEventListener('change', function(){
             var files = this.files;
             var reader = new dynamsoft.BarcodeReader();
@@ -56,7 +56,7 @@
                 alert(txts.join("\n"));
             }).catch(ex => {
                 reader.deleteInstance();
-                alert((ex.message || ex)+". If the light version can't decode the image, try stable version instand.");
+                alert((ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
                 console.log(ex);
             });
             this.value = '';

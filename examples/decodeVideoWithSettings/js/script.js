@@ -1,4 +1,37 @@
-/* global dynamsoft, $, Foundation, bDbrWasmLoadSuccess*/
+/* global dynamsoft, $, Foundation*/
+
+dynamsoft = self.dynamsoft || {};
+dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+
+// By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
+// `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
+// Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.
+dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+
+// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
+
+dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
+
+var bDbrWasmLoadSuccess = false;
+dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+    bDbrWasmLoadSuccess = true;
+    if(preSelBarcodeFormat){
+        initTestRuntimeSettings().then(()=>{
+            self.isLooping = true;
+            playvideo().then(loopReadVideo, ex=>{
+                alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
+            });
+        });
+    }
+    $('#div-highLightResult span').text('reading...');
+    $('#frame-loadingAnimation').hide();
+    $('.disableOnWasmLoading').removeClass('disableOnWasmLoading');
+};
+dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
+    alert("load wasm failed: "+(ex.message||ex));
+};
+
 $('#frame-supportAndSetting input').change(function(){
     if($('#frame-supportAndSetting input:checked').length){
         $('#btn-processSupportAndSettings').removeAttr('disabled');
@@ -6,6 +39,7 @@ $('#frame-supportAndSetting input').change(function(){
         $('#btn-processSupportAndSettings').attr('disabled', 'disabled');
     }
 });
+
 var preSelBarcodeFormat = 0;
 $('#btn-processSupportAndSettings').click(function(){
     $('#frame-supportAndSetting').fadeOut();
@@ -14,10 +48,11 @@ $('#btn-processSupportAndSettings').click(function(){
         preSelBarcodeFormat = preSelBarcodeFormat | this.value;
     });
     if(bDbrWasmLoadSuccess){
-        initTestRuntimeSettings();
-        self.isLooping = true;
-        playvideo().then(loopReadVideo, ex=>{
-            alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
+        initTestRuntimeSettings().then(()=>{
+            self.isLooping = true;
+            playvideo().then(loopReadVideo, ex=>{
+                alert("Please make sure the camera is connected and the site is deployed in https: "+(ex.message || ex));
+            });
         });
     }
 });
@@ -86,6 +121,7 @@ $('#ul-resolutionList').on('click','.li-resolution', function(){
         alert(ex.message || ex);
     });
 });
+
 var bReadFullRegion = false;
 $('#cb-readFullRegion').change(function(){
     if($(this).prop('checked')){
@@ -102,67 +138,78 @@ $('#cb-readFullRegion').change(function(){
 });
 $('#btn-readFullRegion').click(function(){$('#lb-readFullRegion').click();});
 $('#btn-readInRegion').click(function(){$('#lb-readFullRegion').click();});
-var readInterval = 1000;
+(function(bPC){
+    if(bPC){ // use best resolution & read full region on PC
+        $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
+        $('#ul-resolutionList .li-resolution').first().addClass('selectedLi');
+        $('#lb-readFullRegion').click();
+    }
+})(!navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i));
+
+var readInterval = 10;
 $('#ul-interval').on('click','.li-interval', function(){
     $('#ul-interval .selectedLi').removeClass('selectedLi');
     $(this).addClass('selectedLi');
     readInterval = $(this).attr('data-val');
 });
+
 var testRuntimeSettingsReader = null;
 var initTestRuntimeSettings = function(){
     testRuntimeSettingsReader = new dynamsoft.BarcodeReader();
-    var preSts = testRuntimeSettingsReader.getRuntimeSettings();
-    preSts.mBarcodeFormatIds = preSelBarcodeFormat;
-    testRuntimeSettingsReader.updateRuntimeSettings(preSts);
+    var settings = testRuntimeSettingsReader.getRuntimeSettings();
+    settings.mBarcodeFormatIds = preSelBarcodeFormat;
+    return testRuntimeSettingsReader.updateRuntimeSettings(settings);
 };
 $('#a-barcodeFormat').click(function(){
+    var a = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
     $('#ul-barcodeFormatId>.li-barcodeFormatId').each(function(){
-        var value = $(this).attr('data-val');
+        var value = $(a).attr('data-val');
         if((settings.mBarcodeFormatIds & value) == value){
-            $(this).addClass('selectedLi');
+            $(a).addClass('selectedLi');
         }else{
-            $(this).removeClass('selectedLi');
+            $(a).removeClass('selectedLi');
         }
     });
 });
 $('#a-advance').click(function(){
+    var a = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
+
     $('#ul-advance>li>a>label').each(function(){
-        $(this).children('input').val(settings['m'+$(this).text()]);
+        $(a).children('input').val(settings['m'+$(a).text()]);
     });
 });
 $('#ul-barcodeFormatId>.li-barcodeFormatId').click(function(){
+    var li = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
-    if($(this).hasClass('selectedLi')){
+    if($(li).hasClass('selectedLi')){
         if(1 != $('#ul-barcodeFormatId>.selectedLi').length){
-            $(this).removeClass('selectedLi');
-            settings.mBarcodeFormatIds = settings.mBarcodeFormatIds & (~$(this).attr('data-val'));
+            $(li).removeClass('selectedLi');
+            settings.mBarcodeFormatIds = settings.mBarcodeFormatIds & (~$(li).attr('data-val'));
         }else{
             alert('Please select at least one barcode format!');
         }
     }else{
-        $(this).addClass('selectedLi');
-        settings.mBarcodeFormatIds = settings.mBarcodeFormatIds | $(this).attr('data-val');
+        $(li).addClass('selectedLi');
+        settings.mBarcodeFormatIds = settings.mBarcodeFormatIds | $(li).attr('data-val');
     }
     testRuntimeSettingsReader.updateRuntimeSettings(settings);
 });
 $('#ul-advance input').change(function(){
+    var ipt = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
-    var field = 'm'+$(this).closest('li').text();
+    var field = 'm'+$(ipt).closest('li').text();
     var oldVal = settings[field];
     if(typeof oldVal == 'number'){
-        settings[field] = parseInt(this.value);
+        settings[field] = parseInt(ipt.value);
     }else{
-        settings[field] = this.value;
+        settings[field] = ipt.value;
     }
-    try{
-        testRuntimeSettingsReader.updateRuntimeSettings(settings);
-    }catch(ex){
-        this.value = oldVal;
+    testRuntimeSettingsReader.updateRuntimeSettings(settings).catch(ex=>{
+        ipt.value = oldVal;
         alert(ex.message || ex);
-    }
-    
+    });
 });
 $('#a-clearCache').click(function(){
     var oldText = this.innerText;
@@ -180,6 +227,7 @@ $('#a-clearCache').click(function(){
             $(this).removeClass('disableOnWasmLoading');
         };
     }catch(ex){
+        alert(ex.message || ex);
         this.innerText = oldText;
         $(this).removeClass('disableOnWasmLoading');
     }
@@ -220,10 +268,13 @@ var playvideo = (deviceId)=>{
         }
 
         if(self.kConsoleLog)self.kConsoleLog('======before video========');
+        var selW = $('#ul-resolutionList .selectedLi').attr('data-width');
+        var selH = $('#ul-resolutionList .selectedLi').attr('data-height');
+        var bWinWLtH = $(window).width() < $(window).height();
         var constraints = { 
             video: { 
-                width: { ideal: $('#ul-resolutionList .selectedLi').attr('data-width') }, 
-                height: { ideal: $('#ul-resolutionList .selectedLi').attr('data-height') }, 
+                width: { ideal: bWinWLtH ? selW : selH }, 
+                height: { ideal: bWinWLtH ? selH : selW }, 
                 facingMode: { ideal: 'environment' }
             } 
         };
@@ -291,7 +342,7 @@ var loopReadVideo = function(){
     }
     var video = $('#video-back')[0];
     if(video.paused){
-        return setTimeout(loopReadVideo, readInterval);
+        return setTimeout(loopReadVideo, 1000);
     }
 
     if(self.kConsoleLog)self.kConsoleLog('======= once read =======');
@@ -314,14 +365,16 @@ var loopReadVideo = function(){
             videoInDocRealW = videoRealW;
             videoInDocRealH = vh / vw * videoRealW;
         }
-        var regionRealWH = Math.round(0.6 * Math.min(videoInDocRealW, videoInDocRealH));
+        var regionRealWH = Math.round(/*0.6 * */Math.min(videoInDocRealW, videoInDocRealH));//looks like 0.6, real is 1
         sx = Math.round((videoRealW - regionRealWH)/2);
         sy = Math.round((videoRealH - regionRealWH)/2);
         sWidth = sHeight = dWidth = dHeight = regionRealWH;
     }
+
     var barcodeReader = new dynamsoft.BarcodeReader();
-    barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings());
-    barcodeReader.decodeVideo(video,sx,sy,sWidth,sHeight,dWidth,dHeight).then((results)=>{
+    barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings()).then(()=>{
+        return barcodeReader.decodeVideo(video,sx,sy,sWidth,sHeight,dWidth,dHeight);
+    }).then((results)=>{
         if(self.kConsoleLog)self.kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
         var bestConfidence = 0, bestTxt = undefined, txtArr = [];
         for(let i=0;i<results.length;++i){
@@ -374,7 +427,6 @@ var loopReadVideo = function(){
             }
         }
 
-        // video in safair would stuck, so leave 1s for adjusting video 
         barcodeReader.deleteInstance();
         setTimeout(loopReadVideo, readInterval);
     }).catch(ex=>{
@@ -404,33 +456,33 @@ $('#div-menuRightMargin').click(function(){
 $('#ipt-file').change(function(){
     isLooping = false;
     var barcodeReader = new dynamsoft.BarcodeReader();
-    barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings());
-
-    var i = -1;
-    var files = this.files;
-    var message = [];
-    var readOne = ()=>{
-        if(++i == files.length){
-            barcodeReader.deleteInstance();
-            alert(message.join('\n'));
-            isLooping = true;
-            loopReadVideo();
-            this.value = '';
-            return;
-        }
-
-        var file = files[i];
-        if(message.length){message.push('\n');}
-        message.push(file.name+':');
-        barcodeReader.decodeFileInMemory(file).then(results=>{
-            for(let j=0;j<results.length;++j){
-                message.push(results[j].BarcodeText);
+    barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings()).then(()=>{
+        var i = -1;
+        var files = this.files;
+        var message = [];
+        var readOne = ()=>{
+            if(++i == files.length){
+                barcodeReader.deleteInstance();
+                alert(message.join('\n'));
+                isLooping = true;
+                loopReadVideo();
+                this.value = '';
+                return;
             }
-            readOne();
-        }).catch(ex=>{
-            message.push((ex.message || ex)+". If the light version can't decode the image, try stable version instand.");
-            readOne();
-        });
-    };
-    readOne();
+
+            var file = files[i];
+            if(message.length){message.push('\n');}
+            message.push(file.name+':');
+            barcodeReader.decodeFileInMemory(file).then(results=>{
+                for(let j=0;j<results.length;++j){
+                    message.push(results[j].BarcodeText);
+                }
+                readOne();
+            }).catch(ex=>{
+                message.push((ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
+                readOne();
+            });
+        };
+        readOne();
+    });
 });

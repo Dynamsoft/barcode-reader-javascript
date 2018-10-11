@@ -5,9 +5,9 @@
 
 - [API](#api)
     - [`object` dynamsoft.dbrEnv](#object-dynamsoftdbrenv)
+    - [`function` dynamsoft.BarcodeReader.loadWasm()](#function-dynamsoftbarcodereaderloadwasm)
     - [`constructor` dynamsoft.BarcodeReader()](#constructor-dynamsoftbarcodereader)
     - [`function` .deleteInstance()](#function-deleteinstance)
-    - [`function` dynamsoft.BarcodeReader.loadWasm()](#function-dynamsoftbarcodereaderloadwasm)
     - [`function` .decodeFileInMemory()](#function-decodefileinmemory)
     - [`function` .decodeVideo()](#function-decodevideo)
     - [`function` .decodeBase64String()](#function-decodebase64string)
@@ -37,12 +37,15 @@ dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
 dynamsoft.dbrEnv.licenseKey = "<a license key>",
 // The default value is true. It will load the wasm files automatically.
-// If you want to load the file manually, please set it to false before loading "dbr-<version>.min.js"
+// If you want to load the file manually, please set it to false
 // and call dynamsoft.BarcodeReader.loadWasm when needed.
 dynamsoft.dbrEnv.bAutoLoadWasm = true;
-// By default, js will load `dbr-<version>.wasm` in the same folder as the context.
-// Modify this setting when you put `dbr-<version>.wasm` somewhere else.
-// e.g. Set this as 'js' when you place `dbr-<version>.wasm` at 'js/'.
+// The default value is false. Set it true to decode in another thread. By this way, UI would not stuck.
+dynamsoft.dbrEnv.bUseWorker = false;
+// By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
+// `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
+// Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.
+// e.g. Set this as 'js' when you place `dbr-<version>.min.js` & `dbr-<version>.wasm`` at 'js/'.
 dynamsoft.dbrEnv.resourcesPath = 'js';
 dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
     console.log("success");
@@ -51,6 +54,21 @@ dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
     console.log("error");
 };
 ```
+
+<br /><br />
+
+---
+## `function` dynamsoft.BarcodeReader.loadWasm()
+
+*Syntax:* `dynamsoft.BarcodeReader.loadWasm()`
+
+Only need to call this manually when you set `dynamsoft.dbrEnv.bAutoLoadWasm` as `false`. 
+
+You can use `decodeXXX`(no worker) in main thread after `loadWasm` success.
+
+| parameter | type | Description |
+| --- | --- | --- | 
+| *(Return value)* | `Promise(resolve(), reject(ex))` |
 
 <br /><br />
 
@@ -83,20 +101,6 @@ var reader = new dynamsoft.BarcodeReader();
 ```js
 reader.deleteInstance();
 ```
-
-<br /><br />
-
----
-## `function` dynamsoft.BarcodeReader.loadWasm()
-
-*Syntax:* `dynamsoft.BarcodeReader.loadWasm()`
-
-Only need to call this manually when you set `dynamsoft.dbrEnv.bAutoLoadWasm` as `false`. 
-
-| parameter | type | Description |
-| --- | --- | --- | 
-| *(Return value)* | `Promise(resolve(null), reject(ex))` |
-
 
 <br /><br />
 
@@ -146,6 +150,8 @@ reader.decodeVideo(video).then(results=>{
 })
 ```
 
+<br />
+
 *Syntax:* `.decodeVideo(video, dWidth, dHeight)`
 
 *(`dWidth`, `dHeight` also see: [drawImage](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage))*
@@ -169,6 +175,8 @@ reader.decodeVideo(video, Math.min(video.videoWidth, 512), Math.min(video.videoH
     }
 })
 ```
+
+<br />
 
 *Syntax:* `.decodeVideo(video, sx, sy, sWidth, sHeight, dWidth, dHeight)`
 
@@ -263,31 +271,31 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 ---
 ## `function` .getRuntimeSettings()
 
-*Syntax:* `.getRuntimeSettings()`
-
-| parameter | type | Description |
-| --- | --- | --- | 
-| *(Return value)* | `PlainObject` | *reference: [PublicRuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/API/DotNet/classBarcodeReader.html?v=whatLink)* |
+*Syntax:* `(BarcodeReader).getRuntimeSettings()`
 
 *reference:* 
 * [`function` .updateRuntimeSettings()](#function-updateruntimesettings)
 * [`function` .resetRuntimeSettings()](#function-resetruntimesettings)
+
+| parameter | type | Description |
+| --- | --- | --- | 
+| *(Return value)* | `PlainObject` | *reference: [PublicRuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/api%20reference%20document/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)* |
 
 <br /><br />
 
 ---
 ## `function` .updateRuntimeSettings()
 
-*Syntax:* `.updateRuntimeSettings(settings)`
-
-| parameter | type | Description |
-| --- | --- | --- | 
-| *(Return value)* | `undefined` | |
-| settings | `String`*(json)* `PlainObject` | |
+*Syntax:* `(ThreadBarcodeReader).updateRuntimeSettings(settings)`
 
 *reference:* 
 * [`function` .getRuntimeSettings()](#function-getruntimesettings)
 * [`function` .resetRuntimeSettings()](#function-resetruntimesettings)
+
+| parameter | type | Description |
+| --- | --- | --- | 
+| *(Return value)* | `Promise(resolve(), reject(ex))` | |
+| settings | `String`*(json)* `PlainObject` | |
 
 *example:*
 ```js
@@ -296,13 +304,14 @@ var settings = reader.getRuntimeSettings();
 //modify it
 settings.mExpectedBarcodesCount = 3;
 //update the settings
-reader.updateRuntimeSettings(settings);
-//read using the new settings
-reader.decodeFileInMemory('img/example.png').then(result=>{
+reader.updateRuntimeSettings(settings).then(()=>{
+    return reader.decodeFileInMemory('./imgs/example.png');
+}).then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
+        // If Confidence >= 30, the barcode results are reliable
+        console.log(results[i].LocalizationResult.ExtendedResultArray[0].Confidence);
     }
-    //reset settings
     reader.resetRuntimeSettings();
 });
 ```
@@ -312,15 +321,15 @@ reader.decodeFileInMemory('img/example.png').then(result=>{
 ---
 ## `function` .resetRuntimeSettings()
 
-*Syntax:* `.resetRuntimeSettings()`
-
-| parameter | type | Description |
-| --- | --- | --- | 
-| *(Return value)* | `undefined` |  |
+*Syntax:* `(BarcodeReader).resetRuntimeSettings()`
 
 *reference:* 
 * [`function` .getRuntimeSettings()](#function-getruntimesettings)
 * [`function` .updateRuntimeSettings()](#function-updateruntimesettings)
+
+| parameter | type | Description |
+| --- | --- | --- | 
+| *(Return value)* | `undefined` |  |
 
 <br /><br />
 

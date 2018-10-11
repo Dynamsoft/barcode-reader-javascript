@@ -13,7 +13,7 @@ In most browsers, you need to deploy page **to the site** and set `.wasm` `mimet
 
 > Since 6.3.0.1, we include `dbr-<version>.min.js` and `dbr-<version>.wasm` in samples by linking the resources to [online demo](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).
 >
-> Thus you could open most samples(exception: decodeVideoInWorker) directly from the file browser now.
+> Thus you could open most samples directly from the file browser now.
 >
 > The cdn is for evaluation purposes and it is not recommended for use in production environments.
 >
@@ -23,9 +23,9 @@ Please check the settings below for different environments.
 
 * set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
 
-* set mimetype in asp.net: [Web.config](conf/Web.config)
+* set mimetype in asp.net: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
 
-* set mimetype in javaee web app: [web.xml](conf/web.xml)
+* set mimetype in javaee web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
     
 * set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
 
