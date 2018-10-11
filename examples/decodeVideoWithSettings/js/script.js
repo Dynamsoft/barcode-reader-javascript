@@ -164,11 +164,11 @@ $('#a-barcodeFormat').click(function(){
     var a = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
     $('#ul-barcodeFormatId>.li-barcodeFormatId').each(function(){
-        var value = $(a).attr('data-val');
+        var value = $(this).attr('data-val');
         if((settings.mBarcodeFormatIds & value) == value){
-            $(a).addClass('selectedLi');
+            $(this).addClass('selectedLi');
         }else{
-            $(a).removeClass('selectedLi');
+            $(this).removeClass('selectedLi');
         }
     });
 });
