@@ -32,7 +32,7 @@ Get the [trial license](https://www.dynamsoft.com/CustomerPortal/Portal/Triallic
 <support@dynamsoft.com>
 
 ## Online Demo
-https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
+https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html
 
 ## API Documentation
 
@@ -59,7 +59,7 @@ Load and initialize the barcode reader in HTML pages:
         dynamsoft.dbrEnv.onAutoLoadWasmError = function(status){
         };
         // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAD2IrA1WJjiVx78RfaZ46qMyCY8DaqpvAD57z5QWkwVQkVwZEf7lE+M2QYbnPx9Fu/aFvCL1mz0Kh2YK0milUng=";
+        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
 </script>
 ```
 
@@ -91,51 +91,39 @@ reader.decodeBuffer(rawImgData, width, height, width * 4, dynamsoft.BarcodeReade
 ```
 
 ## Deployment
+
 If you want to deploy the SDK by yourself, download the [dist package](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js).
 
-Configure the MIME Type in your web server. In addition, you may need to enable [Cross-Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) (CORS). Here is an example for IIS configuration:
+### Configure the MIME Type in your web server
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <system.webServer>
-        <staticContent>
-            <remove fileExtension=".wasm" />
-            <mimeMap fileExtension=".wasm" mimeType="application/wasm" />
-        </staticContent>
-    </system.webServer>
-    <httpProtocol>
-      <customHeaders>
-        <remove name="Access-Control-Allow-Origin" />
-        <add name="Access-Control-Allow-Origin" value="*"/>
-      </customHeaders>
-    </httpProtocol>
-</configuration>
-```
+* set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
 
-- set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
-- set mimetype in javaee web app: [web.xml: mime-mapping](http://www.java2s.com/Code/JavaAPI/javax.servlet.http/webxmlmimemapping.htm)  
-- set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
+* set mimetype in asp.net: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
 
-If you have [Node.js](https://nodejs.org/en/download/), create a web server with **express**.
+* set mimetype in javaee web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
+    
+* set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
 
-```
-cd examples
-npm i express
-node server.js
-```
-
-Open samples. For example
-
-```
-http://localhost:2018/barcode-scanner/barcode_reader_javascript_stable.html
-http://localhost:2018/helloworld/helloworld.html
-```
+### Configuring HTTPS Web Servers
 
 **Note: getUserMedia only works on secure origins. You have to run your camera apps with HTTPS. For the testing environment, you can use localhost.**
 
-### Configuring HTTPS Web Servers
-- [Nginx](https://nginx.org/en/docs/http/configuring_https_servers.html)
-- [IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
-- [Tomcat](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
-- [Node.js](https://nodejs.org/docs/v0.4.1/api/tls.html)
+* nginx: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
+
+* iis: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
+
+* tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
+
+* nodejs: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+
+### Edit the Path
+
+Load `dbr-<version>.min.js` from your's server instead. Make sure `dbr-<version>.min.js` and `dbr-<version>.wasm` are in the same folder.
+
+Modify `dynamsoft.dbrEnv.resourcesPath` to match the `dbr-<version>.min.js` path. Relative path is ok.
+
+### Visit Your Page from Https
+
+We insert a debug tool in our samples, you could click the button `console` in top right of the screen.
+
+If there is any questions, please feel free to contact <a href="mailto:support@dynamsoft.com?subject=DBR%20webassembly">support@dynamsoft.com</a>.

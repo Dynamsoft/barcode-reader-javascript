@@ -9,7 +9,7 @@ dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
 dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
 
 // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-dynamsoft.dbrEnv.licenseKey = "t0068NQAAAHMUCDhfZ0YuSKK+VDYxxaZRP22b9t6lHkzWLzPffEUmUBJvoF5tRw5mSWm/jhVxJ424aWxMyyqhrDrflfajmGE=";
+dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
 
 dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
 
