@@ -177,7 +177,7 @@ $('#a-advance').click(function(){
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
 
     $('#ul-advance>li>a>label').each(function(){
-        $(a).children('input').val(settings['m'+$(a).text()]);
+        $(this).children('input').val(settings['m'+$(this).text()]);
     });
 });
 $('#ul-barcodeFormatId>.li-barcodeFormatId').click(function(){
