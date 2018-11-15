@@ -57,6 +57,8 @@ Just copy into a html file and run it from file browser.
 
 > ### Browser compatibility
 >
+> Firefox preformed best in both desktop and mobile.
+>
 > | browser | min version |
 > |-|-|
 > | Chrome | 57 |
