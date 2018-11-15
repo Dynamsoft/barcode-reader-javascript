@@ -18,7 +18,7 @@ And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTML
 
 ## Browser compatibility
 
-Firefox preformed best in both desktop and mobile.
+Firefox preforms best in both desktop and mobile.
 
 | browser | min version |
 |-|-|
