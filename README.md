@@ -2,11 +2,11 @@
 
 Version 6.3.0.2
 
-Support decoding 1D, PDF417, QR, DataMatrix, Aztec.
-
-Provide api can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
-
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
+
+This SDK supports decoding 1D, PDF417, QR, DataMatrix, Aztec,
+
+And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
 
 ## Online Demo
 
