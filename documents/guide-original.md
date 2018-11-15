@@ -5,11 +5,59 @@
 
 <br>
 
+## Helloworld
+
+Just copy into a html file and run it from file browser.
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="divLoadInfo">loading...</div>
+    <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js"></script>
+    <script>
+        dynamsoft = self.dynamsoft || {};
+        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+        var reader = null;
+        var iptEl = document.getElementById('uploadImage');
+        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
+            reader = new dynamsoft.BarcodeReader();
+            iptEl.style.display = '';
+            document.getElementById('divLoadInfo').innerHTML="load dbr wasm success.";
+        };
+        dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
+            document.getElementById('divLoadInfo').innerHTML="load wasm failed: "+(ex.message || ex);
+        };
+        
+        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
+        
+        document.getElementById('uploadImage').addEventListener('change', function(){
+            reader.decodeFileInMemory(this.files[0]).then(function(results){
+                var txts = [];
+                for(var i=0;i<results.length;++i){
+                    txts.push(results[i].BarcodeText);
+                }
+                alert(txts.join("\n"));
+            }).catch(ex => {
+                alert('error:' + (ex.message || ex));
+            });
+            this.value = '';
+        });
+    </script>
+</body>
+</html>
+```
+
+<br>
+
 ## Introduction
 
 `DBR_WASM` uses [Webassembly](https://developer.mozilla.org/en-US/docs/WebAssembly) technology which requires a higher browser version.
 
-In most browsers, you need to deploy page **to the site** and set `.wasm` `mimetype` to `application/wasm` on the server side to debug and run it.
+In most browsers, you need to deploy page **to the site** and set `.wasm` mimetype to `application/wasm` on the server side to debug and run it.
 
 > Since 6.3.0.1, we include `dbr-<version>.min.js` and `dbr-<version>.wasm` in samples by linking the resources to [online demo](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).
 >
@@ -93,6 +141,12 @@ After loading successfully, if the browser supports [IndexedDB](https://develope
 First we will try to store the compiled result of the `WebAssembly.Module` type (currently only supported in FireFox and Edge, and other browsers will probably also add this feature in the future). The next time the page is loaded, it can be completed within seconds.
 
 If the browsers don't support it, we will save the `dbr-<version>.wasm` file itself. It will take some time to compile when initializing next time. At least there is no need to download it again.
+
+### Debug Tool
+
+We insert a debug tool in our samples, you could click the button `console` in top right of the screen.
+
+You could find dbr wasm version, initialization process and other useful info.
 
 <br>
 
