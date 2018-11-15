@@ -4,17 +4,17 @@ Version 6.3.0.2
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
-This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, **Aztec**,
+This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, **Aztec**.
 
-and provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
+And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
 
 ## Online Demo
 
 <img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
 
-[Demo (6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
+[Online Demo (6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
-[Demo (6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
+[Online Demo (6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
 ## Browser compatibility
 
