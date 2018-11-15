@@ -10,6 +10,8 @@ The repository aims to help developers get familiar with [Dynamsoft JavaScript B
 
 ## Online Demo
 
+<img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
+
 [Demo (6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
 [Demo (6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
