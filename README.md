@@ -2,13 +2,17 @@
 
 Version 6.3.0.2
 
+Support decoding 1D / PDF417 / QR / DataMatrix / Aztec.
+
+Provide api can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
+
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
 ## Online Demo
 
-[Demo (version 6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
+[Demo (6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
-[Demo (version 6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
+[Demo (6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
 ## Browser compatibility
 
@@ -21,9 +25,9 @@ The repository aims to help developers get familiar with [Dynamsoft JavaScript B
 
 ## Documentation
 
-[Guide](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)(6.3.0.2)
+[Guide (6.3.0.2)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
-[Api](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)(6.3.0.2)
+[Api (6.3.0.2)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
 
 ## Helloworld
 
