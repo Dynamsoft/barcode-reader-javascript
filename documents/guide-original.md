@@ -55,6 +55,17 @@ Just copy into a html file and run it from file browser.
 
 `DBR_WASM` uses [Webassembly](https://developer.mozilla.org/en-US/docs/WebAssembly) technology which requires a higher browser version.
 
+> ### Browser compatibility
+>
+> | browser | min version |
+> |-|-|
+> | Chrome | 57 |
+> | Firefox | 52 |
+> | Edge | 16 |
+> | Safari* | 11 |
+>
+> The Webassembly compiles really slow in Safari for IOS accroding to our tests.
+
 In most browsers, you need to deploy page **to the site** and set `.wasm` mimetype to `application/wasm` on the server side to debug and run it.
 
 > Since 6.3.0.1, we include `dbr-<version>.min.js` and `dbr-<version>.wasm` in samples by linking the resources to [online demo](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).

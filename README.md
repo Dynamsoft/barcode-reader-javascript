@@ -23,7 +23,9 @@ And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTML
 | Chrome | 57 |
 | Firefox | 52 |
 | Edge | 16 |
-| Safari | 11 |
+| Safari* | 11 |
+
+The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 ## Documentation
 
