@@ -17,8 +17,6 @@ Just copy into a html file and run it from file browser.
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js"></script>
     <script>
-        dynamsoft = self.dynamsoft || {};
-        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
         var iptEl = document.getElementById('uploadImage');
@@ -34,7 +32,7 @@ Just copy into a html file and run it from file browser.
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
         
-        document.getElementById('uploadImage').addEventListener('change', function(){
+        iptEl.addEventListener('change', function(){
             reader.decodeFileInMemory(this.files[0]).then(function(results){
                 var txts = [];
                 for(var i=0;i<results.length;++i){

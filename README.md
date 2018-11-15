@@ -6,19 +6,18 @@ The repository aims to help developers get familiar with [Dynamsoft JavaScript B
 
 ## Online Demo
 
-(version 6.3.0.2)
-https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html
+[Demo (version 6.3.0.2)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
-(version 6.3.0)
-https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html
+[Demo (version 6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
 ## Browser compatibility
 
+| browser | min version |
 |-|-|
-|Chrome|57|
-|Firefox|52|
-|Edge|16|
-|Safari|11|
+| Chrome | 57 |
+| Firefox | 52 |
+| Edge | 16 |
+| Safari | 11 |
 
 ## Documentation
 
@@ -38,8 +37,6 @@ Just copy into a html file and run it from file browser.
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js"></script>
     <script>
-        dynamsoft = self.dynamsoft || {};
-        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
         var iptEl = document.getElementById('uploadImage');
@@ -55,7 +52,7 @@ Just copy into a html file and run it from file browser.
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
         
-        document.getElementById('uploadImage').addEventListener('change', function(){
+        iptEl.addEventListener('change', function(){
             reader.decodeFileInMemory(this.files[0]).then(function(results){
                 var txts = [];
                 for(var i=0;i<results.length;++i){
