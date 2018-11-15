@@ -2,7 +2,7 @@
 
 Version 6.3.0.2
 
-Support decoding 1D / PDF417 / QR / DataMatrix / Aztec.
+Support decoding 1D, PDF417, QR, DataMatrix, Aztec.
 
 Provide api can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
 
