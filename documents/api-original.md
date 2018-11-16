@@ -35,6 +35,7 @@
 // All the settings are optional, even dynamsoft and dynamsoft.dbrEnv.
 dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
+// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
 dynamsoft.dbrEnv.licenseKey = "<a license key>",
 // The default value is true. It will load the wasm files automatically.
 // If you want to load the file manually, please set it to false
