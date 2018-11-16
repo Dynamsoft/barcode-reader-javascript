@@ -28,6 +28,7 @@ Firefox preforms best in both desktop and mobile.
 | Firefox | 52 |
 | Edge | 16 |
 | Safari* | 11 |
+| ie | not support |
 
 The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 

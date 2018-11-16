@@ -65,6 +65,7 @@ Just copy into a html file and run it from file browser.
 > | Firefox | 52 |
 > | Edge | 16 |
 > | Safari* | 11 |
+> | ie | not support |
 >
 > The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
