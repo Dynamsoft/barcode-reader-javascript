@@ -8,7 +8,9 @@ This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, **Aztec**
 
 And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
 
-The [LocalizationResult](https://www.dynamsoft.com/help/Barcode-Reader/class_dynamsoft_1_1_barcode_1_1_localization_result.html) can be found in decoding results.
+The `LocalizationResult`(like [C# LocalizationResult](https://www.dynamsoft.com/help/Barcode-Reader/class_dynamsoft_1_1_barcode_1_1_localization_result.html)) can be found in decoding results.
+
+If you want the `nodejs` version, please visit [dbr webassembly](https://github.com/dynamsoft-dbr/webassembly).
 
 ## Online Demo
 
