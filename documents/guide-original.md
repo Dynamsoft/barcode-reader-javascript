@@ -76,7 +76,7 @@ In most browsers, you need to deploy page **to the site** and set `.wasm` mimety
 >
 > The cdn is for evaluation purposes and it is not recommended for use in production environments.
 >
-> You can get the resources in `Dist` folder.
+> You can get the resources in [Dist](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/dist) folder.
 
 Please check the settings below for different environments.
 
