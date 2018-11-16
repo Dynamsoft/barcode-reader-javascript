@@ -112,9 +112,9 @@ If you really need to access video on an http site, you can use our [DCS](https:
 >
 > Before decoding a large image, you'd better intercept or compress the image. It will prevent your site from crash though the decode rate will decrease.
 >
-> We provide a special interface for processing video [decodeVideo](api.md?#function-decodevideo) to capture and decode a small area of the video on the video.
+> We provide a special interface for processing video [decodeVideo](api-original.md?#function-decodevideo) to capture and decode a small area of the video on the video.
 >
-> e.g. In [our demo](../Samples/decodeVideoWithSettings/barcode_reader_javascript.html), we crop a region of the video by default.
+> e.g. In [our demo](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/examples/decodeVideoWithSettings), we crop a region of the video by default.
 
 <br>
 
@@ -193,7 +193,7 @@ dynamsoft.dbrEnv.licenseKey = "<a license key>"
 
 ## Try and do it
 
-Try to write your own page or visit [helloworld.html](../Samples/decodeFileInMemory/decodeFileInMemory.html) directly.
+Try to write your own page or visit [helloworld.html](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/examples/decodeFileInMemory) directly.
 
 We insert a debug tool in our samples, you could click the button `console` in top right of the screen.
 
