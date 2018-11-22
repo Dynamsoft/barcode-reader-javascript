@@ -1,5 +1,8 @@
 /* global dynamsoft, $, Foundation*/
 
+var bPC = !navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
+var bMobileSafari = /Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+
 dynamsoft = self.dynamsoft || {};
 dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
 
@@ -138,13 +141,11 @@ $('#cb-readFullRegion').change(function(){
 });
 $('#btn-readFullRegion').click(function(){$('#lb-readFullRegion').click();});
 $('#btn-readInRegion').click(function(){$('#lb-readFullRegion').click();});
-(function(bPC){
-    if(bPC){ // use upper resolution & read full region on PC
-        $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
-        $('#ul-resolutionList .li-resolution[data-width="1080"][data-height="1920"]').addClass('selectedLi');
-        $('#lb-readFullRegion').click();
-    }
-})(!navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i));
+if(bPC){ // use upper resolution & read full region on PC
+    $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
+    $('#ul-resolutionList .li-resolution[data-width="1080"][data-height="1920"]').addClass('selectedLi');
+    $('#lb-readFullRegion').click();
+}
 
 var readInterval = 10;
 $('#ul-interval').on('click','.li-interval', function(){
@@ -270,14 +271,24 @@ var playvideo = (deviceId)=>{
         if(self.kConsoleLog)self.kConsoleLog('======before video========');
         var selW = $('#ul-resolutionList .selectedLi').attr('data-width');
         var selH = $('#ul-resolutionList .selectedLi').attr('data-height');
-        var bWinWLtH = $(window).width() < $(window).height();
         var constraints = { 
             video: { 
-                width: { ideal: bWinWLtH ? selW : selH }, 
-                height: { ideal: bWinWLtH ? selH : selW }, 
                 facingMode: { ideal: 'environment' }
             } 
         };
+        if(bMobileSafari){
+            if(selH >= 1280){
+                constraints.video.width = 1280;
+            }else if(selH >= 640){
+                constraints.video.width = 640;
+            }else if(selH >= 320){
+                constraints.video.width = 320;
+            }
+        }else{
+            var bWinWLtH = $(window).width() < $(window).height();
+            constraints.video.width = { ideal: bWinWLtH ? selW : selH };
+            constraints.video.height = { ideal: bWinWLtH ? selH : selW };
+        }
         if(!deviceId){
             var $selectedLi = $ulVideoList.children('.selectedLi');
             if($selectedLi.length){
