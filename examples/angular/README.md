@@ -24,3 +24,5 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 ```
 ng serve --open
 ```
+
+![Angular Barcode Reader](https://www.codepool.biz/wp-content/uploads/2018/11/angular-webassembly-barcode.gif)
