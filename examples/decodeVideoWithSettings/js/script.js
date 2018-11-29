@@ -3,9 +3,6 @@
 var bPC = !navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
 var bMobileSafari = /Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
-dynamsoft = self.dynamsoft || {};
-dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
-
 // By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
 // `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
 // Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.

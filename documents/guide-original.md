@@ -15,7 +15,7 @@ Just copy into a html file and run it from file browser.
 <body>
     <div id="divLoadInfo">loading...</div>
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js"></script>
     <script>
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
@@ -229,4 +229,8 @@ Note:
    Chrome and Safari do not support the aforementioned caching mechanism. We can store the `.wasm` file to `IndexedDB`, but not the compiled module file. So compilation is required at every visit.
 3. The mobile version skipped compilation of `try...catch` in C++ code, so some exceptions failed to be caught, resulting in possible memory leaks. When the memory leaks to a certain extent, the barcode scanning module will stop working due to insufficient memory. The leaked memory can be released when leaving or refreshing the web page. Therefore, the mobile version is not suitable for continuous decoding, but it can be used for one-off decoding.
 
-In the next step, we will reduce the dependency on try...catch in C++ so as to combine the two versions into one, and work out a version that is fast to load and has a stable decoding capability.
+<del>In the next step, we will reduce the dependency on try...catch in C++ so as to combine the two versions into one, and work out a version that is fast to load and has a stable decoding capability.</del>
+
+### Update 2018-11-29 
+
+In version 6.4.1.0, we have combined the two build.

@@ -23,23 +23,9 @@
     <!-- https://github.com/webrtc/adapter -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
 
-    <script>
-        (function(bMobileSafari){
-            var script = document.createElement('script');
-            if(!bMobileSafari){
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js";
-            }else{// bMobileSafari
-                // js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
-                script.src = "https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js";
-            }
-            document.body.appendChild(script);
-        })(/Safari/.test(navigator.userAgent) && /iPhone/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
-    </script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js"></script>
 
     <script>
-        dynamsoft = self.dynamsoft || {};
-        dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
-        
         // By default, js will load `dbr-<version>.min.js` & `dbr-<version>.wasm` in the same folder as the context.
         // `dbr-<version>.min.js` & `dbr-<version>.wasm` should always put in same folder.
         // Modify this setting when you put `dbr-<version>.min.js` & `dbr-<version>.wasm` somewhere else.

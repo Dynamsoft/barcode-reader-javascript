@@ -27,20 +27,9 @@ export class AppComponent {
 		dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex) {
 			alert(ex);
 		};
-
-		let bMobileSafari =
-			/Safari/.test(navigator.userAgent) &&
-			/iPhone/.test(navigator.userAgent) &&
-			!/Chrome/.test(navigator.userAgent);
-
+		
 		let script = document.getElementById('script');
-		if (!bMobileSafari) {
-			(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js';
-		} else {
-			// bMobileSafari
-			// js for mobile(safari especially): smaller, compile quicker, need less memory, but not that stable
-			(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js';
-		}
+		(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js';
 	}
 
 	readBarcode(): void {
