@@ -26,3 +26,6 @@ ng serve --open
 ```
 
 ![Angular Barcode Reader](https://www.codepool.biz/wp-content/uploads/2018/11/angular-webassembly-barcode.gif)
+
+## Blog
+[How to Use Dynamsoft JavaScript Barcode SDK in Angular](https://www.codepool.biz/dynamsoft-javascript-barcode-sdk-angular.html)
