@@ -90,7 +90,7 @@ Just copy into a html file and run it from file browser.
 
 Build Dynamsoft Barcode Reader 6.4.1 to JS(webassembly) version.
 
-Combine the normal and mobile version into one.
+Combine the normal and the mobile version into one.
 
 ### 6.3.0.2
 
