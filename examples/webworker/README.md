@@ -3,7 +3,7 @@
 
 ## Update
 
-Version 6.3.0.2 have added built-in worker support.
+Since version 6.3.0.2, we have added built-in worker support.
 
 ```js
 // The default value is false. Set it true to decode in another thread. By this way, UI would not stuck.
