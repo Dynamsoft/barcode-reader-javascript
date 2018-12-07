@@ -19,3 +19,6 @@ A web barcode reader app that uses [AngularDart](https://webdev.dartlang.org/ang
     ```
 
     ![AngularDart barcode reader](https://www.codepool.biz/wp-content/uploads/2018/12/angulardart-barcode-reader.PNG)
+    
+## Blog
+[How to Use JavaScript Barcode SDK in AngularDart Project](https://www.codepool.biz/angulardart-javascript-barcode-reader.html)
