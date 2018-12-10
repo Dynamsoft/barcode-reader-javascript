@@ -38,7 +38,7 @@ The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 [Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
-[Api (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
+[API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
 
 ## Helloworld
 
