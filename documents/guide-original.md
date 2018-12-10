@@ -15,7 +15,7 @@ Just copy into a html file and run it from file browser.
 <body>
     <div id="divLoadInfo">loading...</div>
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
     <script>
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
@@ -115,7 +115,7 @@ If you really need to access video on an http site, you can use our [DCS](https:
 >
 > We provide a special interface for processing video [decodeVideo](api-original.md?#function-decodevideo) to capture and decode a small area of the video on the video.
 >
-> e.g. In [our demo](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/examples/decodeVideoWithSettings), we crop a region of the video by default.
+> e.g. In [our demo](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/examples/decodeVideoWithSettings), we crop a region of the video in mobile browser by default.
 
 <br>
 
@@ -233,4 +233,4 @@ Note:
 
 ### Update 2018-11-29 
 
-In version 6.4.1.0, we have combined the two build.
+Since version 6.4.1.0, we have combined the two build.

@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.4.1.0
+Version 6.4.1.1
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -16,9 +16,9 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 <img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
 
-[Online Demo (6.4.1.0)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
+[Online Demo in Github (6.4.1.1)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
-[Online Demo (6.3.0)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
+[Online Demo in Dynamsoft (6.4.1.1)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
 ## Browser compatibility
 
@@ -36,9 +36,9 @@ The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 ## Documentation
 
-[Guide (6.4.1.0)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
+[Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
-[Api (6.4.1.0)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
+[Api (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
 
 ## Helloworld
 
@@ -50,7 +50,7 @@ Just copy into a html file and run it from file browser.
 <body>
     <div id="divLoadInfo">loading...</div>
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
     <script>
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
@@ -85,6 +85,10 @@ Just copy into a html file and run it from file browser.
 ```
 
 ## Changelog
+
+### 6.4.1.1
+
+Fixed a memory leak related to `mTimeout` in `RuntimeSettings`.
 
 ### 6.4.1.0
 

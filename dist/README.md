@@ -1,20 +1,10 @@
 # Dist
 
-## 6.4.1.0
+## 6.4.1.1
 
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.min.js
+https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js
 
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.0.wasm
-
-## 6.3.0.2
-
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.min.js
-
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.wasm
-
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.min.js
-
-https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.3.0.2.mobile.wasm
+https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.wasm
 
 ## 6.3.0.1
 
