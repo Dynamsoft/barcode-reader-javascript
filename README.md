@@ -4,9 +4,9 @@ Version 6.4.1.1
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
-This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, **Aztec**.
+This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Aztec**.
 
-And provides api that can decode directly from `Blob`, `HTMLImageElement`, `HTMLVideoElement`, url and more.
+The supported data sources include `Blob`, `HTMLImageElement`, `HTMLVideoElement`, URL and more.
 
 The `LocalizationResult`(like [C# LocalizationResult](https://www.dynamsoft.com/help/Barcode-Reader/class_dynamsoft_1_1_barcode_1_1_localization_result.html)) can be found in decoding results.
 
@@ -42,7 +42,7 @@ The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 ## Helloworld
 
-Just copy into a html file and run it from file browser.
+Copy the following code into an HTML file and run it in a web browser.
 
 ```html
 <!DOCTYPE html>
@@ -117,4 +117,4 @@ Build Dynamsoft Barcode Reader 6.3.0 to JS(webassembly) version.
 
 ## Contact Us
 
-If there is any questions, please feel free to contact <a href="mailto:support@dynamsoft.com?subject=DBR%20webassembly">support@dynamsoft.com</a>.
+If there is any questions, please feel free to contact <support@dynamsoft.com>.
