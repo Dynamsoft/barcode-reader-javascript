@@ -20,7 +20,7 @@ Updates runtime settings with a given struct.
 ### Returned value
 
 ```js
-undefined
+Promise(resolve(), reject(ex))
 ```
 
 ### Example
