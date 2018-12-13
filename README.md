@@ -20,19 +20,19 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 [Online Demo in Dynamsoft (6.4.1.1)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
-## Browser compatibility
+## Browser Compatibility
 
-Firefox preforms best in both desktop and mobile.
+Firefox preforms the best in both desktop and mobile.
 
-| browser | min version |
+| Browser | Version |
 |-|-|
-| Chrome | 57 |
-| Firefox | 52 |
-| Edge | 16 |
-| Safari* | 11 |
-| ie | not support |
+| Chrome | v57+ |
+| Firefox | v52+ |
+| Edge | v16+ |
+| Safari* | v11+ |
+| IE | not supported |
 
-The Webassembly compiles really slow in Safari for IOS accroding to our tests.
+WebAssembly compiles really slow in Safari for iOS accroding to our tests.
 
 ## Documentation
 
@@ -40,7 +40,7 @@ The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 [API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
 
-## Helloworld
+## Hello World Sample
 
 Copy the following code into an HTML file and run it in a web browser.
 
@@ -84,7 +84,7 @@ Copy the following code into an HTML file and run it in a web browser.
 </html>
 ```
 
-## Changelog
+## Change log
 
 ### 6.4.1.1
 
@@ -92,16 +92,16 @@ Fixed a memory leak related to `mTimeout` in `RuntimeSettings`.
 
 ### 6.4.1.0
 
-Build Dynamsoft Barcode Reader 6.4.1 to JS(webassembly) version.
+Built Dynamsoft Barcode Reader 6.4.1 to JS(WebAssembly) version.
 
-Combine the normal and the mobile version into one.
+Combined the normal and the mobile version into one.
 
 ### 6.3.0.2
 
-Add built-in worker support.
+Added built-in Worker support.
 
 ```js
-// The default value is false. Set it true to decode in another thread. By this way, UI would not stuck.
+// The default value is false. By setting this value to true to decode in another thread,therefore UI wouldn't get stuck.
 dynamsoft.dbrEnv.bUseWorker = true;
 ```
 
@@ -109,11 +109,11 @@ dynamsoft.dbrEnv.bUseWorker = true;
 
 Set `dbr-<version>.js`(stable) as the main branch.
 
-Add `dbr-<version>.mobile.js`(smaller, compile quicker, need less memory, but not that stable) for the mobile safari.
+Added `dbr-<version>.mobile.js`(smaller, compiles quicker, requires less memory, but not as stable) for mobile Safari.
 
 ### 6.3.0
 
-Build Dynamsoft Barcode Reader 6.3.0 to JS(webassembly) version.
+Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 
 ## Contact Us
 
