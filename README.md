@@ -30,11 +30,13 @@ Firefox preforms best in both desktop and mobile.
 | Firefox | 52 |
 | Edge | 16 |
 | Safari* | 11 |
-| ie | not support |
+| IE | not supported |
 
 The Webassembly compiles really slow in Safari for IOS accroding to our tests.
 
 ## Documentation
+
+[Dynamsoft Barcode Reader JavaScript Edition Manual (6.4.1.1)](https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html)
 
 [Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
