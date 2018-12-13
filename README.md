@@ -36,6 +36,8 @@ WebAssembly compiles really slow in Safari for iOS accroding to our tests.
 
 ## Documentation
 
+[Dynamsoft Barcode Reader JavaScript Edition Manual (6.4.1.1)](https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html)
+
 [Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
 [API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
@@ -101,7 +103,7 @@ Combined the normal and the mobile version into one.
 Added built-in Worker support.
 
 ```js
-// The default value is false. By setting this value to true to decode in another thread,therefore UI wouldn't get stuck.
+// The default value is false. By setting this value to true to decode in another thread, therefore UI wouldn't get stuck.
 dynamsoft.dbrEnv.bUseWorker = true;
 ```
 
