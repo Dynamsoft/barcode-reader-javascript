@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<title>JavaScript Barcode Reader Demo (WebAssembly)</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<link rel='stylesheet' href='css/foundation.min.css' />
-	<link rel='stylesheet' href='css/style.css' />
+	<link rel='stylesheet' href='css/style.css?v=20181213.17' />
 </head>
 <body>
     <div class="frame-video">
@@ -49,13 +49,13 @@
                 ><li>
                     <a>video resolution</a
                     ><ul id="ul-resolutionList" class="menu vertical">
-                        <li class='li-resolution' data-width='2160' data-height='3840'><a>2160 x 3840</a></li
-                        ><li class='li-resolution' data-width='1080' data-height='1920'><a>1080 x 1920</a></li
-                        ><li class='li-resolution' data-width='1200' data-height='1600'><a>1200 x 1600</a></li
-                        ><li class='li-resolution selectedLi' data-width='720' data-height='1280'><a>720 x 1280</a></li
-                        ><li class='li-resolution' data-width='600' data-height='800'><a>600 x 800</a></li
-                        ><li class='li-resolution' data-width='480' data-height='640'><a>480 x 640</a></li
-                        ><li class='li-resolution' data-width='360' data-height='640'><a>360 x 640</a></li>
+                        <li class='li-resolution' data-width='3840' data-height='2160'><a>3840 x 2160</a></li
+                        ><li class='li-resolution' data-width='1920' data-height='1080'><a>1920 x 1080</a></li
+                        ><li class='li-resolution' data-width='1600' data-height='1200'><a>1600 x 1200</a></li
+                        ><li class='li-resolution selectedLi' data-width='1280' data-height='720'><a>1280 x 720</a></li
+                        ><li class='li-resolution' data-width='800' data-height='600'><a>800 x 600</a></li
+                        ><li class='li-resolution' data-width='640' data-height='480'><a>640 x 480</a></li
+                        ><li class='li-resolution' data-width='640' data-height='360'><a>640 x 360</a></li>
                     </ul>
                 </li
                 ><li>
@@ -134,7 +134,7 @@
     ><div id="frame-loadingAnimation" class="cm-spinner"></div
     ><div id="frame-supportAndSetting" class="frame-supportAndSetting">
         <p>Dynamsoft Barcode Reader JavaScript Edition is a JavaScript API for barcode scanning based on the WebAssembly technology. This demo supports scanning bar codes directly from a live video stream.</p>
-        <ul class="accordion grid-x" data-accordion>
+        <ul id="ul-supportBrowser" class="accordion grid-x" data-accordion>
             <li class="accordion-item cell large-6 is-active" data-accordion-item>
                 <a class="accordion-title">Supported Browsers for Desktop</a>
                 <div class="accordion-content" data-tab-content style="display:block;">
@@ -161,45 +161,45 @@
             </li>
         </ul>
         <h3>Barcode Format</h3>
-        <div class="grid-x">
-            <div class="cell auto">1D</div>
-            <div class="cell shrink">
+        <div class="div-format">
+            <div class="div-format-name">1D</div
+            ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-pre1D" value="0x3ff" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-pre1D"></label>
                 </div>
             </div>
         </div>
-        <div class="grid-x">
-            <div class="cell auto">PDF 417</div>
-            <div class="cell shrink">
+        <div class="div-format">
+            <div class="div-format-name">PDF 417</div
+            ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-prePDF417" value="0x2000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-prePDF417"></label>
                 </div>
             </div>
         </div>
-        <div class="grid-x">
-            <div class="cell auto">QR Code</div>
-            <div class="cell shrink">
+        <div class="div-format">
+            <div class="div-format-name">QR Code</div
+            ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-preQRCode" value="0x4000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preQRCode"></label>
                 </div>
             </div>
         </div>
-        <div class="grid-x">
-            <div class="cell auto">DataMatrix</div>
-            <div class="cell shrink">
+        <div class="div-format">
+            <div class="div-format-name">DataMatrix</div
+            ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-preDataMatrix" value="0x8000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preDataMatrix"></label>
                 </div>
             </div>
         </div>
-        <div class="grid-x">
-            <div class="cell auto">Aztec</div>
-            <div class="cell shrink">
+        <div class="div-format">
+            <div class="div-format-name">Aztec</div
+            ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-preAztec" value="0x10000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
                     <label class="switch-paddle" for="cb-preAztec"></label>
@@ -207,13 +207,11 @@
             </div>
         </div>
         <div class="div-forProceedBtn"><button id="btn-processSupportAndSettings" disabled="disabled">Proceed</button></div>
-    </div>
+    </div
+    ><div id="frame-white" class="frame-white"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src='js/what-input.min.js'></script>
     <script src='js/foundation.min.js'></script>
-	<script>
-		$(document).foundation();
-	</script>
 
     <!-- an removable debug tool -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
@@ -223,6 +221,6 @@
     <!-- https://github.com/webrtc/adapter -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js?v=20181212.8"></script>
 </body>
 </html>
