@@ -16,11 +16,39 @@ dynamsoft.dbrEnv.bAutoLoadWasm = false;
 // The default value is false. Set it true to decode in another thread. By this way, UI would not stuck.
 dynamsoft.dbrEnv.bUseWorker = true;
 
+/**
+ * function showDbrVideoSmallTool
+ * 
+ * Please feel free to modfiy `dbrVideoSmallTool.js` and `dbrVideoSmallTool.css` to match your scenario.
+ * 
+ * | parameter        | type           | description
+ * | ---------------- | -------------- | -----------
+ * | *(return value)* | HTMLDivElement | 
+ *     The element of the tool. You can put it somewhere else. By default it will be appended in body.
+ * | ---------------- | -------------- | -----------
+ * | callback         | function(txt)  | 
+ *     It is called each time a reliable result is obtained.
+ * | ---------------- | -------------- | -----------
+ * | multiple         | boolean        | 
+ *     If false, it will close window automatically when a reliable result is obtained. Default false.
+ * | ---------------- | -------------- | -----------
+ * | confidence       | number         | 
+ *     A raw result, whose confidence equal or large than the confidence, will be regard as a reliable result.
+ * | ---------------- | -------------- | -----------
+ * | styleObj         | object         | 
+ *     A key-value style object to modify the style of `.dbrVideoSmallTool-outer`. 
+ *     It is usefull when you need to set the position or the size of the tool.
+ * 
+ *     e.g. `{postion: 'absolute', margin: '', left: '200px', top: '100px', width: '200px', height: '160px'}`
+ * 
+ *     You may need some more custom styles to match your scenario.
+ *     Please feel free to modfiy `dbrVideoSmallTool.js`(especially in `var html = ...`) and `dbrVideoSmallTool.css`.
+ */
 self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
     confidence = confidence || 30;
 
     /*eslint-disable indent*/
-    var html = [
+    var html = [ // You may want to modify this to match your scenario.
         '<div class="dbrVideoSmallTool-outer">',
             '<p class="dbrVideoSmallTool-loading">loading</p>',
             '<video class="dbrVideoSmallTool-video" playsinline="true"></video>',
@@ -36,7 +64,7 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
                 '<option data-width="640" data-height="360">640 x 360</option>',
             '</select>',
             '<button class="dbrVideoSmallTool-btn-close">',
-                '<svg width="24" height="24" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>',
+                '<svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>',
             '</button>',
         '</div>'
     ].join('');
@@ -48,7 +76,7 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
     var btnClose = $(toolDom).find('.dbrVideoSmallTool-btn-close')[0];
     if(styleObj){
         for(var field in styleObj){
-            toolDom.style[field] = styleObj[field];
+            $(toolDom).css(field, styleObj[field]);
         }
     }
     
@@ -230,7 +258,7 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
                 var result = results[i];
                 if(self.kConsoleLog)self.kConsoleLog(result.BarcodeText);
                 var curConfidence = result.LocalizationResult.ExtendedResultArray[0].Confidence;
-                if(curConfidence > confidence){
+                if(curConfidence >= confidence){
                     if(curConfidence > bestConfidence){
                         bestConfidence = curConfidence;
                         bestTxt = result.BarcodeText;
