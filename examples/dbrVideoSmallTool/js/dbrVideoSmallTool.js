@@ -39,7 +39,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
  *     A key-value style object to modify the style of `.dbrVideoSmallTool-outer`. 
  *     It is usefull when you need to set the position or the size of the tool.
  * 
- *     e.g. `{postion: 'absolute', margin: '', left: '200px', top: '100px', width: '200px', height: '160px'}`
+ *     e.g. `{postion: 'absolute', margin: '0', left: '200px', top: '100px', width: '200px', height: '160px'}`
  * 
  *     You may need some more custom styles to match your scenario.
  *     Please feel free to modfiy `dbrVideoSmallTool.js`(especially in `var html = ...`) and `dbrVideoSmallTool.css`.
