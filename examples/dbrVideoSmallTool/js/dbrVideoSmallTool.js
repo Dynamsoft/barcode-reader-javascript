@@ -33,7 +33,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
  *     If false, it will close window automatically when a reliable result is obtained. Default false.
  * | ---------------- | -------------- | -----------
  * | confidence       | number         | 
- *     A raw result, whose confidence equal or large than the confidence, will be regarded as a reliable result.
+ *     A raw result, whose confidence equal or large than the confidence, will be regarded as a reliable result. Dafault 30.
  * | ---------------- | -------------- | -----------
  * | styleObj         | object         | 
  *     A key-value style object to modify the style of `.dbrVideoSmallTool-outer`. 
