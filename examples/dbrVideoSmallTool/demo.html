@@ -1,0 +1,30 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Decode Video Small Tool</title>
+    <meta charset="utf-8">
+	<link rel='stylesheet' href='css/dbrVideoSmallTool.css?v=20181225' />
+</head>
+<body>
+    value:<input id="ipt-val"><button id="btn-showTool">show tool</button>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- an removable debug tool -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
+
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
+
+    <!-- https://github.com/webrtc/adapter -->
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
+
+    <script src="js/dbrVideoSmallTool.js?v=20181225.7"></script>
+
+    <script>
+        document.getElementById('btn-showTool').addEventListener('click', function(){
+            showDbrVideoSmallTool(function(txt){
+                document.getElementById('ipt-val').value = txt;
+            });
+        });
+    </script>
+</body>
+</html>
