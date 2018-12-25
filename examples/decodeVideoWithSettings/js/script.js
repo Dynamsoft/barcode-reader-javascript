@@ -33,6 +33,13 @@ dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
 };
 
 $('#frame-supportAndSetting input').change(function(){
+    /*Start: walkaround for mobile safari ui delay bug*/
+    if(this.checked){
+        $(this).closest('.div-format-switch').css('background','#2ba6cb');
+    }else{
+        $(this).closest('.div-format-switch').css('background','');
+    }
+    /*End: walkaround for mobile safari ui delay bug*/
     if($('#frame-supportAndSetting input:checked').length){
         $('#btn-processSupportAndSettings').removeAttr('disabled');
     }else{
@@ -140,7 +147,7 @@ $('#btn-readFullRegion').click(function(){$('#lb-readFullRegion').click();});
 $('#btn-readInRegion').click(function(){$('#lb-readFullRegion').click();});
 if(bPC){ // use upper resolution & read full region on PC
     $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
-    $('#ul-resolutionList .li-resolution[data-width="1080"][data-height="1920"]').addClass('selectedLi');
+    $('#ul-resolutionList .li-resolution[data-width="1920"][data-height="1080"]').addClass('selectedLi');
     $('#lb-readFullRegion').click();
 }
 
@@ -159,7 +166,6 @@ var initTestRuntimeSettings = function(){
     return testRuntimeSettingsReader.updateRuntimeSettings(settings);
 };
 $('#a-barcodeFormat').click(function(){
-    var a = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
     $('#ul-barcodeFormatId>.li-barcodeFormatId').each(function(){
         var value = $(this).attr('data-val');
@@ -171,7 +177,6 @@ $('#a-barcodeFormat').click(function(){
     });
 });
 $('#a-advance').click(function(){
-    var a = this;
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
 
     $('#ul-advance>li>a>label').each(function(){
@@ -274,17 +279,16 @@ var playvideo = (deviceId)=>{
             } 
         };
         if(bMobileSafari){
-            if(selH >= 1280){
+            if(selW >= 1280){
                 constraints.video.width = 1280;
-            }else if(selH >= 640){
+            }else if(selW >= 640){
                 constraints.video.width = 640;
-            }else if(selH >= 320){
+            }else if(selW >= 320){
                 constraints.video.width = 320;
             }
         }else{
-            var bWinWLtH = $(window).width() < $(window).height();
-            constraints.video.width = { ideal: bWinWLtH ? selW : selH };
-            constraints.video.height = { ideal: bWinWLtH ? selH : selW };
+            constraints.video.width = { ideal: selW };
+            constraints.video.height = { ideal: selH };
         }
         if(!deviceId){
             var $selectedLi = $ulVideoList.children('.selectedLi');
@@ -300,6 +304,7 @@ var playvideo = (deviceId)=>{
         var hasTryedNoWidthHeight = false;
         var getAndPlayVideo = ()=>{
             if(self.kConsoleLog)self.kConsoleLog('======try getUserMedia========');
+            if(self.kConsoleLog)self.kConsoleLog('ask '+JSON.stringify(constraints.video.width)+'x'+JSON.stringify(constraints.video.height));
             navigator.mediaDevices.getUserMedia(constraints).then((stream)=>{
                 if(self.kConsoleLog)self.kConsoleLog('======get video========');
                 return new Promise((resolve2, reject2)=>{
@@ -308,6 +313,7 @@ var playvideo = (deviceId)=>{
                         if(self.kConsoleLog)self.kConsoleLog('======play video========');
                         video.play().then(()=>{
                             if(self.kConsoleLog)self.kConsoleLog('======played video========');
+                            if(self.kConsoleLog)self.kConsoleLog('get '+video.videoWidth+'x'+video.videoHeight);
                             if(needFixEdge){
                                 var dw = $(document).width(), dh = $(document).height();
                                 if(video.videoWidth / video.videoHeight > dw / dh){
@@ -350,11 +356,11 @@ var loopReadVideo = function(){
     }
     var video = $('#video-back')[0];
     if(video.paused){
+        if(self.kConsoleLog)self.kConsoleLog('Video is paused. Ask in 1s.');
         return setTimeout(loopReadVideo, 1000);
     }
 
     if(self.kConsoleLog)self.kConsoleLog('======= once read =======');
-    var timestart = (new Date()).getTime();
     var videoRealW = video.videoWidth;
     var videoRealH = video.videoHeight;
     var sx, sy, sWidth, sHeight, dWidth, dHeight;
@@ -379,8 +385,10 @@ var loopReadVideo = function(){
         sWidth = sHeight = dWidth = dHeight = regionRealWH;
     }
 
+    var timestart = null;
     var barcodeReader = new dynamsoft.BarcodeReader();
     barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings()).then(()=>{
+        timestart = (new Date()).getTime();
         return barcodeReader.decodeVideo(video,sx,sy,sWidth,sHeight,dWidth,dHeight);
     }).then((results)=>{
         if(self.kConsoleLog)self.kConsoleLog('time cost: ' + ((new Date()).getTime() - timestart) + 'ms');
@@ -462,6 +470,9 @@ $('#div-menuRightMargin').click(function(){
     );
 });
 $('#ipt-file').change(function(){
+    if(self.kConsoleLog)self.kConsoleLog('Static image detected, pause loopReadVideo.');
+    var video = $('#video-back')[0];
+    video.pause();
     isLooping = false;
     var barcodeReader = new dynamsoft.BarcodeReader();
     barcodeReader.updateRuntimeSettings(testRuntimeSettingsReader.getRuntimeSettings()).then(()=>{
@@ -472,6 +483,8 @@ $('#ipt-file').change(function(){
             if(++i == files.length){
                 barcodeReader.deleteInstance();
                 alert(message.join('\n'));
+                if(self.kConsoleLog)self.kConsoleLog('Finish, continue loopReadVideo.');
+                video.play();
                 isLooping = true;
                 loopReadVideo();
                 this.value = '';
@@ -487,10 +500,14 @@ $('#ipt-file').change(function(){
                 }
                 readOne();
             }).catch(ex=>{
-                message.push("Error: "+(ex.message || ex)+". If the dbr-<version>.mobile.min.js can't decode the image, try dbr-<version>.min.js instand.");
+                message.push("Error: "+(ex.message || ex));
                 readOne();
             });
         };
         readOne();
     });
 });
+
+$('#ul-supportBrowser').foundation();
+$('#ul-menu').foundation();
+$('#frame-white').hide();

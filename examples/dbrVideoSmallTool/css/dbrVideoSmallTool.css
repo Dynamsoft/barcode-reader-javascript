@@ -1,0 +1,6 @@
+.dbrVideoSmallTool-outer{width:800px;height:600px;position:fixed;margin:auto;left:0;top:0;right:0;bottom:0;border:1px solid #eee;background:#eee;}
+.dbrVideoSmallTool-loading{width:100%;height:32px;line-height:32px;position:absolute;margin:auto 0;top:0;bottom:0;text-align:center;}
+.dbrVideoSmallTool-video{width:100%;height:100%;position:absolute;left:0;top:0;}
+.dbrVideoSmallTool-sel-camera{position:absolute;left:0;top:0px;}
+.dbrVideoSmallTool-sel-resolution{position:absolute;left:0;top:20px;}
+.dbrVideoSmallTool-btn-close{position:absolute;right:0;top:0;}
