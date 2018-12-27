@@ -39,7 +39,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
  *     A key-value style object to modify the style of `.dbrVideoSmallTool-outer`. 
  *     It is usefull when you need to set the position or the size of the tool.
  * 
- *     e.g. `{postion: 'absolute', margin: '', left: '200px', top: '100px', width: '200px', height: '160px'}`
+ *     e.g. `{postion: 'absolute', margin: '0', left: '200px', top: '100px', width: '200px', height: '160px'}`
  * 
  *     You may need some more custom styles to match your scenario.
  *     Please feel free to modfiy `dbrVideoSmallTool.js`(especially in `var html = ...`) and `dbrVideoSmallTool.css`.
@@ -55,13 +55,14 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
             '<select class="dbrVideoSmallTool-sel-camera">',
             '</select>',
             '<select class="dbrVideoSmallTool-sel-resolution">',
-                '<option data-width="3840" data-height="2160">3840 x 2160</option>',
-                '<option data-width="1920" data-height="1080">1920 x 1080</option>',
-                '<option data-width="1600" data-height="1200">1600 x 1200</option>',
-                '<option data-width="1280" data-height="720" selected>1280 x 720</option>',
-                '<option data-width="800" data-height="600">800 x 600</option>',
-                '<option data-width="640" data-height="480">640 x 480</option>',
-                '<option data-width="640" data-height="360">640 x 360</option>',
+                '<option class="dbrVideoSmallTool-opt-gotResolution" value="got"></option>',
+                '<option data-width="3840" data-height="2160">ask 3840 x 2160</option>',
+                '<option data-width="1920" data-height="1080">ask 1920 x 1080</option>',
+                '<option data-width="1600" data-height="1200">ask 1600 x 1200</option>',
+                '<option data-width="1280" data-height="720" selected>ask 1280 x 720</option>',
+                '<option data-width="800" data-height="600">ask 800 x 600</option>',
+                '<option data-width="640" data-height="480">ask 640 x 480</option>',
+                '<option data-width="640" data-height="360">ask 640 x 360</option>',
             '</select>',
             '<button class="dbrVideoSmallTool-btn-close">',
                 '<svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>',
@@ -73,6 +74,7 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
     var video = $(toolDom).find('.dbrVideoSmallTool-video')[0];
     var cameraSel = $(toolDom).find('.dbrVideoSmallTool-sel-camera')[0];
     var resolutionSel = $(toolDom).find('.dbrVideoSmallTool-sel-resolution')[0];
+    var optGotRsl = $(toolDom).find('.dbrVideoSmallTool-opt-gotResolution')[0];
     var btnClose = $(toolDom).find('.dbrVideoSmallTool-btn-close')[0];
     if(styleObj){
         for(var field in styleObj){
@@ -161,6 +163,8 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
             var selRslOpt = $(resolutionSel).children(':selected')[0];
             var selW = selRslOpt.getAttribute('data-width');
             var selH = selRslOpt.getAttribute('data-height');
+            optGotRsl.setAttribute('data-width', selW);
+            optGotRsl.setAttribute('data-height', selH);
             var constraints = { 
                 video: { 
                     facingMode: { ideal: 'environment' }
@@ -202,7 +206,10 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
                             if(self.kConsoleLog)self.kConsoleLog('======play video========');
                             video.play().then(()=>{
                                 if(self.kConsoleLog)self.kConsoleLog('======played video========');
-                                if(self.kConsoleLog)self.kConsoleLog('get '+video.videoWidth+'x'+video.videoHeight);
+                                var gotRsl = 'got '+video.videoWidth+'x'+video.videoHeight;
+                                optGotRsl.innerText = gotRsl;
+                                resolutionSel.value = 'got';
+                                if(self.kConsoleLog)self.kConsoleLog(gotRsl);
                                 if(needFixEdge){
                                     var dw = window.innerWidth, dh = window.innerHeight;
                                     if(video.videoWidth / video.videoHeight > dw / dh){
