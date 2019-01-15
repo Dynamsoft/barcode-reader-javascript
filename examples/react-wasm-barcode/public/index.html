@@ -25,7 +25,22 @@
     <title>React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <img src="loading.gif" style="margin-top:10px" id="anim-loading">
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
+    <script>
+      dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
+      dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function () {
+        window.reader = new dynamsoft.BarcodeReader();
+        document.getElementById('anim-loading').style.display = 'none';
+      };
+      dynamsoft.dbrEnv.onAutoLoadWasmError = function (ex) {
+        document.getElementById('anim-loading').style.display = 'none';
+        alert('Fail to load the wasm file.');
+      };
+
+      //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+      dynamsoft.dbrEnv.licenseKey = "<Your Barcode License>";
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
