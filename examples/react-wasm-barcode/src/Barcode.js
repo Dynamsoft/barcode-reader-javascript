@@ -1,10 +1,5 @@
 import React, { Component }from 'react';
 export class Barcode extends Component {
-    constructor(props) {
-      super(props);
-      this.onChanged = this.onChanged.bind(this);
-    }
-  
     onChanged() {
         let image = document.getElementById('uploadImage').files[0];
 		if (!image) {
