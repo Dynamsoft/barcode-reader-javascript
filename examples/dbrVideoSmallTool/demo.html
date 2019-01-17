@@ -6,6 +6,7 @@
 	<link rel='stylesheet' href='css/dbrVideoSmallTool.css?v=20181225' />
 </head>
 <body>
+    <p>To enable video, please host the site in https!</p>
     value:<input id="ipt-val"><button id="btn-showDefaultTool">show tool by default</button><br>
     
     <div id="my-dbr-container" style="position: relative;">
@@ -27,7 +28,7 @@
         document.getElementById('btn-showDefaultTool').addEventListener('click', function(){
             showDbrVideoSmallTool(function(txt){
                 document.getElementById('ipt-val').value = txt;
-            });
+            }, 1);
         });
         document.getElementById('btn-showAbsoluteTool').addEventListener('click', function(){
             var toolElement = showDbrVideoSmallTool(function(txt){
