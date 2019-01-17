@@ -20,6 +20,8 @@ This project shows how to create a web barcode app by using React and Dynamsoft 
     ```
     npm start
     ```
+    
+    <kbd>![react web barcode reader](https://www.codepool.biz/wp-content/uploads/2019/01/react-web-barcode-reader.PNG)
 
 ## Blog
 [How to Build Web Barcode Apps with React and WebAssembly](https://www.codepool.biz/build-web-barcode-apps-react-wasm.html)
