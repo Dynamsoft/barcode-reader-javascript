@@ -29,10 +29,11 @@ dynamsoft.dbrEnv.bUseWorker = true;
  * | callback         | function(txt)  | 
  *     It is called each time a reliable result is obtained.
  * | ---------------- | -------------- | -----------
- * | count            | boolean        | 
- *     It will close window automatically when the number of the obtained reliable results equal the `count`. 
- *     The same neigbour results would be regarded as one.
+ * | count            | number         | 
  *     if `count` is 0, the window would not automatically close. Default 0.
+ *     if `count` == 1, close window after get a relibale result.
+ *     if the `count` > 1, the window will close automatically after `count` reliable results is obtained.
+ *     The same neigbour results would be regarded as one result.
  * | ---------------- | -------------- | -----------
  * | confidence       | number         | 
  *     A raw result, whose confidence equal or large than the confidence, will be regarded as a reliable result. Dafault 30.
