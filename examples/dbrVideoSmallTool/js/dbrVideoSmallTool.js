@@ -32,7 +32,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
  * | count            | boolean        | 
  *     It will close window automatically when the number of the obtained reliable results equal the `count`. 
  *     The same neigbour results would be regarded as one.
- *     If 0, the window would not automatically close. Default 0.
+ *     if `count` is 0, the window would not automatically close. Default 0.
  * | ---------------- | -------------- | -----------
  * | confidence       | number         | 
  *     A raw result, whose confidence equal or large than the confidence, will be regarded as a reliable result. Dafault 30.
