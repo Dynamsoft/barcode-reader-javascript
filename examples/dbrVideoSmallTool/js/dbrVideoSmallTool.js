@@ -29,8 +29,11 @@ dynamsoft.dbrEnv.bUseWorker = true;
  * | callback         | function(txt)  | 
  *     It is called each time a reliable result is obtained.
  * | ---------------- | -------------- | -----------
- * | multiple         | boolean        | 
- *     If false, it will close window automatically when a reliable result is obtained. Default false.
+ * | count            | number         | 
+ *     if `count` is 0, the window would not automatically close. Default 0.
+ *     if `count` == 1, close window after get a relibale result.
+ *     if the `count` > 1, the window will close automatically after `count` reliable results is obtained.
+ *     The same neigbour results would be regarded as one result.
  * | ---------------- | -------------- | -----------
  * | confidence       | number         | 
  *     A raw result, whose confidence equal or large than the confidence, will be regarded as a reliable result. Dafault 30.
@@ -44,7 +47,7 @@ dynamsoft.dbrEnv.bUseWorker = true;
  *     You may need some more custom styles to match your scenario.
  *     Please feel free to modfiy `dbrVideoSmallTool.js`(especially in `var html = ...`) and `dbrVideoSmallTool.css`.
  */
-self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
+self.showDbrVideoSmallTool = function(callback, count, confidence, styleObj){
     confidence = confidence || 30;
 
     /*eslint-disable indent*/
@@ -245,6 +248,7 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
         });
     };
 
+    var lastBestTxt = null;
     var loopReadVideo = function(){
         if(windowHasClosed){
             return;
@@ -273,9 +277,10 @@ self.showDbrVideoSmallTool = function(callback, multiple, confidence, styleObj){
                 }
             }
 
-            if(bestTxt){
+            if(bestTxt && bestTxt != lastBestTxt){
+                lastBestTxt = bestTxt;
                 callback(bestTxt);
-                if(!multiple){
+                if(count && 0 == --count){
                     closeWindow();
                     return;
                 }
