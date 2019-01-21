@@ -22,7 +22,7 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 ## Browser Compatibility
 
-Firefox preforms the best in both desktop and mobile.
+Firefox performs the best on both desktop and mobile.
 
 | Browser | Version |
 |-|-|
@@ -30,9 +30,9 @@ Firefox preforms the best in both desktop and mobile.
 | Firefox | v52+ |
 | Edge | v16+ |
 | Safari* | v11+ |
-| IE | not supported |
+| Internet Explorer | not supported |
 
-WebAssembly compiles really slow in Safari for iOS accroding to our tests.
+WebAssembly compiles really slow in Safari for iOS according to our tests.
 
 ## Documentation
 
