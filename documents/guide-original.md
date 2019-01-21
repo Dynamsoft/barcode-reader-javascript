@@ -57,7 +57,7 @@ Just copy into a html file and run it from file browser.
 
 > ### Browser compatibility
 >
-> Firefox preforms best in both desktop and mobile.
+> Firefox performs best on both desktop and mobile.
 >
 > | browser | min version |
 > |-|-|
@@ -65,9 +65,9 @@ Just copy into a html file and run it from file browser.
 > | Firefox | 52 |
 > | Edge | 16 |
 > | Safari* | 11 |
-> | ie | not support |
+> | Internet Explorer | not supported |
 >
-> The Webassembly compiles really slow in Safari for IOS accroding to our tests.
+> The Webassembly compiles really slow in Safari for IOS according to our tests.
 
 In most browsers, you need to deploy page **to the site** and set `.wasm` mimetype to `application/wasm` on the server side to debug and run it.
 
@@ -196,13 +196,11 @@ dynamsoft.dbrEnv.licenseKey = "<a license key>"
 
 Try to write your own page or visit [helloworld.html](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/examples/decodeFileInMemory) directly.
 
-We insert a debug tool in our samples, you could click the button `console` in top right of the screen.
-
 If there is any questions, please feel free to contact <a href="mailto:support@dynamsoft.com?subject=DBR%20webassembly">support@dynamsoft.com</a>.
 
 <br>
 
-## dbr-6.3.0.1 comparison between two builds
+## [Deprecated] dbr-6.3.0.1 comparison between two builds
 
 In version 6.3.0.1, our team compiled the C++ module of Dynamsoft Barcode Reader to WebAssembly, so that users can scan barcode with JavaScript at client-side. The new JavaScript edition is not matured, in that we are still juggling between speed and stability. Currently we are releasing it as a preview, with two builds.
 

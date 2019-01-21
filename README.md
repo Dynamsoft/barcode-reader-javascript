@@ -22,7 +22,7 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 ## Browser Compatibility
 
-Firefox preforms the best in both desktop and mobile.
+Firefox performs the best on both desktop and mobile.
 
 | Browser | Version |
 |-|-|
@@ -30,17 +30,17 @@ Firefox preforms the best in both desktop and mobile.
 | Firefox | v52+ |
 | Edge | v16+ |
 | Safari* | v11+ |
-| IE | not supported |
+| Internet Explorer | not supported |
 
-WebAssembly compiles really slow in Safari for iOS accroding to our tests.
+WebAssembly compiles really slow in Safari for iOS according to our tests.
 
 ## Documentation
 
 [Dynamsoft Barcode Reader JavaScript Edition Manual (6.4.1.1)](https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html)
 
-[Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
+<!--[Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
-[API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)
+[API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)-->
 
 ## Hello World Sample
 
