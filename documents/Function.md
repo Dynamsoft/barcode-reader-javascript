@@ -7,7 +7,7 @@
   * [function .decodeVideo()](function-decodevideo2.md)
   * [function .decodeBuffer()](function-decodebuffer.md)
   * [function .decodeBase64String()](function-decodebase64string.md)
-  * [function .decodeFileInMemory()](function-decodefileinmemery.md)
+  * [function .decodeFileInMemory()](function-decodefileinmemory.md)
   * [function .getAllLocalizationResults()](function-getalllocalizationresults.md)
   * [function .getRuntimeSettings()](functiongetruntimesettings.md)
   * [function .resetRuntimeSettings()](functionresetruntimesettings.md)

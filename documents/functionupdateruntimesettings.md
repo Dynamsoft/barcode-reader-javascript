@@ -31,13 +31,14 @@ var settings = reader.getRuntimeSettings();
 //modify it
 settings.mExpectedBarcodesCount = 3;
 //update the settings
-reader.updateRuntimeSettings(settings);
-//read using the new settings
-reader.decodeFileInMemory('img/example.png').then(result=>{
+reader.updateRuntimeSettings(settings).then(()=>{
+    return reader.decodeFileInMemory('./imgs/example.png');
+}).then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
+        // If Confidence >= 30, the barcode results are reliable
+        console.log(results[i].LocalizationResult.ExtendedResultArray[0].Confidence);
     }
-    //reset settings
     reader.resetRuntimeSettings();
 });
 ```
