@@ -28,7 +28,6 @@ dynamsoft.dbrEnv.bUseWorker = true;
  * | ---------------- | -------------- | -----------
  * | callback         | function(txt)  | 
  *     It is called each time a reliable result is obtained.
- *     The same neigbour results would be regarded as one result.
  * | ---------------- | -------------- | -----------
  * | count            | number         | 
  *     if `count` is 0, the window would not automatically close. Default 0.
