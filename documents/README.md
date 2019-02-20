@@ -43,7 +43,7 @@
     * [function .deleteInstance()](function-deleteinstance.md)
     * [function dynamsoft.BarcodeReader.loadWasm()](function-dynamsoftbarcodereaderloadwasm.md)
     * [function .decodeBase64String()](function-decodebase64string.md)
-    * [function .decodeFileInMemory()](function-decodefileinmemery.md)
+    * [function .decodeFileInMemory()](function-decodefileinmemory.md)
     * [function .decodeVideo()](function-decodevideo.md)
     * [function .decodeVideo()](function-decodevideo1.md)
     * [function .decodeVideo()](function-decodevideo2.md)

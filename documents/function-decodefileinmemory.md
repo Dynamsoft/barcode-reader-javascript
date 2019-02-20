@@ -1,4 +1,4 @@
-# function .decodeFileInMemery()
+# function .decodeFileInMemory()
 
 ### Description
 
@@ -7,7 +7,7 @@ Decodes barcodes from an image file in memory.
 ### Syntax
 
 ```js
-.decodeFileInMemery(source)
+.decodeFileInMemory(source)
 ```
 
 ### Parameter
@@ -24,7 +24,7 @@ Decodes barcodes from an image file in memory.
 ### Example
 
 ```js
-reader.decodeFileInMemery('./imgs/example.png').then(results=>{
+reader.decodeFileInMemory('./imgs/example.png').then(results=>{
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
         // Confidence >= 30 is reliable
