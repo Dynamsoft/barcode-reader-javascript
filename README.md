@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.4.1.1
+Version 6.4.1.3
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -16,9 +16,9 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 <img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
 
-[Online Demo in Github (6.4.1.1)](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
+[Online Demo in Github](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
-[Online Demo in Dynamsoft (6.4.1.1)](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
+[Online Demo in Dynamsoft](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
 ## Browser Compatibility
 
@@ -36,11 +36,11 @@ WebAssembly compiles really slow in Safari for iOS according to our tests.
 
 ## Documentation
 
-[Dynamsoft Barcode Reader JavaScript Edition Manual (6.4.1.1)](https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html)
+[Dynamsoft Barcode Reader JavaScript Edition Manual](https://www.dynamsoft.com/help/Barcode-Reader-wasm/index.html)
 
-<!--[Guide (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
+<!--[Guide](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
 
-[API Reference (6.4.1.1)](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)-->
+[API Reference](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)-->
 
 ## Hello World Sample
 
@@ -52,7 +52,7 @@ Copy the following code into an HTML file and run it in a web browser.
 <body>
     <div id="divLoadInfo">loading...</div>
     <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.3.min.js"></script>
     <script>
         dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
         var reader = null;
@@ -87,6 +87,11 @@ Copy the following code into an HTML file and run it in a web browser.
 ```
 
 ## Change log
+
+### 6.4.1.3
+
+Size of `wasm` is 3.41M.
+The `dbr-6.4.1.3.wasm` size is now reduced to 3.41M.
 
 ### 6.4.1.1
 

@@ -29,7 +29,7 @@ export class AppComponent {
 		};
 		
 		let script = document.getElementById('script');
-		(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js';
+		(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.3.min.js';
 	}
 
 	readBarcode(): void {

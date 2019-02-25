@@ -5,7 +5,7 @@
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	<link rel='stylesheet' href='css/foundation.min.css' />
-	<link rel='stylesheet' href='css/style.css?v=20181213.17' />
+	<link rel='stylesheet' href='css/style.css?v=20190222' />
 </head>
 <body>
     <div class="frame-video">
@@ -49,13 +49,14 @@
                 ><li>
                     <a>video resolution</a
                     ><ul id="ul-resolutionList" class="menu vertical">
-                        <li class='li-resolution' data-width='3840' data-height='2160'><a>3840 x 2160</a></li
-                        ><li class='li-resolution' data-width='1920' data-height='1080'><a>1920 x 1080</a></li
-                        ><li class='li-resolution' data-width='1600' data-height='1200'><a>1600 x 1200</a></li
-                        ><li class='li-resolution selectedLi' data-width='1280' data-height='720'><a>1280 x 720</a></li
-                        ><li class='li-resolution' data-width='800' data-height='600'><a>800 x 600</a></li
-                        ><li class='li-resolution' data-width='640' data-height='480'><a>640 x 480</a></li
-                        ><li class='li-resolution' data-width='640' data-height='360'><a>640 x 360</a></li>
+                        <li class='li-resolution' id="li-gotRsl"><a></a></li
+                        ><li class='li-resolution' data-width='3840' data-height='2160'><a>ask 3840 x 2160</a></li
+                        ><li class='li-resolution' data-width='1920' data-height='1080'><a>ask 1920 x 1080</a></li
+                        ><li class='li-resolution' data-width='1600' data-height='1200'><a>ask 1600 x 1200</a></li
+                        ><li class='li-resolution selectedLi' data-width='1280' data-height='720'><a>ask 1280 x 720</a></li
+                        ><li class='li-resolution' data-width='800' data-height='600'><a>ask 800 x 600</a></li
+                        ><li class='li-resolution' data-width='640' data-height='480'><a>ask 640 x 480</a></li
+                        ><li class='li-resolution' data-width='640' data-height='360'><a>ask 640 x 360</a></li>
                     </ul>
                 </li
                 ><li>
@@ -81,7 +82,7 @@
                 </li
                 ><li class="disableOnWasmLoading"><a id="a-barcodeFormat">barcode formats</a><ul id='ul-barcodeFormatId' class="menu vertical">
                     <li class='li-barcodeFormatId' data-val='0x3ff'><a>1D</a></li>
-                    <li class='li-barcodeFormatId' data-val='0x2000000'><a>PDF 417</a></li>
+                    <li class='li-barcodeFormatId' data-val='0x2000000'><a>PDF417</a></li>
                     <li class='li-barcodeFormatId' data-val='0x4000000'><a>QR Code</a></li>
                     <li class='li-barcodeFormatId' data-val='0x8000000'><a>DataMatrix</a></li>
                     <li class='li-barcodeFormatId' data-val='0x10000000'><a>Aztec</a></li>
@@ -126,18 +127,20 @@
                         </a></li>
                         <li><a href="https://www.dynamsoft.com/Company/Contact.aspx" target="_blank">Contact Us</a></li>
                     </ul>
-                </li>
+                </li
+                ><li><a data-comment="no real use but walk around for foundation bug">&nbsp;</a></li
+                ><li><a data-comment="no real use but walk around for foundation bug">&nbsp;</a></li>
             </ul>
         </div
         ><div id="div-menuRightMargin" class="div-menuRightMargin"></div>
     </div
     ><div id="frame-loadingAnimation" class="cm-spinner"></div
     ><div id="frame-supportAndSetting" class="frame-supportAndSetting">
-        <p>Dynamsoft Barcode Reader JavaScript Edition is a JavaScript API for barcode scanning based on the WebAssembly technology. This demo supports scanning bar codes directly from a live video stream.</p>
+        <p><a href="https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx" target="_blank">Dynamsoft Barcode Reader JavaScript Edition</a> is a JavaScript API for barcode scanning based on the WebAssembly technology. This demo supports scanning bar codes directly from a live video stream.</p>
         <ul id="ul-supportBrowser" class="accordion grid-x" data-accordion>
-            <li class="accordion-item cell large-6 is-active" data-accordion-item>
+            <li class="accordion-item cell large-6" data-accordion-item>
                 <a class="accordion-title">Supported Browsers for Desktop</a>
-                <div class="accordion-content" data-tab-content style="display:block;">
+                <div class="accordion-content" data-tab-content>
                     <table class="table-zebra">
                         <tr><td>Chrome</td><td>v57</td></tr>
                         <tr><td>Edge</td><td>v16</td></tr>
@@ -147,15 +150,15 @@
                     </table>
                 </div>
             </li>
-            <li class="accordion-item cell large-6" data-accordion-item>
+            <li class="accordion-item cell large-6 is-active" data-accordion-item>
                 <a class="accordion-title">Supported Browsers for Mobile</a>
-                <div class="accordion-content" data-tab-content>
+                <div class="accordion-content" data-tab-content style="display:block;">
                     <table class="table-zebra">
-                        <tr><td>Chrome Android</td><td>v57</td></tr>
+                        <tr><td>Chrome for Android</td><td>v57</td></tr>
                         <tr><td>Edge</td><td>Able<a href="https://nokiapoweruser.com/enabling-experimental-features-of-edge-spartan-browser-on-windows-10-mobile-changelog/" target="_blank">*</a></td></tr>
-                        <tr><td>Firefox Android</td><td>v52</td></tr>
+                        <tr><td>Firefox for Android</td><td>v52</td></tr>
                         <tr><td>Safari</td><td>v11<a href="https://bugs.webkit.org/show_bug.cgi?id=181781" target="_blank">*</a></td></tr>
-                        <tr><td>Android webview</td><td>v57</td></tr>
+                        <tr><td>Android Webview</td><td>v57</td></tr>
                     </table>
                 </div>
             </li>
@@ -171,7 +174,7 @@
             </div>
         </div>
         <div class="div-format">
-            <div class="div-format-name">PDF 417</div
+            <div class="div-format-name">PDF417</div
             ><div class="div-format-switch">
                 <div class="switch tiny">
                     <input id="cb-prePDF417" value="0x2000000" class="cb-readFullRegion switch-input" type="checkbox" name="exampleSwitch" autocomplete="off">
@@ -206,7 +209,7 @@
                 </div>
             </div>
         </div>
-        <div class="div-forProceedBtn"><button id="btn-processSupportAndSettings" disabled="disabled">Proceed</button></div>
+        <div class="div-forProceedBtn"><button id="btn-processSupportAndSettings" disabled="disabled"><span class="sp-continue">Continue</span><span class="sp-needCheckFormat">Need to Check Format(s)</span></button></div>
     </div
     ><div id="frame-white" class="frame-white"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -216,11 +219,21 @@
     <!-- an optional debug tool -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.1.min.js"></script>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.3.min.js"></script>
 
     <!-- https://github.com/webrtc/adapter -->
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/webrtc-adapter.js"></script>
 
-    <script src="js/script.js?v=20181212.8"></script>
+    <script type="text/javascript">
+        var detectArrowFunc = ()=>{};
+    </script>
+    <script type="text/javascript">
+        if(!window.detectArrowFunc){
+            // not support arrow func, can't understand script.js
+            alert('This demo does not support this browser.');
+        }
+    </script>
+    
+    <script src="js/script.js?v=20190222"></script>
 </body>
 </html>
