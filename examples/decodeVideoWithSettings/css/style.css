@@ -55,7 +55,11 @@ html,body{width:100%;height:100%;overflow:hidden;}
 .frame-supportAndSetting h3{margin-top:25px;}
 .div-forProceedBtn{text-align:center;}
 .div-forProceedBtn button{width:122px;height:36px;color:white;border-radius:3px;background:#444;}
-.div-forProceedBtn button:disabled{color:#eee;background:#ddd;}
+.div-forProceedBtn button > .sp-continue{display:inline-block;}
+.div-forProceedBtn button > .sp-needCheckFormat{display:none;}
+.div-forProceedBtn button:disabled{width:200px;color:#b34947;background:#ffe6e5;border:1px solid #e8c8c7;}
+.div-forProceedBtn button:disabled > .sp-continue{display:none;}
+.div-forProceedBtn button:disabled > .sp-needCheckFormat{display:inline-block;}
 
 .disableOnWasmLoading{color:#ccc;pointer-events:none !important;}
 .disableOnWasmLoading>a{color:#ccc;}

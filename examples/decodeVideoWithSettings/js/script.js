@@ -9,7 +9,7 @@ var bMobileSafari = /Safari/.test(navigator.userAgent) && /iPhone/.test(navigato
 dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
 
 // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-dynamsoft.dbrEnv.licenseKey = "t0094YAAAAAf3ODHwjvzXJkTbCTukvG79oxd1HqrRD4HGqfP0sxh2ZzRd5Ci+jSXYSE5kNoFzHSddVcT142Dh0lPs2OA/qFkD545Ykj1H83uN561ro6Jn32UfQ5APcX0ZgA==";
+dynamsoft.dbrEnv.licenseKey = "t0094YAAAAClAOfsspQ/jzvFSyc9rYW/d9tgwz1k/az7mLLeSmbdfNbEasRFPCnLK0EOYtJvNBUloXy88QHYHJYRPRvIBmSNuI6MWutBNyfpeU7lrbrLUMhAh2sAPe84ZqQ==";
 
 dynamsoft.dbrEnv.bUseWorker = true; //uncomment it to use worker
 
@@ -89,6 +89,12 @@ var updateDevice = function(){
                     selLi = li;
                 }
             }
+            if(deviceInfos.length < 8){
+                // no real use but walk around for foundation bug
+                for(var j = 8 - deviceInfos.length; j > 0; --j){
+                    $ulVideoList.append($('<li><a>&nbsp;</a></li>'));
+                }
+            }
             var liArr = $ulVideoList.children();
             if(!selLi && liArr.length){
                 try{
@@ -163,6 +169,8 @@ var initTestRuntimeSettings = function(){
     testRuntimeSettingsReader = new dynamsoft.BarcodeReader();
     var settings = testRuntimeSettingsReader.getRuntimeSettings();
     settings.mBarcodeFormatIds = preSelBarcodeFormat;
+    settings.mAntiDamageLevel = 3;
+    settings.mDeblurLevel = 0;
     return testRuntimeSettingsReader.updateRuntimeSettings(settings);
 };
 $('#a-barcodeFormat').click(function(){
@@ -273,6 +281,8 @@ var playvideo = (deviceId)=>{
         if(self.kConsoleLog)self.kConsoleLog('======before video========');
         var selW = $('#ul-resolutionList .selectedLi').attr('data-width');
         var selH = $('#ul-resolutionList .selectedLi').attr('data-height');
+        $('#li-gotRsl').attr('data-width', selW);
+        $('#li-gotRsl').attr('data-height', selH);
         var constraints = { 
             video: { 
                 facingMode: { ideal: 'environment' }
@@ -313,7 +323,11 @@ var playvideo = (deviceId)=>{
                         if(self.kConsoleLog)self.kConsoleLog('======play video========');
                         video.play().then(()=>{
                             if(self.kConsoleLog)self.kConsoleLog('======played video========');
-                            if(self.kConsoleLog)self.kConsoleLog('get '+video.videoWidth+'x'+video.videoHeight);
+                            $('#ul-resolutionList .selectedLi').removeClass('selectedLi');
+                            var gotRslStr = 'got '+video.videoWidth+'x'+video.videoHeight;
+                            $('#li-gotRsl a').text(gotRslStr);
+                            $('#li-gotRsl').addClass('selectedLi');
+                            if(self.kConsoleLog)self.kConsoleLog(gotRslStr);
                             if(needFixEdge){
                                 var dw = $(document).width(), dh = $(document).height();
                                 if(video.videoWidth / video.videoHeight > dw / dh){
@@ -442,7 +456,7 @@ var loopReadVideo = function(){
                 $('#div-highLightResult').append(a);
             }
         }
-
+        
         barcodeReader.deleteInstance();
         setTimeout(loopReadVideo, readInterval);
     }).catch(ex=>{
