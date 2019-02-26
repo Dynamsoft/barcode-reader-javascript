@@ -22,6 +22,8 @@ This project shows how to create a web barcode app by using React and Dynamsoft 
     ```
     
     <kbd>![react web barcode reader](https://www.codepool.biz/wp-content/uploads/2019/01/react-web-barcode-reader.PNG)
+    
+    <kbd>![react webcam barcode scanner](https://www.codepool.biz/wp-content/uploads/2019/02/react-web-barcode-scanner-webcam.PNG)
 
 ## Blog
 [How to Build Web Barcode Apps with React and WebAssembly](https://www.codepool.biz/build-web-barcode-apps-react-wasm.html)
