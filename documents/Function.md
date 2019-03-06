@@ -1,6 +1,6 @@
 # Function
 
-  * [function .DeleteInstance()](function-deleteinstance.md)
+  * [function .deleteInstance()](function-deleteinstance.md)
   * [function dynamsoft.BarcodeReader.loadWasm()](function-dynamsoftbarcodereaderloadwasm.md)
   * [function .decodeVideo()](function-decodevideo.md)
   * [function .decodeVideo()](function-decodevideo1.md)
