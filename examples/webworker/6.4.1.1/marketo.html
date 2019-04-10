@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>  
+</head>
+
+<body>
+  <div>First Name: <input type="text" id="first" required/></div> 
+  <div>Last Name: <input type="text" id="last" required/></div> 
+  <div>Email: <input type="text" id="email" required/></div> 
+  <button id="submit">submit</button>
+  <!-- http://developers.marketo.com/rest-api/assets/forms/examples/ -->
+  <script src="//app-ab34.marketo.com/js/forms2/js/forms2.min.js"></script>
+  <form id="mktoForm_1023" style="visibility: hidden"></form>
+  <script>MktoForms2.loadForm("//app-ab34.marketo.com", "465-JJI-384", 1023);
+  document.getElementById('submit').onclick = function() {
+    
+    let first = document.getElementById('first').value;
+    let last = document.getElementById('last').value;
+    let email = document.getElementById('email').value;
+    MktoForms2.whenReady(function (form) {
+      var vals = form.vals();
+      // alert("Submitted values: " + JSON.stringify(vals));
+      form.vals({ "FirstName": first, "LastName": last, "Email": email, "resellerId": 90, "resellerPasswd": "98sdfdsf8", "LeadRole": "Reseller"});
+      form.submit();
+    });
+  }
+</script>
+</body>
+</html>
