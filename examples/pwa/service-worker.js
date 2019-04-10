@@ -1,4 +1,4 @@
-var cacheName = 'barcode-reader';
+var cacheName = 'barcode-reader-1';
 var filesToCache = [
   '/javascript-barcode/examples/pwa/',
   '/javascript-barcode/examples/pwa/index.html',
