@@ -44,7 +44,7 @@ WebAssembly compiles really slow in Safari for iOS according to our tests.
 
 ## Hello World Sample
 
-Copy the following code into an HTML file and run it in a web browser.
+1. Copy the following code into an HTML file `index.htm`.
 
 ```html
 <!DOCTYPE html>
@@ -85,6 +85,8 @@ Copy the following code into an HTML file and run it in a web browser.
 </body>
 </html>
 ```
+2. Deploy the file to [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).
+3. Open the page in a web browser.
 
 ## Change log
 
