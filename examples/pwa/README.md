@@ -17,9 +17,15 @@ Get a [FREE 30-day trial license](https://www.dynamsoft.com/CustomerPortal/Porta
 5. Visit your demo page via `https://<GitHub ID>.github.io/javascript-barcode/examples/pwa/`.
 
     ![PWA barcode reader](https://www.codepool.biz/wp-content/uploads/2019/04/pwa-barcode-reader.gif)
+    
+## Online Demo
+https://dynamsoft-dbr.github.io/javascript-barcode/examples/pwa/
 
 ## Reference
 - https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/
 - https://youtu.be/z2JgN6Ae-Bo
 - https://github.com/mdn/pwa-examples
 - https://www.goodbarber.com/blog/progressive-web-apps-feature-compatibility-based-on-the-browser-a883/
+
+## Blog
+[How to Build a Simple PWA Barcode Reader](https://www.codepool.biz/build-simple-pwa-barcode-reader.html)
