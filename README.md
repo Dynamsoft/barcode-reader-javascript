@@ -50,6 +50,7 @@ WebAssembly compiles really slow in Safari for iOS according to our tests.
 <!DOCTYPE html>
 <html>
 <body>
+    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
     <script>
         // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         BarcodeReader.licenseKey = 'LICENSE-KEY';
