@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.4.1.3
+Version 6.5.1
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -50,36 +50,17 @@ WebAssembly compiles really slow in Safari for iOS according to our tests.
 <!DOCTYPE html>
 <html>
 <body>
-    <div id="divLoadInfo">loading...</div>
-    <input id="uploadImage" type="file" accept="image/bmp,image/jpeg,image/png,image/gif" style="display:none">
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.3.min.js"></script>
     <script>
-        dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
-        var reader = null;
-        var iptEl = document.getElementById('uploadImage');
-        dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function(){
-            reader = new dynamsoft.BarcodeReader();
-            iptEl.style.display = '';
-            document.getElementById('divLoadInfo').innerHTML="load dbr wasm success.";
-        };
-        dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex){
-            document.getElementById('divLoadInfo').innerHTML="load wasm failed: "+(ex.message || ex);
-        };
-        
-        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        dynamsoft.dbrEnv.licenseKey = "t0068MgAAAITeFdSNvIYpkFMgjUw9+ssQhJwCsd78AhMIVO6NOdYfu1TQcDLwJvtO7y5bgYrZZXrq11jkf5UVL5Y5CVpb9nU=";
-        
-        iptEl.addEventListener('change', function(){
-            reader.decodeFileInMemory(this.files[0]).then(function(results){
-                var txts = [];
-                for(var i=0;i<results.length;++i){
-                    txts.push(results[i].BarcodeText);
-                }
-                alert(txts.join("\n"));
-            }).catch(ex => {
-                alert('error:' + (ex.message || ex));
-            });
-            this.value = '';
+        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        BarcodeReader.licenseKey = 'LICENSE-KEY';
+        let scanner = new BarcodeReader.Scanner({
+            onFrameRead: results => {console.log(results);},
+            onNewCodeRead: (txt, result) => {alert(txt);}
+        });
+        scanner.open().catch(ex=>{
+            console.log(ex);
+            alert(ex.message || ex);
+            scanner.close();
         });
     </script>
 </body>
@@ -89,6 +70,9 @@ WebAssembly compiles really slow in Safari for iOS according to our tests.
 3. Open the page in a web browser.
 
 ## Change log
+
+### 6.5.1
+Added video view for barcode scan.
 
 ### 6.4.1.3
 
