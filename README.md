@@ -16,7 +16,7 @@ If you want the `nodejs` version, please visit [dbr webassembly](https://github.
 
 <img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
 
-[Online Demo in Github](https://htmlpreview.github.io/?https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
+[Online Demo in Github](https://dynamsoft-dbr.github.io/javascript-barcode/examples/decodeVideoWithSettings/barcode_reader_javascript.html)
 
 [Online Demo in Dynamsoft](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html)
 
