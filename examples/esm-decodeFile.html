@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <input id="iptDecodeImg" type="file" accept="image/bmp,image/jpeg,image/png,image/gif">
+    <script type="module">
+        import BarcodeReader from 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.esm.min.js';
+        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+        BarcodeReader.licenseKey = "t0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=";
+        
+        let reader;
+        BarcodeReader.createInstance().then(r => reader = r );
+
+        document.getElementById('iptDecodeImg').addEventListener('change', function(){
+            if(!reader){return;}
+            reader.decode(this.files[0]).then(results => {
+                console.log(results);
+                var txts = [];
+                for(var i = 0; i < results.length; ++i){
+                    txts.push(results[i].BarcodeText);
+                }
+                alert(txts.join("\n"));
+                this.value = '';
+            });
+        });
+    </script>
+</body>
+</html>

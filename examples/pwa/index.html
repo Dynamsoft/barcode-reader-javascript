@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dynamsoft Barcode Reader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add to home screen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="BarcodeReader PWA">
+  <link rel="apple-touch-icon" href="icons/icon-152.png">
+
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="style.css">
+	<link rel="manifest" href="manifest.json">
+	<script src="dbr-6.5.0.2.min.js"></script>
+	<script src="app.js" defer></script>
+</head>
+<body>
+	<img src="loading.gif" style="margin-top:10px" id="anim-loading">
+  <div class="select">
+    <select id="videoSource"></select>
+  </div>
+  <div>
+    <div id="videoview">
+      <video muted autoplay id="videoContainer" playsinline="true"></video>
+      <canvas id="overlay" width="640" height="480"></canvas>
+    </div>
+    <div id="videoview-mobile">
+      <video muted autoplay id="videoContainer-mobile" playsinline="true"></video>
+      <canvas id="overlay-mobile" width="480" height="640"></canvas>
+    </div>
+    <canvas id="pcCanvas" width="640" height="480" style="display: none; float: bottom;"></canvas>
+    <canvas id="mobileCanvas" width="480" height="640" style="display: none; float: bottom;"></canvas>
+  </div>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>BarcodeReader | Dynamsoft BarcodeReader SDK for Javascript</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_dbr_wasm_d_.html">&quot;dbr-wasm.d&quot;</a>
+				</li>
+				<li>
+					<a href="../modules/_dbr_wasm_d_.dynamsoft.html">dynamsoft</a>
+				</li>
+				<li>
+					<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html">BarcodeReader</a>
+				</li>
+			</ul>
+			<h1>Class BarcodeReader</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Basic use:</p>
+						<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">'dbr-6.5.1.min.js'</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  <span class="hljs-comment">// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</span>
+  dbr.licenseKey = <span class="hljs-string">'t0068MgAAAFp16mlue6QjhALowH1tFQxdNVNrtUjMSK8RDezLrZkGAP1TelJQ0cLBLi/BxG3ksSIsZjY3IJX+UVauIe5Zdh4='</span>;
+  dbr.createInstance().then(<span class="hljs-function"><span class="hljs-params">reader</span>=&gt;</span>reader.decode(<span class="hljs-string">'./TestSmall.jpg'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">BarcodeReader</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumbarcodeformat.html" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumconflictmode.html" class="tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumerrorcode.html" class="tsd-kind-icon">Enum<wbr>Error<wbr>Code</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumimagepixelformat.html" class="tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumresulttype.html" class="tsd-kind-icon">Enum<wbr>Result<wbr>Type</a></li>
+								<li class="tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumterminatestage.html" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Stage</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.barcodereaderexception.html" class="tsd-kind-icon">Barcode<wbr>Reader<wbr>Exception</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html" class="tsd-kind-icon">Scanner</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.extendedresult.html" class="tsd-kind-icon">Extended<wbr>Result</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-kind-icon">Localization<wbr>Result</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scanneropencallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Open<wbr>Callback<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerplaycallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Play<wbr>Callback<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannersearchregion.html" class="tsd-kind-icon">Scanner<wbr>Search<wbr>Region</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerupdatedevicecallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Update<wbr>Device<wbr>Callback<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-kind-icon">Text<wbr>Result</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.videodeviceinfo.html" class="tsd-kind-icon">Video<wbr>Device<wbr>Info</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#_onwasmdownloaded" class="tsd-kind-icon">_on<wbr>Wasm<wbr>Downloaded</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#licensekey" class="tsd-kind-icon">license<wbr>Key</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decode" class="tsd-kind-icon">decode</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodebase64string" class="tsd-kind-icon">decode<wbr>Base64<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodebuffer" class="tsd-kind-icon">decode<wbr>Buffer</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodevideo" class="tsd-kind-icon">decode<wbr>Video</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#deleteinstance" class="tsd-kind-icon">delete<wbr>Instance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#getalllocalizationresults" class="tsd-kind-icon">get<wbr>All<wbr>Localization<wbr>Results</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#resetruntimesettings" class="tsd-kind-icon">reset<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#updateruntimesettings" class="tsd-kind-icon">update<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Barcode<wbr>Reader<span class="tsd-signature-symbol">(</span>licenseKey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-signature-type">BarcodeReader</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:34</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a BarcodeReader object. Can be used only after loading the decoding module.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> licenseKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-signature-type">BarcodeReader</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="_onwasmdownloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> _on<wbr>Wasm<wbr>Downloaded</h3>
+					<div class="tsd-signature tsd-kind-icon">_on<wbr>Wasm<wbr>Downloaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in dbr-wasm.d.ts:30</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A callback when wasm download success in browser environment.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="licensekey" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> license<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">license<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in dbr-wasm.d.ts:20</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Set the global licenseKey. If you do not specify a new licenseKey when creating a <code>BarcodeReader</code> object, the global licenseKey will be used.
+							Refer to <a href="https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx">https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</a> to get a try licenseKey.</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="decode" class="tsd-anchor"></a>
+					<h3>decode</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">decode<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:66</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The main decoding method can accept a variety of data types, including binary data, images, base64, urls, etc.
+									In the nodejs environment:</p>
+									<p>&nbsp;&nbsp;The method can accept Buffer, Uint8Array,</p>
+									<p>&nbsp;&nbsp;base64 with mimetype, disk relative paths, disk pair paths, and absolute URLs.</p>
+									<p>&nbsp;&nbsp;All data should be encoded as either jpg, png, bmp or gif.</p>
+									In the browser environment:
+									<p>&nbsp;&nbsp;The method can accept Blob, ArrayBuffer,</p>
+									<p>&nbsp;&nbsp;Uint8Array, Uint8ClampedArray, HTMLImageElement, HTMLCanvasElement, HTMLVideoElement,</p>
+									<p>&nbsp;&nbsp;base64 with mimetype, relative URLs, and absolute URLs.</p>
+									<p>&nbsp;&nbsp;For URLs you need to handle cross-domain issues yourself, otherwise the promise will fail.</p>
+									<p>&nbsp;&nbsp;Except HTMLCanvasElement and HTMLVideoElement, which have their own format,</p>
+									<p>&nbsp;&nbsp;the other Data should be encoded as either jpg, png, bmp or gif.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="decodebase64string" class="tsd-anchor"></a>
+					<h3>decode<wbr>Base64<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Base64<wbr>String<span class="tsd-signature-symbol">(</span>base64Str<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:99</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Decode base64 type image data with or without minetype.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>base64Str: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="decodebuffer" class="tsd-anchor"></a>
+					<h3>decode<wbr>Buffer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Buffer<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, enumImagePixelFormat<span class="tsd-signature-symbol">: </span><a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:109</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Decode the raw data from the image acquisition device / the image conversion.
+									Such as binary, binaryinverted, grayscaled, NV21, RGB555, RGB565, RGB888, ARGB888.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>source: <span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span></h5>
+								</li>
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>stride: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>enumImagePixelFormat: <a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="decodevideo" class="tsd-anchor"></a>
+					<h3>decode<wbr>Video</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Video<span class="tsd-signature-symbol">(</span>video<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Video<span class="tsd-signature-symbol">(</span>video<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLVideoElement</span>, dWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Video<span class="tsd-signature-symbol">(</span>video<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLVideoElement</span>, sx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:73</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Take a frame from the video, and then decode it.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>video: <span class="tsd-signature-type">HTMLVideoElement</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:80</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Take a frame from the video, zoom it to the specified size, and then decode it.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>video: <span class="tsd-signature-type">HTMLVideoElement</span></h5>
+								</li>
+								<li>
+									<h5>dWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>dHeight: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:92</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Take a frame from the specified area of the video, zoom it to the specified size, and then decode it.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>video: <span class="tsd-signature-type">HTMLVideoElement</span></h5>
+								</li>
+								<li>
+									<h5>sx: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sy: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sHeight: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>dWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>dHeight: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="deleteinstance" class="tsd-anchor"></a>
+					<h3>delete<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Instance<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:50</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destructor the <code>BarcodeReader</code> object.
+										When the <code>BarcodeReader</code> object is created, it will open up a space in memory that cannot be automatically reclaimed by js garbage collection.
+									You can manually call this method to destruct the <code>BarcodeReader</code> object to release this memory.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getalllocalizationresults" class="tsd-anchor"></a>
+					<h3>get<wbr>All<wbr>Localization<wbr>Results</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Localization<wbr>Results<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-signature-type">LocalizationResult</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:128</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get all localization barcode results. It contains all recognized barcodes and unrecognized barcodes.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-signature-type">LocalizationResult</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getruntimesettings" class="tsd-anchor"></a>
+					<h3>get<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:115</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get current settings and saves it into a struct.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="resetruntimesettings" class="tsd-anchor"></a>
+					<h3>reset<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">reset<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:124</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reset all parameters to default values.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="updateruntimesettings" class="tsd-anchor"></a>
+					<h3>update<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:120</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update runtime settings with a given struct.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>settings: <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="createinstance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> create<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Instance<span class="tsd-signature-symbol">(</span>licenseKey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-signature-type">BarcodeReader</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:44</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a BarcodeReader object. If the decoding module is not loaded, it will be loaded automatically.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> licenseKey: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-signature-type">BarcodeReader</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="isloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Loaded</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Loaded<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:34</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determine if the decoding module has been loaded successfully.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="loadwasm" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> load<wbr>Wasm</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Wasm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:26</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
+										Whether you have not started loading, loading, success, or failure, you can safely call <code>loadWasm</code> repeatedly.
+									If it has already been loaded, it will return to success immediately.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-kind-icon">Barcode<wbr>Reader</a>
+						<ul>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumbarcodeformat.html" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format</a>
+							</li>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumconflictmode.html" class="tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumerrorcode.html" class="tsd-kind-icon">Enum<wbr>Error<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumimagepixelformat.html" class="tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format</a>
+							</li>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumresulttype.html" class="tsd-kind-icon">Enum<wbr>Result<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-enum tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="../enums/_dbr_wasm_d_.dynamsoft.barcodereader.enumterminatestage.html" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Stage</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.barcodereaderexception.html" class="tsd-kind-icon">Barcode<wbr>Reader<wbr>Exception</a>
+							</li>
+							<li class=" tsd-kind-class tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html" class="tsd-kind-icon">Scanner</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.extendedresult.html" class="tsd-kind-icon">Extended<wbr>Result</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-kind-icon">Localization<wbr>Result</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scanneropencallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Open<wbr>Callback<wbr>Info</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerplaycallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Play<wbr>Callback<wbr>Info</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannersearchregion.html" class="tsd-kind-icon">Scanner<wbr>Search<wbr>Region</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerupdatedevicecallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Update<wbr>Device<wbr>Callback<wbr>Info</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.textresult.html" class="tsd-kind-icon">Text<wbr>Result</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.videodeviceinfo.html" class="tsd-kind-icon">Video<wbr>Device<wbr>Info</a>
+							</li>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#_onwasmdownloaded" class="tsd-kind-icon">_on<wbr>Wasm<wbr>Downloaded</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#licensekey" class="tsd-kind-icon">license<wbr>Key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decode" class="tsd-kind-icon">decode</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodebase64string" class="tsd-kind-icon">decode<wbr>Base64<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodebuffer" class="tsd-kind-icon">decode<wbr>Buffer</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#decodevideo" class="tsd-kind-icon">decode<wbr>Video</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#deleteinstance" class="tsd-kind-icon">delete<wbr>Instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#getalllocalizationresults" class="tsd-kind-icon">get<wbr>All<wbr>Localization<wbr>Results</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#resetruntimesettings" class="tsd-kind-icon">reset<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#updateruntimesettings" class="tsd-kind-icon">update<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

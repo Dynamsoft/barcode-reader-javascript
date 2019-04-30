@@ -31,14 +31,16 @@
       dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
       dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function () {
         window.reader = new dynamsoft.BarcodeReader();
+        window.dynamsoft = dynamsoft;
         document.getElementById('anim-loading').style.display = 'none';
       };
       dynamsoft.dbrEnv.onAutoLoadWasmError = function (ex) {
         document.getElementById('anim-loading').style.display = 'none';
         alert('Fail to load the wasm file.');
       };
+      dynamsoft.dbrEnv.bUseWorker = true;
 
-      //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+      // Get a free trial license from https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
       dynamsoft.dbrEnv.licenseKey = "<Your Barcode License>";
     </script>
     <div id="root"></div>
