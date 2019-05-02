@@ -197,7 +197,7 @@ You could insert a debug tool in our samples.
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 ```
-TODO: [Try in JSFiddle]()
+[Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
 
 Please click the button `console` in top right of the screen.
 
