@@ -89,6 +89,7 @@ Then just copy the following code into an html file and run it from file browser
 </body>
 </html>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/16gqLoe3/)
 
 <br>
 
@@ -192,8 +193,11 @@ Every time you open the page, the initialization will start only once. You can c
 You could insert a debug tool in our samples.
 
 ```html
+<!--any version jq is ok-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 ```
+TODO: [Try in JSFiddle]()
 
 Please click the button `console` in top right of the screen.
 
@@ -211,9 +215,6 @@ let scanner = new BarcodeReader.Scanner({
     // Refer [MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
     videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
     //The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.
-    // ```js
-    // scanner.runtimeSettings = {mAntiDamageLevel: 9, mDeblurLevel: 9};
-    // ```
     runtimeSettings: { mAntiDamageLevel: 9, mDeblurLevel: 9 },
     // The same code awlways alert? Set duplicateForgetTime longer.
     duplicateForgetTime: 10000,
@@ -225,7 +226,7 @@ scanner.duplicateForgetTime = 20000;
 scanner.onFrameRead = undefined;
 scanner.runtimeSettings.mBarcodeFormatIds = BarcodeReader.EnumBarcodeFormat.All;
 ```
-
+[Try in JSFiddle](https://jsfiddle.net/Keillion/gbwahsyp/)
 <br>
 
 ## Customize the UI
@@ -235,13 +236,15 @@ Try running the code below.
 <!DOCTYPE html>
 <html>
 <body>
-    <video class="dbrScanner-video" playsinline="true"></video>
+    <div id="div-video-container">
+        <video class="dbrScanner-video" playsinline="true"></video>
+    </div>
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
     <script>
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
         let scanner = new BarcodeReader.Scanner({
-            htmlElement: document.body,
+            htmlElement: document.getElementById('div-video-container'),
             onFrameRead: results => {console.log(results);},
             onNewCodeRead: (txt, result) => {alert(txt);}
         });
@@ -250,17 +253,20 @@ Try running the code below.
 </body>
 </html>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/0zo9ju72/)
 
 Now that we have defined the htmlElement to be the document body, you can customize the video source and resolution dropdown boxes. Here is how to add a source select dropdown when you have more than one video source:
 ```html
 <select class="dbrScanner-sel-camera"></select>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/csadqny1/)
 
 And here is how to add a resolution select dropdown menu:
 ```html
 <select class="dbrScanner-sel-resolution"></select>
 ```
-The dropdown will still show the same 8 options for the resolution.
+The dropdown will still show the same 8 options for the resolution. If the camera does not support the selected resolution, it will find the closest supported resolution.
+[Try in JSFiddle](https://jsfiddle.net/Keillion/oyxugLcf/)
 
 You can provide limited resolution options to avoid overwhelming the user. Here is how to do that, as well as hide the currently selected resolution:
 ```html
@@ -271,13 +277,15 @@ You can provide limited resolution options to avoid overwhelming the user. Here 
     <option data-width="640" data-height="480">640 x 480</option>
 </select>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/odf4eLvm/)
 
-Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. Here is how to play the video at the selected resolution:
+Here is how to play the video at a special resolution in js:
 ```js
 scanner.play(null, 1920, 1080).then(r=>{
-    console.log(r.width+'x'+r.height);
+    alert(r.width+'x'+r.height);
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/14ngeh5c/)
 
 Now suppose you do not want to use either of the select classes listed above. With the video reader object, you can use the API methods to populate any UI element you want to use.
 
@@ -287,47 +295,49 @@ For the device list, you can get source lists like this:
 ```js
 scanner.updateDevice().then(infos=>{
     // The camera currently in use
-    console.log(infos.current);
+    alert(JSON.stringify(infos.current, null, 2));
     // An array of all cameras
-    console.log(infos.all);
+    alert(JSON.stringify(infos.all, null, 2));
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/j7p5c6fb/)
 
 Get source lists during opening:
 ```js
 scanner.open().then(infos=>{
     // The resolution of the video currently playing
-    console.log(infos.width+'x'+infos.height);
-    console.log(infos.current);
-    console.log(infos.all);
+    alert(JSON.stringify(infos.width+'x'+infos.height, null, 2));
+    // The camera currently in use
+    alert(JSON.stringify(infos.current, null, 2));
+    // An array of all cameras
+    alert(JSON.stringify(infos.all, null, 2));
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/qpa5eyd9/)
 
-Select a camera by deviceId.
+Select a camera by deviceId:
 ```js
-// Play the first camera with the scanner already open.
+// Play the first camera.
 scanner.play(infos.all[0].deviceId);
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/qwsbzygp/)
 
-Select a friendly named camera during opening.
+Select a friendly named camera.
 Note that the camera may display different names on the browser in different environments or timings.
 So this is not a very safe practice.
 You need to test this code on your target browser.
 ```js
-scanner.updateDevice().then(infos=>{
+scanner.open().then(infos=>{
     for(let info of infos.all){
-        if(info.label == 'camera 0'){
-            scanner.videoSettings = {
-                video:{
-                    deviceId: info.deviceId
-                }
-            };
-            scanner.open();
+        if(info.label == 'Your camera name'){
+            scanner.play(info.deviceId);
             break;
         }
     }
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/a9mhu2sv/)
+
 In conclusion: 
 The device list is returned in the Promise result of `open` or `updateDevice`.
 You can then play the selected device using `open` or `play`(when already open).
@@ -356,6 +366,7 @@ let scanner = new BarcodeReader.Scanner({
     }
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/cgLo5dsb/)
 
 <br>
 
@@ -364,9 +375,10 @@ let scanner = new BarcodeReader.Scanner({
 If you are not interested in exhausting resources to read the entire video stream, you can choose to decode a specific region of the stream. Here is how:
 
 ```js
-// take a center 50% * 50% part of the video and resize the part to 25% * 25% of original video size before decode
-videoReader.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 0.25, dHeight: 0.25};
+// take a center 50% * 50% part of the video and resize the part to 1280 * 720 before decode
+scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1280, dHeight: 720};
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
 
 <br>
 
