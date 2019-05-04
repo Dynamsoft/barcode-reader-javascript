@@ -71,6 +71,7 @@ For those who are interested in the nodejs or the static images decoding, please
 * Require a camera that's not occupied by other application connected in the computer with the internet access
 
 Then just copy the following code into an html file and run it from file browser.
+<!--Deploy the file to [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).-->
 
 ```html
 <!DOCTYPE html>
@@ -404,11 +405,6 @@ Combined the normal and the mobile version into one.
 ### 6.3.0.2
 
 Added built-in Worker support.
-
-```js
-// The default value is false. By setting this value to true to decode in another thread, therefore UI wouldn't get stuck.
-dynamsoft.dbrEnv.bUseWorker = true;
-```
 
 ### 6.3.0.1
 

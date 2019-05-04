@@ -62,19 +62,21 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<p>﻿## Dynamsoft JavaScript Barcode SDK</p>
+				<!--main branch is tfs $/DBR/DBR_WASM/documents/guide.md-->
+				<h1 id="dynamsoft-javascript-barcode-sdk">Dynamsoft JavaScript Barcode SDK</h1>
 				<p>Version 6.5.1</p>
 				<p>The repository aims to help developers get familiar with <a href="https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx">Dynamsoft JavaScript Barcode SDK</a>.</p>
 				<p>This SDK supports decoding <strong>1D</strong>, <strong>PDF417</strong>, <strong>QR</strong>, <strong>DataMatrix</strong>, and <strong>Aztec</strong>.</p>
+				<p>The supported data sources include <code>Blob</code>, <code>HTMLImageElement</code>, <code>HTMLVideoElement</code>, URL and more.</p>
 				<p>You can create a web application or a nodejs application to decode the static images and the video steam within 3 minutes.</p>
 				<br>
-				<!-- ## TUDO
+				<!-- ## TODO
 
 Some places need to link to the api and need to make up.
 
 <br> -->
 				<h2 id="online-demo">Online Demo</h2>
-				<!-- <img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg"> -->
+				<img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
 				<p><a href="https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html">Online Demo in Dynamsoft</a></p>
 				<br>
 				<h2 id="browser-compatibility">Browser Compatibility</h2>
@@ -112,16 +114,21 @@ Some places need to link to the api and need to make up.
 				<br>
 				<h2 id="api-documentation">API Documentation</h2>
 				<p><a href="./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html">class BarcodeReader</a></p>
-				<!--[Guide](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/guide-original.md)
+				<p><a href="./classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html">class Scanner</a></p>
+				<!-- github -->
+				<!-- ## API Documentation
 
-[API Reference](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/api-original.md)-->
+[class BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+
+[class Scanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html) -->
+				<br>
 				<h2 id="preface">Preface</h2>
 				<p>In the followng section, I will introduce the basic functions of our SDK in your web application to decode barcode in the video stream. </p>
-				<p>For those who are interested in the nodejs or the static images decoding, please refer to the samples and api documents. I will get to that soon.</p>
+				<p>For those who are interested in the nodejs or the static images decoding, please refer to the samples and api documents. We will make up for these usages soon.</p>
+				<br>
 				<h2 id="helloworld">Helloworld</h2>
-				<h3 id="requirement">Requirement</h3>
 				<ul>
-					<li>a camera that&#39;s not occupied by other application connected in the computer with the internet access</li>
+					<li>Require a camera that&#39;s not occupied by other application connected in the computer with the internet access</li>
 				</ul>
 				<p>Then just copy the following code into an html file and run it from file browser.</p>
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
@@ -139,6 +146,7 @@ Some places need to link to the api and need to make up.
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/16gqLoe3/">Try in JSFiddle</a></p>
 				<br>
 				<p>You may see the following error after opening browser console.</p>
 				<blockquote>
@@ -211,19 +219,22 @@ Some places need to link to the api and need to make up.
 				<br>
 				<h3 id="debug-tool">Debug Tool</h3>
 				<p>You could insert a debug tool in our samples.</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-comment">&lt;!--any version jq is ok--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.4.1.slim.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/6czmrq5d/">Try in JSFiddle</a></p>
 				<p>Please click the button <code>console</code> in top right of the screen.</p>
 				<p>You could find dbr wasm version, initialization process and other useful info.</p>
 				<br>
 				<h2 id="configuring-scanner-settings">Configuring Scanner Settings</h2>
-				<p>The scanner interface comes with a number of properties, displayed here:</p>
-				<p>Example:</p>
+				<p>The scanner interface comes with a number of properties, displayed some of the most useful properties here for example:</p>
 				<pre><code class="language-js"><span class="hljs-comment">// Use config when new the object</span>
 <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">new</span> BarcodeReader.Scanner({
     <span class="hljs-comment">// Use back camera in mobile. Set width and height.</span>
+    <span class="hljs-comment">// Refer [MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).</span>
     videoSettings: { <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } },
-    <span class="hljs-comment">// If the camera can auto focus, give up too blur image to make decode quicker.</span>
-    runtimeSettings: { <span class="hljs-attr">mDeblurLevel</span>: <span class="hljs-number">0</span> },
+    <span class="hljs-comment">//The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.</span>
+    runtimeSettings: { <span class="hljs-attr">mAntiDamageLevel</span>: <span class="hljs-number">9</span>, <span class="hljs-attr">mDeblurLevel</span>: <span class="hljs-number">9</span> },
     <span class="hljs-comment">// The same code awlways alert? Set duplicateForgetTime longer.</span>
     duplicateForgetTime: <span class="hljs-number">10000</span>,
     <span class="hljs-attr">onFrameRead</span>: <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);},
@@ -231,20 +242,24 @@ Some places need to link to the api and need to make up.
 });
 <span class="hljs-comment">// change config</span>
 scanner.duplicateForgetTime = <span class="hljs-number">20000</span>;
-scanner.onFrameRead = <span class="hljs-literal">undefined</span>;</code></pre>
-				<br>
-				<h2 id="custom-the-ui">Custom the UI</h2>
-				<p>Try it.</p>
+scanner.onFrameRead = <span class="hljs-literal">undefined</span>;
+scanner.runtimeSettings.mBarcodeFormatIds = BarcodeReader.EnumBarcodeFormat.All;</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/gbwahsyp/">Try in JSFiddle</a>
+				<br></p>
+				<h2 id="customize-the-ui">Customize the UI</h2>
+				<p>Try running the code below.</p>
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"div-video-container"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-comment">//https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</span>
         BarcodeReader.licenseKey = <span class="hljs-string">'t0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4='</span>;
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">new</span> BarcodeReader.Scanner({
-            <span class="hljs-attr">htmlElement</span>: <span class="hljs-built_in">document</span>.body,
+            <span class="hljs-attr">htmlElement</span>: <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div-video-container'</span>),
             <span class="hljs-attr">onFrameRead</span>: <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);},
             <span class="hljs-attr">onNewCodeRead</span>: <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> {alert(txt);}
         });
@@ -252,11 +267,14 @@ scanner.onFrameRead = <span class="hljs-literal">undefined</span>;</code></pre>
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/0zo9ju72/">Try in JSFiddle</a></p>
 				<p>Now that we have defined the htmlElement to be the document body, you can customize the video source and resolution dropdown boxes. Here is how to add a source select dropdown when you have more than one video source:</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-camera"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/csadqny1/">Try in JSFiddle</a></p>
 				<p>And here is how to add a resolution select dropdown menu:</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-resolution"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
-				<p>The dropdown will still show the same 8 options for the resolution.</p>
+				<p>The dropdown will still show the same 8 options for the resolution. If the camera does not support the selected resolution, it will find the closest supported resolution.
+				<a href="https://jsfiddle.net/Keillion/oyxugLcf/">Try in JSFiddle</a></p>
 				<p>You can provide limited resolution options to avoid overwhelming the user. Here is how to do that, as well as hide the currently selected resolution:</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-resolution"</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- &lt;option class="dbrScanner-opt-gotResolution" value="got"&gt;&lt;/option&gt; --&gt;</span>
@@ -264,40 +282,52 @@ scanner.onFrameRead = <span class="hljs-literal">undefined</span>;</code></pre>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">data-width</span>=<span class="hljs-string">"1280"</span> <span class="hljs-attr">data-height</span>=<span class="hljs-string">"720"</span>&gt;</span>1280 x 720<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">data-width</span>=<span class="hljs-string">"640"</span> <span class="hljs-attr">data-height</span>=<span class="hljs-string">"480"</span>&gt;</span>640 x 480<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
-				<p>Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. Here is how to play the video at the selected resolution:</p>
+				<p><a href="https://jsfiddle.net/Keillion/odf4eLvm/">Try in JSFiddle</a></p>
+				<p>Here is how to play the video at a special resolution in js:</p>
 				<pre><code class="language-js">scanner.play(<span class="hljs-literal">null</span>, <span class="hljs-number">1920</span>, <span class="hljs-number">1080</span>).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{
-    <span class="hljs-built_in">console</span>.log(r.width+<span class="hljs-string">'x'</span>+r.height);
+    alert(r.width+<span class="hljs-string">'x'</span>+r.height);
 });</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/14ngeh5c/">Try in JSFiddle</a></p>
 				<p>Now suppose you do not want to use either of the select classes listed above. With the video reader object, you can use the API methods to populate any UI element you want to use.</p>
 				<p>For creating the resolution list, the UI element will need to be manually populated as shown in the a couple of code snippets ago.</p>
 				<p>For the device list, you can get source lists like this:</p>
 				<pre><code class="language-js">scanner.updateDevice().then(<span class="hljs-function"><span class="hljs-params">infos</span>=&gt;</span>{
-    <span class="hljs-built_in">console</span>.log(infos.current);
-    <span class="hljs-built_in">console</span>.log(infos.all);
+    <span class="hljs-comment">// The camera currently in use</span>
+    alert(<span class="hljs-built_in">JSON</span>.stringify(infos.current, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    <span class="hljs-comment">// An array of all cameras</span>
+    alert(<span class="hljs-built_in">JSON</span>.stringify(infos.all, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
 });</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/j7p5c6fb/">Try in JSFiddle</a></p>
 				<p>Get source lists during opening:</p>
 				<pre><code class="language-js">scanner.open().then(<span class="hljs-function"><span class="hljs-params">infos</span>=&gt;</span>{
-    <span class="hljs-built_in">console</span>.log(infos.width+<span class="hljs-string">'x'</span>+infos.height);
-    <span class="hljs-built_in">console</span>.log(infos.current);
-    <span class="hljs-built_in">console</span>.log(infos.all);
+    <span class="hljs-comment">// The resolution of the video currently playing</span>
+    alert(<span class="hljs-built_in">JSON</span>.stringify(infos.width+<span class="hljs-string">'x'</span>+infos.height, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    <span class="hljs-comment">// The camera currently in use</span>
+    alert(<span class="hljs-built_in">JSON</span>.stringify(infos.current, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
+    <span class="hljs-comment">// An array of all cameras</span>
+    alert(<span class="hljs-built_in">JSON</span>.stringify(infos.all, <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));
 });</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/qpa5eyd9/">Try in JSFiddle</a></p>
 				<p>Select a camera by deviceId:</p>
-				<pre><code class="language-js">scanner.play(infos.all[<span class="hljs-number">0</span>].deviceId);</code></pre>
-				<p>Select a friendly named camera during opening:</p>
-				<pre><code class="language-js">scanner.updateDevice().then(<span class="hljs-function"><span class="hljs-params">infos</span>=&gt;</span>{
+				<pre><code class="language-js"><span class="hljs-comment">// Play the first camera.</span>
+scanner.play(infos.all[<span class="hljs-number">0</span>].deviceId);</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/qwsbzygp/">Try in JSFiddle</a></p>
+				<p>Select a friendly named camera.
+					Note that the camera may display different names on the browser in different environments or timings.
+					So this is not a very safe practice.
+				You need to test this code on your target browser.</p>
+				<pre><code class="language-js">scanner.open().then(<span class="hljs-function"><span class="hljs-params">infos</span>=&gt;</span>{
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> info <span class="hljs-keyword">of</span> infos.all){
-        <span class="hljs-keyword">if</span>(info.label == <span class="hljs-string">'camera 0'</span>){
-            scanner.videoSettings = {
-                <span class="hljs-attr">video</span>:{
-                    <span class="hljs-attr">deviceId</span>: info.deviceId
-                }
-            };
-            scanner.open();
+        <span class="hljs-keyword">if</span>(info.label == <span class="hljs-string">'Your camera name'</span>){
+            scanner.play(info.deviceId);
             <span class="hljs-keyword">break</span>;
         }
     }
 });</code></pre>
-				<p>The device list is returned in the Promise result of <code>open</code> or <code>updateDevice</code>. You can then play the selected device using <code>play</code> or <code>open</code>.</p>
+				<p><a href="https://jsfiddle.net/Keillion/a9mhu2sv/">Try in JSFiddle</a></p>
+				<p>In conclusion:
+					The device list is returned in the Promise result of <code>open</code> or <code>updateDevice</code>.
+				You can then play the selected device using <code>open</code> or <code>play</code>(when already open).</p>
 				<h2 id="how-to-complete-a-form-using-the-barcode-reader">How to complete a form using the Barcode Reader</h2>
 				<p>Based on the HTML code snippet with the custom UI elements, let&#39;s add some input tags.</p>
 				<p>Adding three <code>&lt;input&gt;</code> elements:</p>
@@ -315,20 +345,44 @@ scanner.onFrameRead = <span class="hljs-literal">undefined</span>;</code></pre>
         }
     }
 });</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/cgLo5dsb/">Try in JSFiddle</a></p>
+				<br>
 				<h2 id="decode-part-of-video">Decode Part of Video</h2>
 				<p>If you are not interested in exhausting resources to read the entire video stream, you can choose to decode a specific region of the stream. Here is how:</p>
-				<pre><code class="language-js"><span class="hljs-comment">// take a center 50% * 50% part of the video and resize the part to 25% * 25% of original video size before decode</span>
-videoReader.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">0.25</span>};</code></pre>
+				<pre><code class="language-js"><span class="hljs-comment">// take a center 50% * 50% part of the video and resize the part to 1280 * 720 before decode</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">720</span>};</code></pre>
+				<p><a href="https://jsfiddle.net/Keillion/z42orbkj/">Try in JSFiddle</a></p>
+				<br>
+				<h2 id="change-log">Change log</h2>
+				<h3 id="6-5-1">6.5.1</h3>
+				<p>Added video view for barcode scan. Compatible with nodejs.</p>
+				<h3 id="6-4-1-3">6.4.1.3</h3>
+				<p>The <code>dbr-6.4.1.3.wasm</code> size is now reduced to 3.41M.</p>
+				<h3 id="6-4-1-1">6.4.1.1</h3>
+				<p>Fixed a memory leak related to <code>mTimeout</code> in <code>RuntimeSettings</code>.</p>
+				<h3 id="6-4-1-0">6.4.1.0</h3>
+				<p>Built Dynamsoft Barcode Reader 6.4.1 to JS(WebAssembly) version.</p>
+				<p>Combined the normal and the mobile version into one.</p>
+				<h3 id="6-3-0-2">6.3.0.2</h3>
+				<p>Added built-in Worker support.</p>
+				<h3 id="6-3-0-1">6.3.0.1</h3>
+				<p>Set <code>dbr-&lt;version&gt;.js</code>(stable) as the main branch.</p>
+				<p>Added <code>dbr-&lt;version&gt;.mobile.js</code>(smaller, compiles quicker, requires less memory, but not as stable) for mobile Safari.</p>
+				<h3 id="6-3-0">6.3.0</h3>
+				<p>Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.</p>
+				<br>
+				<h2 id="contact-us">Contact Us</h2>
+				<p>If there is any questions, please feel free to contact <a href="mailto:&#115;&#117;&#x70;&#112;&#x6f;&#x72;&#116;&#x40;&#100;&#121;&#x6e;&#x61;&#x6d;&#x73;&#x6f;&#x66;&#116;&#46;&#x63;&#x6f;&#109;">&#115;&#117;&#x70;&#112;&#x6f;&#x72;&#116;&#x40;&#100;&#121;&#x6e;&#x61;&#x6d;&#x73;&#x6f;&#x66;&#116;&#46;&#x63;&#x6f;&#109;</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
 					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+						<a href="./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html"><em>class BarcodeReader</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_dbr_wasm_d_.html">"dbr-<wbr>wasm.d"</a>
+						<a href="./classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html"><em>class Scanner</em></a>
 					</li>
 				</ul>
 			</nav>
