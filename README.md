@@ -10,7 +10,7 @@ This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Azt
 
 The supported data sources include `Blob`, `HTMLImageElement`, `HTMLVideoElement`, URL and more.
 
-You can create a web application or a nodejs application to decode the static images and the video steam within 3 minutes.
+You can create a web application or a nodejs application to decode the static images and the video stream within 3 minutes.
 
 <br>
 
@@ -52,17 +52,17 @@ Some places need to link to the api and need to make up.
 
 ## Preface
 
-In the followng section, I will introduce the basic functions of our SDK in your web application to decode barcode in the video stream. 
+In the following section, I will introduce the basic functions of our SDK in your web application to decode barcodes in the video stream. 
 
-For those who are interested in the nodejs or the static images decoding, please refer to the samples and api documents. We will make up for these usages soon.
+For those who are interested in the Node.js or the static images decoding, please refer to the samples and API documents. We will make up for these usages soon.
 
 <br>
 
 ## Helloworld
 
-* Require a camera that's not occupied by other application connected in the computer with the internet access
+* Require a camera that's not occupied by other application connected in the computer with the Internet access
 
-Then just copy the following code into an html file and run it from file browser.
+Then just copy the following code into an HTML file and run it from the file browser.
 <!--Deploy the file to [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb).-->
 
 ```html
@@ -86,7 +86,7 @@ Then just copy the following code into an html file and run it from file browser
 
 <br>
 
-You may see the following error after opening browser console.
+You may see the following error after the opening browser console.
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
@@ -94,11 +94,11 @@ In Safari 12 the error is like this.
 
 > Trying to call getUserMedia from an insecure document.
 
-If you encounter into this issue, the simplest way is to open this file in a newer version of Firefox or Chrome. We will come to this issue in detail in the following sections.
+If you encounter this issue, the simplest way is to open this file in a newer version of Firefox or Chrome. We will come to this issue in detail in the following sections.
 
 <br>
 
-If everything goes on normally, there will be a pop-up from the browser asking for the permission of the camera. Please allow it and then you will see the video stream in the default UI of our scanner. The drop-down list on the left-top corner can be used for changing the video source and the resolution. The button on the right-top are for closing the scanner. After a while with all the resources loaded, you can see some arrays in the browser console.
+If everything goes on normally, there will be a pop-up from the browser asking for the permission of the camera. Please allow it and then you will see the video stream in the default UI of our scanner. The drop-down list on the left-top corner can be used for changing the video source and the resolution. The button on the right-top is for closing the scanner. After a while with all the resources loaded, you can see some arrays in the browser console.
 
 * onFrameRead:
 
@@ -106,7 +106,7 @@ If everything goes on normally, there will be a pop-up from the browser asking f
 
 * onNewCodeRead:
 
-  This event is triggered when a not duplicated new barcode is found. `txt` holds the barcode text result. `result` contains the actual barcode result, including the text result. Old barcode will remember for `duplicateForgetTime`.
+  This event is triggered when a not duplicated new barcode is found. `txt` holds the barcode text result. The `result` contains the actual barcode result, including the text result. The old barcode will remember for `duplicateForgetTime`.
 
 <br>
 
