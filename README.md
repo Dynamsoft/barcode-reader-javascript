@@ -80,7 +80,7 @@ Then just copy the following code into an html file and run it from file browser
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
     <script>
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
+        BarcodeReader.licenseKey = 'LICENSE-KEY';
         let scanner = new BarcodeReader.Scanner({
             onFrameRead: results => {console.log(results);},
             onNewCodeRead: (txt, result) => {alert(txt);}
