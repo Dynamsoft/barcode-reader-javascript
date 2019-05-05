@@ -44,14 +44,6 @@ Some places need to link to the api and need to make up.
 
 ## API Documentation
 
-<!-- [class BarcodeReader](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
-
-[class Scanner](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html) -->
-
-<!-- github -->
-
-## API Documentation
-
 [class BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
 
 [class Scanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html)
