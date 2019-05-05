@@ -170,12 +170,12 @@ After deploying the site to https server, the browser might say "the site is not
 
 ## Initialization
 
-You might notice that the decoding process doesn't start immediately. It's because our library needs some time for the initialization including downloading the resources and compile them. If the helloworld is deployed, the program will cache the wasm file in the indexDB to speed the download up. You can check the download status with the `_onWasmDownloaded`callback. Please note this functions is only triggered in the first visit because that's the only time the download of the wasm files is require.
+You might notice that the decoding process doesn't start immediately. It's because our library needs some time for the initialization including downloading the resources and compile them. If the helloworld is deployed, the program will cache the wasm file in the indexDB to speed the download up. You can check the download status with the `_onWasmDownloaded`callback. Please note this function is only triggered in the first visit because that's the only time the download of the wasm files is required.
 
 
 Every time you open the page, the initialization will start only once. You can check with the `isLoaded` function to see if it's successful.
 
-`loadWasm` is the most basic function for initialization, you can call it over and over again or add it in your page initialization to speed up. The promise will be resolved if the initialization is done. 
+The `loadWasm` is the most basic function for initialization, you can call it over and over again or add it in your page initialization to speed up. The promise will be resolved if the initialization is done. 
 
 `createInstance` and `Scanner.open` will call `loadWasm` on the backend so no initialization is required for those functions.
 
@@ -192,15 +192,15 @@ You could insert a debug tool in our samples.
 ```
 [Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
 
-Please click the button `console` in top right of the screen.
+Please click the button `console` in the top right of the screen.
 
-You could find dbr wasm version, initialization process and other useful info.
+You could find dbr wasm version, initialization process, and other useful info.
 
 <br>
 
 ## Configuring Scanner Settings
 
-The scanner interface comes with a number of properties, displayed some of the most useful properties here for example:
+The scanner interface comes with a number of properties. For example:
 ```js
 // Use config when new the object
 let scanner = new BarcodeReader.Scanner({
