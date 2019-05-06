@@ -413,3 +413,6 @@ Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 ## Contact Us
 
 If there is any questions, please feel free to contact <support@dynamsoft.com>.
+
+## License Agreement
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
