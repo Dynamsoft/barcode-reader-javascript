@@ -10,7 +10,7 @@ This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Azt
 
 The supported data sources include `Blob`, `HTMLImageElement`, `HTMLVideoElement`, URL and more.
 
-You can create a web application or a nodejs application to decode the static images and the video stream within 3 minutes.
+You can create a web application or a Node.js application to decode the static images and the video stream within 3 minutes.
 
 <br>
 
@@ -31,7 +31,7 @@ Some places need to link to the api and need to make up.
 ## Browser Compatibility
 
 | Browser | Version |
-|-|-|
+|:-:|:-:|
 | Chrome | v57+ |
 | Firefox | v52+ |
 | Edge | v16+ |
@@ -112,11 +112,13 @@ If everything goes on normally, there will be a pop-up from the browser asking f
 
 ## Implementation
 
-You used the js in our site in the helloword which can load other js and wasm files.
+In the previous helloworld, you used the js deployed at www.dynamsoft.com.
+
+When you load `dbr- <version> .min.js` (UMD) or `dbr- <version> .esm.min.js` (ES module), it will automatically load the other necessary js and wasm files.
 
 <br>
 
-When you are deploying your own application, you will need a web server and deploy the resourced under `dist` to your server.
+When you are deploying your own application, you will need a web server and deploy the resources under `dist` to your server.
 
 Required files:
 
@@ -144,7 +146,7 @@ Please check the settings below for different environments.
 
 * set mimetype in javaee web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
     
-* set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
+* set mimetype in Node.js: [npm mime](https://github.com/broofa/node-mime)
 
 <br>
 
@@ -160,11 +162,11 @@ That's because most browsers today need to be deployed on https to use [getUserM
 
 * tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 
-* nodejs: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+* Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
 <br>
 
-After deploying the site to https server, the browser might say "the site is not secure". It's because we are using a self-certificated certification. Please go to advanced and keep visiting. The issue should all be gone even in Safari. You may change the certification to a formal one in production.
+After deploying the site to https server, the browser might say "the site is not secure". It's because we are using a self-certified certification. Please go to advanced and keep visiting. The issue should all be gone even in Safari. You may change the certification to a formal one in production.
 
 <br>
 
@@ -378,7 +380,7 @@ scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1
 ## Change log
 
 ### 6.5.1
-Added video view for barcode scan. Compatible with nodejs.
+Added video view for barcode scan. Compatible with Node.js.
 
 ### 6.4.1.3
 
