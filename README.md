@@ -86,7 +86,7 @@ Then just copy the following code into an HTML file and run it from the file bro
 
 <br>
 
-You may see the following error after the opening browser console.
+You may see the following error in the browser console.
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
