@@ -6,7 +6,7 @@ Version 6.5.1
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
-This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Aztec**.
+This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Aztec** barcodes.
 
 The supported data sources include `Blob`, `HTMLImageElement`, `HTMLVideoElement`, URL and more.
 
@@ -60,17 +60,17 @@ Some places need to link to the api and need to make up.
 
 ## Preface
 
-In the followng section, I will introduce the basic functions of our SDK in your web application to decode barcode in the video stream. 
+In the followng section, we will introduce the basic functions of the SDK and how you can use it in a web application to decode barcodes off a video stream. 
 
-For those who are interested in the nodejs or the static images decoding, please refer to the samples and api documents. We will make up for these usages soon.
+For those who are interested in creating a nodejs app, or decoding static images, please refer to the samples and api documents. This guide tackles decoding from a video, and we will make up for other usages soon.
 
 <br>
 
-## Helloworld
+## HelloWorld
 
-* Require a camera that's not occupied by other application connected in the computer with the internet access
+Before testing the HelloWorld sample, please note that you will require a connected camera that is not occupied by another application, as well as an internet connection.
 
-Then just copy the following code into an html file and run it from file browser.
+Now just copy the following code into an html file and run it directly from the browser:
 
 ```html
 <!DOCTYPE html>
@@ -92,19 +92,19 @@ Then just copy the following code into an html file and run it from file browser
 
 <br>
 
-You may see the following error after opening browser console.
+You may see the following error after opening the browser console:
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
-In Safari 12 the error is like this.
+In Safari 12 the same error is displayed as such:
 
 > Trying to call getUserMedia from an insecure document.
 
-If you encounter into this issue, the simplest way is to open this file in a newer version of Firefox or Chrome. We will come to this issue in detail in the following sections.
+If you encounter this issue, the simplest way to resolve it is to open the file in a newer version of Firefox or Chrome. We will tackle this issue in detail in the coming sections.
 
 <br>
 
-If everything goes on normally, there will be a pop-up from the browser asking for the permission of the camera. Please allow it and then you will see the video stream in the default UI of our scanner. The drop-down list on the left-top corner can be used for changing the video source and the resolution. The button on the right-top are for closing the scanner. After a while with all the resources loaded, you can see some arrays in the browser console.
+If everything goes normally, there will be a pop-up from the browser asking for permission of the camera. After allowing access, you will see the video stream in the default UI of our scanner. The drop-down lists on the top left corner can be used for changing the video source and resolution. The button on the top right is for closing the scanner. After all the resources are loaded, you will see some arrays in the browser console. This array is the barcode results array that is being printed in the console once a new frame is read. Now to properly introduce the two main events used by the scanner:
 
 * onFrameRead:
 
@@ -112,19 +112,19 @@ If everything goes on normally, there will be a pop-up from the browser asking f
 
 * onNewCodeRead:
 
-  This event is triggered when a not duplicated new barcode is found. `txt` holds the barcode text result. `result` contains the actual barcode result, including the text result. Old barcode will remember for `duplicateForgetTime`.
+  This event is triggered when a new barcode (not a duplicate) is found. `txt` holds the barcode text result. `result` contains the actual barcode result, including the text result. Any new barcodes that were found (or any old barcodes that were found) are going to be stored for the duration of `duplicateForgetTime`.
 
 <br>
 
 ## Implementation
 
-You used the js in our site in the helloword which can load other js and wasm files.
+In the HelloWorld sample, you used the min.js hosted on our site, which can load the other required js and wasm files.
 
 <br>
 
-When you are deploying your own application, you will need a web server and deploy the resourced under `dist` to your server.
+To deploy your own application, you will need a web server and deploy the resources under a folder named `dist` to your server.
 
-Required files:
+Required files in `dist`:
 
 `dbr-<version>.min.js`
 
@@ -154,11 +154,11 @@ Please check the settings below for different environments.
 
 <br>
 
-Now you can deploy the helloword in the web server and acess it from your own server. The similar issue occurs again.
+Now you can deploy the HelloWorld sample in your own web server and access it from there. You may encounter this issue when doing so:
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
-That's because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). Below are some samples for configuring an HTTPS server.
+That is because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). Below are some samples for configuring an HTTPS server.
 
 * nginx: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
 
@@ -170,40 +170,41 @@ That's because most browsers today need to be deployed on https to use [getUserM
 
 <br>
 
-After deploying the site to https server, the browser might say "the site is not secure". It's because we are using a self-certificated certification. Please go to advanced and keep visiting. The issue should all be gone even in Safari. You may change the certification to a formal one in production.
+After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certification. Please go to the certificate settings and allow this certificate. The issue should all be gone even in Safari. You may change the certification to a formal one in production.
 
 <br>
 
 ## Initialization
 
-You might notice that the decoding process doesn't start immediately. It's because our library needs some time for the initialization including downloading the resources and compile them. If the helloworld is deployed, the program will cache the wasm file in the indexDB to speed the download up. You can check the download status with the `_onWasmDownloaded`callback. Please note this functions is only triggered in the first visit because that's the only time the download of the wasm files is require.
+Our library needs some time for  initialization, including downloading the resources and compiling them, so you might notice that the decoding process doesn't start immediately. If the HelloWorld sample is deployed, the program will cache the wasm file in the indexedDB to speed the download up.
 
+You can check the download status of the WebAssembly component with the `_onWasmDownloaded` callback. Please note this function is only triggered during the first visit because that's the only time the wasm files are downloaded.
 
-Every time you open the page, the initialization will start only once. You can check with the `isLoaded` function to see if it's successful.
+Every time you open the page, initialization will take place only once. You can use the `isLoaded` function to see if the initialization was successful.
 
-`loadWasm` is the most basic function for initialization, you can call it over and over again or add it in your page initialization to speed up. The promise will be resolved if the initialization is done. 
+`loadWasm` is the basic function for initialization. You can call it over and over again, or add it in the page initialization to speed up the whole process. The returned promise will be resolved once the initialization is done. 
 
-`createInstance` and `Scanner.open` will call `loadWasm` on the backend so no initialization is required for those functions.
+`createInstance` (or using the `Scanner` constructor) and `scanner.open` will call `loadWasm` on the backend so no initialization is required for those functions. Therefore, it is not necessary to explicitly call `loadWasm` to initialize the library if you are directly using the constructor.
 
 <br>
 
 ### Debug Tool
 
-You could insert a debug tool in our samples.
+In case you need to debug your sample application, you could insert the following debug tool:
 
 ```html
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 ```
 
-Please click the button `console` in top right of the screen.
+Please click the `console` button in top right of the screen.
 
-You could find dbr wasm version, initialization process and other useful info.
+The console will show the dbr wasm version, initialization process, and other useful info.
 
 <br>
 
 ## Configuring Scanner Settings
 
-The scanner interface comes with a number of properties, displayed some of the most useful properties here for example:
+The scanner interface comes with a number of properties, some of the most useful being shown here:
 ```js
 // Use config when new the object
 let scanner = new BarcodeReader.Scanner({
@@ -220,11 +221,19 @@ let scanner = new BarcodeReader.Scanner({
     onFrameRead: results => {console.log(results);},
     onNewCodeRead: (txt, result) => {alert(txt);}
 });
-// change config
+// change initial configuration settings
 scanner.duplicateForgetTime = 20000;
 scanner.onFrameRead = undefined;
 scanner.runtimeSettings.mBarcodeFormatIds = BarcodeReader.EnumBarcodeFormat.All;
 ```
+Now that you have seen how to set and change these properties, here is a full list of the properties:
+* `htmlElement`: The HTML element that will contain the video reader object should you choose to customize the UI. We will dig a little deeper into this in the next section.
+* `videoSettings`: Defines the different settings of the video stream. These settings include the resolution and facing mode. Please visit this [link](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax) for more information on these video settings.
+* `confidence`: This property is mainly related to 1D barcodes. If the confidence of a 1D barcode result is greater than 30, that is a reliable result which you can move forward with. Otherwise, it is recommended that the scan process is restarted so that a more confident result is produced.
+* `intervalTime`: The time interval between finding a result and starting a new scan.
+* `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
+* `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
+
 
 <br>
 
