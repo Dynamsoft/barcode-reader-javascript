@@ -1,55 +1,36 @@
 import { Component } from '@angular/core';
+import { ViewChild } from '@angular/core';
+
+import { environment } from 'src/environments/environment';
 
 declare var dynamsoft: any;
 
 @Component({
-	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: [ './app.component.css' ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-	title = 'Dynamsoft Barcode Reader';
-	results = '';
-	reader;
+  title = 'Dynamsoft Barcode Reader';
+  results = '';
+  scanner;
 
-	constructor() {
-		const env = this;
-		dynamsoft.dbrEnv = dynamsoft.dbrEnv || {};
-		dynamsoft.dbrEnv.resourcesPath = 'https://demo.dynamsoft.com/dbr_wasm/js';
-		//https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-		dynamsoft.dbrEnv.licenseKey =
-			't0068NQAAADAG7KITlB55pjkzxD1rnTRhcZ/KCqVoXp6vWXmjRUbhvkCl58F+mqFnhIo1Oul/qB0moA8nA1erzTPYsb4FVLk=';
-		dynamsoft.dbrEnv.bUseWorker = true;
-		dynamsoft.dbrEnv.onAutoLoadWasmSuccess = function() {
-			env.reader = new dynamsoft.BarcodeReader();
-			document.getElementById('anim-loading').style.display = 'none';
-		};
-		dynamsoft.dbrEnv.onAutoLoadWasmError = function(ex) {
-			alert(ex);
-		};
+  constructor() {
+    var env = this;
 		
-		let script = document.getElementById('script');
-		(<HTMLScriptElement >script).src = 'https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.4.1.3.min.js';
-	}
+	dynamsoft.BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
+	
+	env.scanner = new dynamsoft.BarcodeReader.Scanner({
+		onFrameRead: results => {console.log(results);},
+		onNewCodeRead: (txt, result) => {alert(txt);}
+	});
+	
+	env.scanner.open().catch(ex=>{
+		console.log(ex);
+		alert(ex.message || ex);
+		env.scanner.close();
+	});
+    
+  }
 
-	readBarcode(): void {
-		const env = this;
-		let image = (<HTMLInputElement>document.getElementById('uploadImage')).files[0];
-		if (!image) {
-			alert('Please add an image');
-			return;
-		}
-		this.reader
-			.decodeFileInMemory(image)
-			.then(function(results) {
-				var txts = [];
-				for (var i = 0; i < results.length; ++i) {
-					txts.push(results[i].BarcodeText);
-				}
-				env.results = JSON.stringify(txts);
-			})
-			.catch((ex) => {
-				alert(ex);
-			});
-	}
 }
