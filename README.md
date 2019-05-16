@@ -239,18 +239,22 @@ Now that you have seen how to set and change these properties, here is a full li
 
 ## Customize the UI
 
+The Barcode Reader gives you the freedom to use your own UI for the video scanner, and in this next section, we will explore how to configure the reader to allow for custom UI.
+
 Try running the code below.
 ```html
 <!DOCTYPE html>
 <html>
 <body>
-    <video class="dbrScanner-video" playsinline="true"></video>
+    <div id="div-video-container">
+        <video class="dbrScanner-video" playsinline="true"></video>
+    </div>
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
     <script>
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
         BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
         let scanner = new BarcodeReader.Scanner({
-            htmlElement: document.body,
+            htmlElement: document.getElementById('div-video-container'),
             onFrameRead: results => {console.log(results);},
             onNewCodeRead: (txt, result) => {alert(txt);}
         });
@@ -259,19 +263,46 @@ Try running the code below.
 </body>
 </html>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/0zo9ju72/)
 
-Now that we have defined the htmlElement to be the document body, you can customize the video source and resolution dropdown boxes. Here is how to add a source select dropdown when you have more than one video source:
+Now that we have defined the htmlElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
 ```html
 <select class="dbrScanner-sel-camera"></select>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/csadqny1/)
 
-And here is how to add a resolution select dropdown menu:
+As for adding a resolution select dropdown menu:
 ```html
 <select class="dbrScanner-sel-resolution"></select>
 ```
-The dropdown will still show the same 8 options for the resolution.
+The dropdown will still show the same 8 options for the resolution if you do not manually define the resolution options.
 
-You can provide limited resolution options to avoid overwhelming the user. Here is how to do that, as well as hide the currently selected resolution:
+[Try in JSFiddle](https://jsfiddle.net/Keillion/oyxugLcf/)
+
+You can provide limited resolution options to avoid overwhelming the user. Here is the HTML code for how to do that:
+```html
+<select class="dbrScanner-sel-resolution">
+    <!-- <option class="dbrScanner-opt-gotResolution" value="got"></option> -->
+    <option data-width="1920" data-height="1080">1920 x 1080</option>
+    <option data-width="1280" data-height="720">1280 x 720</option>
+    <option data-width="640" data-height="480">640 x 480</option>
+</select>
+```
+Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. The "dbrScanner-opt-gotResolution" class option of the dropdown menu (shown above) indicates which resolution is currently being used.
+
+[Try in JSFiddle](https://jsfiddle.net/Keillion/odf4eLvm/)
+
+To play the video at the selected resolution:
+```js
+scanner.play(null, 1920, 1080).then(r=>{
+    console.log(r.width+'x'+r.height);
+});
+```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/14ngeh5c/)
+
+Now suppose you do not want to use either of the select classes listed above for the video source and resolution dropdown boxes. You can use the API methods to populate any HTML element you want to use.
+
+For creating the resolution list, the UI element will need to be manually populated as shown a couple of code snippets ago. Here it is again for reference:
 ```html
 <select class="dbrScanner-sel-resolution">
     <!-- <option class="dbrScanner-opt-gotResolution" value="got"></option> -->
@@ -281,71 +312,60 @@ You can provide limited resolution options to avoid overwhelming the user. Here 
 </select>
 ```
 
-Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. Here is how to play the video at the selected resolution:
-```js
-scanner.play(null, 1920, 1080).then(r=>{
-    console.log(r.width+'x'+r.height);
-});
-```
-
-Now suppose you do not want to use either of the select classes listed above. With the video reader object, you can use the API methods to populate any UI element you want to use.
-
-For creating the resolution list, the UI element will need to be manually populated as shown in the a couple of code snippets ago.
-
-For the device list, you can get source lists like this:
+You can get the device list via the API like this:
 ```js
 scanner.updateDevice().then(infos=>{
     // The camera currently in use
-    console.log(infos.current);
+    alert(JSON.stringify(infos.current, null, 2));
     // An array of all cameras
-    console.log(infos.all);
+    alert(JSON.stringify(infos.all, null, 2));
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/j7p5c6fb/)
 
-Get source lists during opening:
+You can also get the device list when opening the scanner:
 ```js
 scanner.open().then(infos=>{
     // The resolution of the video currently playing
-    console.log(infos.width+'x'+infos.height);
-    console.log(infos.current);
-    console.log(infos.all);
+    alert(JSON.stringify(infos.width+'x'+infos.height, null, 2));
+    // The camera currently in use
+    alert(JSON.stringify(infos.current, null, 2));
+    // An array of all cameras
+    alert(JSON.stringify(infos.all, null, 2));
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/qpa5eyd9/)
 
-Select a camera by deviceId.
+You can play any video source using the `deviceId` property:
 ```js
 // Play the first camera with the scanner already open.
 scanner.play(infos.all[0].deviceId);
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/qwsbzygp/)
 
-Select a friendly named camera during opening.
-Note that the camera may display different names on the browser in different environments or timings.
-So this is not a very safe practice.
-You need to test this code on your target browser.
+The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should almost always never use the `deviceId` for the name as it is a long string of randomized characters.
+Please note that the camera may display different names in different environments or timings.
+
+If you have more than one connected camera, and would like your application to play a certain one of them on startup, here is how:
 ```js
-scanner.updateDevice().then(infos=>{
+scanner.open().then(infos=>{
     for(let info of infos.all){
-        if(info.label == 'camera 0'){
-            scanner.videoSettings = {
-                video:{
-                    deviceId: info.deviceId
-                }
-            };
-            scanner.open();
+        if(info.label == 'Your camera name'){
+            scanner.play(info.deviceId);
             break;
         }
     }
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/a9mhu2sv/)
+
 In conclusion: 
 The device list is returned in the Promise result of `open` or `updateDevice`.
-You can then play the selected device using `open` or `play`(when already open).
+You can then play the selected device using `open` or `play`(when open has already been called).
 
 ## How to complete a form using the Barcode Reader
 
-Based on the HTML code snippet with the custom UI elements, let's add some input tags.
-
-Adding three `<input>` elements:
+Using HTML code snippet with the custom UI elements, let's add some input tags.
 ```html
 <input id="ipt-0">
 <input id="ipt-1">
@@ -365,17 +385,19 @@ let scanner = new BarcodeReader.Scanner({
     }
 });
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/cgLo5dsb/)
 
 <br>
 
 ## Decode Part of Video
 
-If you are not interested in exhausting resources to read the entire video stream, you can choose to decode a specific region of the stream. Here is how:
+If you are not interested in exhausting resources to read the entire area of the video stream, you can choose to decode a specific region of the stream. Here is how:
 
 ```js
-// take a center 50% * 50% part of the video and resize the part to 25% * 25% of original video size before decode
-videoReader.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 0.25, dHeight: 0.25};
+// take a center 50% * 50% part of the video and resize the part to 1280 * 720 before decode
+scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1280, dHeight: 720};
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
 
 <br>
 
