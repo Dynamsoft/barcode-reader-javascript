@@ -10,7 +10,7 @@ This SDK supports decoding **1D**, **PDF417**, **QR**, **DataMatrix**, and **Azt
 
 The supported data sources include `Blob`, `HTMLImageElement`, `HTMLVideoElement`, URL and more.
 
-You can create a web application or a nodejs application to decode the static images and the video steam within 3 minutes.
+You can create a web application or a Node.js application to decode the static images and the video stream within 3 minutes.
 
 <br>
 
@@ -31,7 +31,7 @@ Some places need to link to the api and need to make up.
 ## Browser Compatibility
 
 | Browser | Version |
-|-|-|
+|:-:|:-:|
 | Chrome | v57+ |
 | Firefox | v52+ |
 | Edge | v16+ |
@@ -41,14 +41,6 @@ Some places need to link to the api and need to make up.
 > Safari 11.2.2 ~ 11.2.6 are not supported.
 
 <br>
-
-## API Documentation
-
-<!-- [class BarcodeReader](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
-
-[class Scanner](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html) -->
-
-<!-- github -->
 
 ## API Documentation
 
@@ -79,7 +71,7 @@ Now just copy the following code into an html file and run it directly from the 
     <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
     <script>
         //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
+        BarcodeReader.licenseKey = 'LICENSE-KEY';
         let scanner = new BarcodeReader.Scanner({
             onFrameRead: results => {console.log(results);},
             onNewCodeRead: (txt, result) => {alert(txt);}
@@ -89,6 +81,7 @@ Now just copy the following code into an html file and run it directly from the 
 </body>
 </html>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/16gqLoe3/)
 
 <br>
 
@@ -150,7 +143,7 @@ Please check the settings below for different environments.
 
 * set mimetype in javaee web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
     
-* set mimetype in nodejs: [npm mime](https://github.com/broofa/node-mime)
+* set mimetype in Node.js: [npm mime](https://github.com/broofa/node-mime)
 
 <br>
 
@@ -166,7 +159,7 @@ That is because most browsers today need to be deployed on https to use [getUser
 
 * tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 
-* nodejs: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+* Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
 <br>
 
@@ -193,8 +186,11 @@ Every time you open the page, initialization will take place only once. You can 
 In case you need to debug your sample application, you could insert the following debug tool:
 
 ```html
+<!--any version jq is ok-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
 ```
+[Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
 
 Please click the `console` button in top right of the screen.
 
@@ -205,6 +201,7 @@ The console will show the dbr wasm version, initialization process, and other us
 ## Configuring Scanner Settings
 
 The scanner interface comes with a number of properties, some of the most useful being shown here:
+
 ```js
 // Use config when new the object
 let scanner = new BarcodeReader.Scanner({
@@ -212,9 +209,6 @@ let scanner = new BarcodeReader.Scanner({
     // Refer [MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
     videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
     //The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.
-    // ```js
-    // scanner.runtimeSettings = {mAntiDamageLevel: 9, mDeblurLevel: 9};
-    // ```
     runtimeSettings: { mAntiDamageLevel: 9, mDeblurLevel: 9 },
     // The same code awlways alert? Set duplicateForgetTime longer.
     duplicateForgetTime: 10000,
@@ -226,6 +220,7 @@ scanner.duplicateForgetTime = 20000;
 scanner.onFrameRead = undefined;
 scanner.runtimeSettings.mBarcodeFormatIds = BarcodeReader.EnumBarcodeFormat.All;
 ```
+
 Now that you have seen how to set and change these properties, here is a full list of the properties:
 * `htmlElement`: The HTML element that will contain the video reader object should you choose to customize the UI. We will dig a little deeper into this in the next section.
 * `videoSettings`: Defines the different settings of the video stream. These settings include the resolution and facing mode. Please visit this [link](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax) for more information on these video settings.
@@ -234,6 +229,7 @@ Now that you have seen how to set and change these properties, here is a full li
 * `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
 * `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
 
+[Try in JSFiddle](https://jsfiddle.net/Keillion/gbwahsyp/)
 
 <br>
 
@@ -275,6 +271,7 @@ As for adding a resolution select dropdown menu:
 ```html
 <select class="dbrScanner-sel-resolution"></select>
 ```
+
 The dropdown will still show the same 8 options for the resolution if you do not manually define the resolution options.
 
 [Try in JSFiddle](https://jsfiddle.net/Keillion/oyxugLcf/)
@@ -288,14 +285,16 @@ You can provide limited resolution options to avoid overwhelming the user. Here 
     <option data-width="640" data-height="480">640 x 480</option>
 </select>
 ```
+
 Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. The "dbrScanner-opt-gotResolution" class option of the dropdown menu (shown above) indicates which resolution is currently being used.
 
 [Try in JSFiddle](https://jsfiddle.net/Keillion/odf4eLvm/)
 
 To play the video at the selected resolution:
+
 ```js
 scanner.play(null, 1920, 1080).then(r=>{
-    console.log(r.width+'x'+r.height);
+    alert(r.width+'x'+r.height);
 });
 ```
 [Try in JSFiddle](https://jsfiddle.net/Keillion/14ngeh5c/)
@@ -337,8 +336,9 @@ scanner.open().then(infos=>{
 [Try in JSFiddle](https://jsfiddle.net/Keillion/qpa5eyd9/)
 
 You can play any video source using the `deviceId` property:
+
 ```js
-// Play the first camera with the scanner already open.
+// Play the first camera.
 scanner.play(infos.all[0].deviceId);
 ```
 [Try in JSFiddle](https://jsfiddle.net/Keillion/qwsbzygp/)
@@ -347,6 +347,7 @@ The video source name that shows up in the dropdown list is taken from the `labe
 Please note that the camera may display different names in different environments or timings.
 
 If you have more than one connected camera, and would like your application to play a certain one of them on startup, here is how:
+
 ```js
 scanner.open().then(infos=>{
     for(let info of infos.all){
@@ -404,7 +405,7 @@ scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1
 ## Change log
 
 ### 6.5.1
-Added video view for barcode scan. Compatible with nodejs.
+Added video view for barcode scan. Compatible with Node.js.
 
 ### 6.4.1.3
 
@@ -424,11 +425,6 @@ Combined the normal and the mobile version into one.
 
 Added built-in Worker support.
 
-```js
-// The default value is false. By setting this value to true to decode in another thread, therefore UI wouldn't get stuck.
-dynamsoft.dbrEnv.bUseWorker = true;
-```
-
 ### 6.3.0.1
 
 Set `dbr-<version>.js`(stable) as the main branch.
@@ -442,5 +438,8 @@ Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 <br>
 
 ## Contact Us
-
 If there is any questions, please feel free to contact <support@dynamsoft.com>.
+
+## License Agreement
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
+

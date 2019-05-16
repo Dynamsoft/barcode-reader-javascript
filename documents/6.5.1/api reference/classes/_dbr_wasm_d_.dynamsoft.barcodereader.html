@@ -78,7 +78,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   <span class="hljs-comment">// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</span>
   dbr.licenseKey = <span class="hljs-string">'t0068MgAAAFp16mlue6QjhALowH1tFQxdNVNrtUjMSK8RDezLrZkGAP1TelJQ0cLBLi/BxG3ksSIsZjY3IJX+UVauIe5Zdh4='</span>;
-  dbr.createInstance().then(<span class="hljs-function"><span class="hljs-params">reader</span>=&gt;</span>reader.decode(<span class="hljs-string">'./TestSmall.jpg'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});
+  dbr.createInstance().then(<span class="hljs-function"><span class="hljs-params">reader</span> =&gt;</span> reader.decode(<span class="hljs-string">'./TestSmall.jpg'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 					</div>
 				</div>
@@ -119,6 +119,7 @@
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.extendedresult.html" class="tsd-kind-icon">Extended<wbr>Result</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-kind-icon">Localization<wbr>Result</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettingsforscannerconfig.html" class="tsd-kind-icon">Runtime<wbr>Settings<wbr>For<wbr>Scanner<wbr>Config</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scanneropencallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Open<wbr>Callback<wbr>Info</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported"><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerplaycallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Play<wbr>Callback<wbr>Info</a></li>
@@ -173,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:34</li>
+									<li>Defined in dbr-wasm.d.ts:46</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -187,6 +188,8 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> licenseKey: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
+											<p>Set the instance licenseKey. If you do not specify a new licenseKey when creating a <code>BarcodeReader</code> object, the global licenseKey will be used.
+											Refer to <a href="https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx">https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</a> to get a try licenseKey.</p>
 										</div>
 									</div>
 								</li>
@@ -204,12 +207,13 @@
 					<div class="tsd-signature tsd-kind-icon">_on<wbr>Wasm<wbr>Downloaded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:30</li>
+							<li>Defined in dbr-wasm.d.ts:39</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>A callback when wasm download success in browser environment.</p>
+							<pre><code class="language-js">dbr._onWasmDownloaded = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'downloaded'</span>); };</code></pre>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -234,13 +238,14 @@
 					<div class="tsd-signature tsd-kind-icon">license<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:20</li>
+							<li>Defined in dbr-wasm.d.ts:23</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Set the global licenseKey. If you do not specify a new licenseKey when creating a <code>BarcodeReader</code> object, the global licenseKey will be used.
 							Refer to <a href="https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx">https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</a> to get a try licenseKey.</p>
+							<pre><code class="language-js">dbr.licenseKey = <span class="hljs-string">'t******'</span>;</code></pre>
 						</div>
 					</div>
 				</section>
@@ -257,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:66</li>
+									<li>Defined in dbr-wasm.d.ts:96</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -274,6 +279,12 @@
 									<p>&nbsp;&nbsp;For URLs you need to handle cross-domain issues yourself, otherwise the promise will fail.</p>
 									<p>&nbsp;&nbsp;Except HTMLCanvasElement and HTMLVideoElement, which have their own format,</p>
 									<p>&nbsp;&nbsp;the other Data should be encoded as either jpg, png, bmp or gif.</p>
+									```js
+									// decode file in nodejs, or decode url in web
+									reader.decode('./TestSmall.jpg')).then(r=>{console.log(r)});
+									// decode blob from input[type="file"] in web
+									reader.decode(inputEl.files[0]).then(r=>{console.log(r)});
+									```
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -298,12 +309,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:99</li>
+									<li>Defined in dbr-wasm.d.ts:147</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Decode base64 type image data with or without minetype.</p>
+									<pre><code class="language-js"><span class="hljs-comment">// base64 with mime</span>
+reader.decodeBase64String(<span class="hljs-string">'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAA******'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});
+<span class="hljs-comment">// base64 without mime</span>
+reader.decodeBase64String(<span class="hljs-string">'iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAA******'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,13 +343,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:109</li>
+									<li>Defined in dbr-wasm.d.ts:160</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Decode the raw data from the image acquisition device / the image conversion.
 									Such as binary, binaryinverted, grayscaled, NV21, RGB555, RGB565, RGB888, ARGB888.</p>
+									<pre><code class="language-js">reader.decodeBuffer(rawImgData, rawImgWidth, rawImgHeight, rawImgWidth * <span class="hljs-number">4</span>, dbr.EnumImagePixelFormat.IPF_ARGB_8888).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -373,12 +389,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:73</li>
+									<li>Defined in dbr-wasm.d.ts:106</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Take a frame from the video, and then decode it.</p>
+									<pre><code class="language-js">reader.decodeVideo(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myvideo'</span>)).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -394,12 +411,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:80</li>
+									<li>Defined in dbr-wasm.d.ts:117</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Take a frame from the video, zoom it to the specified size, and then decode it.</p>
+									<pre><code class="language-js">reader.decodeVideo(videoEl, videoEl.videoWidth / <span class="hljs-number">2</span>, videoEl.videoHeight / <span class="hljs-number">2</span>)
+  .then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -421,13 +440,20 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:92</li>
+									<li>Defined in dbr-wasm.d.ts:134</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Take a frame from the specified area of the video, zoom it to the specified size, and then decode it.</p>
+									<pre><code class="language-js"><span class="hljs-comment">// decode the area in the upper left corner of 320*240</span>
+reader.decodeVideo(videoEl, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">320</span>, <span class="hljs-number">240</span>, <span class="hljs-number">320</span>, <span class="hljs-number">240</span>).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(r)});</code></pre>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -469,7 +495,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:50</li>
+									<li>Defined in dbr-wasm.d.ts:74</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -477,6 +503,8 @@
 									<p>Destructor the <code>BarcodeReader</code> object.
 										When the <code>BarcodeReader</code> object is created, it will open up a space in memory that cannot be automatically reclaimed by js garbage collection.
 									You can manually call this method to destruct the <code>BarcodeReader</code> object to release this memory.</p>
+									<pre><code class="language-js"><span class="hljs-comment">// delete the instance when you don't need it any more.</span>
+reader.deleteInstance();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -493,12 +521,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:128</li>
+									<li>Defined in dbr-wasm.d.ts:196</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get all localization barcode results. It contains all recognized barcodes and unrecognized barcodes.</p>
+									<pre><code class="language-js">reader.decode(<span class="hljs-string">'xxxx'</span>).then(<span class="hljs-function"><span class="hljs-params">r</span>=&gt;</span>{
+  <span class="hljs-built_in">console</span>.log(r);
+  <span class="hljs-built_in">console</span>.log(reader.getAllLocalizationResults());
+});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.localizationresult.html" class="tsd-signature-type">LocalizationResult</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -515,12 +547,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:115</li>
+									<li>Defined in dbr-wasm.d.ts:169</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get current settings and saves it into a struct.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = reader.getRuntimeSettings();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h4>
@@ -537,12 +570,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:124</li>
+									<li>Defined in dbr-wasm.d.ts:186</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Reset all parameters to default values.</p>
+									<pre><code class="language-js">reader.resetRuntimeSettings();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -559,12 +593,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:120</li>
+									<li>Defined in dbr-wasm.d.ts:179</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Update runtime settings with a given struct.</p>
+									<pre><code class="language-js">settings.mAntiDamageLevel = <span class="hljs-number">3</span>;
+settings.mDeblurLevel = <span class="hljs-number">9</span>;
+reader.updateRuntimeSettings(settings);</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -589,12 +626,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:44</li>
+									<li>Defined in dbr-wasm.d.ts:64</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create a BarcodeReader object. If the decoding module is not loaded, it will be loaded automatically.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> reader = <span class="hljs-literal">undefined</span>;
+dbr.createInstance().then(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> { reader = r; }, ex =&gt; { <span class="hljs-built_in">console</span>.error(ex); });</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -602,6 +641,8 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> licenseKey: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
+										<p>Set the instance licenseKey. If you do not specify a new licenseKey when creating a <code>BarcodeReader</code> object, the global licenseKey will be used.
+										Refer to <a href="https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx">https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx</a> to get a try licenseKey.</p>
 									</div>
 								</li>
 							</ul>
@@ -619,12 +660,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:34</li>
+									<li>Defined in dbr-wasm.d.ts:46</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Determine if the decoding module has been loaded successfully.</p>
+									<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Is the loading completed? '</span> + dbr.isLoaded());</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -641,7 +683,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:26</li>
+									<li>Defined in dbr-wasm.d.ts:32</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -649,6 +691,7 @@
 									<p>Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
 										Whether you have not started loading, loading, success, or failure, you can safely call <code>loadWasm</code> repeatedly.
 									If it has already been loaded, it will return to success immediately.</p>
+									<pre><code class="language-js">dbr.loadWasm().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>); }, ex =&gt; { <span class="hljs-built_in">console</span>.error(ex); });</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -704,6 +747,9 @@
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettingsforscannerconfig.html" class="tsd-kind-icon">Runtime<wbr>Settings<wbr>For<wbr>Scanner<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a>

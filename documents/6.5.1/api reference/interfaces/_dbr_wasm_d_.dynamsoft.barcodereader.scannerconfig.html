@@ -73,6 +73,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><p><a href="../classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html">Scanner</a></p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -112,9 +121,15 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Add<wbr>Ori<wbr>Video<wbr>Canvas<wbr>ToResult<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:418</li>
+							<li>Defined in dbr-wasm.d.ts:643</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether show oriVideoCanvas in result.</p>
+							<pre><code class="language-js">scanner.bAddOriVideoCanvasToResult = <span class="hljs-literal">true</span>;</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="baddsearchregioncanvastoresult" class="tsd-anchor"></a>
@@ -122,9 +137,15 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Add<wbr>Search<wbr>Region<wbr>Canvas<wbr>ToResult<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:419</li>
+							<li>Defined in dbr-wasm.d.ts:650</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether show searchRegionCanvas in result.</p>
+							<pre><code class="language-js">scanner.bAddSearchRegionCanvasToResult = <span class="hljs-literal">true</span>;</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="confidence" class="tsd-anchor"></a>
@@ -132,9 +153,18 @@
 					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:414</li>
+							<li>Defined in dbr-wasm.d.ts:607</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This property is mainly related to 1D barcodes.
+								If the confidence of a 1D barcode result is greater than or equal to this <code>confidence</code>, that is a reliable result that might cause <code>onNewCodeRead</code>.
+								Otherwise if the confidence of a result is smaller than this <code>confidence</code>, the result will be ignored by <code>onNewCodeRead</code>.
+							Default 30.</p>
+							<pre><code class="language-js">scanner.confidence = <span class="hljs-number">50</span>;</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="duplicateforgettime" class="tsd-anchor"></a>
@@ -142,9 +172,15 @@
 					<div class="tsd-signature tsd-kind-icon">duplicate<wbr>Forget<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:421</li>
+							<li>Defined in dbr-wasm.d.ts:690</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The amount of time the reader &quot;remembers&quot; a barcode result once a single frame is read. Once the barcode result is obtained, the scanner will not trigger <code>onNewCodeRead</code> for the specific barcode again until forgetTime is up.</p>
+							<pre><code class="language-js">scanner.duplicateForgetTime = <span class="hljs-number">15000</span>; <span class="hljs-comment">// 15s</span></code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="htmlelement" class="tsd-anchor"></a>
@@ -152,9 +188,17 @@
 					<div class="tsd-signature tsd-kind-icon">html<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:412</li>
+							<li>Defined in dbr-wasm.d.ts:588</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The HTML element that will contain the scanner object should you choose to customize the UI. It will have a simple default UI if you keep <code>htmlElement</code> undefined in initialization config.</p>
+							<pre><code class="language-js">scanner.htmlElement.appendChild(aDiv);
+<span class="hljs-comment">// Warning: Avoid changing the binding if the scanner is already open.</span>
+scanner.htmlElement = aVideoContainer;</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="intervaltime" class="tsd-anchor"></a>
@@ -162,9 +206,15 @@
 					<div class="tsd-signature tsd-kind-icon">interval<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:415</li>
+							<li>Defined in dbr-wasm.d.ts:614</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The time interval after the result is found in once reading and before the decoding begins in next reading. Default 100(ms).</p>
+							<pre><code class="language-js">scanner.intervalTime = <span class="hljs-number">100</span>;<span class="hljs-comment">//100ms</span></code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="onframeread" class="tsd-anchor"></a>
@@ -172,9 +222,41 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Frame<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:420</li>
+							<li>Defined in dbr-wasm.d.ts:683</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The event that is triggered once a single frame has been scanned. The results object contains all the barcode results that the reader was able to decode.</p>
+							<pre><code class="language-js"><span class="hljs-comment">// Draw the barcodes area.</span>
+scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+  <span class="hljs-comment">// Reset the width and height and empty the canvas</span>
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+  <span class="hljs-comment">// Set color</span>
+  ctx.fillStyle = <span class="hljs-string">'rgba(254,180,32,0.3)'</span>;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-comment">// Get localization</span>
+    <span class="hljs-keyword">let</span> x1 = result.LocalizationResult.X1;
+    <span class="hljs-keyword">let</span> x2 = result.LocalizationResult.X2;
+    <span class="hljs-keyword">let</span> x3 = result.LocalizationResult.X3;
+    <span class="hljs-keyword">let</span> x4 = result.LocalizationResult.X4;
+    <span class="hljs-keyword">let</span> y1 = result.LocalizationResult.Y1;
+    <span class="hljs-keyword">let</span> y2 = result.LocalizationResult.Y2;
+    <span class="hljs-keyword">let</span> y3 = result.LocalizationResult.Y3;
+    <span class="hljs-keyword">let</span> y4 = result.LocalizationResult.Y4;
+    <span class="hljs-comment">// Draw</span>
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.fill();
+  }
+};</code></pre>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -203,9 +285,15 @@
 					<div class="tsd-signature tsd-kind-icon">on<wbr>New<wbr>Code<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:422</li>
+							<li>Defined in dbr-wasm.d.ts:697</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This event is triggered when a not duplicated new barcode is found. <code>txt</code> holds the barcode text result. <code>result</code> contains the actual barcode result, including the text result. Old barcode will remember for <code>duplicateForgetTime</code>.</p>
+							<pre><code class="language-js">scanner.onNewCodeRead = <span class="hljs-function"><span class="hljs-params">txt</span> =&gt;</span> { alert(txt); }</code></pre>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -234,12 +322,22 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="runtimesettings" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> runtime<wbr>Settings</h3>
-					<div class="tsd-signature tsd-kind-icon">runtime<wbr>Settings<span class="tsd-signature-symbol">:</span> <a href="_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></div>
+					<div class="tsd-signature tsd-kind-icon">runtime<wbr>Settings<span class="tsd-signature-symbol">:</span> <a href="_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettingsforscannerconfig.html" class="tsd-signature-type">RuntimeSettingsForScannerConfig</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:416</li>
+							<li>Defined in dbr-wasm.d.ts:623</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).</p>
+							<p>The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.</p>
+							```js
+							scanner.runtimeSettings.mAntiDamageLevel = 9;
+							scanner.runtimeSettings.mDeblurLevel = 9;
+							```
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="searchregion" class="tsd-anchor"></a>
@@ -247,9 +345,25 @@
 					<div class="tsd-signature tsd-kind-icon">search<wbr>Region<span class="tsd-signature-symbol">:</span> <a href="_dbr_wasm_d_.dynamsoft.barcodereader.scannersearchregion.html" class="tsd-signature-type">ScannerSearchRegion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:417</li>
+							<li>Defined in dbr-wasm.d.ts:636</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Intercept an area and resize for decoding.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>.</p>
+								<pre><code class="language-js"><span class="hljs-comment">// Intercept the area of 200*200 in the upper left corner for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">sy</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">sWidth</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">sHeight</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">dWidth</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">dHeight</span>:<span class="hljs-number">200</span>};
+<span class="hljs-comment">// Intercept the central 60%*60% area for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.2</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.2</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">0.6</span>};
+<span class="hljs-comment">// Intercept the central 60%*60% area and resize to 1280*720 for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">720</span>}</code></pre>
+							</dd>
+						</dl>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
 					<a name="videosettings" class="tsd-anchor"></a>
@@ -257,9 +371,17 @@
 					<div class="tsd-signature tsd-kind-icon">video<wbr>Settings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MediaStreamConstraints</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:413</li>
+							<li>Defined in dbr-wasm.d.ts:597</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Video play settings.
+								Refer <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax">MediaStreamConstraints</a>.
+							If during reading, need play again to make it effective.</p>
+							<pre><code class="language-js">scanner.videoSettings = { <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } };</code></pre>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -310,6 +432,9 @@
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettingsforscannerconfig.html" class="tsd-kind-icon">Runtime<wbr>Settings<wbr>For<wbr>Scanner<wbr>Config</a>
 							</li>
 							<li class="current tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a>

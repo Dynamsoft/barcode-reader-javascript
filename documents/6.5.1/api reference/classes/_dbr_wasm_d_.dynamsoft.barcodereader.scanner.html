@@ -145,7 +145,7 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:329</li>
+									<li>Defined in dbr-wasm.d.ts:400</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -167,12 +167,13 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Add<wbr>Ori<wbr>Video<wbr>Canvas<wbr>ToResult<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:369</li>
+							<li>Defined in dbr-wasm.d.ts:472</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Whether show oriVideoCanvas in result.</p>
+							<pre><code class="language-js">scanner.bAddOriVideoCanvasToResult = <span class="hljs-literal">true</span>;</code></pre>
 						</div>
 					</div>
 				</section>
@@ -182,12 +183,13 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Add<wbr>Search<wbr>Region<wbr>Canvas<wbr>ToResult<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:373</li>
+							<li>Defined in dbr-wasm.d.ts:479</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Whether show searchRegionCanvas in result.</p>
+							<pre><code class="language-js">scanner.bAddSearchRegionCanvasToResult = <span class="hljs-literal">true</span>;</code></pre>
 						</div>
 					</div>
 				</section>
@@ -197,7 +199,7 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:349</li>
+							<li>Defined in dbr-wasm.d.ts:436</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -206,6 +208,7 @@ videoReader.open();</code></pre>
 								If the confidence of a 1D barcode result is greater than or equal to this <code>confidence</code>, that is a reliable result that might cause <code>onNewCodeRead</code>.
 								Otherwise if the confidence of a result is smaller than this <code>confidence</code>, the result will be ignored by <code>onNewCodeRead</code>.
 							Default 30.</p>
+							<pre><code class="language-js">scanner.confidence = <span class="hljs-number">50</span>;</code></pre>
 						</div>
 					</div>
 				</section>
@@ -215,12 +218,13 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">duplicate<wbr>Forget<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:381</li>
+							<li>Defined in dbr-wasm.d.ts:519</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The amount of time the reader &quot;remembers&quot; a barcode result once a single frame is read. Once the barcode result is obtained, the scanner will not trigger <code>onNewCodeRead</code> for the specific barcode again until forgetTime is up.</p>
+							<pre><code class="language-js">scanner.duplicateForgetTime = <span class="hljs-number">15000</span>; <span class="hljs-comment">// 15s</span></code></pre>
 						</div>
 					</div>
 				</section>
@@ -230,12 +234,15 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">html<wbr>Element<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLElement</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:335</li>
+							<li>Defined in dbr-wasm.d.ts:417</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The HTML element that will contain the scanner object should you choose to customize the UI. It will have a simple default UI if you keep <code>htmlElement</code> undefined in initialization config.</p>
+							<pre><code class="language-js">scanner.htmlElement.appendChild(aDiv);
+<span class="hljs-comment">// Warning: Avoid changing the binding if the scanner is already open.</span>
+scanner.htmlElement = aVideoContainer;</code></pre>
 						</div>
 					</div>
 				</section>
@@ -245,12 +252,13 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">interval<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:353</li>
+							<li>Defined in dbr-wasm.d.ts:443</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The time interval after the result is found in once reading and before the decoding begins in next reading. Default 100(ms).</p>
+							<pre><code class="language-js">scanner.intervalTime = <span class="hljs-number">100</span>;<span class="hljs-comment">//100ms</span></code></pre>
 						</div>
 					</div>
 				</section>
@@ -260,9 +268,15 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Open<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:331</li>
+							<li>Defined in dbr-wasm.d.ts:408</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Check if the scanner is open.</p>
+							<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(scanner.isOpen());</code></pre>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -285,12 +299,39 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Frame<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:377</li>
+							<li>Defined in dbr-wasm.d.ts:512</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>The event that is triggered once a single frame has been scanned. The results object contains all the barcode results that the reader was able to decode.</p>
+							<pre><code class="language-js"><span class="hljs-comment">// Draw the barcodes area.</span>
+scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+  <span class="hljs-comment">// Reset the width and height and empty the canvas</span>
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+  <span class="hljs-comment">// Set color</span>
+  ctx.fillStyle = <span class="hljs-string">'rgba(254,180,32,0.3)'</span>;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-comment">// Get localization</span>
+    <span class="hljs-keyword">let</span> x1 = result.LocalizationResult.X1;
+    <span class="hljs-keyword">let</span> x2 = result.LocalizationResult.X2;
+    <span class="hljs-keyword">let</span> x3 = result.LocalizationResult.X3;
+    <span class="hljs-keyword">let</span> x4 = result.LocalizationResult.X4;
+    <span class="hljs-keyword">let</span> y1 = result.LocalizationResult.Y1;
+    <span class="hljs-keyword">let</span> y2 = result.LocalizationResult.Y2;
+    <span class="hljs-keyword">let</span> y3 = result.LocalizationResult.Y3;
+    <span class="hljs-keyword">let</span> y4 = result.LocalizationResult.Y4;
+    <span class="hljs-comment">// Draw</span>
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.fill();
+  }
+};</code></pre>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -321,12 +362,13 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">on<wbr>New<wbr>Code<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:385</li>
+							<li>Defined in dbr-wasm.d.ts:526</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>This event is triggered when a not duplicated new barcode is found. <code>txt</code> holds the barcode text result. <code>result</code> contains the actual barcode result, including the text result. Old barcode will remember for <code>duplicateForgetTime</code>.</p>
+							<pre><code class="language-js">scanner.onNewCodeRead = <span class="hljs-function"><span class="hljs-params">txt</span> =&gt;</span> { alert(txt); }</code></pre>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -360,12 +402,17 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">runtime<wbr>Settings<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:357</li>
+							<li>Defined in dbr-wasm.d.ts:452</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions <a href="https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html">here</a>.</p>
+							<p>Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).</p>
+							<p>The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.</p>
+							```js
+							scanner.runtimeSettings.mAntiDamageLevel = 9;
+							scanner.runtimeSettings.mDeblurLevel = 9;
+							```
 						</div>
 					</div>
 				</section>
@@ -375,17 +422,24 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">search<wbr>Region<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannersearchregion.html" class="tsd-signature-type">ScannerSearchRegion</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:365</li>
+							<li>Defined in dbr-wasm.d.ts:465</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Like <code>{sx:0, sy:0, sWidth:200, sHeight:200, dWidth:200, dHeight:200}</code>.
-								Also see: <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>.
-								Or <code>{sx: 0.2, sy: 0.2, sWidth: 0.6, sHeight: 0.6, dWidth: 0.6, dHeight: 0.6}</code> to crop center 60% * 60% region.
-								Another example, take a center 50% * 50% part of the video and resize the part to 25% * 25% of original video size before decode.
-							<code>{sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 0.25, dHeight: 0.25}</code>.</p>
+							<p>Intercept an area and resize for decoding.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage">drawImage</a>.</p>
+								<pre><code class="language-js"><span class="hljs-comment">// Intercept the area of 200*200 in the upper left corner for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">sy</span>:<span class="hljs-number">0</span>, <span class="hljs-attr">sWidth</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">sHeight</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">dWidth</span>:<span class="hljs-number">200</span>, <span class="hljs-attr">dHeight</span>:<span class="hljs-number">200</span>};
+<span class="hljs-comment">// Intercept the central 60%*60% area for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.2</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.2</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">0.6</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">0.6</span>};
+<span class="hljs-comment">// Intercept the central 60%*60% area and resize to 1280*720 for decoding.</span>
+scanner.searchRegion = {<span class="hljs-attr">sx</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sy</span>: <span class="hljs-number">0.25</span>, <span class="hljs-attr">sWidth</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">sHeight</span>: <span class="hljs-number">0.5</span>, <span class="hljs-attr">dWidth</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">dHeight</span>: <span class="hljs-number">720</span>}</code></pre>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
@@ -394,15 +448,15 @@ videoReader.open();</code></pre>
 					<div class="tsd-signature tsd-kind-icon">video<wbr>Settings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MediaStreamConstraints</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in dbr-wasm.d.ts:342</li>
+							<li>Defined in dbr-wasm.d.ts:426</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Video play settings.
 								Refer <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax">MediaStreamConstraints</a>.
-								Example: <code>{ video: { width: 1280, height: 720, facingMode: &quot;environment&quot; } }</code>.
-							If during reading, need close() then open() to make it effective.</p>
+							If during reading, need play again to make it effective.</p>
+							<pre><code class="language-js">scanner.videoSettings = { <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } };</code></pre>
 						</div>
 					</div>
 				</section>
@@ -419,12 +473,13 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:404</li>
+									<li>Defined in dbr-wasm.d.ts:563</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Close the video.</p>
+									<pre><code class="language-js">scanner.close();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -441,12 +496,17 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:389</li>
+									<li>Defined in dbr-wasm.d.ts:537</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Start the video and read barcodes.</p>
+									<pre><code class="language-js">scanner.open().then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.width + <span class="hljs-string">'x'</span> + info.height);
+  <span class="hljs-built_in">console</span>.log(info.current);
+  <span class="hljs-built_in">console</span>.log(info.all);
+});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scanneropencallbackinfo.html" class="tsd-signature-type">ScannerOpenCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -463,12 +523,13 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:400</li>
+									<li>Defined in dbr-wasm.d.ts:556</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Pause the video.</p>
+									<pre><code class="language-js">scanner.pause();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -485,12 +546,15 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:396</li>
+									<li>Defined in dbr-wasm.d.ts:549</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Change video settings during reading.</p>
+									<pre><code class="language-js">scanner.play(<span class="hljs-literal">undefined</span>, <span class="hljs-number">1280</span>, <span class="hljs-number">720</span>).then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.width + <span class="hljs-string">'x'</span> + info.height);
+});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -521,12 +585,16 @@ videoReader.open();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in dbr-wasm.d.ts:408</li>
+									<li>Defined in dbr-wasm.d.ts:573</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Update device list</p>
+									<pre><code class="language-js">updateDevice.open().then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.current);
+  <span class="hljs-built_in">console</span>.log(info.all);
+});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerupdatedevicecallbackinfo.html" class="tsd-signature-type">ScannerUpdateDeviceCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -638,6 +706,9 @@ videoReader.open();</code></pre>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
+								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettingsforscannerconfig.html" class="tsd-kind-icon">Runtime<wbr>Settings<wbr>For<wbr>Scanner<wbr>Config</a>
 							</li>
 							<li class=" tsd-kind-interface tsd-parent-kind-class tsd-is-not-exported">
 								<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a>
