@@ -189,11 +189,11 @@ Now you can deploy the HelloWorld sample in your own web server and access it fr
 
 That is because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). Below are some samples for configuring an HTTPS server.
 
-* nginx: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
+* NGINX: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
 
-* iis: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
+* IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
 
-* tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
+* Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 
 * Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
