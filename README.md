@@ -119,17 +119,53 @@ To deploy your own application, you will need a web server and deploy the resour
 
 Required files in `dist`:
 
-`dbr-<version>.min.js`
+```
+dbr-<version>.min.js
+dbr-<version>.wasm.min.js
+dbr-<version>.wasm
+dbr-<version>.wasm.withio.min.js
+dbr-<version>.withio.wasm
+dbr-<version>.esm.min.js
+```
 
-`dbr-<version>.wasm.min.js`
+<br>
 
-`dbr-<version>.wasm`
-
-`dbr-<version>.wasm.withio.min.js`
-
-`dbr-<version>.withio.wasm`
-
-`dbr-<version>.esm.min.js`
+> It is recommended that you bring all these files with you when you use them. But if you want to reduce the files you need to deploy, here is a rough list of the necessary files:
+>
+> * web + document + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.min.js
+> dbr-<version>.wasm
+> ```
+>
+> * web + worker + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
+>
+> * web + document + es6 module:
+> ```
+> dbr-<version>.min.esm.js
+> dbr-<version>.wasm.min.js
+> dbr-<version>.wasm
+> ```
+>
+> * web + worker + es6 module:
+> ```
+> dbr-<version>.min.esm.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
+>
+> * nodejs + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
 
 <br>
 
