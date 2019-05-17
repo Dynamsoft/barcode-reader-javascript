@@ -16,7 +16,7 @@ You can create a web application or a Node.js application to decode the static i
 
 <!-- ## TODO
 
-Some places need to link to the api and need to make up.
+Some places need to link to the API and need to make up.
 
 <br> -->
 
@@ -137,11 +137,11 @@ You need to set `.wasm` mimetype to `application/wasm` in the server config.
 
 Please check the settings below for different environments.
 
-* set mimetype in nginx: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
+* set mimetype in NGINX: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
 
-* set mimetype in asp.net: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
+* set mimetype in ASP.NET: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
 
-* set mimetype in javaee web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
+* set mimetype in Java&trade; EE web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
     
 * set mimetype in Node.js: [npm mime](https://github.com/broofa/node-mime)
 
@@ -373,7 +373,7 @@ Using HTML code snippet with the custom UI elements, let's add some input tags.
 <input id="ipt-2">
 ```
 
-Modify the configurarion settings of the video reader to complete the form with the results of three barcodes once they are found:
+Modify the configuration settings of the video reader to complete the form with the results of three barcodes once they are found:
 ```js
 let iptIndex = 0;
 let scanner = new BarcodeReader.Scanner({
@@ -402,7 +402,7 @@ scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1
 
 <br>
 
-## Change log
+## Changelog
 
 ### 6.5.1
 Added video view for barcode scan. Compatible with Node.js.
@@ -438,7 +438,7 @@ Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 <br>
 
 ## Contact Us
-If there is any questions, please feel free to contact <support@dynamsoft.com>.
+If there are any questions, please feel free to contact <support@dynamsoft.com>.
 
 ## License Agreement
 https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
