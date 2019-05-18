@@ -85,7 +85,7 @@ Now just copy the following code into an html file and run it directly from the 
 
 <br>
 
-You may see the following error after opening the browser console:
+If you open the html as `file:///` or `http://` You might see the following error after opening the browser console:
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
@@ -93,7 +93,21 @@ In Safari 12 the same error is displayed as such:
 
 > Trying to call getUserMedia from an insecure document.
 
-If you encounter this issue, the simplest way to resolve it is to open the file in a newer version of Firefox or Chrome. We will tackle this issue in detail in the coming sections.
+That is because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). 
+
+*(The latest chrome or Firefox allows getUserMedia when using `files:///` or `http://localhost`. )*
+
+Below are some samples for configuring an HTTPS server.
+
+* NGINX: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
+
+* IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
+
+* Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
+
+* Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
+
+After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certification. Please go to the certificate settings and allow this certificate. You may change the certification to a formal one in production.
 
 <br>
 
@@ -109,67 +123,9 @@ If everything goes normally, there will be a pop-up from the browser asking for 
 
 <br>
 
-## Implementation
-
-In the HelloWorld sample, you used the min.js hosted on our site, which can load the other required js and wasm files.
-
-<br>
-
-To deploy your own application, you will need a web server and deploy the resources under a folder named `dist` to your server.
-
-Required files in `dist`:
-
-`dbr-<version>.min.js`
-
-`dbr-<version>.wasm.min.js`
-
-`dbr-<version>.wasm`
-
-`dbr-<version>.wasm.withio.min.js`
-
-`dbr-<version>.withio.wasm`
-
-`dbr-<version>.esm.min.js`
-
-<br>
-
-You need to set `.wasm` mimetype to `application/wasm` in the server config.
-
-Please check the settings below for different environments.
-
-* set mimetype in NGINX: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
-
-* set mimetype in ASP.NET: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
-
-* set mimetype in Java&trade; EE web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
-    
-* set mimetype in Node.js: [npm mime](https://github.com/broofa/node-mime)
-
-<br>
-
-Now you can deploy the HelloWorld sample in your own web server and access it from there. You may encounter this issue when doing so:
-
-> [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
-
-That is because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). Below are some samples for configuring an HTTPS server.
-
-* nginx: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
-
-* iis: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
-
-* tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
-
-* Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
-
-<br>
-
-After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certification. Please go to the certificate settings and allow this certificate. The issue should all be gone even in Safari. You may change the certification to a formal one in production.
-
-<br>
-
 ## Initialization
 
-Our library needs some time for  initialization, including downloading the resources and compiling them, so you might notice that the decoding process doesn't start immediately. If the HelloWorld sample is deployed, the program will cache the wasm file in the indexedDB to speed the download up.
+Our library needs some time for initialization, including downloading the resources and compiling them, so you might notice that the decoding process doesn't start immediately. If the HelloWorld sample is deployed, the program will cache the wasm file in the indexedDB to speed the download up.
 
 You can check the download status of the WebAssembly component with the `_onWasmDownloaded` callback. Please note this function is only triggered during the first visit because that's the only time the wasm files are downloaded.
 
@@ -399,6 +355,84 @@ If you are not interested in exhausting resources to read the entire area of the
 scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1280, dHeight: 720};
 ```
 [Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
+
+<br>
+
+## Self Deployment
+
+In the HelloWorld sample, you used the min.js hosted on CDN, which can load the other required js and wasm files.
+
+Most of the time you use this cdn is enough, it is fast and stable.
+
+But sometimes you will want to deploy it yourself, for example, in an environment without Internet, for example, you can provide a faster and more stable CDN.
+
+<br>
+
+To deploy resources yourself, you will need a web server and deploy the resources under a folder named `dist` to your server.
+
+Required files in `dist`:
+
+```
+dbr-<version>.min.js
+dbr-<version>.wasm.min.js
+dbr-<version>.wasm
+dbr-<version>.wasm.withio.min.js
+dbr-<version>.withio.wasm
+dbr-<version>.esm.min.js
+```
+
+<br>
+
+> It is recommended that you bring all these files with you when you use them. But if you want to reduce the files you need to deploy, here is a rough list of the necessary files:
+>
+> * web + document + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.min.js
+> dbr-<version>.wasm
+> ```
+>
+> * web + worker + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
+>
+> * web + document + es6 module:
+> ```
+> dbr-<version>.min.esm.js
+> dbr-<version>.wasm.min.js
+> dbr-<version>.wasm
+> ```
+>
+> * web + worker + es6 module:
+> ```
+> dbr-<version>.min.esm.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
+>
+> * nodejs + UMD:
+> ```
+> dbr-<version>.min.js
+> dbr-<version>.wasm.withio.min.js
+> dbr-<version>.withio.wasm
+> ```
+
+<br>
+
+You need to set `.wasm` mimetype to `application/wasm` in the server config.
+
+Please check the settings below for different environments.
+
+* set mimetype in NGINX: [mime.types](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
+
+* set mimetype in ASP.NET: [Web.config](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/Web.config)
+
+* set mimetype in Java&trade; EE web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/documents/conf/web.xml)
+    
+* set mimetype in Node.js: [npm mime](https://github.com/broofa/node-mime)
 
 <br>
 
