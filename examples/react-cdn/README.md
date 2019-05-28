@@ -48,7 +48,10 @@ class App extends React.Component {
 export default App;
 ```
 
-
+Run the App:
+```
+npm start
+```
 
 
 ## Available Scripts
