@@ -2,6 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
 
+## How to Use
+
+Cd to the project Directory.
+
+install modules
+```
+npm install
+```
+
+Run the app.
+```
+ng serve
+```
+
 ## How to Create
 
 Install Angular CLI:

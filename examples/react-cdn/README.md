@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to Use
+
+Cd to the project Directory.
+
+install modules
+```
+npm install
+```
+
+Run the app.
+```
+npm start
+```
+
 ## How to Create
 
 Create React project:

@@ -1,5 +1,19 @@
 # dbr-cdn-vue-default
 
+## How to Use
+
+Cd to the project Directory.
+
+install modules
+```
+npm install
+```
+
+Run the app.
+```
+npm run serve
+```
+
 ## How to Create
 
 Install Vue CLI:
