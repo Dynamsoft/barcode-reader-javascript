@@ -2,7 +2,7 @@
 
 ## How to Create
 
-Install Vue Cli:
+Install Vue CLI:
 ```
 npm install -g @vue/cli
 ```
@@ -19,9 +19,9 @@ cd dbr-cdn-vue-default
 
 Add a `<script>` in `./public/index.html`:
 ```html
+<!--Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6/dist/dbr.min.js)-->
 <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js"></script>
 ```
-> Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6.5.2/dist/dbr.min.js)
 
 Configure externals lib for dbr in `./vue.config.js`:
 ```js
