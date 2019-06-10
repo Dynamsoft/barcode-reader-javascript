@@ -1,5 +1,11 @@
 # dbr-cdn-vue-default
 
+## Install Vue CLI
+
+```
+npm install -g @vue/cli
+```
+
 ## How to Use
 
 Cd to the project Directory.
@@ -15,11 +21,6 @@ npm run serve
 ```
 
 ## How to Create
-
-Install Vue CLI:
-```
-npm install -g @vue/cli
-```
 
 Create a Vue Project, select default config:
 ```
