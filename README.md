@@ -481,7 +481,7 @@ Please check the settings below for different environments.
 
 ### 6.5.2
 
-Built Dynamsoft Barcode Reader 6.4.1 to JS(WebAssembly) version.
+Built Dynamsoft Barcode Reader 6.5.2 to JS(WebAssembly) version.
 
 Walkaround for certain scenarios of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
 
