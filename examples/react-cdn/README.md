@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to Use
+
+Cd to the project Directory.
+
+install modules
+```
+npm install
+```
+
+Run the app.
+```
+npm start
+```
+
 ## How to Create
 
 Create React project:
@@ -16,20 +30,20 @@ cd dbr-cdn-react-default
 
 Add a `<script>` in `./public/index.html`:
 ```html
+<!--Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6/dist/dbr.min.js)-->
 <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js"></script>
 ```
-> Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6.5.2/dist/dbr.min.js)
 
 Modify `./src/App.js`:
 ```js
 import React from 'react';
 import './App.css';
 
-let dbr = window.dbr;
+const dbr = window.dbr;
 dbr.licenseKey = 'LICENSE-KEY';
-let scanner = new dbr.Scanner({
-    onFrameRead: results => {console.log(results);}, // eslint-disable-line
-    onNewCodeRead: (txt, result) => {alert(txt);} // eslint-disable-line
+const scanner = new dbr.Scanner({
+    onFrameRead: results => { console.log(results); }, // eslint-disable-line
+    onNewCodeRead: (txt, result) => { alert(txt); } // eslint-disable-line
 });
 
 class App extends React.Component {

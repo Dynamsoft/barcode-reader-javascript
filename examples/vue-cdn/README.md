@@ -1,11 +1,26 @@
 # dbr-cdn-vue-default
 
-## How to Create
+## Install Vue CLI
 
-Install Vue Cli:
 ```
 npm install -g @vue/cli
 ```
+
+## How to Use
+
+Cd to the project Directory.
+
+install modules
+```
+npm install
+```
+
+Run the app.
+```
+npm run serve
+```
+
+## How to Create
 
 Create a Vue Project, select default config:
 ```
@@ -19,9 +34,9 @@ cd dbr-cdn-vue-default
 
 Add a `<script>` in `./public/index.html`:
 ```html
+<!--Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6/dist/dbr.min.js)-->
 <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js"></script>
 ```
-> Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6.5.2/dist/dbr.min.js)
 
 Configure externals lib for dbr in `./vue.config.js`:
 ```js
@@ -46,9 +61,9 @@ Modify `./src/App.vue`:
 import dbr from 'dbr'
 
 dbr.licenseKey = 'LICENSE-KEY';
-let scanner = new dbr.Scanner({
-    onFrameRead: results => {console.log(results);}, // eslint-disable-line
-    onNewCodeRead: (txt, result) => {alert(txt);} // eslint-disable-line
+const scanner = new dbr.Scanner({
+    onFrameRead: results => { console.log(results); }, // eslint-disable-line
+    onNewCodeRead: (txt, result) => { alert(txt); } // eslint-disable-line
 });
 
 export default {

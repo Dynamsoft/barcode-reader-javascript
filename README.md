@@ -2,7 +2,7 @@
 
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.5.1
+Version 6.5.2
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -19,6 +19,35 @@ You can create a web application or a Node.js application to decode the static i
 Some places need to link to the API and need to make up.
 
 <br> -->
+
+<!-- TOC -->
+
+- [Dynamsoft JavaScript Barcode SDK](#dynamsoft-javascript-barcode-sdk)
+    - [Online Demo](#online-demo)
+    - [Browser Compatibility](#browser-compatibility)
+    - [API Documentation](#api-documentation)
+    - [Preface](#preface)
+    - [HelloWorld](#helloworld)
+    - [Initialization](#initialization)
+        - [Debug Info](#debug-info)
+    - [Configuring Scanner Settings](#configuring-scanner-settings)
+    - [Configuring RuntimeSettings](#configuring-runtimesettings)
+    - [Customize the UI](#customize-the-ui)
+    - [How to complete a form using the Barcode Reader](#how-to-complete-a-form-using-the-barcode-reader)
+    - [Decode Part of Video](#decode-part-of-video)
+    - [Self Deployment](#self-deployment)
+    - [Changelog](#changelog)
+        - [6.5.1](#651)
+        - [6.4.1.3](#6413)
+        - [6.4.1.1](#6411)
+        - [6.4.1.0](#6410)
+        - [6.3.0.2](#6302)
+        - [6.3.0.1](#6301)
+        - [6.3.0](#630)
+    - [Contact Us](#contact-us)
+    - [License Agreement](#license-agreement)
+
+<!-- /TOC -->
 
 ## Online Demo
 
@@ -95,7 +124,7 @@ In Safari 12 the same error is displayed as such:
 
 That is because most browsers today need to be deployed on https to use [getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). 
 
-*(The latest chrome or Firefox allows getUserMedia when using `files:///` or `http://localhost`. )*
+*(The latest chrome or Firefox allows getUserMedia when using `file:///` or `http://localhost`. )*
 
 Below are some samples for configuring an HTTPS server.
 
@@ -137,20 +166,16 @@ Every time you open the page, initialization will take place only once. You can 
 
 <br>
 
-### Debug Tool
+### Debug Info
 
-In case you need to debug your sample application, you could insert the following debug tool:
+In case you need to debug your sample application, use the callback `_onLog`.
 
-```html
-<!--any version jq is ok-->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-<script src="https://demo.dynamsoft.com/dbr_wasm/js/kConsole.js"></script>
+```js
+dbr._onLog = console.log;
 ```
 [Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
 
-Please click the `console` button in top right of the screen.
-
-The console will show the dbr wasm version, initialization process, and other useful info.
+The log can then be seen in the browser console.
 
 <br>
 
@@ -189,9 +214,25 @@ Now that you have seen how to set and change these properties, here is a full li
 
 <br>
 
+## Configuring RuntimeSettings
+
+fast
+```js
+scanner.runtimeSettings.mAntiDamageLevel = 3;
+scanner.runtimeSettings.mDeblurLevel = 0;
+```
+
+most accurate
+```js
+scanner.runtimeSettings.mAntiDamageLevel = 9;
+scanner.runtimeSettings.mDeblurLevel = 9;
+```
+
+[Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
+
 ## Customize the UI
 
-The Barcode Reader gives you the freedom to use your own UI for the video scanner, and in this next section, we will explore how to configure the reader to allow for custom UI.
+The Barcode Reader gives you the freedom to use your own UI for the video scanner, and in the next section, we will explore how to configure the reader to allow for custom UI.
 
 Try running the code below.
 ```html
@@ -437,6 +478,14 @@ Please check the settings below for different environments.
 <br>
 
 ## Changelog
+
+### 6.5.2
+
+Built Dynamsoft Barcode Reader 6.5.2 to JS(WebAssembly) version.
+
+Walkaround for certain scenarios of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+
+Add a setting can turn off the feature of using IndexedDB.
 
 ### 6.5.1
 Added video view for barcode scan. Compatible with Node.js.
