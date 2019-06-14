@@ -2,7 +2,7 @@
 
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.5.1
+Version 6.5.2
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -228,16 +228,11 @@ scanner.runtimeSettings.mAntiDamageLevel = 9;
 scanner.runtimeSettings.mDeblurLevel = 9;
 ```
 
-The 2D barcode is very dense, like drive license crad
-```js
-scanner.runtimeSettings.mBinarizationBlockSize = 10;//need test
-```
-
 [Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
 
 ## Customize the UI
 
-The Barcode Reader gives you the freedom to use your own UI for the video scanner, and in this next section, we will explore how to configure the reader to allow for custom UI.
+The Barcode Reader gives you the freedom to use your own UI for the video scanner, and in the next section, we will explore how to configure the reader to allow for custom UI.
 
 Try running the code below.
 ```html
@@ -483,6 +478,14 @@ Please check the settings below for different environments.
 <br>
 
 ## Changelog
+
+### 6.5.2
+
+Built Dynamsoft Barcode Reader 6.4.1 to JS(WebAssembly) version.
+
+Walkaround for certain scenarios of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
+
+Add a setting can turn off the feature of using IndexedDB.
 
 ### 6.5.1
 Added video view for barcode scan. Compatible with Node.js.
