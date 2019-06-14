@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-let dbr = (window as any).dbr;
+const dbr = (window as any).dbr;
 dbr.licenseKey = 'LICENSE-KEY';
-let scanner = new dbr.Scanner({
-    onFrameRead: results => {console.log(results);}, // eslint-disable-line
-    onNewCodeRead: (txt, result) => {alert(txt);} // eslint-disable-line
+const scanner = new dbr.Scanner({
+    onFrameRead: results => { console.log(results); }, // eslint-disable-line
+    onNewCodeRead: (txt, result) => { alert(txt); } // eslint-disable-line
 });
 
 @Component({
