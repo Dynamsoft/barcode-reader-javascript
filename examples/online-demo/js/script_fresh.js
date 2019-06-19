@@ -1,7 +1,5 @@
 /* global  $, dbr*/
 
-dbr.licenseKey = "t0068MgAAAKkfxtAu2bV67/RLmEJMaFGzhi/pg4ZNxyQOGlsAY/O+xULRG11Gt5a7f7xJpnrxcH6t9+Z1Aj6UttMmU1HFmYI=";
-
 var $video = document.getElementById('PVideo');
 var $cvsContainer = document.getElementById('canvasContainer');
 var $resultContainer = document.getElementById('resultContainer');
@@ -325,7 +323,13 @@ $('.ls-option input[name="settingInterval"]').change(function () {
 
 // video reading mode changed
 $('.ls-option input[name="settingMode"]').change(function () {
-    videoReader.runtimeSettings.mDeblurLevel = parseInt(this.value);
+    if('fast' == this.value){
+        videoReader.runtimeSettings.mAntiDamageLevel = 3;
+        videoReader.runtimeSettings.mDeblurLevel = 0;
+    }else if('accurate' == this.value){
+        videoReader.runtimeSettings.mAntiDamageLevel = 9;
+        videoReader.runtimeSettings.mDeblurLevel = 0;
+    }
 });
 
 var updateFrame = () => {
