@@ -37,6 +37,8 @@ Some places need to link to the API and need to make up.
     - [Decode Part of Video](#decode-part-of-video)
     - [Self Deployment](#self-deployment)
     - [Changelog](#changelog)
+        - [6.5.2.1](#6521)
+        - [6.5.2](#652)
         - [6.5.1](#651)
         - [6.4.1.3](#6413)
         - [6.4.1.1](#6411)
@@ -222,10 +224,16 @@ scanner.runtimeSettings.mAntiDamageLevel = 3;
 scanner.runtimeSettings.mDeblurLevel = 0;
 ```
 
-most accurate
+1D
 ```js
 scanner.runtimeSettings.mAntiDamageLevel = 9;
-scanner.runtimeSettings.mDeblurLevel = 9;
+scanner.runtimeSettings.mDeblurLevel = 0;
+```
+
+2D
+```js
+scanner.runtimeSettings.mAntiDamageLevel = 9;
+scanner.runtimeSettings.mDeblurLevel = 2;
 ```
 
 [Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
@@ -478,6 +486,10 @@ Please check the settings below for different environments.
 <br>
 
 ## Changelog
+
+### 6.5.2.1
+
+Improve video decoding capabilities.
 
 ### 6.5.2
 
