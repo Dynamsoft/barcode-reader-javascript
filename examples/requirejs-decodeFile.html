@@ -4,10 +4,10 @@
     <input id="iptDecodeImg" type="file" accept="image/bmp,image/jpeg,image/png,image/gif">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
-        // Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@6/dist/dbr.min.js)
+        // Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
         requirejs(['https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js'], function(BarcodeReader){
             
-            // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
+            // Visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get key.
             BarcodeReader.licenseKey = "t0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=";
 
             let reader;
@@ -27,10 +27,10 @@
                         this.value = '';
                     }
                     else
-					{
+                    {
                         alert("No barcode found.");
-						 this.value = '';
-						}
+                        this.value = '';
+                    }
                 });
             });
         });
