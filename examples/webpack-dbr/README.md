@@ -22,3 +22,6 @@
 4. Host the folder using [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en).
 
 5. Open the web barcode scanning app in your web browser.
+
+## Blog
+[Bundling Dynamsoft JavaScript Barcode Library with Webpack](https://www.codepool.biz/webpack-dynamsoft-javascript-barcode.html)
