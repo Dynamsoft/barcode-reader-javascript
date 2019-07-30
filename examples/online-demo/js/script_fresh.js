@@ -1,12 +1,14 @@
-/* global  $, dbr*/
+/* global  $, dbr, ringBell*/
 
 var $video = document.getElementById('PVideo');
 var $cvsContainer = document.getElementById('canvasContainer');
 var $resultContainer = document.getElementById('resultContainer');
 
+
+
 var videoReader = new dbr.Scanner({
     htmlElement: document.body,
-    videoSettings: { video: { width: { ideal: 1280 } } },
+    videoSettings: { video: { width: { ideal: 1280 }, height: {ideal: 720 }, facingMode: { ideal: 'environment' } } },
     runtimeSettings: {
         mBarcodeFormatIds: 503317503,
         mAntiDamageLevel: 3,
@@ -60,6 +62,9 @@ var videoReader = new dbr.Scanner({
             setTimeout(function () {
                 $(cvs).remove();
             }, 300);
+        }
+        if (results.length) {
+            ringBell();
         }
         $('.rc-text').each(function () {
             let txt = this.dbrResultBoxTxt;
@@ -119,7 +124,13 @@ var videoReader = new dbr.Scanner({
         _div.dbrResultBoxTxt = txt;
         _div.dbrResultBoxFormat = result.BarcodeFormat;
         $resultContainer.appendChild(_div);
-        console.log(result.BarcodeFormatString + ":" + txt); //eslint-disable-line
+        // console.log("=============new===========")
+        // console.log(result.BarcodeFormatString + ":" + txt); //eslint-disable-line
+        // console.log("===list===");
+        // for(let info of videoReader.arrDiffCodeInfo){
+        //     console.log(info.result.BarcodeFormatString + ":" + info.result.BarcodeText);
+        // }
+        //console.log(JSON.stringify(videoReader.arrDiffCodeInfo));
     }
 });
 
@@ -173,6 +184,10 @@ videoReader.open().then(function (_videoDeviceInfo) {
     // ui update defalut mode most accurate 
     // mDeblurLevel: 0
     $('#sM0').prop('checked', true);
+    // ready?
+    setTimeout(function () {
+        $('.waiting').fadeOut(300);
+    }, 100);
 }, function (ex) {
     console.error(ex); //eslint-disable-line
     // alert(ex);
@@ -235,7 +250,7 @@ $(document).click(function (ev) {
         });
         $('.l-secondary').hide();
         if ($('.h-sign-in-mobile').css('display') === 'block') {
-            $('.leftbar').fadeOut(300);
+            document.querySelector('#leftbar').className = 'leftbar hidden';
             $('#MMenu').prop('checked', false);
         }
     }
@@ -328,7 +343,7 @@ $('.ls-option input[name="settingMode"]').change(function () {
         videoReader.runtimeSettings.mDeblurLevel = 0;
     }else if('accurate' == this.value){
         videoReader.runtimeSettings.mAntiDamageLevel = 9;
-        videoReader.runtimeSettings.mDeblurLevel = 0;
+        videoReader.runtimeSettings.mDeblurLevel = 2;
     }
 });
 
@@ -402,9 +417,9 @@ $('#LRegion').change(function () {
 // mobile menu btn
 $('#MMenu').change(function () {
     if (this.checked) {
-        $('.leftbar').fadeIn(300);
+        document.querySelector('#leftbar').className = 'leftbar visible';
     } else {
-        $('.leftbar').fadeOut(300);
+        document.querySelector('#leftbar').className = 'leftbar hidden';
     }
 });
 
@@ -451,7 +466,7 @@ $('#LRegion').prop('checked', true);
 $('#MRegion').prop('checked', true);
 
 var getVideoFrame = () => {
-    if($video.paused){
+    if ($video.paused) {
         let _aImg = document.createElement('a');
         let _canvas = document.createElement("canvas");
 
@@ -465,13 +480,5 @@ var getVideoFrame = () => {
 
         _canvas.remove();
         _aImg.remove();
-    }
-}
-
-document.onreadystatechange = function () {
-    if (document.readyState === 'complete') {
-        setTimeout(function () {
-            $('.waiting').fadeOut(300);
-        }, 300);
     }
 };

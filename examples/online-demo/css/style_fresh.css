@@ -162,6 +162,8 @@ input:checked + .radio-btn::before{opacity:1}
 .sc-frame1{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:80%;height:60%;max-width:250px;max-height:250px;border:2px solid #FE8E14;border-radius:5px;box-shadow:0 0 0 10000px rgba(0,0,0,0.5)}
 
 @media (max-width:80vh){
+    .visible{visibility: visible !important;opacity: 1;transition: opacity 0.3s ease}
+    .hidden{visibility: hidden;opacity: 0;transition: visibility 0s 0.3s,opacity 0.3s ease}
     /* header */
     .h-dynamsoft-logo{margin: 18px 0 18px 20px;}
     .h-sign-in{display: none}
@@ -186,7 +188,7 @@ input:checked + .radio-btn::before{opacity:1}
     /* footer */
     .footer{display: none;}
     /* leftbar */
-    .leftbar{display:none;margin:0;width:155px;height:80%;min-height:500px}
+    .leftbar{visibility: hidden;margin:0;width:155px;height:80%;min-height:500px}
     .l-item{font-size:14px;width:150px;height:60px;line-height:60px}
     .l-item::before{height:56px}
     .l-item::after{top:24px}
