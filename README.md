@@ -76,7 +76,14 @@ Some places need to link to the API and need to make up.
 ## API Documentation
 
 <!--for github: link need use online-->
-[API Documentation](./modules/_dbr_wasm_d_.dynamsoft.html)
+
+Decoding Images:
+
+[BarcodeReader](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+
+Decoding Videos: 
+
+[BarcodeScanner](./classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
 
 <br>
 
