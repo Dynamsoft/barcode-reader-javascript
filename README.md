@@ -258,7 +258,7 @@ settings.deblurLevel = 2;
 scanner.updateRuntimeSettings(settings);
 ```
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/uqbzx90f/)
 
 ## Customize the UI
 
