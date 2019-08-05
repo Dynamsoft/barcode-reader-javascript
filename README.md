@@ -179,7 +179,7 @@ In case you need to debug your sample application, use the callback `_onLog`.
 ```js
 Dynamsoft.BarcodeReader._onLog = console.log;
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/nathz1yf/)
 
 The log can then be seen in the browser console.
 
