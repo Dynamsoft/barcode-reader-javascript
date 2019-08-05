@@ -306,7 +306,7 @@ As for adding a resolution select dropdown menu:
 
 The dropdown will still show the same 8 options for the resolution if you do not manually define the resolution options.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/oyxugLcf/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/s2m4Ld1o/)
 
 You can provide limited resolution options to avoid overwhelming the user. Here is the HTML code for how to do that:
 ```html
