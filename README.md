@@ -123,7 +123,7 @@ Now just copy the following code into an html file and run it directly from the 
 </body>
 </html>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/16gqLoe3/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/uds1orex/)
 
 <br>
 
@@ -186,7 +186,7 @@ In case you need to debug your sample application, use the callback `_onLog`.
 ```js
 Dynamsoft.BarcodeReader._onLog = console.log;
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/nathz1yf/)
 
 The log can then be seen in the browser console.
 
@@ -218,7 +218,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     runtimeSettings.minResultConfidence = 30;
     scanner.updateRuntimeSettings(runtimeSettings);
 
-    let scanSettings = scanner,getScanSettings();
+    let scanSettings = scanner.getScanSettings();
     // The same code awlways alert? Set duplicateForgetTime longer.
     scanSettings.duplicateForgetTime = 20000;
     // Give cpu more time to relax
@@ -235,7 +235,7 @@ Now that you have seen how to set and change these properties, here is a full li
 * `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
 * `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/gbwahsyp/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/fkbu3qsm/)
 
 <br>
 
@@ -265,7 +265,7 @@ settings.deblurLevel = 2;
 scanner.updateRuntimeSettings(settings);
 ```
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/uqbzx90f/)
 
 ## Customize the UI
 
@@ -298,13 +298,13 @@ Try running the code below.
 </body>
 </html>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/0zo9ju72/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/4zbu958d/)
 
 Now that we have defined the htmlElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
 ```html
 <select class="dbrScanner-sel-camera"></select>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/csadqny1/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/2zykdxev/)
 
 As for adding a resolution select dropdown menu:
 ```html
@@ -327,7 +327,7 @@ You can provide limited resolution options to avoid overwhelming the user. Here 
 
 Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. The "dbrScanner-opt-gotResolution" class option of the dropdown menu (shown above) indicates which resolution is currently being used.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/odf4eLvm/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/onLhas64/)
 
 To play the video at the selected resolution:
 
@@ -336,7 +336,7 @@ scanner.play(null, 1920, 1080).then(r=>{
     alert(r.width+'x'+r.height);
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/14ngeh5c/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/x8f4pt7L/)
 
 Now suppose you do not want to use either of the select classes listed above for the video source and resolution dropdown boxes. You can use the API methods to populate any HTML element you want to use.
 
@@ -361,7 +361,7 @@ scanner.getAllCameras().then(infos=>{
     alert(JSON.stringify(infos, null, 2));
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/j7p5c6fb/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/9uwh1axy/)
 
 You can play any video source using the `deviceId` property:
 
@@ -369,7 +369,7 @@ You can play any video source using the `deviceId` property:
 // Play the first camera.
 scanner.setCurrentCamera(infos.all[0].deviceId);
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/qwsbzygp/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/9ksp7odL/)
 
 The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should almost always never use the `deviceId` for the name as it is a long string of randomized characters.
 Please note that the camera may display different names in different environments or timings.
@@ -378,7 +378,7 @@ If you have more than one connected camera, and would like your application to p
 
 ```js
 scanner.show()
-.then(()=>scanner.getAllCameras())
+.then(()=>scanner.getAllCamera())
 .then(infos=>{
     for(let info of infos){
         if(info.label == 'Your camera name'){
@@ -388,7 +388,7 @@ scanner.show()
     }
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/a9mhu2sv/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/b5se9hd3/)
 
 ## How to complete a form using the Barcode Reader
 
@@ -419,7 +419,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     scanner.show();
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cgLo5dsb/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/53x8va9r/)
 
 <br>
 
@@ -437,7 +437,7 @@ settings.region.bottom = 25;
 settings.region.measuredByPercentage = 1; // 1 means true
 scanner.updateRuntimeSettings(settings);
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/dak2qcyr/)
 
 <br>
 
