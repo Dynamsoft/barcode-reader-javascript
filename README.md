@@ -75,7 +75,7 @@ Some places need to link to the API and need to make up.
 
 ## API Documentation
 
-<!--todo: link need use online-->
+<!--for github: link need use online-->
 [API Documentation](./modules/_dbr_wasm_d_.dynamsoft.html)
 
 <br>
@@ -421,7 +421,7 @@ Dynamsoft.BarcodeScanner.createInstance({
 If you are not interested in exhausting resources to read the entire area of the video stream, you can choose to decode a specific region of the stream. Here is how:
 
 ```js
-// Ignore 25% in around while decoding
+// Ignore around 25% while decoding
 let settings = scanner.getRuntimeSettings();
 settings.region.left = 25;
 settings.region.top = 25;
