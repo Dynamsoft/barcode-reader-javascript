@@ -412,7 +412,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     scanner.show();
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cgLo5dsb/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/53x8va9r/)
 
 <br>
 
