@@ -430,7 +430,7 @@ settings.region.bottom = 25;
 settings.region.measuredByPercentage = 1; // 1 means true
 scanner.updateRuntimeSettings(settings);
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/dak2qcyr/)
 
 <br>
 
