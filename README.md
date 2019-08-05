@@ -116,7 +116,7 @@ Now just copy the following code into an html file and run it directly from the 
 </body>
 </html>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/16gqLoe3/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/uds1orex/)
 
 <br>
 
