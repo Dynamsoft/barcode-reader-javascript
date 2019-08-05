@@ -371,7 +371,7 @@ If you have more than one connected camera, and would like your application to p
 
 ```js
 scanner.show()
-.then(()=>scanner.getAllCamera())
+.then(()=>scanner.getAllCameras())
 .then(infos=>{
     for(let info of infos){
         if(info.label == 'Your camera name'){
