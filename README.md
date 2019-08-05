@@ -211,7 +211,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     runtimeSettings.minResultConfidence = 30;
     scanner.updateRuntimeSettings(runtimeSettings);
 
-    let scanSettings = scanner,getScanSettings();
+    let scanSettings = scanner.getScanSettings();
     // The same code awlways alert? Set duplicateForgetTime longer.
     scanSettings.duplicateForgetTime = 20000;
     // Give cpu more time to relax
@@ -228,7 +228,7 @@ Now that you have seen how to set and change these properties, here is a full li
 * `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
 * `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/gbwahsyp/)
+[Try in JSFiddle](https://jsfiddle.net/zlt98/fkbu3qsm/)
 
 <br>
 
