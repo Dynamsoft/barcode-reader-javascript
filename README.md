@@ -171,9 +171,13 @@ Our library needs some time for initialization, including downloading the resour
 
 You can check the download status of the WebAssembly component with the `Dynamsoft.BarcodeReader._onWasmDownloaded` callback. Please note this function is only triggered during the first visit because that's the only time the wasm files are downloaded.
 
-Every time you open the page, initialization will take place only once. You can use the `isLoaded` function to see if the initialization was successful.
+You need to compile the .wasm file before you can use it. The time it takes to compile depends on the performance of the device and the browser used. It may take a long time on some older devices. For a better user experience, it is recommended that you add some transitions in the process.
 
-`loadWasm` is the basic function for initialization. You can call it over and over again, or add it in the page initialization to speed up the whole process. The returned promise will be resolved once the initialization is done. 
+Every time you open the page, initialization will take place only once. You can use the `isLoaded` function to see if the initialization was finished.
+
+`loadWasm` is the basic function for initialization. You can call `loadWasm` repeatedly, but `loadWasm` will only be executed once. The returned promise of `loadWasm` will be resolved immediately if the initialization is already done.
+
+If you are already sure that the page will use the `BarcodeReader` or `BarcodeScanner`, call `loadWasm` in advance. This way you can enter as soon as you need to use `BarcodeReader` or `BarcodeScanner`.
 
 `createInstance` will call `loadWasm` on the backend so no initialization is required for those functions. Therefore, it is not necessary to explicitly call `loadWasm` to initialize the library if you are directly using the constructor.
 
