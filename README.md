@@ -89,7 +89,7 @@ Decoding Videos:
 
 ## Preface
 
-In the followng section, we will introduce the basic functions of the SDK and how you can use it in a web application to decode barcodes off a video stream. 
+In the following section, we will introduce the basic functions of the SDK and how you can use it in a web application to decode barcodes off a video stream. 
 
 For those who are interested in creating a nodejs app, or decoding static images, please refer to the samples and api documents. This guide tackles decoding from a video, and we will make up for other usages soon.
 
@@ -149,7 +149,7 @@ Below are some samples for configuring an HTTPS server.
 
 * Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
-After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certification. Please go to the certificate settings and allow this certificate. You may change the certification to a formal one in production.
+After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certificates. Please go to the certificate settings and allow this certificate. You may change the certification to a formal one in production.
 
 <br>
 
@@ -234,7 +234,7 @@ Dynamsoft.BarcodeScanner.createInstance({
 Now that you have seen how to set and change these properties, here is a full list of the properties:
 * `UIElement`: The HTML element that will contain the video reader object should you choose to customize the UI. We will dig a little deeper into this in the next section.
 * `videoSettings`: Defines the different settings of the video stream. These settings include the resolution and facing mode. Please visit this [link](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax) for more information on these video settings.
-* `minResultConfidence`: This property is mainly related to 1D barcodes. If the confidence of a 1D barcode result is greater than 30, that is a reliable result which you can move forward with. Otherwise, it is recommended that the scan process is restarted so that a more confident result is produced.
+* `minResultConfidence`: This property is mainly related to 1D barcodes. If the confidence of a 1D barcode result is greater than 30, that is a reliable result which you can move forward with. Otherwise, it is recommended that the scan process is restarted so that a more reliable result is produced.
 * `intervalTime`: The time interval between finding a result and starting a new scan.
 * `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
 * `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
@@ -304,7 +304,7 @@ Try running the code below.
 ```
 [Try in JSFiddle](https://jsfiddle.net/zlt98/4zbu958d/)
 
-Now that we have defined the htmlElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
+Now that we have defined the UIElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
 ```html
 <select class="dbrScanner-sel-camera"></select>
 ```
@@ -371,11 +371,11 @@ You can play any video source using the `deviceId` property:
 
 ```js
 // Play the first camera.
-scanner.setCurrentCamera(infos.all[0].deviceId);
+scanner.setCurrentCamera(infos[0].deviceId);
 ```
 [Try in JSFiddle](https://jsfiddle.net/zlt98/9ksp7odL/)
 
-The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should almost always never use the `deviceId` for the name as it is a long string of randomized characters.
+The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should always almost never use the `deviceId` for the name as it is a long string of randomized characters.
 Please note that the camera may display different names in different environments or timings.
 
 If you have more than one connected camera, and would like your application to play a certain one of them on startup, here is how:
