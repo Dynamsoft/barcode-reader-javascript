@@ -375,7 +375,7 @@ scanner.setCurrentCamera(infos[0].deviceId);
 ```
 [Try in JSFiddle](https://jsfiddle.net/zlt98/9ksp7odL/)
 
-The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should always almost never use the `deviceId` for the name as it is a long string of randomized characters.
+The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. It is generally recommended that you use `label` instead of `deviceId` because it is more readable.
 Please note that the camera may display different names in different environments or timings.
 
 If you have more than one connected camera, and would like your application to play a certain one of them on startup, here is how:
