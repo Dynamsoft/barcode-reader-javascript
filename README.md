@@ -1,4 +1,4 @@
-<!--main branch is tfs $/DBR/DBR_WASM/documents/guide.md-->
+<!--main branch is tfs $/DBR/DBR_WASM/documents/README.md-->
 
 # Dynamsoft JavaScript Barcode SDK
 
@@ -88,6 +88,7 @@ Some places need to link to the API and need to make up.
 | Browser | Version |
 |:-:|:-:|
 | Safari* | v11+ |
+
 <!--
 todo need test
 | Chrome | v57+ |
@@ -109,6 +110,7 @@ todo need test
 | Browser | Version |
 |:-:|:-:|
 | Safari* | v11+ |
+
 <!--
 todo need test
 | Chrome | v57+ |
@@ -133,11 +135,11 @@ todo need test
 
 Decoding Images:
 
-[BarcodeReader](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+[BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
 
 Decoding Videos: 
 
-[BarcodeScanner](./classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
+[BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
 
 <br>
 
