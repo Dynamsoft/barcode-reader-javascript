@@ -109,7 +109,7 @@ Now just copy the following code into an html file and run it directly from the 
         Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
         Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
     -->
-    <script src="https://www.keillion.site/dbr.wasm.cdn/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let scanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -287,7 +287,7 @@ Try running the code below.
         Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
         Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
     -->
-    <script src="https://www.keillion.site/dbr.wasm.cdn/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let scanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -574,5 +574,5 @@ Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 If there are any questions, please feel free to contact <support@dynamsoft.com>.
 
 ## License Agreement
-https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx#javascript
 
