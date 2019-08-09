@@ -25,6 +25,12 @@ Some places need to link to the API and need to make up.
 - [Dynamsoft JavaScript Barcode SDK](#dynamsoft-javascript-barcode-sdk)
     - [Online Demo](#online-demo)
     - [Browser Compatibility](#browser-compatibility)
+        - [Windows](#windows)
+        - [Linux](#linux)
+        - [Mac](#mac)
+        - [Android](#android)
+        - [iOS](#ios)
+        - [Node.js](#nodejs)
     - [API Documentation](#api-documentation)
     - [Preface](#preface)
     - [HelloWorld](#helloworld)
@@ -61,15 +67,63 @@ Some places need to link to the API and need to make up.
 
 ## Browser Compatibility
 
+### Windows
+
 | Browser | Version |
 |:-:|:-:|
 | Chrome | v57+ |
 | Firefox | v52+ |
 | Edge | v16+ |
+| Opera | v44+ |
+
+### Linux
+
+| Browser | Version |
+|:-:|:-:|
+| Firefox | v52+ |
+| Chrome | v57+ |
+
+### Mac
+
+| Browser | Version |
+|:-:|:-:|
 | Safari* | v11+ |
-| Internet Explorer | not supported |
+<!--
+todo need test
+| Chrome | v57+ |
+| Firefox | v52+ |
+-->
 
 > Safari 11.2.2 ~ 11.2.6 are not supported.
+
+### Android
+
+| Browser | Version |
+|:-:|:-:|
+| Android webview | v57+ |
+| Chrome | v57+ |
+| Firefox | v52+ |
+
+### iOS
+
+| Browser | Version |
+|:-:|:-:|
+| Safari* | v11+ |
+<!--
+todo need test
+| Chrome | v57+ |
+| Firefox | v52+ |
+-->
+
+> Safari 11.2.2 ~ 11.2.6 are not supported.
+
+### Node.js
+
+| Version |
+|:-:|
+| v8+ |
+
+> Node.js only support `BarcodeReader`, not support `BarcodeScanner`.
 
 <br>
 
