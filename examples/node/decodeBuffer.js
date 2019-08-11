@@ -1,16 +1,16 @@
-var BarcodeReader = require('../../dist/dbr-6.5.1.min');
-// https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-BarcodeReader.licenseKey = 't0068MgAAAAxT9peWqAbLNI2gDlg9yk8dqzhp5Me5BNCgFIg2p5X+8TPYghCr9cz6TNFlkmkpzOJelNHJaQMWGe7Bszoxoo4=';
+var dbr = require('../../dist/dbr.min');
+// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+dbr.BarcodeReader.productKeys = 't0068MgAAAHlndUYSpB+Y7ZCO9+UgVclFHIMhGxLfSzAObE6EZS4bUPogB/w8AmBM3lIw94h+joK5NmjSJWH/8286uzcbmhE=';
 
 var fs = require('fs');
 var buffer = fs.readFileSync('../sample.png');
 
 var reader;
-BarcodeReader.createInstance().then(r => 
+dbr.BarcodeReader.createInstance().then(r => 
     (reader = r) && r.decode(buffer)
 ).then(results => {
     for(var i = 0; i < results.length; ++i){
         console.log(results[i].BarcodeText);
     }
-    reader.deleteInstance();
+    reader.destroy();
 });

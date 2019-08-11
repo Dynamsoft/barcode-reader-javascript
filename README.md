@@ -1,8 +1,8 @@
-<!--main branch is tfs $/DBR/DBR_WASM/documents/guide.md-->
+<!--main branch is tfs $/DBR/DBR_WASM/documents/README.md-->
 
 # Dynamsoft JavaScript Barcode SDK
 
-Version 6.5.2
+Version 7.0.0
 
 The repository aims to help developers get familiar with [Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -25,6 +25,12 @@ Some places need to link to the API and need to make up.
 - [Dynamsoft JavaScript Barcode SDK](#dynamsoft-javascript-barcode-sdk)
     - [Online Demo](#online-demo)
     - [Browser Compatibility](#browser-compatibility)
+        - [Windows](#windows)
+        - [Linux](#linux)
+        - [Mac](#mac)
+        - [Android](#android)
+        - [iOS](#ios)
+        - [Node.js](#nodejs)
     - [API Documentation](#api-documentation)
     - [Preface](#preface)
     - [HelloWorld](#helloworld)
@@ -61,29 +67,85 @@ Some places need to link to the API and need to make up.
 
 ## Browser Compatibility
 
+### Windows
+
 | Browser | Version |
 |:-:|:-:|
 | Chrome | v57+ |
 | Firefox | v52+ |
 | Edge | v16+ |
+| Opera | v44+ |
+
+### Linux
+
+| Browser | Version |
+|:-:|:-:|
+| Firefox | v52+ |
+| Chrome | v57+ |
+
+### Mac
+
+| Browser | Version |
+|:-:|:-:|
 | Safari* | v11+ |
-| Internet Explorer | not supported |
+
+<!--
+todo need test
+| Chrome | v57+ |
+| Firefox | v52+ |
+-->
 
 > Safari 11.2.2 ~ 11.2.6 are not supported.
+
+### Android
+
+| Browser | Version |
+|:-:|:-:|
+| Android webview | v57+ |
+| Chrome | v57+ |
+| Firefox | v52+ |
+
+### iOS
+
+| Browser | Version |
+|:-:|:-:|
+| Safari* | v11+ |
+
+<!--
+todo need test
+| Chrome | v57+ |
+| Firefox | v52+ |
+-->
+
+> Safari 11.2.2 ~ 11.2.6 are not supported.
+
+### Node.js
+
+| Version |
+|:-:|
+| v8+ |
+
+> Node.js only support `BarcodeReader`, not support `BarcodeScanner`.
 
 <br>
 
 ## API Documentation
 
-[class BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+<!--for github: link need use online-->
 
-[class Scanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.scanner.html)
+Decoding Images:
+
+[BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+
+Decoding Videos: 
+
+[BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
 
 <br>
 
 ## Preface
 
-In the followng section, we will introduce the basic functions of the SDK and how you can use it in a web application to decode barcodes off a video stream. 
+In the following section, we will introduce the basic functions of the SDK and how you can use it in a web application to decode barcodes off a video stream. 
 
 For those who are interested in creating a nodejs app, or decoding static images, please refer to the samples and api documents. This guide tackles decoding from a video, and we will make up for other usages soon.
 
@@ -99,20 +161,25 @@ Now just copy the following code into an html file and run it directly from the 
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js"></script>
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
     <script>
-        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        BarcodeReader.licenseKey = 'LICENSE-KEY';
-        let scanner = new BarcodeReader.Scanner({
+        let scanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
             onFrameRead: results => {console.log(results);},
-            onNewCodeRead: (txt, result) => {alert(txt);}
+            onUnduplicatedRead: (txt, result) => {alert(txt);}
+        }).then(s => {
+            scanner = s;
+            scanner.show();
         });
-        scanner.open();
     </script>
 </body>
 </html>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/16gqLoe3/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/97xdy36s/)
 
 <br>
 
@@ -138,7 +205,7 @@ Below are some samples for configuring an HTTPS server.
 
 * Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
-After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certification. Please go to the certificate settings and allow this certificate. You may change the certification to a formal one in production.
+After deploying the site to an https server, the browser might say "the site is not secure". That is because we use self-signed certificates. Please go to the certificate settings and allow this certificate. You may change the certification to a formal one in production.
 
 <br>
 
@@ -148,7 +215,7 @@ If everything goes normally, there will be a pop-up from the browser asking for 
 
   The event that is triggered once a single frame has been scanned. The results object contains all the barcode results that the reader was able to decode.
 
-* onNewCodeRead:
+* onUnduplicatedRead:
 
   This event is triggered when a new barcode (not a duplicate) is found. `txt` holds the barcode text result. `result` contains the actual barcode result, including the text result. Any new barcodes that were found (or any old barcodes that were found) are going to be stored for the duration of `duplicateForgetTime`.
 
@@ -158,13 +225,17 @@ If everything goes normally, there will be a pop-up from the browser asking for 
 
 Our library needs some time for initialization, including downloading the resources and compiling them, so you might notice that the decoding process doesn't start immediately. If the HelloWorld sample is deployed, the program will cache the wasm file in the indexedDB to speed the download up.
 
-You can check the download status of the WebAssembly component with the `_onWasmDownloaded` callback. Please note this function is only triggered during the first visit because that's the only time the wasm files are downloaded.
+You can check the download status of the WebAssembly component with the `Dynamsoft.BarcodeReader._onWasmDownloaded` callback. Please note this function is only triggered during the first visit because that's the only time the wasm files are downloaded.
 
-Every time you open the page, initialization will take place only once. You can use the `isLoaded` function to see if the initialization was successful.
+You need to compile the .wasm file before you can use it. The time it takes to compile depends on the performance of the device and the browser used. It may take a long time on some older devices. For a better user experience, it is recommended that you add some transitions in the process.
 
-`loadWasm` is the basic function for initialization. You can call it over and over again, or add it in the page initialization to speed up the whole process. The returned promise will be resolved once the initialization is done. 
+Every time you open the page, initialization will take place only once. You can use the `isLoaded` function to see if the initialization was finished.
 
-`createInstance` (or using the `Scanner` constructor) and `scanner.open` will call `loadWasm` on the backend so no initialization is required for those functions. Therefore, it is not necessary to explicitly call `loadWasm` to initialize the library if you are directly using the constructor.
+`loadWasm` is the basic function for initialization. You can call `loadWasm` repeatedly, but `loadWasm` will only be executed once. The returned promise of `loadWasm` will be resolved immediately if the initialization is already done.
+
+If you are already sure that the page will use the `BarcodeReader` or `BarcodeScanner`, call `loadWasm` in advance. This way you can enter as soon as you need to use `BarcodeReader` or `BarcodeScanner`.
+
+`createInstance` will call `loadWasm` on the backend so no initialization is required for those functions. Therefore, it is not necessary to explicitly call `loadWasm` to initialize the library if you are directly using the constructor.
 
 <br>
 
@@ -173,9 +244,9 @@ Every time you open the page, initialization will take place only once. You can 
 In case you need to debug your sample application, use the callback `_onLog`.
 
 ```js
-dbr._onLog = console.log;
+Dynamsoft.BarcodeReader._onLog = console.log;
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/6czmrq5d/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/gxok1Le3/)
 
 The log can then be seen in the browser console.
 
@@ -183,36 +254,48 @@ The log can then be seen in the browser console.
 
 ## Configuring Scanner Settings
 
-The scanner interface comes with a number of properties, some of the most useful being shown here:
+The `BarcodeScanner` interface comes with a number of properties, some of the most useful being shown here:
 
 ```js
 // Use config when new the object
-let scanner = new BarcodeReader.Scanner({
+let scanner = null;
+Dynamsoft.BarcodeScanner.createInstance({
+    onFrameRead: results => {console.log(results);},
+    onUnduplicatedRead: (txt, result) => {alert(txt);}
+}).then(s => {
+    scanner = s;
+
     // Use back camera in mobile. Set width and height.
     // Refer [MediaStreamConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
-    videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
-    //The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.
-    runtimeSettings: { mAntiDamageLevel: 9, mDeblurLevel: 9 },
+    scanner.setVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
+
+    let runtimeSettings = scanner.getRuntimeSettings();
+    // Only decode OneD and QR
+    runtimeSettings.BarcodeFormatIds = Dynamsoft.EnumBarcodeFormat.OneD | Dynamsoft.EnumBarcodeFormat.QR_CODE;
+    // The default setting is for an environment with accurate focus and good lighting. The settings below are for more complex environments.
+    runtimeSettings.localizationModes = [2,16,4,8,0,0,0,0];
+    // Only accept results' confidence over 30
+    runtimeSettings.minResultConfidence = 30;
+    scanner.updateRuntimeSettings(runtimeSettings);
+
+    let scanSettings = scanner.getScanSettings();
     // The same code awlways alert? Set duplicateForgetTime longer.
-    duplicateForgetTime: 10000,
-    onFrameRead: results => {console.log(results);},
-    onNewCodeRead: (txt, result) => {alert(txt);}
-});
-// change initial configuration settings
-scanner.duplicateForgetTime = 20000;
-scanner.onFrameRead = undefined;
-scanner.runtimeSettings.mBarcodeFormatIds = BarcodeReader.EnumBarcodeFormat.All;
+    scanSettings.duplicateForgetTime = 20000;
+    // Give cpu more time to relax
+    scanSettings.intervalTime = 300;
+    scanner.setScanSettings(scanSettings);
+})
 ```
 
 Now that you have seen how to set and change these properties, here is a full list of the properties:
-* `htmlElement`: The HTML element that will contain the video reader object should you choose to customize the UI. We will dig a little deeper into this in the next section.
+* `UIElement`: The HTML element that will contain the video reader object should you choose to customize the UI. We will dig a little deeper into this in the next section.
 * `videoSettings`: Defines the different settings of the video stream. These settings include the resolution and facing mode. Please visit this [link](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax) for more information on these video settings.
-* `confidence`: This property is mainly related to 1D barcodes. If the confidence of a 1D barcode result is greater than 30, that is a reliable result which you can move forward with. Otherwise, it is recommended that the scan process is restarted so that a more confident result is produced.
+* `minResultConfidence`: This property is mainly related to 1D barcodes. If the confidence of a 1D barcode result is greater than 30, that is a reliable result which you can move forward with. Otherwise, it is recommended that the scan process is restarted so that a more reliable result is produced.
 * `intervalTime`: The time interval between finding a result and starting a new scan.
 * `runtimeSettings`: Defines the different settings of the barcode reader itself. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/devguide/Template/TemplateSettingsList.html).
 * `duplicateForgetTime`: The amount of time the reader "remembers" a barcode result once a single frame is read. Once the barcode result is obtained, the reader will not attempt to read the specific barcode again until duplicateForgetTime is up.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/gbwahsyp/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/n2tf745m/)
 
 <br>
 
@@ -220,23 +303,29 @@ Now that you have seen how to set and change these properties, here is a full li
 
 fast
 ```js
-scanner.runtimeSettings.mAntiDamageLevel = 3;
-scanner.runtimeSettings.mDeblurLevel = 0;
+let settings = scanner.getRuntimeSettings();
+settings.localizationModes = [2,0,0,0,0,0,0,0];
+settings.deblurLevel = 0;
+scanner.updateRuntimeSettings(settings);
 ```
 
 1D
 ```js
-scanner.runtimeSettings.mAntiDamageLevel = 9;
-scanner.runtimeSettings.mDeblurLevel = 0;
+let settings = scanner.getRuntimeSettings();
+settings.localizationModes = [2,16,4,8,0,0,0,0];
+settings.deblurLevel = 0;
+scanner.updateRuntimeSettings(settings);
 ```
 
 2D
 ```js
-scanner.runtimeSettings.mAntiDamageLevel = 9;
-scanner.runtimeSettings.mDeblurLevel = 2;
+let settings = scanner.getRuntimeSettings();
+settings.localizationModes = [2,16,4,8,0,0,0,0];
+settings.deblurLevel = 2;
+scanner.updateRuntimeSettings(settings);
 ```
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cz0udevm/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/1uhpoy9d/)
 
 ## Customize the UI
 
@@ -250,27 +339,32 @@ Try running the code below.
     <div id="div-video-container">
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.min.js"></script>
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
     <script>
-        //https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        BarcodeReader.licenseKey = 'LICENSE-KEY';
-        let scanner = new BarcodeReader.Scanner({
-            htmlElement: document.getElementById('div-video-container'),
+        let scanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
+            UIElement: document.getElementById('div-video-container'),
             onFrameRead: results => {console.log(results);},
-            onNewCodeRead: (txt, result) => {alert(txt);}
+            onUnduplicatedRead: (txt, result) => {alert(txt);}
+        }).then(s => {
+            scanner = s;
+            scanner.show();
         });
-        scanner.open();
     </script>
 </body>
 </html>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/0zo9ju72/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/0gc5n3yz/)
 
-Now that we have defined the htmlElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
+Now that we have defined the UIElement to be the custom div element, you need to add the video source and resolution dropdown boxes. Here is the HTML element to add a custom video source select dropdown:
 ```html
 <select class="dbrScanner-sel-camera"></select>
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/csadqny1/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/kbdgfope/)
 
 As for adding a resolution select dropdown menu:
 ```html
@@ -279,7 +373,7 @@ As for adding a resolution select dropdown menu:
 
 The dropdown will still show the same 8 options for the resolution if you do not manually define the resolution options.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/oyxugLcf/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/908zgqp1/)
 
 You can provide limited resolution options to avoid overwhelming the user. Here is the HTML code for how to do that:
 ```html
@@ -293,7 +387,7 @@ You can provide limited resolution options to avoid overwhelming the user. Here 
 
 Please note that in this case, you will need to manually dictate the resolution options. If the camera does not support the selected resolution, it will find the closest supported resolution. The "dbrScanner-opt-gotResolution" class option of the dropdown menu (shown above) indicates which resolution is currently being used.
 
-[Try in JSFiddle](https://jsfiddle.net/Keillion/odf4eLvm/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/p8xLk7cn/)
 
 To play the video at the selected resolution:
 
@@ -302,7 +396,7 @@ scanner.play(null, 1920, 1080).then(r=>{
     alert(r.width+'x'+r.height);
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/14ngeh5c/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/8ytm1g2d/)
 
 Now suppose you do not want to use either of the select classes listed above for the video source and resolution dropdown boxes. You can use the API methods to populate any HTML element you want to use.
 
@@ -318,56 +412,43 @@ For creating the resolution list, the UI element will need to be manually popula
 
 You can get the device list via the API like this:
 ```js
-scanner.updateDevice().then(infos=>{
+scanner.getCurrentCamera().then(info=>{
     // The camera currently in use
-    alert(JSON.stringify(infos.current, null, 2));
+    alert(JSON.stringify(info));
+});
+scanner.getAllCameras().then(infos=>{
     // An array of all cameras
-    alert(JSON.stringify(infos.all, null, 2));
+    alert(JSON.stringify(infos, null, 2));
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/j7p5c6fb/)
-
-You can also get the device list when opening the scanner:
-```js
-scanner.open().then(infos=>{
-    // The resolution of the video currently playing
-    alert(JSON.stringify(infos.width+'x'+infos.height, null, 2));
-    // The camera currently in use
-    alert(JSON.stringify(infos.current, null, 2));
-    // An array of all cameras
-    alert(JSON.stringify(infos.all, null, 2));
-});
-```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/qpa5eyd9/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/2z3gnqxk/)
 
 You can play any video source using the `deviceId` property:
 
 ```js
 // Play the first camera.
-scanner.play(infos.all[0].deviceId);
+scanner.setCurrentCamera(infos[0].deviceId);
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/qwsbzygp/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/fxnb01s4/)
 
-The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. You should almost always never use the `deviceId` for the name as it is a long string of randomized characters.
+The video source name that shows up in the dropdown list is taken from the `label` property rather than the `deviceId`. It is generally recommended that you use `label` instead of `deviceId` because it is more readable.
 Please note that the camera may display different names in different environments or timings.
 
 If you have more than one connected camera, and would like your application to play a certain one of them on startup, here is how:
 
 ```js
-scanner.open().then(infos=>{
-    for(let info of infos.all){
+scanner.show()
+.then(()=>scanner.getAllCamera())
+.then(infos=>{
+    for(let info of infos){
         if(info.label == 'Your camera name'){
-            scanner.play(info.deviceId);
+            scanner.setCurrentCamera(info.deviceId);
             break;
         }
     }
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/a9mhu2sv/)
-
-In conclusion: 
-The device list is returned in the Promise result of `open` or `updateDevice`.
-You can then play the selected device using `open` or `play`(when open has already been called).
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/udrf5nL8/)
 
 ## How to complete a form using the Barcode Reader
 
@@ -381,17 +462,24 @@ Using HTML code snippet with the custom UI elements, let's add some input tags.
 Modify the configuration settings of the video reader to complete the form with the results of three barcodes once they are found:
 ```js
 let iptIndex = 0;
-let scanner = new BarcodeReader.Scanner({
-    onNewCodeRead:(txt)=>{
+let scanner = null;
+Dynamsoft.BarcodeScanner.createInstance({
+    UIElement: document.getElementById('div-video-container'),
+    onFrameRead: results => {console.log(results);},
+    onUnduplicatedRead: (txt)=>{
         document.getElementById('ipt-' + iptIndex).value = txt;
         if(3 == ++iptIndex){
-            scanner.onNewCodeRead = undefined;
-            scanner.close();
+            scanner.onUnduplicatedRead = undefined;
+            scanner.stop();
+            scanner.hide();
         }
     }
+}).then(s => {
+    scanner = s;
+    scanner.show();
 });
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/cgLo5dsb/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/hokgLfsj/)
 
 <br>
 
@@ -400,10 +488,16 @@ let scanner = new BarcodeReader.Scanner({
 If you are not interested in exhausting resources to read the entire area of the video stream, you can choose to decode a specific region of the stream. Here is how:
 
 ```js
-// take a center 50% * 50% part of the video and resize the part to 1280 * 720 before decode
-scanner.searchRegion = {sx: 0.25, sy: 0.25, sWidth: 0.5, sHeight: 0.5, dWidth: 1280, dHeight: 720};
+// Ignore around 25% while decoding
+let settings = scanner.getRuntimeSettings();
+settings.region.left = 25;
+settings.region.top = 25;
+settings.region.right = 25;
+settings.region.bottom = 25;
+settings.region.measuredByPercentage = 1; // 1 means true
+scanner.updateRuntimeSettings(settings);
 ```
-[Try in JSFiddle](https://jsfiddle.net/Keillion/z42orbkj/)
+[Try in JSFiddle](https://jsfiddle.net/Dynamsoft/p94qgz0x/)
 
 <br>
 
@@ -536,5 +630,5 @@ Built Dynamsoft Barcode Reader 6.3.0 to JS(WebAssembly) version.
 If there are any questions, please feel free to contact <support@dynamsoft.com>.
 
 ## License Agreement
-https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx#javascript
 

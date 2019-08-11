@@ -1,0 +1,1412 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>BarcodeScanner | Dynamsoft BarcodeReader SDK for Javascript</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="../modules/_dbr_wasm_d_.html">&quot;dbr-wasm.d&quot;</a>
+				</li>
+				<li>
+					<a href="../modules/_dbr_wasm_d_.dynamsoft.html">Dynamsoft</a>
+				</li>
+				<li>
+					<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html">BarcodeScanner</a>
+				</li>
+			</ul>
+			<h1>Class BarcodeScanner</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Basic use:</p>
+						<pre><code class="language-js"><span class="hljs-keyword">var</span> scanner = <span class="hljs-literal">null</span>;
+Dynamsoft.BarcodeScanner.createInstance({
+   <span class="hljs-attr">videoSettings</span>: { <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: { <span class="hljs-attr">ideal</span>: <span class="hljs-number">1280</span> }, <span class="hljs-attr">height</span>: {<span class="hljs-attr">ideal</span>: <span class="hljs-number">720</span> }, <span class="hljs-attr">facingMode</span>: { <span class="hljs-attr">ideal</span>: <span class="hljs-string">'environment'</span> } } },
+}).then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+   scanner = instance;
+   scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">txt</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(txt);};
+   scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> { alert(txt); <span class="hljs-built_in">console</span>.log(result)};
+   <span class="hljs-keyword">return</span> scanner.show();
+})</code></pre>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">BarcodeScanner</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#onframeread" class="tsd-kind-icon">on<wbr>Frame<wbr>Read</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#onunduplicatedread" class="tsd-kind-icon">on<wbr>Unduplicated<wbr>Read</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-not-exported">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getallcameras" class="tsd-kind-icon">get<wbr>All<wbr>Cameras</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcompatibility" class="tsd-kind-icon">get<wbr>Compatibility</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcurrentcamera" class="tsd-kind-icon">get<wbr>Current<wbr>Camera</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getresolution" class="tsd-kind-icon">get<wbr>Resolution</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getscansettings" class="tsd-kind-icon">get<wbr>Scan<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getuielement" class="tsd-kind-icon">getUIElement</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getvideosettings" class="tsd-kind-icon">get<wbr>Video<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#hide" class="tsd-kind-icon">hide</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#isopen" class="tsd-kind-icon">is<wbr>Open</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#pause" class="tsd-kind-icon">pause</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#play" class="tsd-kind-icon">play</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#resetruntimesettings" class="tsd-kind-icon">reset<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setcurrentcamera" class="tsd-kind-icon">set<wbr>Current<wbr>Camera</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setresolution" class="tsd-kind-icon">set<wbr>Resolution</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setscansettings" class="tsd-kind-icon">set<wbr>Scan<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setuielement" class="tsd-kind-icon">setUIElement</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#show" class="tsd-kind-icon">show</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#turnofftorch" class="tsd-kind-icon">turn<wbr>Off<wbr>Torch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#turnontorch" class="tsd-kind-icon">turn<wbr>OnTorch</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updateruntimesettings" class="tsd-kind-icon">update<wbr>Runtime<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updatevideosettings" class="tsd-kind-icon">update<wbr>Video<wbr>Settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported"><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="onframeread" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Frame<wbr>Read</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Frame<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in dbr-wasm.d.ts:831</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The event that is triggered once a single frame has been scanned. The results object contains all the barcode results that the reader was able to decode.</p>
+							<pre><code class="language-js"><span class="hljs-comment">// Draw the barcodes area.</span>
+scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
+  <span class="hljs-comment">// Reset the width and height and empty the canvas</span>
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  <span class="hljs-keyword">let</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+  <span class="hljs-comment">// Set color</span>
+  ctx.fillStyle = <span class="hljs-string">'rgba(254,180,32,0.3)'</span>;
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-comment">// Get localization</span>
+    <span class="hljs-keyword">let</span> x1 = result.LocalizationResult.X1;
+    <span class="hljs-keyword">let</span> x2 = result.LocalizationResult.X2;
+    <span class="hljs-keyword">let</span> x3 = result.LocalizationResult.X3;
+    <span class="hljs-keyword">let</span> x4 = result.LocalizationResult.X4;
+    <span class="hljs-keyword">let</span> y1 = result.LocalizationResult.Y1;
+    <span class="hljs-keyword">let</span> y2 = result.LocalizationResult.Y2;
+    <span class="hljs-keyword">let</span> y3 = result.LocalizationResult.Y3;
+    <span class="hljs-keyword">let</span> y4 = result.LocalizationResult.Y4;
+    <span class="hljs-comment">// Draw</span>
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.fill();
+  }
+};</code></pre>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>results<span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>results: <a href="../interfaces/_dbr_wasm_d_.dynamsoft.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+					<a name="onunduplicatedread" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Unduplicated<wbr>Read</h3>
+					<div class="tsd-signature tsd-kind-icon">on<wbr>Unduplicated<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in dbr-wasm.d.ts:839</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This event is triggered when a not duplicated new barcode is found. <code>txt</code> holds the barcode text result. <code>result</code> contains the actual barcode result, including the text result. Old barcode will remember for <code>duplicateForgetTime</code>.</p>
+							<pre><code class="language-js">scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-params">txt</span> =&gt;</span> { alert(txt); }    <span class="hljs-comment">//the barcode text result</span>
+scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> { <span class="hljs-built_in">console</span>.log(result); }   <span class="hljs-comment">//the actual barcode result including the text result</span></code></pre>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>txt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, result<span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>txt: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>result: <a href="../interfaces/_dbr_wasm_d_.dynamsoft.textresult.html" class="tsd-signature-type">TextResult</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:639</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Destructor the <code>BarcodeScanner</code> object.
+										When the <code>BarcodeScanner</code> object is created, it will open up a space in memory that cannot be automatically reclaimed by js garbage collection.
+										You can manually call this method to destruct the <code>BarcodeScanner</code> object to release this memory.
+									Equivalent to the previous method <code>deleteInstance()</code>.</p>
+									<pre><code class="language-js"><span class="hljs-comment">// delete the instance when you don't need it any more.</span>
+scanner.destroy();</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getallcameras" class="tsd-anchor"></a>
+					<h3>get<wbr>All<wbr>Cameras</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>All<wbr>Cameras<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.videodeviceinfo.html" class="tsd-signature-type">VideoDeviceInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:922</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get infomation of all available cameras on your device.</p>
+									<pre><code class="language-js">scanner.show().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> getAllCameras());
+<span class="hljs-comment">/* return an array of objects:(e.g.)
+[
+   {deviceId: "4c1c6f8539f6fb3d1da380322aba832f2776b741a7ecb48ac8f567e6415dad06", label: "USB2.0 PC CAMERA (18ec:3399)"},
+   {deviceId: "e0d82ecf55888058f4d6a836c56ebfa04e25d46b9e3c45218fbb8d81b30c0fdc", label: "e2eSoft VCam"}
+]
+* /</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcurrentcamera">getCurrentCamera</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setcurrentcamera">setCurrentCamera</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.videodeviceinfo.html" class="tsd-signature-type">VideoDeviceInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getcompatibility" class="tsd-anchor"></a>
+					<h3>get<wbr>Compatibility</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Compatibility<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.compatibilityinfo.html" class="tsd-signature-type">CompatibilityInfo</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:975</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check browser compatibility, whether it supports torch and actively call the camera to focus.</p>
+								</div>
+								<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(scanner.getCompatibility());     <span class="hljs-comment">//e.g. {torch: false, focus: false}</span></code></pre>
+								<p>Only work on browsers that support <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture">ImageCapture</a>.
+								Even if it returns <code>torch:true</code>, sometimes torch doesn&#39;t work.</p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.compatibilityinfo.html" class="tsd-signature-type">CompatibilityInfo</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getcurrentcamera" class="tsd-anchor"></a>
+					<h3>get<wbr>Current<wbr>Camera</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Current<wbr>Camera<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.videodeviceinfo.html" class="tsd-signature-type">VideoDeviceInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:907</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get infomation of the currently used camera .</p>
+									<pre><code class="language-js">scanner.show().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> getCurrentCamera());
+ <span class="hljs-comment">/* {deviceId: "e0d82ecf55888058f4d6a836c56ebfa04e25d46b9e3c45218fbb8d81b30c0fdc", label: "e2eSoft VCam"} * /</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getallcameras">getAllCameras</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setcurrentcamera">setCurrentCamera</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.videodeviceinfo.html" class="tsd-signature-type">VideoDeviceInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getresolution" class="tsd-anchor"></a>
+					<h3>get<wbr>Resolution</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Resolution<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:949</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get current video resolution.</p>
+									<pre><code class="language-js">updateDevice.show().then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.current);
+  <span class="hljs-built_in">console</span>.log(info.all);
+  <span class="hljs-built_in">console</span>.log(updateDevice.getResolution())   <span class="hljs-comment">//current video resolution, e.g. [1280, 720]</span>
+});</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getruntimesettings" class="tsd-anchor"></a>
+					<h3>get<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:767</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get current runtime settings of the <code>BarcodeScanner</code> object and saves it into a struct.</p>
+									<pre><code class="language-js"><span class="hljs-comment">//update RuntimeSettings</span>
+scanner.updateRuntimeSettings({
+   <span class="hljs-attr">localizationModes</span>: [<span class="hljs-number">16</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],
+   <span class="hljs-attr">deblurLevel</span>: <span class="hljs-number">9</span>
+   <span class="hljs-comment">//other settings……</span>
+});
+<span class="hljs-keyword">let</span> settingsAfterUpdate = scanner.getRuntimeSettings();
+<span class="hljs-built_in">console</span>.log(settingsAfterUpdate);
+<span class="hljs-comment">//reset RuntimeSettings</span>
+scanner.resetRuntimeSettings();
+<span class="hljs-keyword">let</span> settingsDefault = scanner.getRuntimeSettings();
+<span class="hljs-built_in">console</span>.log(settingsDefault);</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updateruntimesettings">updateRuntimeSettings</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#resetruntimesettings">resetRuntimeSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getscansettings" class="tsd-anchor"></a>
+					<h3>get<wbr>Scan<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Scan<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:731</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get current scan settings of the <code>BarcodeScanner</code> object and saves it into a struct.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeScanner.createInstance().then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+   scanner = instance;
+   <span class="hljs-keyword">var</span> scanSettings = scanner.getScanSettings();     <span class="hljs-comment">//Initial Scan Settings:{duplicateForgetTime: 3000, intervalTime: 100}</span>
+   scanSettings.duplicateForgetTime = <span class="hljs-number">4000</span>;          <span class="hljs-comment">//Change the values of parameters</span>
+   scanSettings.intervalTime = <span class="hljs-number">150</span>;
+   scanner.setScanSettings(scanSettings);        <span class="hljs-comment">//Updated Settings: {duplicateForgetTime: 4000, intervalTime: 150}</span>
+}).then(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>scanner.show());</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setscansettings">setScanSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getuielement" class="tsd-anchor"></a>
+					<h3>getUIElement</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">getUIElement<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:674</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the HTML element that contains your scanner object.
+									The HTML element that will contain the scanner object should you choose to customize the UI. It will have a simple default UI if you keep <code>UIElement</code> undefined in initialization config.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeScanner.createInstance().then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+   scanner = instance;
+   <span class="hljs-keyword">var</span> defaultUI = scanner.getUIElement();      <span class="hljs-comment">//Get the initial UI</span>
+   <span class="hljs-comment">//append a new div after the initial UIElement:</span>
+   <span class="hljs-keyword">var</span> node = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"div"</span>);
+   <span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">"set new UI by adding a new div"</span>);
+   node.appendChild(textNode);
+   <span class="hljs-keyword">var</span> newUI = defaultUI.appendChild(node);
+   scanner.setUIElement(newUI);
+}).then(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>scanner.show());
+<span class="hljs-comment">//Warning: Avoid changing the binding if the scanner is already open.</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setuielement">setUIElement</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HTMLElement</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="getvideosettings" class="tsd-anchor"></a>
+					<h3>get<wbr>Video<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Video<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">MediaStreamConstraints</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:704</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get current video settings of the <code>BarcodeScanner</code> object and saves it into a struct.</p>
+									<pre><code class="language-js">scanner.updateVideoSettings({ <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } });
+<span class="hljs-keyword">let</span> videoSettings = scanner.getVideoSettings();
+<span class="hljs-built_in">console</span>.log(videoSettings);  <span class="hljs-comment">//return an object contains facingMode, height and width</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updatevideosettings">updateVideoSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">MediaStreamConstraints</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="hide" class="tsd-anchor"></a>
+					<h3>hide</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">hide<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:897</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Hide the video. Equivalent to previous method <code>close()</code>.</p>
+									<pre><code class="language-js">scanner.hide();</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="isopen" class="tsd-anchor"></a>
+					<h3>is<wbr>Open</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Open<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:646</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if the scanner is open.</p>
+									<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(scanner.isOpen());</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="pause" class="tsd-anchor"></a>
+					<h3>pause</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">pause<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:890</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Pause the video.</p>
+									<pre><code class="language-js">scanner.pause();     <span class="hljs-comment">//Pause the camera.Notice that the camera is still playing.</span>
+scanner.stop();      <span class="hljs-comment">//Stop playing the camera. The camera is off now.</span>
+scanner.play();      <span class="hljs-comment">//The camera is on now.</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#stop">stop</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#play">play</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="play" class="tsd-anchor"></a>
+					<h3>play</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">play<span class="tsd-signature-symbol">(</span>deviceId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:868</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Change video settings during reading.</p>
+									<pre><code class="language-js">scanner.play(<span class="hljs-literal">undefined</span>, <span class="hljs-number">1280</span>, <span class="hljs-number">720</span>).then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.width + <span class="hljs-string">'x'</span> + info.height);
+});
+<span class="hljs-comment">//Also,it can be used like:</span>
+scanner.pause();     <span class="hljs-comment">//Pause the camera.Notice that the camera is still playing</span>
+scanner.stop();      <span class="hljs-comment">//Stop playing the camera. The camera is off now.</span>
+scanner.play();      <span class="hljs-comment">//The camera is on now.</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#pause">pause</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#stop">stop</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> deviceId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> height: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="resetruntimesettings" class="tsd-anchor"></a>
+					<h3>reset<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">reset<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:791</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Reset all parameters to default values.</p>
+									<pre><code class="language-js">scanner.resetRuntimeSettings();
+<span class="hljs-keyword">let</span> settingsDefault = scanner.getRuntimeSettings();
+<span class="hljs-built_in">console</span>.log(settingsDefault);</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getruntimesettings">getRuntimeSettings</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updateruntimesettings">updateRuntimeSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="setcurrentcamera" class="tsd-anchor"></a>
+					<h3>set<wbr>Current<wbr>Camera</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Current<wbr>Camera<span class="tsd-signature-symbol">(</span>cameraInfoOrDeviceId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:937</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Choose the camera and play it by its information or devide id .</p>
+									<pre><code class="language-js">scanner.show().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> getAllCameras());  <span class="hljs-comment">//Here you can get your camera infomation that contains device ids, e.g."e0d82ecf55888058f4d6a836c56ebfa04e25d46b9e3c45218fbb8d81b30c0fdc"</span>
+scanner.setCurrentCamera(<span class="hljs-string">"e0d82ecf55888058f4d6a836c56ebfa04e25d46b9e3c45218fbb8d81b30c0fdc"</span>);
+<span class="hljs-comment">//Or</span>
+<span class="hljs-keyword">let</span> cameraInfo = {<span class="hljs-attr">deviceId</span>:<span class="hljs-string">"e0d82ecf55888058f4d6a836c56ebfa04e25d46b9e3c45218fbb8d81b30c0fdc"</span>,<span class="hljs-attr">label</span>:<span class="hljs-string">"e2eSoft VCam"</span>};
+scanner.setCurrentCamera(cameraInfo);
+<span class="hljs-comment">//here should be the actual infomation or id of your camera</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcurrentcamera">getCurrentCamera</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getallcameras">getAllCameras</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>cameraInfoOrDeviceId: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="setresolution" class="tsd-anchor"></a>
+					<h3>set<wbr>Resolution</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Resolution<span class="tsd-signature-symbol">(</span>width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Resolution<span class="tsd-signature-symbol">(</span>resolution<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:957</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the camera resolution.</p>
+									<pre><code class="language-js">scanner.setResolution(<span class="hljs-number">800</span>,<span class="hljs-number">600</span>).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span><span class="hljs-built_in">console</span>.log(res));    <span class="hljs-comment">//Object { width: 800, height: 600 }</span></code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>width: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:965</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the camera resolution.</p>
+									<pre><code class="language-js">scanner.setResolution([<span class="hljs-number">800</span>,<span class="hljs-number">600</span>]).then(<span class="hljs-function"><span class="hljs-params">res</span>=&gt;</span><span class="hljs-built_in">console</span>.log(res));    <span class="hljs-comment">//Object { width: 800, height: 600 }</span></code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>resolution: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="setscansettings" class="tsd-anchor"></a>
+					<h3>set<wbr>Scan<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Scan<wbr>Settings<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:746</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update ScanSettings by specify parameter values.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeScanner.createInstance().then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+   scanner = instance;
+   <span class="hljs-keyword">var</span> scanSettings = scanner.getScanSettings();     <span class="hljs-comment">//Initial Scan Settings:{duplicateForgetTime: 3000, intervalTime: 100}</span>
+   scanSettings.duplicateForgetTime = <span class="hljs-number">4000</span>;          <span class="hljs-comment">//Change the values of parameters</span>
+   scanSettings.intervalTime = <span class="hljs-number">150</span>;
+   scanner.setScanSettings(scanSettings);        <span class="hljs-comment">//Updated Settings: {duplicateForgetTime: 4000, intervalTime: 150}</span>
+}).then(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>scanner.show());</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getscansettings">getScanSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>settings: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="setuielement" class="tsd-anchor"></a>
+					<h3>setUIElement</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">setUIElement<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:694</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>set the HTML element that contains your scanner object.
+									The HTML element that will contain the scanner object should you choose to customize the UI. It will have a simple default UI if you keep <code>UIElement</code> undefined in initialization config.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeScanner.createInstance().then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+   scanner = instance;
+   <span class="hljs-keyword">var</span> defaultUI = scanner.getUIElement();      <span class="hljs-comment">//Get the initial UI</span>
+   <span class="hljs-comment">//append a new div after the initial UIElement:</span>
+   <span class="hljs-keyword">var</span> node = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"div"</span>);
+   <span class="hljs-keyword">var</span> textNode = <span class="hljs-built_in">document</span>.createTextNode(<span class="hljs-string">"set new UI by adding a new div"</span>);
+   node.appendChild(textNode);
+   <span class="hljs-keyword">var</span> newUI = defaultUI.appendChild(node);
+   scanner.setUIElement(newUI);
+}).then(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>scanner.show());
+<span class="hljs-comment">//Warning: Avoid changing the binding if the scanner is already open.</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getuielement">getUIElement</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>element: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="show" class="tsd-anchor"></a>
+					<h3>show</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">show<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scanneropencallbackinfo.html" class="tsd-signature-type">ScannerOpenCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:850</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Show and start the video, then read barcodes.</p>
+									<pre><code class="language-js">scanner.show().then(<span class="hljs-function"><span class="hljs-params">info</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(info.width + <span class="hljs-string">'x'</span> + info.height);
+  <span class="hljs-built_in">console</span>.log(info.current);
+  <span class="hljs-built_in">console</span>.log(info.all);
+});</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scanneropencallbackinfo.html" class="tsd-signature-type">ScannerOpenCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="stop" class="tsd-anchor"></a>
+					<h3>stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:879</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Stop playing the current camera.</p>
+									<pre><code class="language-js">scanner.pause();     <span class="hljs-comment">//Pause the camera. Notice that the camera is still playing.</span>
+scanner.stop();      <span class="hljs-comment">//Stop playing the camera. The camera is off now.</span>
+scanner.play();      <span class="hljs-comment">//The camera is on now.</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#pause">pause</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#play">play</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="turnofftorch" class="tsd-anchor"></a>
+					<h3>turn<wbr>Off<wbr>Torch</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">turn<wbr>Off<wbr>Torch<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:989</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turn off the torch. Return <code>Promise.reject(&quot;not support&quot;)</code> if your brower does not support torch.</p>
+									<pre><code class="language-js">scanner.turnOffTorch();</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="turnontorch" class="tsd-anchor"></a>
+					<h3>turn<wbr>OnTorch</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">turn<wbr>OnTorch<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:982</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Turn on the torch. Return <code>Promise.reject(&quot;not support&quot;)</code> if your brower does not support torch.</p>
+									<pre><code class="language-js">scanner.turnOnTorch();</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="updateruntimesettings" class="tsd-anchor"></a>
+					<h3>update<wbr>Runtime<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:780</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Update RuntimeSettings by specify parameter values.</p>
+									<pre><code class="language-js">settings.barcodeFormaIds = <span class="hljs-number">503317503</span>;
+settings.localizationModes = [<span class="hljs-number">16</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>];
+settings.deblurLevel = <span class="hljs-number">9</span>;
+scanner.updateRuntimeSettings(settings);</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getruntimesettings">getRuntimeSettings</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#resetruntimesettings">resetRuntimeSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>settings: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+					<a name="updatevideosettings" class="tsd-anchor"></a>
+					<h3>update<wbr>Video<wbr>Settings</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Video<wbr>Settings<span class="tsd-signature-symbol">(</span>MediaStreamConstraints<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:716</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Video play settings.
+										Refer <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax">MediaStreamConstraints</a>.
+									If during reading, need play again to make it effective.</p>
+									<pre><code class="language-js">scanner.updateVideoSettings({ <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } });
+<span class="hljs-keyword">let</span> videoSettings = scanner.getVideoSettings();
+<span class="hljs-built_in">console</span>.log(videoSettings);</code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getvideosettings">getVideoSettings</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>MediaStreamConstraints: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="createinstance" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> create<wbr>Instance</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Instance<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerconfig.html" class="tsd-signature-type">ScannerConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html" class="tsd-signature-type">BarcodeScanner</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:628</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a <code>BarcodeScanner</code> object.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">var</span> scanner = <span class="hljs-literal">null</span>;
+Dynamsoft.BarcodeScanner.createInstance(
+   onFrameRead: <span class="hljs-function"><span class="hljs-params">txt</span>=&gt;</span>{<span class="hljs-built_in">console</span>.log(txt);}
+   videoSettings: { <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: { <span class="hljs-attr">ideal</span>: <span class="hljs-number">1280</span> }, <span class="hljs-attr">height</span>: {<span class="hljs-attr">ideal</span>: <span class="hljs-number">720</span> }, <span class="hljs-attr">facingMode</span>: { <span class="hljs-attr">ideal</span>: <span class="hljs-string">'environment'</span> } } },
+   <span class="hljs-attr">onUnduplicatedRead</span>: <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> { alert(txt); }
+).then(<span class="hljs-function">(<span class="hljs-params">instance</span>)=&gt;</span>{
+  scanner = instance;
+  <span class="hljs-keyword">return</span> scanner.show();
+})</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> config: <a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerconfig.html" class="tsd-signature-type">ScannerConfig</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Optional <code>config</code> can be added when creating a <code>BarcodeScanner</code> instance.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html" class="tsd-signature-type">BarcodeScanner</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="isloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Loaded</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Loaded<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:611</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Determine if the decoding module has been loaded successfully.</p>
+									<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Is the loading completed? '</span> + Dynamsoft.BarcodeScanner.isLoaded());</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+					<a name="loadwasm" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> load<wbr>Wasm</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Wasm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in dbr-wasm.d.ts:604</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
+										Whether you have not started loading, loading, success, or failure, you can safely call <code>loadWasm</code> repeatedly.
+									If it has already been loaded, it will return to success immediately.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeScanner.loadWasm().then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> { <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'success'</span>); }, ex =&gt; { <span class="hljs-built_in">console</span>.error(ex); });</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumbarcodeformat.html" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumconflictmode.html" class="tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumerrorcode.html" class="tsd-kind-icon">Enum<wbr>Error<wbr>Code</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumimagepixelformat.html" class="tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumresulttype.html" class="tsd-kind-icon">Enum<wbr>Result<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../enums/_dbr_wasm_d_.dynamsoft.enumterminatestage.html" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Stage</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_dbr_wasm_d_.dynamsoft.barcodereader.html" class="tsd-kind-icon">Barcode<wbr>Reader</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html" class="tsd-kind-icon">Barcode<wbr>Scanner</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#onframeread" class="tsd-kind-icon">on<wbr>Frame<wbr>Read</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#onunduplicatedread" class="tsd-kind-icon">on<wbr>Unduplicated<wbr>Read</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getallcameras" class="tsd-kind-icon">get<wbr>All<wbr>Cameras</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcompatibility" class="tsd-kind-icon">get<wbr>Compatibility</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getcurrentcamera" class="tsd-kind-icon">get<wbr>Current<wbr>Camera</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getresolution" class="tsd-kind-icon">get<wbr>Resolution</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getscansettings" class="tsd-kind-icon">get<wbr>Scan<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getuielement" class="tsd-kind-icon">getUIElement</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#getvideosettings" class="tsd-kind-icon">get<wbr>Video<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#hide" class="tsd-kind-icon">hide</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#isopen" class="tsd-kind-icon">is<wbr>Open</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#pause" class="tsd-kind-icon">pause</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#play" class="tsd-kind-icon">play</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#resetruntimesettings" class="tsd-kind-icon">reset<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setcurrentcamera" class="tsd-kind-icon">set<wbr>Current<wbr>Camera</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setresolution" class="tsd-kind-icon">set<wbr>Resolution</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setscansettings" class="tsd-kind-icon">set<wbr>Scan<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#setuielement" class="tsd-kind-icon">setUIElement</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#show" class="tsd-kind-icon">show</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#turnofftorch" class="tsd-kind-icon">turn<wbr>Off<wbr>Torch</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#turnontorch" class="tsd-kind-icon">turn<wbr>OnTorch</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updateruntimesettings" class="tsd-kind-icon">update<wbr>Runtime<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#updatevideosettings" class="tsd-kind-icon">update<wbr>Video<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static tsd-is-not-exported">
+								<a href="_dbr_wasm_d_.dynamsoft.barcodescanner.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.barcodereaderexception.html" class="tsd-kind-icon">Barcode<wbr>Reader<wbr>Exception</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.compatibilityinfo.html" class="tsd-kind-icon">Compatibility<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.extendedresult.html" class="tsd-kind-icon">Extended<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.furthermodesdefinition.html" class="tsd-kind-icon">Further<wbr>Modes<wbr>Definition</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.localizationresult.html" class="tsd-kind-icon">Localization<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.regiondefinition.html" class="tsd-kind-icon">Region<wbr>Definition</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettings.html" class="tsd-kind-icon">Runtime<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.runtimesettingsforscannerconfig.html" class="tsd-kind-icon">Runtime<wbr>Settings<wbr>For<wbr>Scanner<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerconfig.html" class="tsd-kind-icon">Scanner<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.scanneropencallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Open<wbr>Callback<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerplaycallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Play<wbr>Callback<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.scannerupdatedevicecallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Update<wbr>Device<wbr>Callback<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.textresult.html" class="tsd-kind-icon">Text<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../interfaces/_dbr_wasm_d_.dynamsoft.videodeviceinfo.html" class="tsd-kind-icon">Video<wbr>Device<wbr>Info</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
