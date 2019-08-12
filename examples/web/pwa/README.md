@@ -14,12 +14,12 @@ Get a [FREE 30-day trial license](https://www.dynamsoft.com/CustomerPortal/Porta
     ```
 3. Push changes to GitHub.
 4. Activate `GitHub Pages` in repository `Settings`.
-5. Visit your demo page via `https://<GitHub ID>.github.io/javascript-barcode/examples/pwa/`.
+5. Visit your demo page via `https://<GitHub ID>.github.io/javascript-barcode/examples/web/pwa/`.
 
     ![PWA barcode reader](https://www.codepool.biz/wp-content/uploads/2019/04/pwa-barcode-reader.gif)
     
 ## Online Demo
-https://dynamsoft-dbr.github.io/javascript-barcode/examples/pwa/
+https://dynamsoft-dbr.github.io/javascript-barcode/examples/web/pwa/
 
 ## Reference
 - https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/

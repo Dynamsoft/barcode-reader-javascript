@@ -14,20 +14,18 @@
     <div>
         <div id="div-licenseInfo"></div>
     </div>
-    <script src="https://demo.dynamsoft.com/dbr_wasm/js/dbr-6.5.1.min.js"></script>
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
-
-        // https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx
-        BarcodeReader.licenseKey = 't0068MgAAADMc95gCrjmSVmBrY9AqtxYGnWsm+oAIvUO8wFuc44WFt/4PJgZUXsK8eQXoKtlcqxIvHCjdC8VfvujDMK+0p0o=';
-        let scanner = new BarcodeReader.Scanner({
-            htmlElement: document.getElementById('div-video-container'),
+        let scanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
+            UIElement: document.getElementById('div-video-container'),
             videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
-            runtimeSettings: {
-                mBarcodeFormatIds: BarcodeReader.EnumBarcodeFormat.PDF417,
-                mAntiDamageLevel: 9,
-                mDeblurLevel: 2
-            },
-            onNewCodeRead: txt => {
+            onFrameRead: results => {console.log(results);},
+            onUnduplicatedRead: txt => {
                 alert("PDF417 found");
 
                 // Get infos
@@ -44,7 +42,18 @@
                     div.appendChild(p);
                 }
             }
+        }).then(s => {
+            scanner = s;
+            let runtimeSettings = scanner.getRuntimeSettings();
+            runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.PDF417;
+            runtimeSettings.LocalizationModes = [2,16,4,8,0,0,0,0];
+            runtimeSettings.deblurLevel = 2;
+            scanner.updateRuntimeSettings(runtimeSettings);
+            scanner.show().catch(ex=>{
+                console.log(ex);
+                alert(ex.message || ex);
+                scanner.hide();
+            });
         });
-        scanner.open();
     </script>
 </body></html>
