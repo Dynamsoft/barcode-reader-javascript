@@ -1,16 +1,12 @@
-<!--main branch is tfs $/DBR/DBR_WASM/documents/README.md-->
-
 # Dynamsoft JavaScript Barcode SDK
-
-This document aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
 **Version**: 7.0.0
 
-**Author**: Dynamsoft
+This repository aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
-**Basic Facts**:
+## Features
 
-* Supported Symbologies: **`1D`**, **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**, etc.
+* Supported Symbologies: **`1D`**, **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
 
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
@@ -27,7 +23,7 @@ This document aims to help developers get familiar with [Dynamsoft BarcodeReader
 
   <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
-> **Node.js** v8+ is also supported, However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
+> **Node.js** v8+ is also supported. However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
 
 ## Table of Contents
 
@@ -58,7 +54,7 @@ The following is a screenshot of the live demo. Try it [here](https://demo.dynam
 
 ## Getting Started: HelloWorld
 
-This section will help you use the library to build a simple web application to decode barcodes off a video stream. 
+This section will help you use the library to build a simple web application to decode barcodes from a video stream. 
 
 **Basic Requirements**:
 
@@ -68,7 +64,7 @@ This section will help you use the library to build a simple web application to 
 
 ### Step One: Write the code in minutes!
 
-Create a html file with the following content. Deploy it to your web server if you have it ready. 
+Create an HTML file with the following content. Deploy it to your web server if you have it already. 
 
 * The sample is missing one piece of information to actually work which is the field `LICENSE-KEY`, you can acquire a trial key [here](https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx) and replace the field with your key.
 * If you don't have a ready-to-use web server and you happen to have a package manager like `npm` or `yarn`, you can set up a simple http server in minutes. Check out http-server on [npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/en/package/http-server).
@@ -103,7 +99,7 @@ Open the file in your browser (must be one that is supported) and there will be 
 
 ##### General Issue one
 
-If you open the html as `file:///` or `http://`, the following error may appear in the browser console
+If you open the HTML file as `file:///` or `http://`, the following error may appear in the browser console
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
@@ -115,7 +111,7 @@ As the error states, to access the camera with the API [getUserMedia](https://de
 
 > If you use Chrome or Firefox, you might not get the error because these two browsers allow camera access via `file:///` and `http://localhost`.
 
-To make sure your web application can access the camera. Try to configure your web server to support HTTPS. The following links may help.
+To make sure your web application can access the camera, try to configure your web server to support HTTPS. The following links may help.
 
 - NGINX: [Configuring HTTPS servers](https://nginx.org/en/docs/http/configuring_https_servers.html)
 - IIS: [Create a Self Signed Certificate in IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/)
@@ -126,7 +122,7 @@ To make sure your web application can access the camera. Try to configure your w
 
 For testing purposes, a self-signed certificate can be used when configuring HTTPS. When accessing the site, the browser might say "`the site is not secure`". In this case, go to the certificate settings and trust this certificate. 
 
-> In a production environment, you will need a valid HTTPS certificate that does not have this issue. If you don't have one yet, you can get a free one from [Let’s Encrypt](https://letsencrypt.org/). Of course, you are advised to apply for a paid certificate from companies such as Verisign, GeoTrust, etc..
+> In a production environment, you will need a valid HTTPS certificate that does not have this issue. If you don't have one yet, you can get a free one from [Let’s Encrypt](https://letsencrypt.org/). Of course, you are advised to apply for a paid certificate from companies such as Verisign, GeoTrust, etc.
 
 ### Step Three: Time to scan!
 
