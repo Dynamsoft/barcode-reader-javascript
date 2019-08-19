@@ -1,30 +1,33 @@
 <!--main branch is tfs $/DBR/DBR_WASM/documents/README.md-->
 
-# Dynamsoft BarcodeReader SDK for Javascript
+# Dynamsoft JavaScript Barcode SDK
 
 This document aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
 **Version**: 7.0.0
 
 **Author**: Dynamsoft
+
 **Basic Facts**:
 
 * Supported Symbologies: **`1D`**, **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**, etc.
+
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
+
 * Browser Compatibility:
 
-| Browser Name | Version |
-|:-:|:-:|
-| Chrome | v57+ (v59+ on Android/iOS*) |
-| Firefox | v52+ (v55+ on Android/iOS*) |
-| Edge | v16+ |
-| Safari** | v11+ |
+  | Browser Name | Version |
+  |:-:|:-:|
+  | Chrome | v57+ (v59+ on Android/iOS<sup>1</sup>) |
+  | Firefox | v52+ (v55+ on Android/iOS<sup>1</sup>) |
+  | Edge | v16+ |
+  | Safari<sup>2</sup> | v11+ |
 
-*On iOS, camera video streaming only works in Safari.
+  <sup>1</sup> On iOS, camera video streaming only works in Safari.
 
-**Safari 11.2.2 ~ 11.2.6 are not supported.
+  <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
-* **Node.js** v8+ is also supported, However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
+> **Node.js** v8+ is also supported, However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
 
 ## Table of Contents
 
@@ -121,15 +124,15 @@ To make sure your web application can access the camera. Try to configure your w
 
 ##### General Issue Two
 
-For testing purposes, a self-signed certificate might be used when configuring HTTPS. When accessing the site, the browser might say "`the site is not secure`". In this case, go to the certificate settings and trust this certificate. 
+For testing purposes, a self-signed certificate can be used when configuring HTTPS. When accessing the site, the browser might say "`the site is not secure`". In this case, go to the certificate settings and trust this certificate. 
 
-> For production environment, the certificate will be valid, therefore no worries.
+> In a production environment, you will need a valid HTTPS certificate that does not have this issue. If you don't have one yet, you can get a free one from [Let’s Encrypt](https://letsencrypt.org/). Of course, you are advised to apply for a paid certificate from companies such as Verisign, GeoTrust, etc..
 
 ### Step Three: Time to scan!
 
 Put something with a barcode in front of the camera and you'll see it located and decoded right in the UI.
 
-### Step Four: Dive into the code
+### Step Four: Dive into the codeD
 
 Now, take a look at the sample code. You can find that there is nothing but two scripts inside the `<body>`
 
@@ -145,7 +148,7 @@ Now, take a look at the sample code. You can find that there is nothing but two 
   <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.0.0/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
-* The following script initializes and uses the library
+* The following script initializes and uses the library:
   
   ```javascript
   <script>
@@ -174,25 +177,28 @@ In the following sections, you'll find more detailed information on how the libr
 
 The library is based on the WebAssembly standard, therefore, **on first use**, it needs some time to download  and compile the WebAssembly files. After the first use, the program will cache the wasm file in the `IndexedDB` so that the next time you can just open and play. 
 
-`Dynamsoft.BarcodeReader.loadWasm` is the API used to start the initialization. However, other APIs like `Dynamsoft.BarcodeScanner.createInstance` will call `loadWasm` internally so it is not necessary to explicitly call `loadWasm` when using these APIs. 
+`Dynamsoft.BarcodeReader.loadWasm` is the API used to start the initialization. However, other APIs like `Dynamsoft.BarcodeReader.createInstance`, `Dynamsoft.BarcodeScanner.createInstance` will call `loadWasm` internally so it is not necessary to explicitly call `loadWasm` when using these APIs. 
 
 > Including the library with a script tag doesn't automatically initializes the library.
 
 The initialization includes the following steps:
 
-##### 1. Download
+* Download
 
-`Dynamsoft.BarcodeReader._onWasmDownloaded` is a built-in callback that gets triggered when the WebAssembly files are downloaded. As the downloading only happens on the first use, this callback will only be triggered once as well (assume that the user doesn't clear the old cached files).
+  `Dynamsoft.BarcodeReader._onWasmDownloaded` is a built-in callback that gets triggered when the WebAssembly files are downloaded. As the downloading only happens on the first use, this callback will only be triggered once as well (assume that the user doesn't clear the old cached files).
 
-##### 2. Compile
+* Compile
 
-The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than tenth of a seconds on latest phones or PCs, it may take seconds on some older devices. 
+  The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than tenth of a seconds on latest phones or PCs, it may take seconds on some older devices. 
 
-**3. Initialize**
+The library needs to initialize every time the page loads. Use the following code to listen to the initialization process:
 
-The library needs to initialize every time the page loads. Once the initialization is done, the callback `Dynamsoft.BarcodeReader.isLoaded` is triggered.
+```javascript
+Dynamsoft.BarcodeReader.loadWasm()
+    .then(()=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
+```
 
-> For the first use, you can also use `isLoaded` to determine whether the WebAssembly files have been downloaded/compiled and the library initialized.
+> You can use `Dynamsoft.BarcodeReader.createInstance` or `Dynamsoft.BarcodeScanner.createInstance` as well, to listen to the initialization process during `createInstance`.
 
 
 ### Configuring Scanner Settings
@@ -304,7 +310,7 @@ The code has specified the `UIElement` with the ID `div-video-container`  as the
 
 Next, you can add the camera list and resolution list.
 
-> If the class names match the default ones which are`dbrScanner-sel-camera` and `dbrScanner-sel-resolution`, the library will automatically populate the lists and handle the camera/resolution switching automatically.
+> If the class names match the default ones which are `dbrScanner-sel-camera` and `dbrScanner-sel-resolution`, the library will automatically populate the lists and handle the camera/resolution switching automatically.
 
 ```html
 <select class="dbrScanner-sel-camera"></select>
@@ -469,8 +475,8 @@ let settings = barcodeScanner.getRuntimeSettings();
 settings.region.measuredByPercentage = 1;
 settings.region.left = 25;
 settings.region.top = 25;
-settings.region.right = 25;
-settings.region.bottom = 25;
+settings.region.right = 75;
+settings.region.bottom = 75;
 barcodeScanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)
@@ -484,7 +490,7 @@ The library consists of several files. In the sample code above, we used it via 
 
 Create a directory called `dist` on your server and put the following files in there.
 
-> [Contact us]() to get these files.
+> [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js) to get these files.
 
   ```
   dbr-<version>.min.js
@@ -552,6 +558,10 @@ It's recommended to place all the files. If you want to place only the necessary
 
 Built Dynamsoft Barcode Reader 7.0 to JS(WebAssembly) version.
 
+Added the capability to enable/disable the torch/flashlight of a mobile device (when available, only Chrome on Android).
+
+Added APIs for finer video control. These APIs are getAllCameras, getCurrentCamera, setCurrentCamera, getResolution, setResolution.
+
 ### 6.5.2.1
 
 Improve video decoding capabilities.
@@ -601,11 +611,11 @@ Dynamsoft Barcode Reader JS/WebAssembly version released.
 
 Decoding Images:
 
-[BarcodeReader](./classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
+[BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
 
 Decoding Video Stream: 
 
-[BarcodeScanner](./classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
+[BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
 
 ## License Activation
 
@@ -644,7 +654,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
 ## License Agreement
 
-https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx
+https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx#javascript
 
 ## Contact Us
 If there are any questions, please feel free to contact <support@dynamsoft.com>.
