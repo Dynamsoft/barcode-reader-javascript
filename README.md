@@ -31,7 +31,7 @@ This repository aims to help developers get familiar with [Dynamsoft BarcodeRead
 - [Getting Started: HelloWorld](#getting-started-helloworld)
 - [Getting Started: Take a closer look](#getting-started-take-a-closer-look)
   - [Initializing](#initializing)
-  - [Configuring Scanner SettingsI](#configuring-scanner-settings)
+  - [Configuring Scanner Settings](#configuring-scanner-settings)
   - [Customizing the UI](#customizing-the-ui)
 - [Advanced Usage](#advanced-usage)
   - [Print out log for better debugging](#print-out-log-for-better-debugging)
