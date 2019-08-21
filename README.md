@@ -236,7 +236,7 @@ Dynamsoft.BarcodeScanner.createInstance({
 As you can see in the code, there are basically three categories of configurations.
 
 * `get/updateVideoSettings`: Configures the data source, I.E., the video stream. These settings include which camera to use , the resolution, etc.. Check out more information [here](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
-* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader-wasm/interfaces/_dbr_wasm_d_.dynamsoft.barcodereader.runtimesettings.html). Below lists the recommended settings for specific usage.
+* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html). Below lists the recommended settings for specific usage.
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/f24h8c1m/)
   
   **fast**
