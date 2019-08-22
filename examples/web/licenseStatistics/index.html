@@ -40,7 +40,7 @@
                 if(now - lastPostTime >= timeOut){
                     lastPostTime = now;
                     let record = { uuid: uuid, time: lastPostTime, counts: unsendBarcodeCounts };
-                    fetchData("/dbr-license-statistical/post-record", pageRecord, "POST");
+                    fetchData("/dbr-license-statistical/post-record", record, "POST");
                     unsendBarcodeCounts = 0;
                 }
 
