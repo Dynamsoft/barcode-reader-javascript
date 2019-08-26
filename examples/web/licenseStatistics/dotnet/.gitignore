@@ -1,0 +1,5 @@
+/bin
+/obj
+/dbr-license-statistics/info.txt
+/dbr-license-statistics/device-record.txt
+/dbr-license-statistics/session-*.log
