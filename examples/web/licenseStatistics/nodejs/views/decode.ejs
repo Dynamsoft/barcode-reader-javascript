@@ -19,10 +19,11 @@
     // Each browser, which can't get uuid form localStorage,
     // in a physical device will be regarded as a new virtual device.
     let uuid = localStorage.getItem('dbr-uuid');
+    console.log(uuid);
     if(!uuid){
         // Code from https://stackoverflow.com/a/2117523.
         // Do not change the way you generate the uuid.
-        uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => 
+        uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
         localStorage.setItem('dbr-uuid', uuid);
     }
@@ -31,16 +32,17 @@
     let unsendBarcodeCounts = 0;
 
     (async ()=>{
-        let info = await fetchData("/dbr-license-statistical/get-info");
+        let info = await fetchData("/ps");
         timeOut = info.timeOut;
+        var sessionUuid = info.sessionUuid;
         scanner = await Dynamsoft.BarcodeScanner.createInstance({
             onUnduplicatedRead: txt => {
                 ++unsendBarcodeCounts;
                 let now = Date.now();
                 if(now - lastPostTime >= timeOut){
                     lastPostTime = now;
-                    let record = { uuid: uuid, time: lastPostTime, counts: unsendBarcodeCounts };
-                    fetchData("/dbr-license-statistical/post-record", record, "POST");
+                    let record = { uuid: uuid, sessionUuid:sessionUuid, time: lastPostTime, counts: unsendBarcodeCounts };
+                    fetchData("/ss", record, "POST");
                     unsendBarcodeCounts = 0;
                 }
 
@@ -50,7 +52,7 @@
         });
         scanner.open();
     })();
-    
+
     function fetchData(url = '', data = null, method = 'GET') {
         // Default options are marked with *
         return fetch(url, {
@@ -58,25 +60,25 @@
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'default', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
-            headers: data ? {
+            headers:  {
                 'Content-Type': 'application/json',
                 // 'Content-Type': 'application/x-www-form-urlencoded',
-            } : null,
+            },
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
             body: data ? JSON.stringify(data) : null, // body data type must match "Content-Type" header
         })
-        .then(response => {
-            if(response.ok){
-                return response.json() // parses JSON response into native JavaScript objects
-            }else{
-                throw 'HTTP ERROR: ' + response.statusText;
-            }
-        })
-        .then((data) => {
-            console.log("data:",data);
-            return data;
-        });
+            .then(response => {
+                if(response.ok){
+                    return response.json() // parses JSON response into native JavaScript objects
+                }else{
+                    throw 'HTTP ERROR: ' + response.statusText;
+                }
+            })
+            .then((data) => {
+                console.log("data:",data);
+                return data;
+            });
     }
 </script>
 </body>
