@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-**Version**: 7.0.0
+**Version**: 7.1.0
 
 This repository aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -36,7 +36,7 @@ This repository aims to help developers get familiar with [Dynamsoft BarcodeRead
 - [Advanced Usage](#advanced-usage)
   - [Print out log for better debugging](#print-out-log-for-better-debugging)
   - [Show found barcodes](#show-found-barcodes)
-  - [Read a specific area/region](#read-a-specific-arearegion)
+  - [Read a specific area/region](#read-a-specific-area-region)
   - [Custom Deployment](#custom-deployment)
 - [Changelog](#changelog)
 - [API Documentation](#api-documentation)
@@ -97,7 +97,7 @@ Create an HTML file with the following content. Deploy it to your web server if 
 
 Open the file in your browser (must be one that is supported) and there will be a pop-up asking for permission to access the camera. Once the access is granted, you will see the video stream in the default UI of the **BarcodeScanner**. 
 
-##### General Issue one
+##### **General Issue one**
 
 If you open the HTML file as `file:///` or `http://`, the following error may appear in the browser console
 
@@ -118,7 +118,7 @@ To make sure your web application can access the camera, try to configure your w
 - Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 - Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
-##### General Issue Two
+##### **General Issue Two**
 
 For testing purposes, a self-signed certificate can be used when configuring HTTPS. When accessing the site, the browser might say "`the site is not secure`". In this case, go to the certificate settings and trust this certificate. 
 
@@ -179,13 +179,15 @@ The library is based on the WebAssembly standard, therefore, **on first use**, i
 
 The initialization includes the following steps:
 
-* Download
+1. Download
 
-  `Dynamsoft.BarcodeReader._onWasmDownloaded` is a built-in callback that gets triggered when the WebAssembly files are downloaded. As the downloading only happens on the first use, this callback will only be triggered once as well (assume that the user doesn't clear the old cached files).
+`Dynamsoft.BarcodeReader._onWasmDownloaded` is a built-in callback that gets triggered when the WebAssembly files are downloaded. As the downloading only happens on the first use, this callback will only be triggered once as well (assume that the user doesn't clear the old cached files).
 
-* Compile
+2. Compile
 
-  The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than tenth of a seconds on latest phones or PCs, it may take seconds on some older devices. 
+The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than tenth of a seconds on latest phones or PCs, it may take seconds on some older devices. 
+
+3. Initialize
 
 The library needs to initialize every time the page loads. Use the following code to listen to the initialization process:
 
@@ -250,7 +252,7 @@ As you can see in the code, there are basically three categories of configuratio
   **1D**
   ```javascript
   let settings = barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [2, 16, 4, 8, 0, 0, 0, 0];
+  settings.localizationModes = [2, 4, 8, 0, 0, 0, 0, 0];
   settings.deblurLevel = 0;
   barcodeScanner.updateRuntimeSettings(settings);
   ```
@@ -258,7 +260,7 @@ As you can see in the code, there are basically three categories of configuratio
   
   ```javascript
   let settings = barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [2, 16, 4, 8, 0, 0, 0, 0];
+  settings.localizationModes = [2, 4, 8, 0, 0, 0, 0, 0];
   settings.deblurLevel = 2;
   barcodeScanner.updateRuntimeSettings(settings);
   ```
