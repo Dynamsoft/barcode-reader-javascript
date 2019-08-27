@@ -6,7 +6,11 @@ This repository aims to help developers get familiar with [Dynamsoft BarcodeRead
 
 ## Features
 
-* Supported Symbologies: **`1D`**, **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
+* Supported Symbologies: 
+
+  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **ITF-14**.
+  
+  2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
 
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
@@ -211,7 +215,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     onUnduplicatedRead: (txt, result) => {alert(txt);}
 }).then(scanner => {
     barcodeScanner = scanner;
-    // setVideoSettings sets which camera and what resolution to use
+    // updateVideoSettings sets which camera and what resolution to use
     barcodeScanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
 
     let runtimeSettings = barcodeScanner.getRuntimeSettings();
