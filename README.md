@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-**Version**: 7.1.0
+**Version**: 7.0.0
 
 This repository aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
