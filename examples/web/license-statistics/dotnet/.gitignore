@@ -1,0 +1,7 @@
+/.vs
+/packages
+/dbrLicenseStatistics/bin
+/dbrLicenseStatistics/obj
+/dbrLicenseStatistics/dbr-license-statistics/info.txt
+/dbrLicenseStatistics/dbr-license-statistics/device-record.txt
+/dbrLicenseStatistics/dbr-license-statistics/session-*.log
