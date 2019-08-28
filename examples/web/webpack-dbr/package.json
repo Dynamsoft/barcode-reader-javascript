@@ -15,6 +15,6 @@
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
-    "dynamsoft-javascript-barcode": "^6.5.4"
+    "dynamsoft-javascript-barcode": "^7.0.0"
   }
 }

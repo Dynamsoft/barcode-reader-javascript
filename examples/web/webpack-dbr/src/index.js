@@ -1,8 +1,9 @@
-const BarcodeReader = require('dynamsoft-javascript-barcode')
+const dbr = require('dynamsoft-javascript-barcode');
 
-BarcodeReader.licenseKey = 'LICENSE-KEY';
-let scanner = new BarcodeReader.Scanner({
+dbr.BarcodeReader.licenseKey = 'LICENSE-KEY';
+dbr.BarcodeScanner.createInstance({
     onFrameRead: results => { console.log(results); },
     onNewCodeRead: (txt, result) => { alert(txt); }
-});
-scanner.open();
+}).then(scanner => {
+    scanner.open();
+})
