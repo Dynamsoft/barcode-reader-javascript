@@ -8,7 +8,7 @@ This repository aims to help developers get familiar with [Dynamsoft BarcodeRead
 
 * Supported Symbologies: 
 
-  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **ITF-14**.
+  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`ITF-14`**.
   
   2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
 
