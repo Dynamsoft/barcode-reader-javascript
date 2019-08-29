@@ -232,7 +232,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     scanSettings.duplicateForgetTime = 20000;
     // Set a interval so that the CPU can relax
     scanSettings.intervalTime = 300;
-    barcodeScanner.setScanSettings(scanSettings);
+    barcodeScanner.updateScanSettings(scanSettings);
     barcodeScanner.show();
 })
 ```
@@ -268,7 +268,7 @@ As you can see in the code, there are basically three categories of configuratio
   settings.deblurLevel = 2;
   barcodeScanner.updateRuntimeSettings(settings);
   ```
-* `get/setScanSettings`: Configures the scanner. For v7.0, the configurations for the scanner are limited to `duplicateForgetTime` and `intervalTime`.
+* `get/updateScanSettings`: Configures the scanner. For v7.0, the configurations for the scanner are limited to `duplicateForgetTime` and `intervalTime`.
 
 ### Customizing the UI
 
