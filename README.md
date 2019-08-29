@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK
 
-**Version**: 7.0.0
+**Version**: 7.1.0
 
 This repository aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
 
@@ -556,6 +556,18 @@ It's recommended to place all the files. If you want to place only the necessary
 
 ## Changelog
 
+### 7.1.0
+
+Updated algorithm to 7.1. 
+
+Improved the speed to download, build and initialize the library.
+
+Improved the readability of barcode result text by using UTF-8 encoding.
+
+Improved developer’s guide to be clearer and more precise.
+
+Renamed setScanSettings for updateScanSettings for naming consistence.
+
 ### 7.0.0
 
 Built Dynamsoft Barcode Reader 7.0 to JS(WebAssembly) version.
@@ -636,6 +648,7 @@ It takes several steps to activate a purchased license, the following steps assu
   Under **Status**, click the link **Activate Now** where you will be asked to input a domain which your license key will be bound to. The domain binding is a security feature to protect your license, although it's optional, it's highly recommended.
 
   > A few examples of the domain
+  >
   > www.dynamsoft.com
   >
   > demo.dynamsoft.com
