@@ -59,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="1063" />
     <option name="width" value="864" />
     <option name="height" value="1047" />
@@ -133,15 +133,15 @@
       <workItem from="1565924834414" duration="15768000" />
       <workItem from="1566350813125" duration="138000" />
       <workItem from="1566351229497" duration="7850000" />
-      <workItem from="1566437245150" duration="8445000" />
+      <workItem from="1566437245150" duration="9029000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32201000" />
+    <option name="totallyTimeSpent" value="32785000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="npm" order="0" side_tool="true" />
@@ -154,7 +154,7 @@
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.20151679" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.20151679" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
