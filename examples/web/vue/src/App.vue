@@ -5,7 +5,9 @@
 </template>
 
 <script>
-import Dynamsoft from 'Dynamsoft'
+const Dynamsoft = require('dynamsoft-javascript-barcode');
+
+Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 export default {
   name: 'app',
