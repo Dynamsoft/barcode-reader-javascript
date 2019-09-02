@@ -1,8 +1,10 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import {Icon,Spin,message,Button} from 'antd';
+import {Icon,Spin,message,Button,Select} from 'antd';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import './Layout.css'
+import '../../static/css/Layout.css';
+import {settingsFromPage} from './SettingPage';
+
 
 class EachResult extends React.Component{
     copyScannerResult(){
@@ -94,7 +96,9 @@ class Canvas extends React.Component{
 
 
         var canvas = this.canvas.current;
+        //console.log(_x1,_y1,_x2,_y2,_x3,_y3,_x4,_y4);
         if(canvas.getContext){
+            //debugger;
             let ctx = canvas.getContext("2d");
             ctx.fillStyle = 'rgba(254,180,32,0.5)';
             ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -143,7 +147,8 @@ class Canvas extends React.Component{
     }
 }
 
-const Dynamsoft = window.Dynamsoft;
+// const Dynamsoft = window.Dynamsoft;
+var Dynamsoft;
 let scanner = null;
 
 
@@ -155,20 +160,23 @@ class Scanner extends React.Component{
             isOpen:false,
             resultsPoint:[],
             camera:0,
-            cameraList:0,
+            cameraList:[],
             isFullRegion:this.props.isFullRegion,
-        })
+            resolution:settingsFromPage.resolution,
+            barcodeFormat:settingsFromPage.barcodeformat,
+            localization:settingsFromPage.localization,
+            deblurLevel:settingsFromPage.deblurlevel,
+            cameraOptions:null,
+        });
+
     }
 
 
-
     showScanner(){
-       
         var updateFrame = ()=>{
             var regionScale = 1.0*this.props.region/100;
             var regionWidth =  regionScale*window.innerWidth;
             var regionHeight = 0.5*regionScale*window.innerHeight;
-    
             var r =scanner.getResolution();
             var vW = r[0];
             var vH = r[1];
@@ -185,6 +193,8 @@ class Scanner extends React.Component{
                     right = (window.innerWidth+regionWidth)/2/vW;
                     top = (vH-regionHeight)/2/vH;
                     bottom = (vH+regionHeight)/2/vH;
+                    //console.log(window.innerWidth,regionScale*window.innerWidth,regionWidth,left,right);
+                    // console.log("regionWidth<250 and vw>window.innerWidth");
                 }
             }
 
@@ -194,6 +204,7 @@ class Scanner extends React.Component{
                     right = (vW+250)/2/vW;
                     top = (vH-250)/2/vH;
                     bottom = (vH+250)/2/vH;
+                    // console.log("regionWidth>250 and vw<window.innerWidth");
                 }
                 else {
                     left = (vW-regionWidth)/2/vW;
@@ -245,7 +256,11 @@ class Scanner extends React.Component{
 
                 if(scanner!==null){
                     updateFrame();
+                    //console.log(scanner.getRuntimeSettings());
                 }
+                // updateFrame();
+
+                //console.log(this.state.isFullRegion);
             },
             onUnduplicatedRead: (txt, result) => {
                 console.log(result);
@@ -256,15 +271,35 @@ class Scanner extends React.Component{
             if(scanner._isOpen===false){
                 console.log("open!");
                 scanner.open().then((paras)=>{
-                    scanner.getAllCameras().then((cameras)=>{
-                        this.setState({
-                            cameraList:cameras
-                        });
-                        console.log(this.state.cameraList);
-                        scanner.setCurrentCamera(cameras[this.state.camera].deviceId);
-                    });
-                    updateFrame();
-                });
+                        scanner.setResolution(this.state.resolution);
+                        var settings = scanner.getRuntimeSettings();
+                        settings.barcodeFormatIds=this.state.barcodeFormat;
+                        settings.localizationModes=this.state.localization;
+                        settings.deblurLevel = this.state.deblurLevel;
+                        // console.log(settings);
+                        scanner.updateRuntimeSettings(settings).then(()=>{
+                            //console.log(scanner.getResolution());
+                            console.log(scanner.getRuntimeSettings());
+                            updateFrame();
+                        }).then(()=>{
+                            scanner.getAllCameras().then((cameras)=>{
+                                this.setState({
+                                    cameraList:cameras,
+                                    cameraOptions:cameras.map((cameraOption,index)=>
+                                        <Select.Option value={"camera:"+index} key={cameraOption.deviceId}>{cameraOption.label}</Select.Option>
+                                        // <Option value={cameraOption.deviceId} key={"camera"+index}>xx</Option>
+                                    )
+                                });    
+                                scanner.setCurrentCamera(cameras[this.state.camera].deviceId);
+                            });
+                        });                        
+                        })/*.then((r)=>{
+                            console.log(scanner.getResolution());
+                            console.log(scanner.getRuntimeSettings());
+                            updateFrame();
+                        });*/
+                    //scanner.setCurrentCamera(paras.all[this.state.camera].deviceId);
+                    //console.log(scanner.getRuntimeSettings());      
             }
             else{
                 console.log("close!");
@@ -278,11 +313,14 @@ class Scanner extends React.Component{
     }
 
     componentDidMount(){
+        Dynamsoft = window.Dynamsoft;
         this.showScanner();
+        console.log(this.state.barcodeFormat,this.state.cameraOptions);
+        
     }
 
     componentWillUnmount(){
-        this.showScanner();
+        //this.showScanner();
     }
 
     handleFullRegion(){
@@ -291,23 +329,24 @@ class Scanner extends React.Component{
         })
     }
    
-    onSwitchCamera(){
+    onSwitchCamera(value){
         scanner.getAllCameras().then(infos=>{
-            var numOfCamera = this.state.cameraList.length;
+            // var numOfCamera = this.state.cameraList.length;
             this.setState({
-                camera:this.state.camera===numOfCamera-1?0:this.state.camera+1
+                //camera:this.state.camera===numOfCamera-1?0:this.state.camera+1
+                camera:value.split(":")[1]
             });
             return infos;
         }).then((infos)=>{
+            scanner.setCurrentCamera(infos[this.state.camera].deviceId);
             var config={};
-            config.content="Switch to camera "+infos[this.state.camera].label+" successfully!";
+            config.content="Switch to "+infos[this.state.camera].label+" successfully!";
             config.icon=<Icon type="smile" style={{color:"#FE8E14"}}></Icon>;
             message.config({
                 top:window.innerHeight-180,
                 duration:1.5,
             });
             message.open(config);
-            scanner.setCurrentCamera(infos[this.state.camera].deviceId);
         });
     }
 
@@ -315,6 +354,7 @@ class Scanner extends React.Component{
         const allCanvas = this.state.resultsPoint.map((eachResult,index)=>
             <Canvas key={index} point={eachResult}></Canvas>
         );
+
         return(
             <>
             <style type="text/css">
@@ -378,16 +418,33 @@ class Scanner extends React.Component{
             <div id='scanner' style={{position:"absolute",width:"100%"}}>
                 <div className="video-container">
                     <video className='dbrScanner-video custom-video' playsInline={true}></video>
-                {allCanvas}
+                {/*{*/}
+                    {/*this.state.resultsPoint.length&&*/}
+                    {/*<>{allCanvas}</>*/}
+                {/*}*/}
+                <>{allCanvas}</>
                 </div>
 
             </div>
             <Result resultsInfo={this.state.resultsInfo}></Result>
             {/* <button onClick={this.onSwitchCamera.bind(this)} style={{position:"absolute",top:"60px",left:0}}>切换相机</button> */}
-            <Button type="primary" size="small" onClick={this.onSwitchCamera.bind(this)} style={{position:"absolute",top:"60px",left:0,backgroundColor:"rgb(254, 142, 20)",border:"0"}}>切换相机</Button>
+            {/* <Button type="primary" size="small" onClick={this.onSwitchCamera.bind(this)} style={{position:"absolute",top:"60px",left:0,backgroundColor:"rgb(254, 142, 20)",border:"0"}}>切换相机</Button> */}
+            {
+                this.state.cameraList.length&&
+                <Select onChange={this.onSwitchCamera.bind(this)} 
+                style={{ position:"absolute",top:"60px",left:0,width: 100,border:"0",color:"#FE8E14" }} 
+                defaultValue={"camera:0"}
+                suffixIcon={<Icon type="camera" style={{color:"#FE8E14"}}></Icon>}
+                >
+                    {this.state.cameraOptions}
+                </Select>
+                
+            }
+            
             </>
         )
     }
 }
 
+//export default connect(mapStateToProps,mapDispatchsToProps)(Scanner);
 export default Scanner;

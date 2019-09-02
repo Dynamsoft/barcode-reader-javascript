@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Layout.css";
+import "../../static/css/Layout.css";
 import {Icon} from 'antd';
 import SettingPage from './SettingPage';
 import FilePage from './FilePage';
@@ -56,7 +56,7 @@ class Body extends React.Component{
                 }
                 <div className="dynam-info">
                     {/* <p>Dynamsoft DBR</p> */}
-                    <a href="https://www.dynamsoft.com" ><img src="img/logo-dynamsoft-blackBg-190x47.png" alt="logo"></img></a>
+                    <a href="https://www.dynamsoft.com" ><img src="../static/img/logo-dynamsoft-blackBg-190x47.png" alt="logo"></img></a>
                 </div>
                 
                 <RegionBtn handleRegion={this.handleRegion.bind(this)} isFullRegion={this.state.isFullRegion}></RegionBtn>
@@ -68,7 +68,7 @@ class Body extends React.Component{
 let clicks = [];
 let timeout;
 
-class Head extends React.Component{
+class Main extends React.Component{
     constructor(props){
         super(props);
         this.state=({
@@ -76,6 +76,8 @@ class Head extends React.Component{
             isShowFilePage:false,
             isFullScreen:false,
             isFullRegion:false,
+            settingDisplayStyle:{display:"none"},
+            fileDisplayStyle:{display:"none"}
         })
     }
 
@@ -88,12 +90,14 @@ class Head extends React.Component{
     handleShowSettingPage(){
         this.setState({
             isShowSettingPage:!this.state.isShowSettingPage,
+            settingDisplayStyle:this.state.settingDisplayStyle.display==="none"?{display:"block"}:{display:"none"}
         });
     }
 
     handleShowFilePage(){
         this.setState({
             isShowFilePage:!this.state.isShowFilePage,
+            fileDisplayStyle:this.state.fileDisplayStyle.display==="none"?{display:"block"}:{display:"none"}
         });
     }
 
@@ -133,39 +137,71 @@ class Head extends React.Component{
     }   
 
     render(){
-        if(this.state.isShowSettingPage){
-            return(
-                <>
-                <SettingPage
-                onBackClick={this.handleShowSettingPage.bind(this)}
-                >
-                </SettingPage>
-                </>
-            )
-        }
+        var regionSize = 60;
+        var home = (
+            <div className="home-screen">
+                <Scanner region={regionSize} isFullRegion={this.state.isFullRegion}></Scanner>
+                {
+                    !this.state.isFullRegion&&
+                    <ScannerArea region={regionSize}></ScannerArea>
+                }
+                <div className="dynam-info">
+                    <a href="https://www.dynamsoft.com" ><img src="../static/img/logo-dynamsoft-blackBg-190x47.png" alt="logo"></img></a>
+                </div>
+                <RegionBtn handleRegion={this.handleRegion.bind(this)} isFullRegion={this.state.isFullRegion}></RegionBtn>
+            </div>
+        );
 
-        if(this.state.isShowFilePage){
-            return(
-                <>
+        var extra = (
+            <>
+            <div className="settingBtn-container" >
+                <Icon type="setting" style={{fontSize:"2.5rem",color:"#FE8E14"}} onClick={this.handleShowSettingPage.bind(this)} ></Icon>
+            </div>
+            <div className="double-click" >
+                <label onClick={this.fullSceenClickHandler.bind(this)}>双击{this.state.isFullScreen&&"退出"}全屏</label>
+            </div>
+            <div className="selImgBtn-container">
+                <Icon type="plus" style={{fontSize:"2.5rem",color:"#FE8E14"}} onClick={this.handleShowFilePage.bind(this)}></Icon>
+            </div>
+            
+            <div style={this.state.settingDisplayStyle}>
+                <SettingPage onBackClick={this.handleShowSettingPage.bind(this)} ></SettingPage>
+            </div>
+            <div style={this.state.fileDisplayStyle}>
                 <FilePage onBackClick={this.handleShowFilePage.bind(this)}></FilePage>
-                </>
-            )
-        }
-        else{
+            </div>
+            </>
+        );
+        // if(this.state.isShowSettingPage){
+        //     return(
+        //         <>
+        //          {/* {home} */}
+        //         <SettingPage
+        //         onBackClick={this.handleShowSettingPage.bind(this)}
+        //         >
+        //         </SettingPage>
+        //         </>
+        //     )
+        // }
+
+        // if(this.state.isShowFilePage){
+        //     return(
+        //         <>
+        //         {/* {home} */}
+        //         <FilePage onBackClick={this.handleShowFilePage.bind(this)}></FilePage>
+        //         </>
+        //     )
+        // }
+        
             return(
                 <>
-                <div className="settingBtn-container" >
-                    <Icon type="setting" style={{fontSize:"2.5rem",color:"#FE8E14"}} onClick={this.handleShowSettingPage.bind(this)} ></Icon>
-                </div>
-                <div className="double-click" >
-                    <label onClick={this.fullSceenClickHandler.bind(this)}>双击{this.state.isFullScreen&&"退出"}全屏</label>
-                </div>
-                <div className="selImgBtn-container">
-                    <Icon type="plus" style={{fontSize:"2.5rem",color:"#FE8E14"}} onClick={this.handleShowFilePage.bind(this)}></Icon>
-                </div>
+                {(this.state.isShowSettingPage||this.state.isShowFilePage)?null:home}
+                {/* extra:setting page,setting btn,file page,file btn */}
+                {extra}     
+
                 </>
             )
-        }
+        
     }
     
 }
@@ -195,12 +231,12 @@ class Layout extends React.Component{
                 {
                     this.state.isShow&&
                     <>
-                        <Body></Body>
-                        <Head></Head>
+                    {/* <Body></Body> */}
+                    {/* <Head></Head> */}
+                    <Main></Main>
                     </>
                 }
-                
-            </div>
+            </div>   
         )
     }
 }

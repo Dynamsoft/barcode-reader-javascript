@@ -1,8 +1,8 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import { PageHeader} from 'antd';
-import './FilePage.css';
-import './Layout.css'
+import '../../static/css/FilePage.css';
+import '../../static/css/Layout.css'
 
 
 class FilePage extends React.Component{
@@ -39,6 +39,16 @@ class FilePage extends React.Component{
                         <PageHeader onBack={this.props.onBackClick} title="Files"  />
                     </div>
                 }
+                <style jsx>
+                    {`
+                        .file-container{
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            background-color: white;
+                        }
+                    `}
+                </style>
             </>
             
         )
