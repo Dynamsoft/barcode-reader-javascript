@@ -11,8 +11,8 @@ class Index extends React.Component{
             <>
             <Head>
                 <title>ssr</title>
-                <script src="https://www.keillion.site/dbr.wasm.cdn/dbr.min.js"
-                data-productKeys="t0068MgAAAHlndUYSpB+Y7ZCO9+UgVclFHIMhGxLfSzAObE6EZS4bUPogB/w8AmBM3lIw94h+joK5NmjSJWH/8286uzcbmhE="></script>         */}
+                <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="" data-licensekey="t0090YgAAALaZg2oLytA41dBJRYswJQMgs/OPAggh7pzHmTuW0e8x9goxvDtPZyGzIJW2m2lNyD0oqOriINyTOitQUXIZQSeVOGpiH0iRSiz6GKS8mOgA/gGj3Bhv"
+                data-productKeys="t0068NQAAALhbbdvegAj/8hQqGKHFHmvo5SQT/q/1QY8D1E3ImoTsios2fPGNhZY11L2gTZRN02KwGJjtjDl//qDnoRmprTY="></script>
                 <script src="../static/jquery-3.2.1.min.js" ></script> 
                 <script src="../static/mbc-2.1.3.min.js" ></script>
             </Head>

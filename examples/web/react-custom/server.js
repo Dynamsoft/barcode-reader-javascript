@@ -19,6 +19,10 @@ app.prepare()
             //res.send("return something here");
             return handle(req, res);
         });
+
+        server.post('/upload',(req,res)=>{
+            res.send("get it!");
+        })
         
         server.listen(2048, (err) => {
             if (err) throw err;

@@ -4,7 +4,7 @@
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    
+    /* text-align: center */
 }
 .home-screen{
     position: absolute;
@@ -25,6 +25,8 @@
     top:12%;
     text-align: center;
     color: rgba(255, 255, 255, 0.8);
+    left: 50%;
+    transform: translate(-50%);
 }
 
 
@@ -109,6 +111,7 @@
     width: fit-content;
     left: 50%;
     transform: translate(-50%);
+    text-align: center;
 }
 
 .selImgBtn-container{
@@ -119,8 +122,9 @@
 
 .home-screen .dynam-info a img{
     width: 50%;
-    max-width: fit-content;
+    max-width: 200px;
     max-width: -moz-fit-content;
+    text-align: center;
 }
 
 .result-content{

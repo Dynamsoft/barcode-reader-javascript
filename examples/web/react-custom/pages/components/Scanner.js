@@ -1,15 +1,16 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import {Icon,Spin,message,Button,Select} from 'antd';
+import {Icon,Spin,message,Select} from 'antd';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import '../../static/css/Layout.css';
 import {settingsFromPage} from './SettingPage';
 
 
 class EachResult extends React.Component{
-    copyScannerResult(){
+    copyScannerResult=e=>{
         const kUtil=window.kUtil;
-        kUtil.copyToClipBoard(this.props.content);
+        // kUtil.copyToClipBoard(this.props.content);
+        kUtil.copyToClipBoard(e.target.innerText);
         var config={};
         config.content="copy successfully!";
         config.icon=<Icon type="smile" style={{color:"#FE8E14"}}></Icon>;
@@ -35,7 +36,7 @@ class EachResult extends React.Component{
                     {
                         isLink?
                         <a href={possibleLink} target={"_blank"} style={{textDecoration:"underline"}} >{this.props.content}</a>
-                        : <span onClick={this.copyScannerResult.bind(this)}>{this.props.content}</span>
+                        : <span onClick={this.copyScannerResult}>{this.props.content}</span>
                     }
                     <><span style={{color:"#FE8E14"}}> x {this.props.count}</span></>
                     {/* <Button type="link" icon="copy" size="small" style={{float:"right"}}  onClick={this.copyScannerResult.bind(this)}></Button> */}
@@ -49,8 +50,12 @@ class EachResult extends React.Component{
 class Result extends React.Component{
     render(){
         const resultItems = this.props.resultsInfo.slice(-3).map((ri,index)=>
-            <EachResult key={index} content = {ri.result.BarcodeText} count={ri.count} format={ri.result.BarcodeFormatString}></EachResult>
+            <EachResult key={index} content = {ri.result!=undefined?ri.result.BarcodeText:ri.BarcodeText} 
+            count={ri.count} 
+            format={ri.result!=undefined?ri.result.BarcodeFormatString:ri.BarcodeFormatString}>
+            </EachResult>
         );
+        
         return(
             <div className="result-container">
                 {resultItems}
@@ -293,13 +298,7 @@ class Scanner extends React.Component{
                                 scanner.setCurrentCamera(cameras[this.state.camera].deviceId);
                             });
                         });                        
-                        })/*.then((r)=>{
-                            console.log(scanner.getResolution());
-                            console.log(scanner.getRuntimeSettings());
-                            updateFrame();
-                        });*/
-                    //scanner.setCurrentCamera(paras.all[this.state.camera].deviceId);
-                    //console.log(scanner.getRuntimeSettings());      
+                        }) 
             }
             else{
                 console.log("close!");
@@ -321,6 +320,7 @@ class Scanner extends React.Component{
 
     componentWillUnmount(){
         //this.showScanner();
+        scanner!=null&&scanner.destroy();
     }
 
     handleFullRegion(){
@@ -448,3 +448,4 @@ class Scanner extends React.Component{
 
 //export default connect(mapStateToProps,mapDispatchsToProps)(Scanner);
 export default Scanner;
+export {Result,EachResult};

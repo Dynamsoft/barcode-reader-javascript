@@ -167,35 +167,19 @@ class Main extends React.Component{
             <div style={this.state.settingDisplayStyle}>
                 <SettingPage onBackClick={this.handleShowSettingPage.bind(this)} ></SettingPage>
             </div>
-            <div style={this.state.fileDisplayStyle}>
-                <FilePage onBackClick={this.handleShowFilePage.bind(this)}></FilePage>
-            </div>
+            {
+                this.state.isShowFilePage&&
+                <div style={this.state.fileDisplayStyle}>
+                    <FilePage onBackClick={this.handleShowFilePage.bind(this)}></FilePage>
+                </div>    
+            }
+            
             </>
         );
-        // if(this.state.isShowSettingPage){
-        //     return(
-        //         <>
-        //          {/* {home} */}
-        //         <SettingPage
-        //         onBackClick={this.handleShowSettingPage.bind(this)}
-        //         >
-        //         </SettingPage>
-        //         </>
-        //     )
-        // }
-
-        // if(this.state.isShowFilePage){
-        //     return(
-        //         <>
-        //         {/* {home} */}
-        //         <FilePage onBackClick={this.handleShowFilePage.bind(this)}></FilePage>
-        //         </>
-        //     )
-        // }
         
             return(
                 <>
-                {(this.state.isShowSettingPage||this.state.isShowFilePage)?null:home}
+                {(this.state.isShowSettingPage)?null:home}
                 {/* extra:setting page,setting btn,file page,file btn */}
                 {extra}     
 
