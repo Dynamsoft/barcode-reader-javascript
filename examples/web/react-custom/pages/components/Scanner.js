@@ -36,7 +36,7 @@ class EachResult extends React.Component{
                     {
                         isLink?
                         <a href={possibleLink} target={"_blank"} style={{textDecoration:"underline"}} >{this.props.content}</a>
-                        : <span onClick={this.copyScannerResult}>{this.props.content}</span>
+                        : <span onClick={this.copyScannerResult} style={{fontSize:16}}>{this.props.content}</span>
                     }
                     <><span style={{color:"#FE8E14"}}> x {this.props.count}</span></>
                     {/* <Button type="link" icon="copy" size="small" style={{float:"right"}}  onClick={this.copyScannerResult.bind(this)}></Button> */}
@@ -244,7 +244,7 @@ class Scanner extends React.Component{
         Dynamsoft.BarcodeScanner.createInstance({
             intervalTime:200,
             UIElement:document.getElementById('scanner'),
-            //videoSettings: { video: { width: { ideal: 1280 }, height: {ideal: 720 }, facingMode: { ideal: 'environment' } } },
+            videoSettings: { video: { width: { ideal: 1280 }, height: {ideal: 720 }, facingMode: 'environment' } },
             onFrameRead: results => {
                 let resultPointsPerFrame=[];
                 for (let i = 0; i < results.length; i++){
@@ -273,17 +273,16 @@ class Scanner extends React.Component{
             }
         }).then(s => {
             scanner = s;
+            scanner.updateVideoSettings({ video: { width: this.state.resolution[0], height:this.state.resolution[1], facingMode: "environment" } });
             if(scanner._isOpen===false){
                 console.log("open!");
-                scanner.open().then((paras)=>{
-                        scanner.setResolution(this.state.resolution);
+                scanner.show().then((paras)=>{
+                        // scanner.setResolution(this.state.resolution);
                         var settings = scanner.getRuntimeSettings();
                         settings.barcodeFormatIds=this.state.barcodeFormat;
                         settings.localizationModes=this.state.localization;
                         settings.deblurLevel = this.state.deblurLevel;
-                        // console.log(settings);
                         scanner.updateRuntimeSettings(settings).then(()=>{
-                            //console.log(scanner.getResolution());
                             console.log(scanner.getRuntimeSettings());
                             updateFrame();
                         }).then(()=>{
@@ -295,14 +294,14 @@ class Scanner extends React.Component{
                                         // <Option value={cameraOption.deviceId} key={"camera"+index}>xx</Option>
                                     )
                                 });    
-                                scanner.setCurrentCamera(cameras[this.state.camera].deviceId);
+                                // scanner.setCurrentCamera(cameras[this.state.camera].deviceId);
                             });
                         });                        
                         }) 
             }
             else{
                 console.log("close!");
-                scanner.show().then(()=>scanner.close());
+                scanner.close();
             }
         }).then(()=>{
             this.setState({
@@ -319,7 +318,7 @@ class Scanner extends React.Component{
     }
 
     componentWillUnmount(){
-        //this.showScanner();
+        scanner!=null&&scanner.close();
         scanner!=null&&scanner.destroy();
     }
 
@@ -432,9 +431,11 @@ class Scanner extends React.Component{
             {
                 this.state.cameraList.length&&
                 <Select onChange={this.onSwitchCamera.bind(this)} 
-                style={{ position:"absolute",top:"60px",left:0,width: 100,border:"0",color:"#FE8E14" }} 
-                defaultValue={"camera:0"}
+                style={{ position:"absolute",top:"60px",left:0,width: "20%",maxWidth:130,border:"0",color:"#FE8E14",opacity:"0.5" }} 
+                // defaultValue={"camera:0"}
+                // placeholder="camera"
                 suffixIcon={<Icon type="camera" style={{color:"#FE8E14"}}></Icon>}
+                defaultActiveFirstOption={false}
                 >
                     {this.state.cameraOptions}
                 </Select>

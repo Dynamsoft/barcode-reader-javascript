@@ -191,7 +191,7 @@ class FilePage extends React.Component{
                                 </Typography.Text>
                                 {isLink(Item.BarcodeText)?
                                 <a href={'http://'+Item.BarcodeText} target={"_blank"} style={{textDecoration:"underline"}} >{Item.BarcodeText}</a>
-                                :<span onClick={this.copyScannerResult}>{Item.BarcodeText}</span>  }
+                                :<span onClick={this.copyScannerResult} style={{fontSize:16}}>{Item.BarcodeText}</span>  }
                             </List.Item>
                         )}
                         >
@@ -207,6 +207,7 @@ class FilePage extends React.Component{
                             listType="picture-card"
                             showUploadList={false}
                             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                            // action="/upload"
                             //beforeUpload={beforeUpload}
                             onChange={this.handleChange}
                             supportServerRender={true}
@@ -217,9 +218,6 @@ class FilePage extends React.Component{
                     </div>
                 </div>
 
-                
-                
-            
             </>
             
         )

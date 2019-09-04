@@ -5,6 +5,11 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+// const imgserver = express();
+// imgserver.post('/upload',(req,res)=>{
+//     res.send("get it!");
+// })
+
 app.prepare()
     .then(() => {
         const server = express();
@@ -20,9 +25,7 @@ app.prepare()
             return handle(req, res);
         });
 
-        server.post('/upload',(req,res)=>{
-            res.send("get it!");
-        })
+        
         
         server.listen(2048, (err) => {
             if (err) throw err;
