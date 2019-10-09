@@ -1,0 +1,28 @@
+{
+	"name": "dynamsoft/javascript-barcode",
+	"description": "A JavaScript barcode library that enables you to build web barcode reader app",
+	"keywords": [
+		"barcode SDK",
+		"web barcode",
+		"QRCode",
+		"DataMatrix",
+		"PDF417",
+		"Code93",
+		"Linear",
+		"barcode",
+		"Code 128",
+		"JavaScript barcode",
+		"Codabar",
+		"EAN-8",
+		"EAN-13",
+		"UPC-A",
+		"UPC-E",
+		"ITF-14",
+		"Aztec"
+	],
+	"homepage": "https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx",
+	"authors": [ { "name": "Dynamsoft", "homepage": "https://www.dynamsoft.com/" } ],
+	"support": {
+		"issues": "https://www.dynamsoft.com/Company/Contact.aspx"
+	}
+}
