@@ -4,7 +4,7 @@
  * @website http://www.dynamsoft.com
  * @preserve Copyright 2019, Dynamsoft Corporation
  * @author Dynamsoft
- * @version 7.1.1
+ * @version 7.1.2
  * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
  * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
  */
@@ -1017,4 +1017,13 @@ declare namespace Dynamsoft{
     }
 }
 
-export = Dynamsoft;
+
+let EnumBarcodeFormat = BarcodeReader.EnumBarcodeFormat;
+let EnumErrorCode = BarcodeReader.EnumErrorCode;
+let EnumImagePixelFormat = BarcodeReader.EnumImagePixelFormat;
+let EnumResultType = BarcodeReader.EnumResultType;
+let EnumTerminatePhase = BarcodeReader.EnumTerminatePhase;
+let EnumConflictMode = BarcodeReader.EnumConflictMode;
+let EnumLocalizationMode = BarcodeReader.EnumLocalizationMode;
+export default BarcodeReader;
+export {BarcodeReader, BarcodeScanner, EnumBarcodeFormat, EnumErrorCode, EnumImagePixelFormat, EnumResultType, EnumTerminatePhase, EnumConflictMode, EnumLocalizationMode};

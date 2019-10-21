@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK for Node and Web
 
-**Version**: 7.1.1
+**Version**: 7.1.2
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
@@ -10,7 +10,7 @@
 
 * Supported Symbologies: 
 
-  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **ITF-14**.
+  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`ITF-14`**.
   
   2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
 
@@ -271,7 +271,7 @@ Dynamsoft.BarcodeScanner.createInstance({
     scanSettings.duplicateForgetTime = 20000;
     // Set a interval so that the CPU can relax
     scanSettings.intervalTime = 300;
-    barcodeScanner.setScanSettings(scanSettings);
+    barcodeScanner.updateScanSettings(scanSettings);
     barcodeScanner.show();
 })
 ```
@@ -307,7 +307,7 @@ As you can see in the code, there are basically three categories of configuratio
   settings.deblurLevel = 2;
   barcodeScanner.updateRuntimeSettings(settings);
   ```
-* `get/setScanSettings`: Configures the scanner. For v7.0, the configurations for the scanner are limited to `duplicateForgetTime` and `intervalTime`.
+* `get/updateScanSettings`: Configures the scanner. For v7.0, the configurations for the scanner are limited to `duplicateForgetTime` and `intervalTime`.
 
 ### Customizing the UI
 
@@ -594,6 +594,14 @@ It's recommended to place all the files. If you want to place only the necessary
 
 
 ## Changelog
+
+### 7.1.2
+
+Add a more advanced react example.
+
+### 7.1.1
+
+Fix bug about torch. Torch (flashlight) is supported in chrome with the supported cameras.
 
 ### 7.1.0
 

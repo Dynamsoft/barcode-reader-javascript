@@ -6,11 +6,6 @@
         position: absolute;
         
     }
-    .clear-cache{
-        display: inline-block;
-        padding-top: 10px;
-        padding-left: 5%;
-    }
 }
 
 .setting-container{
@@ -18,10 +13,10 @@
     width: 100%;
     height: 100%;
     position: absolute;
-    
+    top: 0;
 }
 .clear-cache{
     display: inline-block;
     padding-top: 10px;
-    padding-left: 5%;
+    padding-left: 15px;
 }
