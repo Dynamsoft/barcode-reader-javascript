@@ -1,8 +1,10 @@
-# Dynamsoft JavaScript Barcode SDK
+# Dynamsoft JavaScript Barcode SDK for Node and Web
 
-**Version**: 7.1.0
+**Version**: 7.1.1
 
-This repository aims to help developers get familiar with [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx).
+![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
+
+[Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript API for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
 
 ## Features
 
@@ -28,6 +30,43 @@ This repository aims to help developers get familiar with [Dynamsoft BarcodeRead
   <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
 > **Node.js** v8+ is also supported. However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
+
+## Quick Usage
+### Node
+
+```js
+var dbr = require('dynamsoft-javascript-barcode');
+dbr.BarcodeReader.productKeys = 'LICENSE-KEY';
+dbr.BarcodeReader.createInstance().then(reader => {
+    reader.decode('sample.png').then(results => {
+        for(var i = 0; i < results.length; ++i){
+            console.log(results[i].BarcodeText);
+        }
+        reader.destroy();
+    });
+});
+```
+
+### Web
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <script src="node_modules/dynamsoft-javascript-barcode/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <script>
+        let barcodeScanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
+            onFrameRead: results => {console.log(results);},
+            onUnduplicatedRead: (txt, result) => {alert(txt);}
+        }).then(scanner => {
+            barcodeScanner = scanner;
+            barcodeScanner.show();
+        });
+    </script>
+</body>
+</html>
+```
 
 ## Table of Contents
 
