@@ -595,6 +595,14 @@ It's recommended to place all the files. If you want to place only the necessary
 
 ## Changelog
 
+### 7.1.2
+
+Add a more advanced react example.
+
+### 7.1.1
+
+Fix bug about torch. Torch (flashlight) is supported in chrome with the supported cameras.
+
 ### 7.1.0
 
 Updated algorithm to 7.1. 
