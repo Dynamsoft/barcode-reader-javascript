@@ -1007,3 +1007,4 @@ declare namespace Dynamsoft{
     }
 }
 
+export = Dynamsoft;
