@@ -1,6 +1,6 @@
 # Dynamsoft JavaScript Barcode SDK for Node and Web
 
-**Version**: 7.1.2
+**Version**: 7.1.3
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
@@ -595,7 +595,7 @@ It's recommended to place all the files. If you want to place only the necessary
 
 ## Changelog
 
-### 7.1.2
+### 7.1.3
 
 Add a more advanced react example.
 
