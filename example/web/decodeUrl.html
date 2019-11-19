@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>The current source image for decoding is '../sample.png'.</p>
+    <p>
+        If you want to decode images from other sites, please refer to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank">this article</a>
+        to resolve cross-domain issues.
+    </p>
+
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="t0068NQAAAEinQx04HqNpNeDnStDS82GVM0jXaVEB5QLwvS3zhtoBKZHV3rRgtm599m9NCQ2QeBrf9LaB54Le1ulU4yghANo="></script>
+
+    <script>
+        var reader;
+        Dynamsoft.BarcodeReader.createInstance().then(r => 
+            (reader = r) && r.decode('../sample.png')
+        ).then(results => {
+            console.log(results);
+            var txts = [];
+            for(var i = 0; i < results.length; ++i){
+                txts.push(results[i].BarcodeText);
+            }
+            alert(txts.join("\n"));
+        });
+    </script>
+</body>
+</html>

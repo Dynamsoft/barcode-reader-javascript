@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>Loading...</p>
+    <p>Please check if there are any remaining cameras available for connection.</p>
+    <p>
+        Opening the camera at a non-secure site may fail.
+        Please refer to <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Security" target="_blank">this</a>
+        for more info.
+    </p>
+
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="t0068NQAAAEinQx04HqNpNeDnStDS82GVM0jXaVEB5QLwvS3zhtoBKZHV3rRgtm599m9NCQ2QeBrf9LaB54Le1ulU4yghANo="></script>
+ 
+    <script>
+
+        let scanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
+            onFrameRead: results => {console.log(results);},
+            onUnduplicatedRead: (txt, result) => {alert(txt);}
+        }).then(s => {
+            scanner = s;
+            scanner.show().catch(ex=>{
+                console.log(ex);
+                alert(ex.message || ex);
+                scanner.hide();
+            });
+        });
+    </script>
+</body>
+</html>

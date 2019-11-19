@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <input id="ipt-file" type="file" accept="image/png,image/jpeg,image/bmp,image/gif">
+
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="t0068NQAAAEinQx04HqNpNeDnStDS82GVM0jXaVEB5QLwvS3zhtoBKZHV3rRgtm599m9NCQ2QeBrf9LaB54Le1ulU4yghANo="></script>
+    </script>
+    <script>
+        let reader;
+
+        document.getElementById('ipt-file').addEventListener('change', async function(){
+            if(!reader){
+                reader = await Dynamsoft.BarcodeReader.createInstance();
+            }
+            let txts = [];
+            for(let i = 0; i < this.files.length; ++i){
+                let results = await reader.decode(this.files[i]);
+                if (results.length > 0) {
+                    console.log(results);
+                    for (let j = 0; j < results.length; ++j) {
+                        txts.push(results[j].BarcodeText);
+                    }
+                }
+            }
+            if (txts.length > 0) {
+                alert(txts.join("\n"));
+            }
+            else
+            {
+                alert("No barcode found.");
+            }
+            this.value = '';
+        });    
+    </script>
+</body>
+</html>

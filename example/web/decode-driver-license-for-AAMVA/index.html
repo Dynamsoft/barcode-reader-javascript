@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <script src="driverlicense.js"></script>
+    <div id="div-video-container">
+        <select class="dbrScanner-sel-camera"></select><select class="dbrScanner-sel-resolution"></select>
+        <p>
+            <video class="dbrScanner-video" playsinline="true"></video>
+        </p>
+    </div>
+    <div>
+        <div id="div-licenseInfo"></div>
+    </div>
+    <!--
+        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.1.3/dist/dbr.min.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script>
+        let scanner = null;
+        Dynamsoft.BarcodeScanner.createInstance({
+            UIElement: document.getElementById('div-video-container'),
+            videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
+            onFrameRead: results => {console.log(results);},
+            onUnduplicatedRead: txt => {
+                alert("PDF417 found");
+
+                // Get infos
+                let licenseInfo = parseDriverLicense(txt);
+                console.log("licenseInfo", licenseInfo);
+
+                // show
+                let div = document.getElementById("div-licenseInfo");
+                div.innerHTML = '';
+                for(let key in licenseInfo){
+                    let info = licenseInfo[key];
+                    let p = document.createElement('p');
+                    p.innerText = info.description + ': ' + info.content;
+                    div.appendChild(p);
+                }
+            }
+        }).then(s => {
+            scanner = s;
+            let runtimeSettings = scanner.getRuntimeSettings();
+            runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.PDF417;
+            runtimeSettings.LocalizationModes = [2,16,4,8,0,0,0,0];
+            runtimeSettings.deblurLevel = 2;
+            scanner.updateRuntimeSettings(runtimeSettings);
+            scanner.show().catch(ex=>{
+                console.log(ex);
+                alert(ex.message || ex);
+                scanner.hide();
+            });
+        });
+    </script>
+</body></html>
