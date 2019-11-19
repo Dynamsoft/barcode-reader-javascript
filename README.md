@@ -554,49 +554,13 @@ Create a directory called `dist` on your server and put the following files in t
 > [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js) to get these files.
 
   ```
-  dbr-<version>.min.js
-  dbr-<version>.wasm.min.js
+  dbr-<version>.js
+  dbr-<version>.worker.js
+  dbr-<version>.wasm.js
   dbr-<version>.wasm
-  dbr-<version>.wasm.withio.min.js
-  dbr-<version>.withio.wasm
-  dbr-<version>.esm.min.js
+  dbr-<version>.full.wasm.js
+  dbr-<version>.full.wasm
   ```
-It's recommended to place all the files. If you want to place only the necessary ones, check out the following instructions.
-
-  > * web + document + UMD:
-  >```
-  > dbr-<version>.min.js
-  > dbr-<version>.wasm.min.js
-  > dbr-<version>.wasm
-  > ```
-  > 
-  > * web + worker + UMD:
-  >```
-  > dbr-<version>.min.js
-  > dbr-<version>.wasm.withio.min.js
-  > dbr-<version>.withio.wasm
-  > ```
-  > 
-  > * web + document + es6 module:
-  >```
-  > dbr-<version>.min.esm.js
-  > dbr-<version>.wasm.min.js
-  > dbr-<version>.wasm
-  > ```
-  > 
-  > * web + worker + es6 module:
-  >```
-  > dbr-<version>.min.esm.js
-  > dbr-<version>.wasm.withio.min.js
-  > dbr-<version>.withio.wasm
-  > ```
-  > 
-  > * nodejs + UMD:
-  >```
-  > dbr-<version>.min.js
-  > dbr-<version>.wasm.withio.min.js
-  > dbr-<version>.withio.wasm
-> ```
 
 * **Step two**: Configure the server
   
