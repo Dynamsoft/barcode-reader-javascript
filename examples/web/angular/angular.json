@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dbr-cdn-angular-default": {
+    "dbr-angular": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,11 +13,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dbr-cdn-angular-default",
+            "outputPath": "dist/dbr-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "aot": false,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -49,6 +50,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -57,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dbr-cdn-angular-default:build"
+            "browserTarget": "dbr-angular:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "dbr-cdn-angular-default:build:production"
+              "browserTarget": "dbr-angular:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dbr-cdn-angular-default:build"
+            "browserTarget": "dbr-angular:build"
           }
         },
         "test": {
@@ -105,15 +111,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dbr-cdn-angular-default:serve"
+            "devServerTarget": "dbr-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dbr-cdn-angular-default:serve:production"
+              "devServerTarget": "dbr-angular:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "dbr-cdn-angular-default"
+  "defaultProject": "dbr-angular"
 }

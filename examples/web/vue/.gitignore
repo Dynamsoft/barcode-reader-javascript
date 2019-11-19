@@ -19,6 +19,3 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
-
-# sample
-/package-lock.json

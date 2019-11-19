@@ -1,10 +1,12 @@
-# Dynamsoft JavaScript Barcode SDK for Node and Web
+# Dynamsoft JavaScript Barcode SDK for Web
 
-**Version**: 7.1.3
+**Version**: 7.2.2
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
 [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript API for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
+
+> **Node.js** v8+ is supported in [7.1.3](https://github.com/dynamsoft-dbr/javascript-barcode/tree/dac614f8033661901d85381dfaff8d612115862a). We have removed it in 7.2.2 to focus on web. A better version of *dbr for node.js* is under development.
 
 ## Features
 
@@ -29,10 +31,8 @@
 
   <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
-> **Node.js** v8+ is also supported. However, it can only use `BarcodeReader` to read barcode from still-images. The video stream reader object `BarcodeScanner` is not supported.
-
 ## Quick Usage
-### Node
+<!-- ### Node
 
 ```js
 var dbr = require('dynamsoft-javascript-barcode');
@@ -45,7 +45,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
         reader.destroy();
     });
 });
-```
+``` -->
 
 ### Web
 
@@ -187,6 +187,8 @@ Now, take a look at the sample code. You can find that there is nothing but two 
   <script src="https://unpkg.com/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
+  The api may change slightly between versions. Please use a specific version in your production environment to ensure stability.
+
 * The following script initializes and uses the library:
   
   ```javascript
@@ -214,32 +216,39 @@ In the following sections, you'll find more detailed information on how the libr
 
 ### Initializing
 
-The library is based on the WebAssembly standard, therefore, **on first use**, it needs some time to download  and compile the WebAssembly files. After the first use, the program will cache the wasm file in the `IndexedDB` so that the next time you can just open and play. 
+The library is based on the WebAssembly standard, therefore, **on first use**, it needs some time to download and compile the WebAssembly files. After the first use, the program can cache the file so that the next time you can start from compiling. 
 
-`Dynamsoft.BarcodeReader.loadWasm` is the API used to start the initialization. However, other APIs like `Dynamsoft.BarcodeReader.createInstance`, `Dynamsoft.BarcodeScanner.createInstance` will call `loadWasm` internally so it is not necessary to explicitly call `loadWasm` when using these APIs. 
+`Dynamsoft.BarcodeReader.loadWasm` is the API used to start the initialization. 
 
-> Including the library with a script tag doesn't automatically initializes the library.
-
-The initialization includes the following steps:
-
-1. Download
-
-`Dynamsoft.BarcodeReader._onWasmDownloaded` is a built-in callback that gets triggered when the WebAssembly files are downloaded. As the downloading only happens on the first use, this callback will only be triggered once as well (assume that the user doesn't clear the old cached files).
-
-2. Compile
-
-The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than tenth of a seconds on latest phones or PCs, it may take seconds on some older devices. 
-
-3. Initialize
-
-The library needs to initialize every time the page loads. Use the following code to listen to the initialization process:
+Use the following code to listen to the initialization process:
 
 ```javascript
 Dynamsoft.BarcodeReader.loadWasm()
     .then(()=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
 ```
 
-> You can use `Dynamsoft.BarcodeReader.createInstance` or `Dynamsoft.BarcodeScanner.createInstance` as well, to listen to the initialization process during `createInstance`.
+However, other APIs like `Dynamsoft.BarcodeReader.createInstance`, `Dynamsoft.BarcodeScanner.createInstance` will call `loadWasm` internally. So you can listen to the initialization process during `createInstance`:
+
+```javascript
+Dynamsoft.BarcodeReader.createInstance()
+    .then(reader=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
+```
+
+> Including the library with a script tag doesn't automatically initializes the library. When you want to load wasm in advance, and create a reader or scanner instance later, it is a good choice can call `loadWasm`.
+
+The detailed initialization includes the following steps:
+
+#### 1. Download
+
+Download the necessary resources. Usually we deploy the resources on cdn and set a long cache duration. The speed of cdn will greatly affect the feeling of the first experience. The resources can be obtained from the cache on the next visit.
+
+#### 2. Compile
+
+The WebAssembly files are automatically compiled once downloaded. The compilation time varies among different devices & browsers. While it takes less than a second on latest phones or PCs, it may take seconds on some older devices. 
+
+#### 3. Initialize
+
+The library needs to initialize every time the page loads.
 
 
 ### Configuring Scanner Settings
@@ -252,26 +261,32 @@ Dynamsoft.BarcodeScanner.createInstance({
     // The following two callbacks are explained in previous context
     onFrameRead: results => {console.log(results);},
     onUnduplicatedRead: (txt, result) => {alert(txt);}
-}).then(scanner => {
+}).then(async scanner => {
     barcodeScanner = scanner;
     // updateVideoSettings sets which camera and what resolution to use
-    barcodeScanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
+    await barcodeScanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
 
-    let runtimeSettings = barcodeScanner.getRuntimeSettings();
+    let runtimeSettings = await barcodeScanner.getRuntimeSettings();
     // Specify which symbologies are to enabled
-    runtimeSettings.BarcodeFormatIds = Dynamsoft.EnumBarcodeFormat.OneD | Dynamsoft.EnumBarcodeFormat.QR_CODE;
+    runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.OneD | Dynamsoft.EnumBarcodeFormat.QR_CODE;
     // By default, the library assumes accurate focus and good lighting. The settings below are for more complex environments. Check out according API descriptions for more info.
-    runtimeSettings.localizationModes = [2,16,4,8,0,0,0,0];
+    runtimeSettings.localizationModes = [
+        Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+        Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+        Dynamsoft.EnumLocalizationMode.LM_STATISTICS,
+        Dynamsoft.EnumLocalizationMode.LM_LINES,
+        0,0,0,0
+    ];
     // Discard results which have a low confidence score.
     runtimeSettings.minResultConfidence = 30;
-    barcodeScanner.updateRuntimeSettings(runtimeSettings);
+    await barcodeScanner.updateRuntimeSettings(runtimeSettings);
 
-    let scanSettings = barcodeScanner.getScanSettings();
+    let scanSettings = await barcodeScanner.getScanSettings();
     // Disregard duplicated results found in a specified time period
     scanSettings.duplicateForgetTime = 20000;
     // Set a interval so that the CPU can relax
     scanSettings.intervalTime = 300;
-    barcodeScanner.updateScanSettings(scanSettings);
+    await barcodeScanner.updateScanSettings(scanSettings);
     barcodeScanner.show();
 })
 ```
@@ -287,27 +302,33 @@ As you can see in the code, there are basically three categories of configuratio
   **fast**
   
   ```javascript
-  let settings = barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [2, 0, 0, 0, 0, 0, 0, 0];
+  let settings = await barcodeScanner.getRuntimeSettings();
+  settings.localizationModes = [Dynamsoft.EnumLocalizationMode.LM_STATISTICS, 0, 0, 0, 0, 0, 0, 0];
   settings.deblurLevel = 0;
-  barcodeScanner.updateRuntimeSettings(settings);
+  await barcodeScanner.updateRuntimeSettings(settings);
   ```
   **1D**
   ```javascript
-  let settings = barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [2, 4, 8, 0, 0, 0, 0, 0];
+  let settings = await barcodeScanner.getRuntimeSettings();
+  settings.localizationModes = [
+        Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+        Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+        Dynamsoft.EnumLocalizationMode.LM_LINES, 0, 0, 0, 0, 0];
   settings.deblurLevel = 0;
-  barcodeScanner.updateRuntimeSettings(settings);
+  await barcodeScanner.updateRuntimeSettings(settings);
   ```
   **2D**
   
   ```javascript
-  let settings = barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [2, 4, 8, 0, 0, 0, 0, 0];
+  let settings = await barcodeScanner.getRuntimeSettings();
+  settings.localizationModes = [
+        Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+        Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+        Dynamsoft.EnumLocalizationMode.LM_LINES, 0, 0, 0, 0, 0];
   settings.deblurLevel = 2;
-  barcodeScanner.updateRuntimeSettings(settings);
+  await barcodeScanner.updateRuntimeSettings(settings);
   ```
-* `get/updateScanSettings`: Configures the scanner. For v7.0, the configurations for the scanner are limited to `duplicateForgetTime` and `intervalTime`.
+* `get/updateScanSettings`: Some settings about video scanning, include `duplicateForgetTime`, `intervalTime` and `filter`.
 
 ### Customizing the UI
 
@@ -491,7 +512,6 @@ Dynamsoft.BarcodeScanner.createInstance({
         if(3 == ++iptIndex){
             barcodeScanner.onUnduplicatedRead = undefined;
             // Hide the scanner if you only need to read these three barcodes
-            barcodeScanner.stop();
             barcodeScanner.hide();
         }
     }
@@ -595,88 +615,15 @@ It's recommended to place all the files. If you want to place only the necessary
 
 ## Changelog
 
-### 7.1.3
-
-Add a more advanced react example.
-
-### 7.1.1
-
-Fix bug about torch. Torch (flashlight) is supported in chrome with the supported cameras.
-
-### 7.1.0
-
-Updated algorithm to 7.1. 
-
-Improved the speed to download, build and initialize the library.
-
-Improved the readability of barcode result text by using UTF-8 encoding.
-
-Improved developer’s guide to be clearer and more precise.
-
-Renamed setScanSettings for updateScanSettings for naming consistence.
-
-### 7.0.0
-
-Built Dynamsoft Barcode Reader 7.0 to JS(WebAssembly) version.
-
-Added the capability to enable/disable the torch/flashlight of a mobile device (when available, only Chrome on Android).
-
-Added APIs for finer video control. These APIs are getAllCameras, getCurrentCamera, setCurrentCamera, getResolution, setResolution.
-
-### 6.5.2.1
-
-Improve video decoding capabilities.
-
-### 6.5.2
-
-Built Dynamsoft Barcode Reader 6.5.2 to JS(WebAssembly) version.
-
-Walkaround for certain scenarios of [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP).
-
-Add a setting can turn off the feature of using IndexedDB.
-
-### 6.5.1
-Added video view for barcode scan. Compatible with Node.js.
-
-### 6.4.1.3
-
-The `dbr-6.4.1.3.wasm` size is now reduced to 3.41M.
-
-### 6.4.1.1
-
-Fixed a memory leak related to `mTimeout` in `RuntimeSettings`.
-
-### 6.4.1.0
-
-Built Dynamsoft Barcode Reader 6.4.1 to JS(WebAssembly) version.
-
-Combined the normal and the mobile version into one.
-
-### 6.3.0.2
-
-Added built-in Worker support.
-
-### 6.3.0.1
-
-Set `dbr-<version>.js`(stable) as the main branch.
-
-Added `dbr-<version>.mobile.js`(smaller, compiles quicker, requires less memory, but not as stable) for mobile Safari.
-
-### 6.3.0
-
-Dynamsoft Barcode Reader JS/WebAssembly version released.
+[change-log.md](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/change-log.md)
 
 ## API Documentation
 
 <!--for github: link need use online-->
 
-Decoding Images:
+Decoding Images: [BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodereader.html)
 
-[BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodereader.html)
-
-Decoding Video Stream: 
-
-[BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/_dbr_wasm_d_.dynamsoft.barcodescanner.html)
+Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html)
 
 ## License Activation
 
@@ -700,15 +647,19 @@ It takes several steps to activate a purchased license, the following steps assu
   >
   > demo.dynamsoft.com
   >
-  > *.dynamsoft.com
+  > \*.dynamsoft.com
   >
-  > *.dynamsoft.com;\*.yoursite.com
+  > \*.dynamsoft.com;\*.yoursite.com
 
 * **Step Four** : Use the License
 
   You may have noticed that in all the samples above, we have the following line of code
 
-  ```javascript
+  ```html
+  <!--
+    Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
+    Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+  -->
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
   ```
 

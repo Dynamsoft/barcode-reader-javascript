@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to dbr-cdn-angular-default!');
+    expect(page.getTitleText()).toEqual('Welcome to dbr-angular!');
   });
 
   afterEach(async () => {

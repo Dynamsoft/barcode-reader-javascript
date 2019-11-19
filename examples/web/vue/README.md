@@ -1,4 +1,4 @@
-# dbr-cdn-vue-default
+# dbr-vue-sample
 
 ## Project setup
 ```

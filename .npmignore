@@ -1,0 +1,17 @@
+build/
+/package-lock.json
+/tsconfig.json
+*.log
+/*.zip
+/*.py
+/*.exe
+/*.jar
+/*.md
+/version.txt
+/DBR-JS-.*
+/eslintrc.js
+
+
+example/
+doc/
+document/

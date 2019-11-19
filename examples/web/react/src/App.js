@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 
 const Dynamsoft = window.Dynamsoft;
-
 class App extends React.Component {
   showScanner() {
     let scanner = null;

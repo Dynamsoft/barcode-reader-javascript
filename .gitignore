@@ -1,0 +1,15 @@
+node_modules/
+build/
+
+/package-lock.json
+/tsconfig.json
+*.log
+/*.zip
+/*.py
+/*.exe
+/*.jar
+/version.txt
+/DBR-JS-.*
+/eslintrc.js
+/Web.config
+/webpack.config.js
