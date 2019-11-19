@@ -6,7 +6,6 @@ build/
 /*.py
 /*.exe
 /*.jar
-/*.md
 /version.txt
 /DBR-JS-.*
 /eslintrc.js
