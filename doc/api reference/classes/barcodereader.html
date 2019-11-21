@@ -62,6 +62,18 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A class dedicated to image decoding.</p>
+						<pre><code class="language-js"><span class="hljs-keyword">let</span> reader = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.createInstance();
+<span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(imageSource);
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">in</span> results){
+    <span class="hljs-built_in">console</span>.log(result.barcodeText);
+}</code></pre>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -126,9 +138,17 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:144</li>
+							<li>Defined in class/barcodereader.ts:195</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to save the original image into canvas.</p>
+							<pre><code class="language-js">reader.bSaveOriCanvas = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(source);
+<span class="hljs-built_in">document</span>.body.append(reader.oriCanvas);</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="oricanvas" class="tsd-anchor"></a>
@@ -136,9 +156,17 @@
 					<div class="tsd-signature tsd-kind-icon">ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:145</li>
+							<li>Defined in class/barcodereader.ts:204</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The original canvas.</p>
+							<pre><code class="language-js">reader.bSaveOriCanvas = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(source);
+<span class="hljs-built_in">document</span>.body.append(reader.oriCanvas);</code></pre>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="_busefullfeature" class="tsd-anchor"></a>
@@ -146,9 +174,31 @@
 					<div class="tsd-signature tsd-kind-icon">_b<wbr>Use<wbr>Full<wbr>Feature<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:131</li>
+							<li>Defined in class/barcodereader.ts:174</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to use full feature wasm.
+							The api may change in later version.</p>
+							<p>```
+								Min wasm:
+							oned + qr + pdf417 + datamatrix.</p>
+						</div>
+						<p>Full wasm:
+							all supported barcode format +
+							high level deblur available (lv8, 9) +
+							DPM +
+							template API +
+						intermediate results API</p>
+						<p>e.g.:
+							Use min in video deocode (small, download and initialization fast).
+						Use full in file decode (need high level deblur).</p>
+						<pre><code>Need to <span class="hljs-keyword">be </span>set <span class="hljs-keyword">before </span>loadWasm.
+```<span class="hljs-keyword">js
+</span>reader._bUseFullFeature = true<span class="hljs-comment">;</span>
+await reader.loadWasm()<span class="hljs-comment">;</span></code></pre>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -164,17 +214,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:76</li>
+									<li>Defined in class/barcodereader.ts:86</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The SDK will try to automatically explore the engine location.
+									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+<span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.loadWasm();</code></pre>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:77</li>
+									<li>Defined in class/barcodereader.ts:96</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The SDK will try to automatically explore the engine location.
+									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
+									<pre><code class="language-js">Dynamsoft.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+<span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.loadWasm();</code></pre>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -196,7 +262,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:36</li>
+									<li>Defined in class/barcodereader.ts:46</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -204,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:37</li>
+									<li>Defined in class/barcodereader.ts:47</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -227,7 +293,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:27</li>
+									<li>Defined in class/barcodereader.ts:37</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -247,18 +313,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:461</li>
+									<li>Defined in class/barcodereader.ts:527</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The main decoding method can accept a variety of data types, including binary data, images, base64(with mime), urls, etc.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(blob);</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>source: <span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -269,25 +338,28 @@
 					<a name="decodebase64string" class="tsd-anchor"></a>
 					<h3>decode<wbr>Base64<wbr>String</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">decode<wbr>Base64<wbr>String<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Base64<wbr>String<span class="tsd-signature-symbol">(</span>base64<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:499</li>
+									<li>Defined in class/barcodereader.ts:569</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The decoding method can accept base64 with or without mime.
 									e.g. <code>data:image/jpg;base64,Xfjshekk....</code> or <code>Xfjshekk...</code>.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(strBase64);</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>source: <span class="tsd-signature-type">string</span></h5>
+									<h5>base64: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -304,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:584</li>
+									<li>Defined in class/barcodereader.ts:658</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -336,24 +408,27 @@
 					<a name="decodeurl" class="tsd-anchor"></a>
 					<h3>decode<wbr>Url</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">decode<wbr>Url<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:506</li>
+									<li>Defined in class/barcodereader.ts:580</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The decoding method can accept url. The url source need to be in the same domain or allowed cors.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(<span class="hljs-string">"./1.png"</span>);</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>source: <span class="tsd-signature-type">string</span></h5>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -370,7 +445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:752</li>
+									<li>Defined in class/barcodereader.ts:847</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,12 +468,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:1091</li>
+									<li>Defined in class/barcodereader.ts:1191</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The method is only supported in the full feature edition.</p>
+									<p>The method is only supported in the full feature edition.
+									Returns intermediate results containing the original image, the colour clustered image, the binarized Image, contours, Lines, TextBlocks, etc.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> imResults = <span class="hljs-keyword">await</span> getIntermediateResults();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -415,12 +492,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:607</li>
+									<li>Defined in class/barcodereader.ts:686</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets current settings and save it into a struct.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
+settings.deblurLevel = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">await</span> reader.updateRuntimeSettings();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -437,11 +517,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:709</li>
+									<li>Defined in class/barcodereader.ts:804</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
+									<p>Initialize runtime settings with the settings in given JSON string.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> reader.initRuntimeSettingsWithString(<span class="hljs-string">"{\"Version\":\"3.0\", \"ImageParameter\":{\"Name\":\"IP1\", \"BarcodeFormatIds\":[\"BF_QR_CODE\"], \"ExpectedBarcodesCount\":10}}"</span>);</code></pre>
 									<p>The method is only supported in the full feature edition.</p>
 								</div>
 							</div>
@@ -465,11 +547,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:684</li>
+									<li>Defined in class/barcodereader.ts:775</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
+									<p>Outputs the license content as an encrypted string from the license server to be used for offline license verification.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> strSettings = <span class="hljs-keyword">await</span> reader.outputSettingsToString();</code></pre>
 									<p>The method is only supported in the full feature edition.</p>
 								</div>
 							</div>
@@ -487,12 +571,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:665</li>
+									<li>Defined in class/barcodereader.ts:752</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Resets all parameters to default values.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> reader.resetRuntimeSettings();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -509,9 +594,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:1112</li>
+									<li>Defined in class/barcodereader.ts:1222</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sets the optional argument for a specified mode in Modes parameters.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> reader.setModeArgument(<span class="hljs-string">"BinarizationModes"</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"EnableFillBinaryVacancy"</span>, <span class="hljs-string">"1"</span>);</code></pre>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -525,6 +616,8 @@
 								</li>
 								<li>
 									<h5>argumentValue: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -541,12 +634,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:631</li>
+									<li>Defined in class/barcodereader.ts:715</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Update runtime settings with a given struct.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
+settings.deblurLevel = <span class="hljs-number">5</span>;
+<span class="hljs-keyword">await</span> reader.updateRuntimeSettings();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -569,12 +665,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:446</li>
+									<li>Defined in class/barcodereader.ts:508</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create a <code>BarcodeReader</code> object.</p>
+									<pre><code><span class="hljs-keyword">let</span> reader = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Dynamsoft</span>.</span><span class="hljs-module"><span class="hljs-identifier">BarcodeReader</span>.</span></span>create<span class="hljs-constructor">Instance()</span>;</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="barcodereader.html" class="tsd-signature-type">BarcodeReader</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -591,7 +688,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:155</li>
+									<li>Defined in class/barcodereader.ts:214</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -613,7 +710,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:162</li>
+									<li>Defined in class/barcodereader.ts:221</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
