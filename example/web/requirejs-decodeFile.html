@@ -4,14 +4,13 @@
     <input id="iptDecodeImg" type="file" accept="image/bmp,image/jpeg,image/png,image/gif">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
     <script>
-        // Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
-        requirejs(['https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js'], function(Dynamsoft){
-            
+        requirejs(['https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js'], function(Dynamsoft){
+            Dynamsoft.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
             // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
             Dynamsoft.BarcodeReader.productKeys = "t0068NQAAAEinQx04HqNpNeDnStDS82GVM0jXaVEB5QLwvS3zhtoBKZHV3rRgtm599m9NCQ2QeBrf9LaB54Le1ulU4yghANo=";
+            // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
             
             let reader;
-
             document.getElementById('iptDecodeImg').addEventListener('change', async function(){
                 if(!reader){
                     reader = await Dynamsoft.BarcodeReader.createInstance();

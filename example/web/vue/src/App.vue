@@ -13,13 +13,13 @@ export default {
     showScanner(){
       let scanner = null;
       Dynamsoft.BarcodeScanner.createInstance({
-          onFrameRead: results => {console.log(results);},
-          onUnduplicatedRead: (txt, result) => {alert(txt);}
+          onFrameRead: results => {window.console.log(results);},
+          onUnduplicatedRead: (txt) => {alert(txt);}
       }).then(s => {
           scanner = s;
           scanner.show().catch(ex=>{
-              console.log(ex);
-              alert(ex.message || ex);
+              window.console.log(ex);
+              window.alert(ex.message || ex);
               scanner.hide();
           });
       });

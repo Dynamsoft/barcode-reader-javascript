@@ -12,9 +12,15 @@
 
 * Supported Symbologies: 
 
-  1D barcode: **`Code 39`**, **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`ITF-14`**.
+  1D barcode: **`Code 39`**(including Code 39 Extended), **`Code 93`**, **`Code 128`**, **`Codabar`**, **`EAN-8`**, **`EAN-13`**, **`UPC-A`**, **`UPC-E`**, **`Interleaved 2 of 5`** (ITF), **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`ITF-14`** .
   
-  2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, and **`Aztec`**.
+  2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, **`Aztec`**, and **`MaxiCode`**.
+
+  Patch Code
+
+  GS1 Composite Code
+
+  GS1 DataBar: **`Omnidirectional`**, **`Truncated`**, **`Stacked`**, **`Stacked Omnidirectional`**, **`Limited`**, **`Expanded`**, and **`Expanded Stacked`**.
 
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
@@ -53,7 +59,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="node_modules/dynamsoft-javascript-barcode/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -116,11 +122,8 @@ Create an HTML file with the following content. Deploy it to your web server if 
 <!DOCTYPE html>
 <html>
 <body>
-    <!--
-        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
-        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -178,13 +181,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
   
   The same can be done with other CDNs like unpkg as well
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   The api may change slightly between versions. Please use a specific version in your production environment to ensure stability.
@@ -341,11 +344,8 @@ While the library provides a built-in `BarcodeScanner` which has its own UI, you
     <div id="div-video-container">
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
-    <!--
-        Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
-        Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -527,7 +527,7 @@ Dynamsoft.BarcodeScanner.createInstance({
 To speed up the scanning process, you can choose to scan only a specific area/region.
 
 ```javascript
-let settings = barcodeScanner.getRuntimeSettings();
+let settings = await barcodeScanner.getRuntimeSettings();
 /*
  * 1 means true
  * Using a percentage is easier
@@ -538,7 +538,7 @@ settings.region.left = 25;
 settings.region.top = 25;
 settings.region.right = 75;
 settings.region.bottom = 75;
-barcodeScanner.updateRuntimeSettings(settings);
+await barcodeScanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)
 
@@ -585,9 +585,11 @@ Create a directory called `dist` on your server and put the following files in t
 
 <!--for github: link need use online-->
 
-Decoding Images: [BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodereader.html)
+[Online Document](https://www.dynamsoft.com/help/Barcode-Reader-wasm/)
 
-Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html)
+<!-- Decoding Images: [BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodereader.html)
+
+Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html) -->
 
 ## License Activation
 
@@ -620,11 +622,8 @@ It takes several steps to activate a purchased license, the following steps assu
   You may have noticed that in all the samples above, we have the following line of code
 
   ```html
-  <!--
-    Warning: Use a specific version in production. (e.g. https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@x.x.x/dist/dbr.min.js)
-    Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
-  -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7/dist/dbr.min.js" data-productKeys="LICENSE-KEY"></script>
+  <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   To use your license, you simply need to replace `LICENSE-KEY` with it.
