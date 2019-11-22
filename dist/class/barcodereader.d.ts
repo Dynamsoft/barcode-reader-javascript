@@ -73,7 +73,7 @@ export default class BarcodeReader {
     /**
      * Whether to use full feature wasm.
      * The api may change in later version.
-     * ```
+     * ```txt
      * Min wasm:
      * oned + qr + pdf417 + datamatrix.
      *

@@ -1,5 +1,9 @@
 # dbr-vue-sample
 
+## Install Vue CLI
+
+`npm install -g @vue/cli`
+
 ## Project setup
 ```
 npm install
