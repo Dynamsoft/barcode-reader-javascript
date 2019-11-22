@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## install modules
 
-Cd to the project Directory.
+Change directory to the project directory.
 `npm install`
 
 ## Development server
