@@ -73,21 +73,22 @@ export default class BarcodeReader {
     /**
      * Whether to use full feature wasm.
      * The api may change in later version.
-     * ```txt
+     * <pre>
      * Min wasm:
      * oned + qr + pdf417 + datamatrix.
-     *
+     * ===
      * Full wasm:
      * all supported barcode format +
      * high level deblur available (lv8, 9) +
      * DPM +
      * template API +
      * intermediate results API
-     *
+     * ===
      * e.g.:
      * Use min in video deocode (small, download and initialization fast).
      * Use full in file decode (need high level deblur).
-     * ```
+     * </pre>
+     *
      * Need to be set before loadWasm.
      * ```js
      * reader._bUseFullFeature = true;
@@ -215,6 +216,7 @@ export default class BarcodeReader {
      * let strSettings = await reader.outputSettingsToString();
      * ```
      * The method is only supported in the full feature edition.
+     * @ignore
      */
     outputSettingsToString(): Promise<string>;
     /**
@@ -223,6 +225,7 @@ export default class BarcodeReader {
      * await reader.initRuntimeSettingsWithString("{\"Version\":\"3.0\", \"ImageParameter\":{\"Name\":\"IP1\", \"BarcodeFormatIds\":[\"BF_QR_CODE\"], \"ExpectedBarcodesCount\":10}}");
      * ```
      * The method is only supported in the full feature edition.
+     * @ignore
      */
     initRuntimeSettingsWithString(settings: any): Promise<void>;
     /**
@@ -273,6 +276,7 @@ export default class BarcodeReader {
      * ```js
      * let imResults = await getIntermediateResults();
      * ```
+     * @ignore
      */
     getIntermediateResults(): Promise<any>;
     /**

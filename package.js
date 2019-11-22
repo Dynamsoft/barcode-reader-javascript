@@ -1,6 +1,6 @@
 Package.describe({
   name: 'dynamsoft:javascript-barcode',
-  version: '7.2.2',
+  version: '7.2.2-v2',
   summary: 'A JavaScript barcode library that enables you to build web barcode reader app',
   git: 'https://github.com/dynamsoft-dbr/javascript-barcode.git',
   documentation: 'README.md'
