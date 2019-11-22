@@ -5,6 +5,8 @@
 `npm install -g @vue/cli`
 
 ## Project setup
+
+Change directory to the project directory.
 ```
 npm install
 ```
