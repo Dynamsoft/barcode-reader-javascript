@@ -579,7 +579,7 @@ Create a directory called `dist` on your server and put the following files in t
 
 ## Changelog
 
-[change-log.md](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/change-log.md)
+https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx
 
 ## API Documentation
 
