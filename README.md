@@ -37,6 +37,39 @@
 
   <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
+* Simplified and Full Feature Edition
+
+  As more and more features are added to the SDK, the wasm file is getting bigger and bigger. Based on the consideration of network and compilation performance, we divided the wasm into a simplified version and a full feature version in 7.2.2.
+
+  | feature | simplified edition | full feature edition |
+  |:-:|:-:|:-:|
+  | wasm size<sup>1</sup> | 2.0 MB | 3.4 MB |
+  | 1D | &radic; | &radic; |
+  | QR | &radic; | &radic; |
+  | PDF417 | &radic; | &radic; |
+  | DataMatrix | &radic; | &radic; |
+  | Aztec | X | &radic; |
+  | MaxiCode | X | &radic; |
+  | Patch Code | X | &radic; |
+  | GS1 Composite Code | X | &radic; |
+  | GS1 DataBar | X | &radic; |
+  | deblurLevel 1-7 | &radic; | &radic; |
+  | deblurLevel 8-9 | X | &radic; |
+  | DPM | X | &radic; |
+  | getRuntimeSettings | &radic; | &radic; |
+  | updateRuntimeSettings | &radic; | &radic; |
+  | getIntermediateResults | X | &radic; |
+  | initRuntimeSettingsWithString | X | &radic; |
+  | outputSettingsToString | X | &radic; |
+  | outputSettingsToString | X | &radic; |
+  | scenarios<sup>2</sup> | To C | To B  |
+
+  <sup>1</sup> The wasm size is measured in 7.2.2. In later version the size may different.
+
+  <sup>2</sup> The simplified edition download and compile faster. Suitable for the scenario that scanning a few codes and redirecting to another page. When you need the feature only in the full, or scenarios that are less sensitive to initialization speed, such as long time video decoding and decoding barcodes in image files, use the full feature edition.
+
+  The simplified edition is default used. To switch to full feature edition, use the api `Dynamsoft.BarcodeReader._bUseFullFeature = true`. `_bUseFullFeature` must be set before `loadWasm`.
+
 ## Quick Usage
 <!-- ### Node
 
@@ -59,7 +92,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -97,7 +130,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
 
 The following is a screenshot of the live demo. Try it [here](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).
 
-<img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
+<img src="https://raw.githubusercontent.com/dynamsoft-dbr/javascript-barcode/dac614f8033661901d85381dfaff8d612115862a/img/dbr-wasm-demo-scaning.jpg">
 
 
 
@@ -123,7 +156,7 @@ Create an HTML file with the following content. Deploy it to your web server if 
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -181,13 +214,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
   
   The same can be done with other CDNs like unpkg as well
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   The api may change slightly between versions. Please use a specific version in your production environment to ensure stability.
@@ -345,7 +378,7 @@ While the library provides a built-in `BarcodeScanner` which has its own UI, you
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -579,7 +612,7 @@ Create a directory called `dist` on your server and put the following files in t
 
 ## Changelog
 
-[change-log.md](https://github.com/dynamsoft-dbr/javascript-barcode/blob/master/change-log.md)
+https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
 
 ## API Documentation
 
@@ -623,7 +656,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
   ```html
   <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   To use your license, you simply need to replace `LICENSE-KEY` with it.
