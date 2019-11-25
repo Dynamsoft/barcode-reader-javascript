@@ -579,7 +579,7 @@ Create a directory called `dist` on your server and put the following files in t
 
 ## Changelog
 
-https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx
+https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
 
 ## API Documentation
 
