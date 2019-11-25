@@ -37,6 +37,39 @@
 
   <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
+* Simplified and Full Feature Edition
+
+  As more and more features are added to the SDK, the wasm file is getting bigger and bigger. Based on the consideration of network and compilation performance, we divided the wasm into a simplified version and a full feature version in 7.2.2.
+
+  | feature | simplified edition | full feature edition |
+  |:-:|:-:|:-:|
+  | wasm size<sup>1</sup> | 2.0 MB | 3.4 MB |
+  | 1D | &radic; | &radic; |
+  | QR | &radic; | &radic; |
+  | PDF417 | &radic; | &radic; |
+  | DataMatrix | &radic; | &radic; |
+  | Aztec | X | &radic; |
+  | MaxiCode | X | &radic; |
+  | Patch Code | X | &radic; |
+  | GS1 Composite Code | X | &radic; |
+  | GS1 DataBar | X | &radic; |
+  | deblurLevel 1-7 | &radic; | &radic; |
+  | deblurLevel 8-9 | X | &radic; |
+  | DPM | X | &radic; |
+  | getRuntimeSettings | &radic; | &radic; |
+  | updateRuntimeSettings | &radic; | &radic; |
+  | getIntermediateResults | X | &radic; |
+  | initRuntimeSettingsWithString | X | &radic; |
+  | outputSettingsToString | X | &radic; |
+  | outputSettingsToString | X | &radic; |
+  | scenarios<sup>2</sup> | To C | To B  |
+
+  <sup>1</sup> The wasm size is measured in 7.2.2. In later version the size may different.
+
+  <sup>2</sup> The simplified edition download and compile faster. Suitable for the scenario that scanning a few codes and redirecting to another page. When you need the feature only in the full, or scenarios that are less sensitive to initialization speed, such as long time video decoding and decoding barcodes in image files, use the full feature edition.
+
+  The simplified edition is default used. To switch to full feature edition, use the api `Dynamsoft.BarcodeReader._bUseFullFeature = true`. `_bUseFullFeature` must be set before `loadWasm`.
+
 ## Quick Usage
 <!-- ### Node
 
@@ -97,7 +130,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
 
 The following is a screenshot of the live demo. Try it [here](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).
 
-<img src="https://github.com/dynamsoft-dbr/javascript-barcode/raw/master/img/dbr-wasm-demo-scaning.jpg">
+<img src="https://raw.githubusercontent.com/dynamsoft-dbr/javascript-barcode/dac614f8033661901d85381dfaff8d612115862a/img/dbr-wasm-demo-scaning.jpg">
 
 
 
