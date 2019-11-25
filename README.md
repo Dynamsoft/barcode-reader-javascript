@@ -59,7 +59,7 @@ dbr.BarcodeReader.createInstance().then(reader => {
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -123,7 +123,7 @@ Create an HTML file with the following content. Deploy it to your web server if 
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -181,13 +181,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
   
   The same can be done with other CDNs like unpkg as well
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   The api may change slightly between versions. Please use a specific version in your production environment to ensure stability.
@@ -345,7 +345,7 @@ While the library provides a built-in `BarcodeScanner` which has its own UI, you
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
     <script>
         let barcodeScanner = null;
         Dynamsoft.BarcodeScanner.createInstance({
@@ -623,7 +623,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
   ```html
   <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license. -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2-v2/dist/dbr.js" data-productKeys="LICENSE-KEY"></script>
   ```
 
   To use your license, you simply need to replace `LICENSE-KEY` with it.

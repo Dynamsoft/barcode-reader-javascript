@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EnumGrayscaleTransformationMode | Dynamsoft BarcodeReader SDK for Javascript</title>
+	<title>FrameFilter | Dynamsoft BarcodeReader SDK for Javascript</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,62 +52,73 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="enumgrayscaletransformationmode.html">EnumGrayscaleTransformationMode</a>
+					<a href="framefilter.html">FrameFilter</a>
 				</li>
 			</ul>
-			<h1>Enumeration EnumGrayscaleTransformationMode</h1>
+			<h1>Interface FrameFilter</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">FrameFilter</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Enumeration members</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumgrayscaletransformationmode.html#gtm_inverted" class="tsd-kind-icon">GTM_<wbr>INVERTED</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumgrayscaletransformationmode.html#gtm_original" class="tsd-kind-icon">GTM_<wbr>ORIGINAL</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumgrayscaletransformationmode.html#gtm_skip" class="tsd-kind-icon">GTM_<wbr>SKIP</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="framefilter.html#region" class="tsd-kind-icon">region</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="framefilter.html#threshold" class="tsd-kind-icon">threshold</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Enumeration members</h2>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="gtm_inverted" class="tsd-anchor"></a>
-					<h3>GTM_<wbr>INVERTED</h3>
-					<div class="tsd-signature tsd-kind-icon">GTM_<wbr>INVERTED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;1</span></div>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="region" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> region</h3>
+					<div class="tsd-signature tsd-kind-icon">region<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegionDefinition</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in enum/enumgrayscaletransformationmode.ts:2</li>
+							<li>Defined in interface/framefilter.ts:8</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The region definition of the frame to calculate the internal indicator.
+							Default Value: { regionLeft = 0, regionRight = 100, regionTop = 0, regionBottom = 100, regionMeasuredByPercentage = true }</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="gtm_original" class="tsd-anchor"></a>
-					<h3>GTM_<wbr>ORIGINAL</h3>
-					<div class="tsd-signature tsd-kind-icon">GTM_<wbr>ORIGINAL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;2</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="threshold" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> threshold</h3>
+					<div class="tsd-signature tsd-kind-icon">threshold<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in enum/enumgrayscaletransformationmode.ts:3</li>
+							<li>Defined in interface/framefilter.ts:15</li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="gtm_skip" class="tsd-anchor"></a>
-					<h3>GTM_<wbr>SKIP</h3>
-					<div class="tsd-signature tsd-kind-icon">GTM_<wbr>SKIP<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;0</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in enum/enumgrayscaletransformationmode.ts:4</li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The threshold used for filtering frames.
+								Value range: [0, 1].
+								Default value: 0.1.
+							The SDK will calculate an inner indicator for each frame from AppendFrame(), if the change rate of the indicators between the current frame and the history frames is larger than the given threshold, the current frame will not be added to the inner frame queue waiting for decoding.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -123,17 +134,14 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-enum">
-						<a href="enumgrayscaletransformationmode.html" class="tsd-kind-icon">Enum<wbr>Grayscale<wbr>Transformation<wbr>Mode</a>
+					<li class="current tsd-kind-interface">
+						<a href="framefilter.html" class="tsd-kind-icon">Frame<wbr>Filter</a>
 						<ul>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="enumgrayscaletransformationmode.html#gtm_inverted" class="tsd-kind-icon">GTM_<wbr>INVERTED</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="framefilter.html#region" class="tsd-kind-icon">region</a>
 							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="enumgrayscaletransformationmode.html#gtm_original" class="tsd-kind-icon">GTM_<wbr>ORIGINAL</a>
-							</li>
-							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="enumgrayscaletransformationmode.html#gtm_skip" class="tsd-kind-icon">GTM_<wbr>SKIP</a>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="framefilter.html#threshold" class="tsd-kind-icon">threshold</a>
 							</li>
 						</ul>
 					</li>
