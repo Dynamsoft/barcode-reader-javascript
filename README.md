@@ -45,7 +45,7 @@
 
   | feature | simplified edition | full feature edition |
   |:-:|:-:|:-:|
-  | wasm size<sup>1</sup> | 2.0 MB | 3.4 MB |
+  | wasm size<sup>1</sup> | 2.26 MB | 3.40 MB |
   | 1D | &radic; | &radic; |
   | QR | &radic; | &radic; |
   | PDF417 | &radic; | &radic; |
@@ -55,8 +55,6 @@
   | Patch Code | X | &radic; |
   | GS1 Composite Code | X | &radic; |
   | GS1 DataBar | X | &radic; |
-  | deblurLevel 1-7 | &radic; | &radic; |
-  | deblurLevel 8-9 | X | &radic; |
   | DPM | X | &radic; |
   | getRuntimeSettings | &radic; | &radic; |
   | updateRuntimeSettings | &radic; | &radic; |
