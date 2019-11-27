@@ -25,6 +25,11 @@ export default class BarcodeReader {
     protected static _productKeys: string;
     static productKeys: string;
     /**
+     * modify from https://gist.github.com/2107/5529665
+     * @ignore
+     */
+    static BrowserDetect: any;
+    /**
      * @ignore
      */
     static _workerName: string;

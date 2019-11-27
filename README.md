@@ -30,12 +30,14 @@
   |:-:|:-:|
   | Chrome | v57+ (v59+ on Android/iOS<sup>1</sup>) |
   | Firefox | v52+ (v55+ on Android/iOS<sup>1</sup>) |
-  | Edge | v16+ |
-  | Safari<sup>2</sup> | v11+ |
+  | Edge<sup>2</sup> | v16+ |
+  | Safari<sup>3</sup> | v11+ |
 
   <sup>1</sup> On iOS, camera video streaming only works in Safari.
 
-  <sup>2</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
+  <sup>2</sup> On Edge, due to blob worker can't access to indexedDB, you must host DBRJS SDK in the same domain.
+
+  <sup>3</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
 
 * Simplified and Full Feature Edition
 
