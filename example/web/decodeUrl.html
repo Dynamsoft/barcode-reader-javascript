@@ -12,8 +12,11 @@
     <script>
         // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
         var reader;
-        Dynamsoft.BarcodeReader.createInstance().then(r => 
-            (reader = r) && r.decode('../sample.png')
+        Dynamsoft.BarcodeReader.createInstance().then(r => {
+            reader = r;
+            return usePresetRuntimeSettings(reader, "bestcoverage");
+        }).then(() =>
+            reader.decode('../sample.png')
         ).then(results => {
             console.log(results);
             var txts = [];
@@ -22,6 +25,53 @@
             }
             alert(txts.join("\n"));
         });
+
+        let usePresetRuntimeSettings = async (reader, mode) => {
+            await reader.resetRuntimeSettings();
+            let settings = await reader.getRuntimeSettings();
+
+            switch(mode.toLowerCase()){
+            case "bestcoverage":
+                settings.deblurLevel = 9;
+                settings.expectedBarcodesCount = 512;
+                settings.scaleDownThreshold = 100000;
+                settings.localizationModes = [
+                    Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+                    Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+                    Dynamsoft.EnumLocalizationMode.LM_STATISTICS,
+                    Dynamsoft.EnumLocalizationMode.LM_LINES,
+                    0,0,0,0
+                ];
+                if(Dynamsoft.BarcodeReader._bUseFullFeature){
+                    settings.localizationModes[4] = Dynamsoft.EnumLocalizationMode.LM_STATISTICS_MARKS;
+                }
+                settings.furtherModes.grayscaleTransformationModes = [
+                    Dynamsoft.EnumGrayscaleTransformationMode.GTM_ORIGINAL, 
+                    Dynamsoft.EnumGrayscaleTransformationMode.GTM_INVERTED,
+                    0,0,0,0,0,0
+                ];
+                break;
+            case "bestspeed":
+                settings.deblurLevel = 3;
+                settings.expectedBarcodesCount = 512;
+                settings.localizationModes = [
+                    Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+                    0,0,0,0,0,0,0
+                ];
+                break;
+            case "balance":
+                settings.deblurLevel = 5;
+                settings.expectedBarcodesCount = 512;
+                settings.localizationModes = [
+                    Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+                    Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+                    0,0,0,0,0,0,0
+                ];
+                break;
+            }
+
+            await reader.updateRuntimeSettings(settings);
+        };
     </script>
 </body>
 </html>
