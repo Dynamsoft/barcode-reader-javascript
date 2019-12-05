@@ -2,6 +2,11 @@
 
 **Version**: 7.2.2
 
+![version](https://img.shields.io/npm/v/dynamsoft-javascript-barcode.svg)
+![downloads](https://img.shields.io/npm/dm/dynamsoft-javascript-barcode.svg) 
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg)
+![](https://img.shields.io/snyk/vulnerabilities/npm/dynamsoft-javascript-barcode.svg)
+
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
 [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript API for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
