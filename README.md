@@ -1,7 +1,5 @@
 # Dynamsoft JavaScript Barcode SDK for Web
 
-**Version**: 7.2.2
-
 ![version](https://img.shields.io/npm/v/dynamsoft-javascript-barcode.svg)
 ![downloads](https://img.shields.io/npm/dm/dynamsoft-javascript-barcode.svg) 
 ![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg)
