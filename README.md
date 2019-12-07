@@ -1,12 +1,35 @@
 # Dynamsoft JavaScript Barcode SDK for Web
 
-**Version**: 7.2.2
+![version](https://img.shields.io/npm/v/dynamsoft-javascript-barcode.svg)
+![downloads](https://img.shields.io/npm/dm/dynamsoft-javascript-barcode.svg) 
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg)
+![](https://img.shields.io/snyk/vulnerabilities/npm/dynamsoft-javascript-barcode.svg)
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
 [Dynamsoft BarcodeReader SDK for Javascript](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript API for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
 
 > **Node.js** v8+ is supported in [7.1.3](https://github.com/dynamsoft-dbr/javascript-barcode/tree/dac614f8033661901d85381dfaff8d612115862a). We have removed it in 7.2.2 to focus on web. A better version of *dbr for node.js* is under development.
+
+## Table of Contents
+- [Features](#features)
+- [Quick Usage](#quick-usage)
+- [Live Demo](#live-demo)
+- [Getting Started: HelloWorld](#getting-started-helloworld)
+- [Getting Started: Take a closer look](#getting-started-take-a-closer-look)
+  - [Initializing](#initializing)
+  - [Configuring Scanner Settings](#configuring-scanner-settings)
+  - [Customizing the UI](#customizing-the-ui)
+- [Advanced Usage](#advanced-usage)
+  - [Print out log for better debugging](#print-out-log-for-better-debugging)
+  - [Show found barcodes](#show-found-barcodes)
+  - [Read a specific area/region](#read-a-specific-area-region)
+- [Self-hosted Deployment](#self-hosted-deployment)
+- [Changelog](#changelog)
+- [API Documentation](#api-documentation)
+- [License Agreement](#license-agreement)
+- [License Activation](#license-activation)
+- [Contact Us](#contact-us)
 
 ## Features
 
@@ -106,25 +129,6 @@ dbr.BarcodeReader.createInstance().then(reader => {
 </body>
 </html>
 ```
-
-## Table of Contents
-
-- [Live Demo](#live-demo)
-- [Getting Started: HelloWorld](#getting-started-helloworld)
-- [Getting Started: Take a closer look](#getting-started-take-a-closer-look)
-  - [Initializing](#initializing)
-  - [Configuring Scanner Settings](#configuring-scanner-settings)
-  - [Customizing the UI](#customizing-the-ui)
-- [Advanced Usage](#advanced-usage)
-  - [Print out log for better debugging](#print-out-log-for-better-debugging)
-  - [Show found barcodes](#show-found-barcodes)
-  - [Read a specific area/region](#read-a-specific-area-region)
-  - [Custom Deployment](#custom-deployment)
-- [Changelog](#changelog)
-- [API Documentation](#api-documentation)
-- [License Agreement](#license-agreement)
-- [License Activation](#license-activation)
-- [Contact Us](#contact-us)
 
 ## Live Demo
 
@@ -575,9 +579,9 @@ await barcodeScanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)
 
-### Custom Deployment
+## Self-hosted Deployment
 
-The library consists of several files. In the sample code above, we used it via a CDN which hosts all the necessary files. Most of the time using the CDN is enough. However, you may prefer to deploy the library on your own server in some cases. For example, in an environment without internet access. The following shows how it's done.
+For commercial usage, we highly recommend self-hosted deployment. The following steps guide you through how to deploy the library on your own server.
 
 * **Step one**: Place the files
   
