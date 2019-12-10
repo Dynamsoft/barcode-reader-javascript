@@ -42,13 +42,13 @@
                     div.appendChild(p);
                 }
             }
-        }).then(s => {
+        }).then(async s => {
             scanner = s;
-            let runtimeSettings = scanner.getRuntimeSettings();
+            let runtimeSettings = await scanner.getRuntimeSettings();
             runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.PDF417;
             runtimeSettings.LocalizationModes = [2,16,4,8,0,0,0,0];
             runtimeSettings.deblurLevel = 2;
-            scanner.updateRuntimeSettings(runtimeSettings);
+            await scanner.updateRuntimeSettings(runtimeSettings);
             scanner.show().catch(ex=>{
                 console.log(ex);
                 alert(ex.message || ex);
