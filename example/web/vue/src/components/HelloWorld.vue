@@ -1,58 +1,94 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div>
+    <h1>{{ title }}</h1>
+    
+    <div v-if="!bShowScanner">
+      Choose image(s) to decode:
+      <input v-on:change="onIptChange" type="file" multiple accept="image/png,image/jpeg,image/bmp,image/gif">
+      <br><br>
+      <button v-on:click="showScanner">show scanner</button>
+    </div>
+
+    <div v-if="bShowScanner">
+      <button v-on:click="hideScanner">hide scanner</button>
+      <BarcodeScanner v-on:appendMessage="appendMessage"></BarcodeScanner>
+    </div>
+
+    <div class="div-message">
+      <p v-for="(message, index) of messages" v-bind:key="messageKeyBase + index">
+        {{ message }}
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
+import Dynamsoft from "../Dynamsoft";
+import BarcodeScanner from "./BarcodeScanner";
+
 export default {
-  name: 'HelloWorld',
   props: {
-    msg: String
+    title: String
+  },
+  data() { 
+    return {
+      reader: null,
+      messageKeyBase: 0,
+      messages: [],
+      bShowScanner: false
+    };
+  },
+  components: {
+    BarcodeScanner
+  },
+  beforeDestroy(){
+    if(this.reader){
+      this.reader.destroy();
+    }
+  },
+  methods: {
+    appendMessage(str){
+      this.messages.push(str);
+      if(this.messages.length > 500){
+        ++this.messageKeyBase;
+        this.messages.splice(0, 1);
+      }
+    },
+    async onIptChange(event) {
+      try{
+        this.appendMessage("======== start read... ========");
+        let reader = this.reader = this.reader || await Dynamsoft.BarcodeReader.createInstance();
+        let input = event.target;
+        let files = input.files;
+        for(let i = 0; i < files.length; ++i){
+          let file = files[i];
+          this.appendMessage(file.name + ':')
+          let results = await reader.decode(file);
+          for(let result of results){
+            this.appendMessage(result.barcodeText);
+          }
+        }
+        input.value = "";
+        this.appendMessage("======== finish read ========");
+      }catch(ex){
+        this.appendMessage(ex.message);
+        console.error(ex);
+      }
+    },
+    showScanner(){
+      this.bShowScanner = true;
+    },
+    hideScanner(){
+      this.bShowScanner = false;
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.div-message{
+  max-height: 400px;
+  overflow-y: auto;
 }
 </style>

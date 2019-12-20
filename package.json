@@ -1,11 +1,14 @@
 {
   "name": "dynamsoft-javascript-barcode",
-  "version": "7.2.2-v2",
+  "version": "7.2.3-v2",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "files": [
-    "dist",
-    "doc",
-    "example"
+    "/dist/dbr.js",
+    "/dist/dbr-*.worker.js",
+    "/dist/dbr-*.wasm.js",
+    "/dist/dbr-*.wasm",
+    "/dist/dbr.d.ts",
+    "/dist/dbr-*.d.ts"
   ],
   "homepage": "https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx",
   "main": "dist/dbr.js",
@@ -40,15 +43,16 @@
   ],
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "build:node": "webpack --config webpack.config.node.js",
     "build:doc": "typedoc --out \"doc/api reference\" --mode file --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --name \"Dynamsoft BarcodeReader SDK for Javascript\"",
-    "lint": "eslint ./src/ --ext .ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "awesome-typescript-loader": "^5.2.1",
+    "@types/node": "^12.12.14",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
     "fork-ts-checker-webpack-plugin": "^1.5.0",
+    "localforage": "^1.7.3",
+    "ts-declaration-webpack-plugin": "^1.2.0",
     "ts-loader": "^6.0.4",
     "typedoc": "^0.15.0",
     "typescript": "^3.6.2",
@@ -57,7 +61,5 @@
     "webpack-cli": "^3.3.7",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {
-    "@types/node": "^12.7.5"
-  }
+  "dependencies": {}
 }

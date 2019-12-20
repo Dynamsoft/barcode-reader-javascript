@@ -1,15 +1,6 @@
-# DbrAngular
+# DbrjsAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
-
-## Install Angular CLI
-
-`npm install -g @angular/cli`
-
-## install modules
-
-Change directory to the project directory.
-`npm install`
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
 ## Development server
 
