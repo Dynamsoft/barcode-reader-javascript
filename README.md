@@ -23,7 +23,7 @@
 - [Advanced Usage](#advanced-usage)
   - [Print out log for better debugging](#print-out-log-for-better-debugging)
   - [Show found barcodes](#show-found-barcodes)
-  - [Read a specific area/region](#read-a-specific-area-region)
+  - [Read a specific area/region](#read-a-specific-arearegion)
 - [Self-hosted Deployment](#self-hosted-deployment)
 - [Changelog](#changelog)
 - [API Documentation](#api-documentation)
@@ -572,11 +572,11 @@ let settings = await barcodeScanner.getRuntimeSettings();
  * Using a percentage is easier
  * The following code ignores 25% to each side of the video stream
  */
-settings.region.measuredByPercentage = 1;
-settings.region.left = 25;
-settings.region.top = 25;
-settings.region.right = 75;
-settings.region.bottom = 75;
+settings.region.regionMeasuredByPercentage = 1;
+settings.region.regionLeft = 25;
+settings.region.regionTop = 25;
+settings.region.regionRight = 75;
+settings.region.regionBottom = 75;
 await barcodeScanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)

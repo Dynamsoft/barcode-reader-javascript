@@ -39,6 +39,8 @@ __pycache__
 /.*ignore
 /DBR-*
 
+!/dist
+/dist/*
 #!/dist/class
 #!/dist/enum
 #!/dist/interface
