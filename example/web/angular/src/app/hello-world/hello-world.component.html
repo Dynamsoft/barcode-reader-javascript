@@ -13,7 +13,7 @@
     <app-barcode-scanner (appendMessage)="appendMessage($event)"></app-barcode-scanner>
 </div>
 
-<div class="div-message">
+<div class="div-message" #divMessage>
     <p *ngFor="let message of messages">
     {{ message }}
     </p>

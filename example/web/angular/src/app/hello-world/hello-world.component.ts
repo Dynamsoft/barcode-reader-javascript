@@ -1,4 +1,4 @@
-import { Component, OnDestroy, Input } from '@angular/core';
+import { Component, Input, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
 import Dynamsoft from "../Dynamsoft";
 
 @Component({
@@ -6,16 +6,25 @@ import Dynamsoft from "../Dynamsoft";
   templateUrl: './hello-world.component.html',
   styleUrls: ['./hello-world.component.scss']
 })
-export class HelloWorldComponent implements OnDestroy {
+export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
 
   @Input() title;
+  @ViewChild('divMessage', {static: false}) divMessage: ElementRef;
   
   reader = null;
   messageKeyBase = 0;
   messages = [];
+  needMessage2Bottom = false;
   bShowScanner = false;
 
   constructor() { }
+
+  ngAfterViewChecked(){
+    if(this.needMessage2Bottom){
+      this.needMessage2Bottom = false;
+      this.divMessage.nativeElement.scrollTop = this.divMessage.nativeElement.scrollHeight;
+    }
+  }
 
   ngOnDestroy(){
     if(this.reader){
@@ -29,6 +38,7 @@ export class HelloWorldComponent implements OnDestroy {
       ++this.messageKeyBase;
       this.messages.splice(0, 1);
     }
+    this.needMessage2Bottom = true;
   }
   async onIptChange(event) {
     try{

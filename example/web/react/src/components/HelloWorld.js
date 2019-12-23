@@ -6,11 +6,15 @@ class HelloWorld extends React.Component {
     constructor(props){
         super(props);
         this.reader = null;
+        this.refDivMessage = React.createRef();
         this.state = {
             messageKeyBase: 0,
             messages: [],
             bShowScanner: false
         };
+    }
+    componentDidUpdate(){
+        this.refDivMessage.current.scrollTop = this.refDivMessage.current.scrollHeight;
     }
     componentWillUnmount(){
         if(this.reader){
@@ -36,7 +40,7 @@ class HelloWorld extends React.Component {
                     </div>
                 ) }
             
-                <div className="div-message" style={style.div_message}>
+                <div className="div-message" style={style.div_message} ref={this.refDivMessage}>
                     { this.state.messages.map((message, index) => 
                         <p key={ this.state.messageKeyBase + index }>
                             { message }
@@ -96,8 +100,9 @@ class HelloWorld extends React.Component {
 
 const style = {
     div_message: {
-        maxHeight: "400px",
-        overflowY: "auto"
+        maxHeight: "200px",
+        overflowY: "auto",
+        resize: "both"
     }
 }
 

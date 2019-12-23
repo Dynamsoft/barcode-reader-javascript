@@ -14,7 +14,7 @@
       <BarcodeScanner v-on:appendMessage="appendMessage"></BarcodeScanner>
     </div>
 
-    <div class="div-message">
+    <div class="div-message" ref="divMessage">
       <p v-for="(message, index) of messages" v-bind:key="messageKeyBase + index">
         {{ message }}
       </p>
@@ -40,6 +40,9 @@ export default {
   },
   components: {
     BarcodeScanner
+  },
+  updated(){
+    this.$refs.divMessage.scrollTop = this.$refs.divMessage.scrollHeight;
   },
   beforeDestroy(){
     if(this.reader){
@@ -88,7 +91,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .div-message{
-  max-height: 400px;
+  max-height: 200px;
   overflow-y: auto;
+  resize: both;
 }
 </style>
