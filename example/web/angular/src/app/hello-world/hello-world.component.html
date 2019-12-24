@@ -1,0 +1,20 @@
+
+<h1>{{ title }}</h1>
+
+<div *ngIf="!bShowScanner">
+    Choose image(s) to decode:
+    <input (change)="onIptChange($event)" type="file" multiple accept="image/png,image/jpeg,image/bmp,image/gif">
+    <br><br>
+    <button (click)="showScanner()">show scanner</button>
+</div>
+
+<div *ngIf="bShowScanner">
+    <button (click)="hideScanner()">hide scanner</button>
+    <app-barcode-scanner (appendMessage)="appendMessage($event)"></app-barcode-scanner>
+</div>
+
+<div class="div-message" #divMessage>
+    <p *ngFor="let message of messages">
+    {{ message }}
+    </p>
+</div>

@@ -1,0 +1,17 @@
+{
+  "name": "dbrjs-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.3"
+  },
+  "dependencies": {
+    "keillion-dynamsoft-javascript-barcode": "7.2.17-v2"
+  }
+}

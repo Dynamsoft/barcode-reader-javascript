@@ -1,16 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HelloWorldComponent } from './hello-world/hello-world.component';
+import { BarcodeScannerComponent } from './barcode-scanner/barcode-scanner.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HelloWorldComponent,
+    BarcodeScannerComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

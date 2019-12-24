@@ -1,29 +1,27 @@
 <template>
   <div id="app">
-    <button v-on:click="showScanner">show scanner</button>
+    <HelloWorld title="Welcome to DBRJS VUE example"/>
   </div>
 </template>
 
 <script>
-import Dynamsoft from 'Dynamsoft'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  methods: {
-    showScanner(){
-      let scanner = null;
-      Dynamsoft.BarcodeScanner.createInstance({
-          onFrameRead: results => {window.console.log(results);},
-          onUnduplicatedRead: (txt) => {alert(txt);}
-      }).then(s => {
-          scanner = s;
-          scanner.show().catch(ex=>{
-              window.console.log(ex);
-              window.alert(ex.message || ex);
-              scanner.hide();
-          });
-      });
-    }
+  components: {
+    HelloWorld
   }
 }
 </script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

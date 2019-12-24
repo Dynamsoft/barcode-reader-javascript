@@ -110,6 +110,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#_decodefileinmemory_uint8array" class="tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decode" class="tsd-kind-icon">decode</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decodebase64string" class="tsd-kind-icon">decode<wbr>Base64<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decodebuffer" class="tsd-kind-icon">decode<wbr>Buffer</a></li>
@@ -120,6 +121,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#setmodeargument" class="tsd-kind-icon">set<wbr>Mode<wbr>Argument</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#updateruntimesettings" class="tsd-kind-icon">update<wbr>Runtime<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a></li>
 							</ul>
@@ -135,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:277</li>
+							<li>Defined in class/barcodereader.ts:326</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -153,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:286</li>
+							<li>Defined in class/barcodereader.ts:335</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -168,10 +170,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
 					<a name="_busefullfeature" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> _b<wbr>Use<wbr>Full<wbr>Feature</h3>
-					<div class="tsd-signature tsd-kind-icon">_b<wbr>Use<wbr>Full<wbr>Feature<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<div class="tsd-signature tsd-kind-icon">_b<wbr>Use<wbr>Full<wbr>Feature<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;bNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:256</li>
+							<li>Defined in class/barcodereader.ts:305</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,6 +199,8 @@ Use full in file decode (need high level deblur).
 						<p>Need to be set before loadWasm.</p>
 						<pre><code class="language-js">reader._bUseFullFeature = <span class="hljs-literal">true</span>;
 <span class="hljs-keyword">await</span> reader.loadWasm();</code></pre>
+						<p>For web, <code>_bUseFullFeature</code> is false as default.
+						For Node.js, <code>_bUseFullFeature</code> will not work, and BarcodeReader will always work on full feature.</p>
 					</div>
 				</section>
 			</section>
@@ -213,7 +217,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:167</li>
+									<li>Defined in class/barcodereader.ts:207</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -229,7 +233,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:177</li>
+									<li>Defined in class/barcodereader.ts:217</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -261,7 +265,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:46</li>
+									<li>Defined in class/barcodereader.ts:47</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -269,7 +273,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:47</li>
+									<li>Defined in class/barcodereader.ts:48</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,7 +296,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:37</li>
+									<li>Defined in class/barcodereader.ts:38</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -303,16 +307,39 @@ Use full in file decode (need high level deblur).
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="decode" class="tsd-anchor"></a>
-					<h3>decode</h3>
+					<a name="_decodefileinmemory_uint8array" class="tsd-anchor"></a>
+					<h3>_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">decode<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array<span class="tsd-signature-symbol">(</span>bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:614</li>
+									<li>Defined in class/barcodereader.ts:851</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bytes: <span class="tsd-signature-type">Uint8Array</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="decode" class="tsd-anchor"></a>
+					<h3>decode</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">decode<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in class/barcodereader.ts:672</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -324,7 +351,7 @@ Use full in file decode (need high level deblur).
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>source: <span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+									<h5>source: <span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLImageElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HTMLVideoElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -343,7 +370,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:656</li>
+									<li>Defined in class/barcodereader.ts:734</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -369,19 +396,19 @@ Use full in file decode (need high level deblur).
 					<a name="decodebuffer" class="tsd-anchor"></a>
 					<h3>decode<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">decode<wbr>Buffer<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, format<span class="tsd-signature-symbol">: </span><a href="../enums/enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a>, config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Buffer<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, format<span class="tsd-signature-symbol">: </span><a href="../enums/enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a>, config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:745</li>
+									<li>Defined in class/barcodereader.ts:823</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>buffer: <span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span></h5>
+									<h5>buffer: <span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span></h5>
 								</li>
 								<li>
 									<h5>width: <span class="tsd-signature-type">number</span></h5>
@@ -413,7 +440,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:667</li>
+									<li>Defined in class/barcodereader.ts:745</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -444,7 +471,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:936</li>
+									<li>Defined in class/barcodereader.ts:1048</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -467,7 +494,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:773</li>
+									<li>Defined in class/barcodereader.ts:885</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -475,7 +502,7 @@ Use full in file decode (need high level deblur).
 									<p>Gets current settings and save it into a struct.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
 settings.deblurLevel = <span class="hljs-number">5</span>;
-<span class="hljs-keyword">await</span> reader.updateRuntimeSettings();</code></pre>
+<span class="hljs-keyword">await</span> reader.updateRuntimeSettings(settings);</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -492,7 +519,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:839</li>
+									<li>Defined in class/barcodereader.ts:951</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -515,7 +542,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:1312</li>
+									<li>Defined in class/barcodereader.ts:1472</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -555,7 +582,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:802</li>
+									<li>Defined in class/barcodereader.ts:914</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -586,7 +613,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:595</li>
+									<li>Defined in class/barcodereader.ts:653</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -600,6 +627,28 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="detectenvironment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> detect<wbr>Environment</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">detect<wbr>Environment<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in class/barcodereader.ts:150</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Detect environment and get a report.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
 					<a name="isloaded" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Loaded</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -609,7 +658,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:296</li>
+									<li>Defined in class/barcodereader.ts:345</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -631,7 +680,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:303</li>
+									<li>Defined in class/barcodereader.ts:352</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -679,6 +728,9 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 								<a href="barcodereader.html#version" class="tsd-kind-icon">version</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="barcodereader.html#_decodefileinmemory_uint8array" class="tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodereader.html#decode" class="tsd-kind-icon">decode</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -707,6 +759,9 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="barcodereader.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="barcodereader.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="barcodereader.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
