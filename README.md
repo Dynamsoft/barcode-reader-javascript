@@ -351,7 +351,7 @@ The default scanner UI is defined in `dist/dbr.scanner.html`. There are 3 most u
 
 1. Modfiy `dist/dbr.scanner.html` directly. If you use the cdn we provided, you can't modify it.
 
-2. Copy `dist/dbr.scanner.html` into your own separated html and modify it. Call `scanner.setUIElement(url)` to apply it.
+2. Copy `dist/dbr.scanner.html` into your own separated html and modify it. Call `Dynamsoft.BarcodeScanner.defaultUIElementURL = url` to apply it. `defaultUIElementURL` need to be set before `createInstance`.
 
 3. Integrate the UI into your main html. Call `scanner.setUIElement(HTMLElement)` to apply it.
 
