@@ -54,6 +54,7 @@ __pycache__
 !/dist/dbr.d.ts
 !/dist/dbr.reference.d.ts
 !/dist/dbr.scanner.html
+!/dist/README.md
 
 !/README.md
 !/package.json
