@@ -18,14 +18,14 @@ module.exports = {
     // ],
 
     // these are modules require by node, not need by web
-    externals: {
-        os: 'os',
-        worker_threads: 'worker_threads',
-        https: 'https',
-        http: 'http',
-        fs: 'fs',
-        path: 'path',
-    },
+    // externals: {
+    //     os: 'os',
+    //     worker_threads: 'worker_threads',
+    //     https: 'https',
+    //     http: 'http',
+    //     fs: 'fs',
+    //     path: 'path',
+    // },
     // node: false, // completely turn off webpack injection
     output: {
         path: path.resolve(__dirname, 'dist'),

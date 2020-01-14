@@ -12,6 +12,6 @@
     "webpack": "^4.41.3"
   },
   "dependencies": {
-    "keillion-dynamsoft-javascript-barcode": "7.2.17-v2"
+    "dynamsoft-javascript-barcode": "7.3.0-v0"
   }
 }

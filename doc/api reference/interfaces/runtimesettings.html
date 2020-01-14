@@ -62,6 +62,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<dl class="tsd-comment-tags">
+						<dt>see</dt>
+						<dd><p><a href="https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html">RuntimeSettings</a></p>
+						</dd>
+					</dl>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -78,15 +87,21 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#barcodeformatids" class="tsd-kind-icon">barcode<wbr>Format<wbr>Ids</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#barcodeformatids_2" class="tsd-kind-icon">barcode<wbr>Format<wbr>Ids_<wbr>2</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#binarizationmodes" class="tsd-kind-icon">binarization<wbr>Modes</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#deblurlevel" class="tsd-kind-icon">deblur<wbr>Level</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#expectedbarcodescount" class="tsd-kind-icon">expected<wbr>Barcodes<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#furthermodes" class="tsd-kind-icon">further<wbr>Modes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#intermediateresulttypes" class="tsd-kind-icon">intermediate<wbr>Result<wbr>Types</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#localizationmodes" class="tsd-kind-icon">localization<wbr>Modes</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#minbarcodetextlength" class="tsd-kind-icon">min<wbr>Barcode<wbr>Text<wbr>Length</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#minresultconfidence" class="tsd-kind-icon">min<wbr>Result<wbr>Confidence</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#region" class="tsd-kind-icon">region</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#resultcoordinatetype" class="tsd-kind-icon">result<wbr>Coordinate<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#returnbarcodezoneclarity" class="tsd-kind-icon">return<wbr>Barcode<wbr>Zone<wbr>Clarity</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#scaledownthreshold" class="tsd-kind-icon">scale<wbr>Down<wbr>Threshold</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#scaleupmodes" class="tsd-kind-icon">scale<wbr>UpModes</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#terminatephase" class="tsd-kind-icon">terminate<wbr>Phase</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#textresultordermodes" class="tsd-kind-icon">text<wbr>Result<wbr>Order<wbr>Modes</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="runtimesettings.html#timeout" class="tsd-kind-icon">timeout</a></li>
 							</ul>
@@ -102,22 +117,37 @@
 					<div class="tsd-signature tsd-kind-icon">barcode<wbr>Format<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:7</li>
+							<li>Defined in interface/runtimesettings.ts:12</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Sets the formats of the barcode to be read. Barcode formats can be combined.</p>
+							<p>Sets the formats of the barcode in BarcodeFormat group 1 to be read. Barcode formats in BarcodeFormat group 1 can be combined.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="barcodeformatids_2" class="tsd-anchor"></a>
+					<h3>barcode<wbr>Format<wbr>Ids_<wbr>2</h3>
+					<div class="tsd-signature tsd-kind-icon">barcode<wbr>Format<wbr>Ids_<wbr>2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:16</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the formats of the barcode in BarcodeFormat group 2 to be read. Barcode formats in BarcodeFormat group 1 can be combined.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="binarizationmodes" class="tsd-anchor"></a>
 					<h3>binarization<wbr>Modes</h3>
-					<div class="tsd-signature tsd-kind-icon">binarization<wbr>Modes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">binarization<wbr>Modes<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbinarizationmode.html" class="tsd-signature-type">EnumBinarizationMode</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:11</li>
+							<li>Defined in interface/runtimesettings.ts:20</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -132,12 +162,12 @@
 					<div class="tsd-signature tsd-kind-icon">deblur<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:15</li>
+							<li>Defined in interface/runtimesettings.ts:24</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Sets the degree of blurriness of the barcode</p>
+							<p>Sets the degree of blurriness of the barcode.</p>
 						</div>
 					</div>
 				</section>
@@ -147,12 +177,42 @@
 					<div class="tsd-signature tsd-kind-icon">expected<wbr>Barcodes<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:19</li>
+							<li>Defined in interface/runtimesettings.ts:28</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Sets the number of barcodes expected to be detected for each image</p>
+							<p>Sets the number of barcodes expected to be detected for each image.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="furthermodes" class="tsd-anchor"></a>
+					<h3>further<wbr>Modes</h3>
+					<div class="tsd-signature tsd-kind-icon">further<wbr>Modes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:32</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the further modes.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="intermediateresulttypes" class="tsd-anchor"></a>
+					<h3>intermediate<wbr>Result<wbr>Types</h3>
+					<div class="tsd-signature tsd-kind-icon">intermediate<wbr>Result<wbr>Types<span class="tsd-signature-symbol">:</span> <a href="../enums/enumintermediateresulttype.html" class="tsd-signature-type">EnumIntermediateResultType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:36</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets which types of intermediate result to be kept for further reference. Intermediate result types can be combined.</p>
 						</div>
 					</div>
 				</section>
@@ -162,7 +222,7 @@
 					<div class="tsd-signature tsd-kind-icon">localization<wbr>Modes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:23</li>
+							<li>Defined in interface/runtimesettings.ts:40</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">min<wbr>Barcode<wbr>Text<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:27</li>
+							<li>Defined in interface/runtimesettings.ts:44</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -192,7 +252,7 @@
 					<div class="tsd-signature tsd-kind-icon">min<wbr>Result<wbr>Confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:31</li>
+							<li>Defined in interface/runtimesettings.ts:48</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -207,9 +267,14 @@
 					<div class="tsd-signature tsd-kind-icon">region<span class="tsd-signature-symbol">:</span> <a href="regiondefinition.html" class="tsd-signature-type">RegionDefinition</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:35</li>
+							<li>Defined in interface/runtimesettings.ts:52</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the region definition including the regionTop, regionLeft, regionRight, regionBottom and regionMeasuredByPercentage.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="resultcoordinatetype" class="tsd-anchor"></a>
@@ -217,7 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">result<wbr>Coordinate<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:39</li>
+							<li>Defined in interface/runtimesettings.ts:56</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,12 +292,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="returnbarcodezoneclarity" class="tsd-anchor"></a>
+					<h3>return<wbr>Barcode<wbr>Zone<wbr>Clarity</h3>
+					<div class="tsd-signature tsd-kind-icon">return<wbr>Barcode<wbr>Zone<wbr>Clarity<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:60</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets whether or not to return the clarity of the barcode zone.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scaledownthreshold" class="tsd-anchor"></a>
 					<h3>scale<wbr>Down<wbr>Threshold</h3>
 					<div class="tsd-signature tsd-kind-icon">scale<wbr>Down<wbr>Threshold<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:43</li>
+							<li>Defined in interface/runtimesettings.ts:64</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -242,12 +322,42 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="textresultordermodes" class="tsd-anchor"></a>
-					<h3>text<wbr>Result<wbr>Order<wbr>Modes</h3>
-					<div class="tsd-signature tsd-kind-icon">text<wbr>Result<wbr>Order<wbr>Modes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="scaleupmodes" class="tsd-anchor"></a>
+					<h3>scale<wbr>UpModes</h3>
+					<div class="tsd-signature tsd-kind-icon">scale<wbr>UpModes<span class="tsd-signature-symbol">:</span> <a href="../enums/enumscaleupmode.html" class="tsd-signature-type">EnumScaleUpMode</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:47</li>
+							<li>Defined in interface/runtimesettings.ts:68</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the mode and priority to control the sampling methods of scale-up for linear barcode with small module sizes.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="terminatephase" class="tsd-anchor"></a>
+					<h3>terminate<wbr>Phase</h3>
+					<div class="tsd-signature tsd-kind-icon">terminate<wbr>Phase<span class="tsd-signature-symbol">:</span> <a href="../enums/enumterminatephase.html" class="tsd-signature-type">EnumTerminatePhase</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:72</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Sets the phase where the algorithm stops.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="textresultordermodes" class="tsd-anchor"></a>
+					<h3>text<wbr>Result<wbr>Order<wbr>Modes</h3>
+					<div class="tsd-signature tsd-kind-icon">text<wbr>Result<wbr>Order<wbr>Modes<span class="tsd-signature-symbol">:</span> <a href="../enums/enumtextresultordermode.html" class="tsd-signature-type">EnumTextResultOrderMode</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in interface/runtimesettings.ts:76</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -262,7 +372,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in interface/runtimesettings.ts:52</li>
+							<li>Defined in interface/runtimesettings.ts:81</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -293,6 +403,9 @@
 								<a href="runtimesettings.html#barcodeformatids" class="tsd-kind-icon">barcode<wbr>Format<wbr>Ids</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#barcodeformatids_2" class="tsd-kind-icon">barcode<wbr>Format<wbr>Ids_<wbr>2</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="runtimesettings.html#binarizationmodes" class="tsd-kind-icon">binarization<wbr>Modes</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -300,6 +413,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="runtimesettings.html#expectedbarcodescount" class="tsd-kind-icon">expected<wbr>Barcodes<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#furthermodes" class="tsd-kind-icon">further<wbr>Modes</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#intermediateresulttypes" class="tsd-kind-icon">intermediate<wbr>Result<wbr>Types</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="runtimesettings.html#localizationmodes" class="tsd-kind-icon">localization<wbr>Modes</a>
@@ -317,7 +436,16 @@
 								<a href="runtimesettings.html#resultcoordinatetype" class="tsd-kind-icon">result<wbr>Coordinate<wbr>Type</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#returnbarcodezoneclarity" class="tsd-kind-icon">return<wbr>Barcode<wbr>Zone<wbr>Clarity</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="runtimesettings.html#scaledownthreshold" class="tsd-kind-icon">scale<wbr>Down<wbr>Threshold</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#scaleupmodes" class="tsd-kind-icon">scale<wbr>UpModes</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="runtimesettings.html#terminatephase" class="tsd-kind-icon">terminate<wbr>Phase</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="runtimesettings.html#textresultordermodes" class="tsd-kind-icon">text<wbr>Result<wbr>Order<wbr>Modes</a>

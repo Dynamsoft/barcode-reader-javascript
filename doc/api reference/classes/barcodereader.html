@@ -68,7 +68,7 @@
 						<p>A class dedicated to image decoding.</p>
 						<pre><code class="language-js"><span class="hljs-keyword">let</span> reader = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.createInstance();
 <span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(imageSource);
-<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">in</span> results){
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
     <span class="hljs-built_in">console</span>.log(result.barcodeText);
 }</code></pre>
 					</div>
@@ -110,12 +110,12 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#_decodefileinmemory_uint8array" class="tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decode" class="tsd-kind-icon">decode</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decodebase64string" class="tsd-kind-icon">decode<wbr>Base64<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decodebuffer" class="tsd-kind-icon">decode<wbr>Buffer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#decodeurl" class="tsd-kind-icon">decode<wbr>Url</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#getmodeargument" class="tsd-kind-icon">get<wbr>Mode<wbr>Argument</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#resetruntimesettings" class="tsd-kind-icon">reset<wbr>Runtime<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodereader.html#setmodeargument" class="tsd-kind-icon">set<wbr>Mode<wbr>Argument</a></li>
@@ -137,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:326</li>
+							<li>Defined in class/barcodereader.ts:357</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -155,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:335</li>
+							<li>Defined in class/barcodereader.ts:366</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -173,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">_b<wbr>Use<wbr>Full<wbr>Feature<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;bNode</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in class/barcodereader.ts:305</li>
+							<li>Defined in class/barcodereader.ts:336</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -197,8 +197,8 @@ Use full in file decode (need high level deblur).
 </pre>
 						</div>
 						<p>Need to be set before loadWasm.</p>
-						<pre><code class="language-js">reader._bUseFullFeature = <span class="hljs-literal">true</span>;
-<span class="hljs-keyword">await</span> reader.loadWasm();</code></pre>
+						<pre><code class="language-js">Dynamsoft.BarcodeReader._bUseFullFeature = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.loadWasm();</code></pre>
 						<p>For web, <code>_bUseFullFeature</code> is false as default.
 						For Node.js, <code>_bUseFullFeature</code> will not work, and BarcodeReader will always work on full feature.</p>
 					</div>
@@ -211,13 +211,13 @@ Use full in file decode (need high level deblur).
 					<h3><span class="tsd-flag ts-flagStatic">Static</span> engine<wbr>Resource<wbr>Path</h3>
 					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> engineResourcePath<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> engineResourcePath<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> engineResourcePath<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:207</li>
+									<li>Defined in class/barcodereader.ts:214</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -233,7 +233,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:217</li>
+									<li>Defined in class/barcodereader.ts:224</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -247,7 +247,7 @@ Use full in file decode (need high level deblur).
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>keys: <span class="tsd-signature-type">string</span></h5>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -307,29 +307,6 @@ Use full in file decode (need high level deblur).
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="_decodefileinmemory_uint8array" class="tsd-anchor"></a>
-					<h3>_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array<span class="tsd-signature-symbol">(</span>bytes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in class/barcodereader.ts:851</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>bytes: <span class="tsd-signature-type">Uint8Array</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="decode" class="tsd-anchor"></a>
 					<h3>decode</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -339,13 +316,16 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:672</li>
+									<li>Defined in class/barcodereader.ts:719</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The main decoding method can accept a variety of data types, including binary data, images, base64(with mime), urls, etc.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(blob);</code></pre>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(blob);
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-built_in">console</span>.log(result.barcodeText);
+}</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -370,14 +350,17 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:734</li>
+									<li>Defined in class/barcodereader.ts:784</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The decoding method can accept base64 with or without mime.
 									e.g. <code>data:image/jpg;base64,Xfjshekk....</code> or <code>Xfjshekk...</code>.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(strBase64);</code></pre>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decodeBase64String(strBase64);
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-built_in">console</span>.log(result.barcodeText);
+}</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -402,7 +385,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:823</li>
+									<li>Defined in class/barcodereader.ts:876</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -440,13 +423,16 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:745</li>
+									<li>Defined in class/barcodereader.ts:798</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>The decoding method can accept url. The url source need to be in the same domain or allowed cors.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(<span class="hljs-string">"./1.png"</span>);</code></pre>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decodeUrl(<span class="hljs-string">"./1.png"</span>);
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
+    <span class="hljs-built_in">console</span>.log(result.barcodeText);
+}</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -471,7 +457,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:1048</li>
+									<li>Defined in class/barcodereader.ts:1664</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -485,6 +471,43 @@ Use full in file decode (need high level deblur).
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getmodeargument" class="tsd-anchor"></a>
+					<h3>get<wbr>Mode<wbr>Argument</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Mode<wbr>Argument<span class="tsd-signature-symbol">(</span>modeName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, argumentName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in class/barcodereader.ts:1592</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the optional argument for a specified mode in Modes parameters.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> argumentValue = <span class="hljs-keyword">await</span> reader.getModeArgument(<span class="hljs-string">"BinarizationModes"</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"EnableFillBinaryVacancy"</span>);</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>modeName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>argumentName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getruntimesettings" class="tsd-anchor"></a>
 					<h3>get<wbr>Runtime<wbr>Settings</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -494,7 +517,7 @@ Use full in file decode (need high level deblur).
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:885</li>
+									<li>Defined in class/barcodereader.ts:942</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -504,6 +527,11 @@ Use full in file decode (need high level deblur).
 settings.deblurLevel = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">await</span> reader.updateRuntimeSettings(settings);</code></pre>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html">RuntimeSettings</a></p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -519,7 +547,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:951</li>
+									<li>Defined in class/barcodereader.ts:1046</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -542,7 +570,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:1472</li>
+									<li>Defined in class/barcodereader.ts:1551</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -576,27 +604,35 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 					<a name="updateruntimesettings" class="tsd-anchor"></a>
 					<h3>update<wbr>Runtime<wbr>Settings</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Runtime<wbr>Settings<span class="tsd-signature-symbol">(</span>settings<span class="tsd-signature-symbol">: </span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:914</li>
+									<li>Defined in class/barcodereader.ts:975</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Update runtime settings with a given struct.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
-settings.deblurLevel = <span class="hljs-number">5</span>;
-<span class="hljs-keyword">await</span> reader.updateRuntimeSettings();</code></pre>
+									<p>Update runtime settings with a given struct or a string of <code>speed</code>, <code>balance</code> or <code>coverage</code>.
+										Use <code>speed</code>, <code>balance</code> and <code>coverage</code> to use preset settings for BarcodeReader.
+									The default settings for BarcodeReader is <code>coverage</code>.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> reader.updateRuntimeSettings(<span class="hljs-string">'balance'</span>);
+<span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
+settings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED;
+<span class="hljs-keyword">await</span> reader.updateRuntimeSettings(settings);</code></pre>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html">RuntimeSettings</a></p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>settings: <a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a></h5>
+									<h5>settings: <a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -613,7 +649,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:653</li>
+									<li>Defined in class/barcodereader.ts:697</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -636,7 +672,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:150</li>
+									<li>Defined in class/barcodereader.ts:153</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -658,7 +694,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:345</li>
+									<li>Defined in class/barcodereader.ts:377</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -680,7 +716,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in class/barcodereader.ts:352</li>
+									<li>Defined in class/barcodereader.ts:384</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -728,9 +764,6 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 								<a href="barcodereader.html#version" class="tsd-kind-icon">version</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="barcodereader.html#_decodefileinmemory_uint8array" class="tsd-kind-icon">_decode<wbr>File<wbr>InMemory_<wbr><wbr>Uint8<wbr>Array</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodereader.html#decode" class="tsd-kind-icon">decode</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -744,6 +777,9 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodereader.html#destroy" class="tsd-kind-icon">destroy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="barcodereader.html#getmodeargument" class="tsd-kind-icon">get<wbr>Mode<wbr>Argument</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodereader.html#getruntimesettings" class="tsd-kind-icon">get<wbr>Runtime<wbr>Settings</a>
