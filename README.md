@@ -11,9 +11,48 @@
 
 > Also see [Dynamsoft JavaScript Barcode SDK for Node](https://github.com/dynamsoft-dbr/node-javascript-barcode).
 
+## Quick Usage
+
+### Web
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script>
+        let scanner = null;
+        (async()=>{
+            scanner = await Dynamsoft.BarcodeScanner.createInstance();
+            scanner.onFrameRead = results => {console.log(results);};
+            scanner.onUnduplicatedRead = (txt, result) => {alert(txt);};
+            await scanner.show();
+        })();
+    </script>
+</body>
+</html>
+```
+
+<!--### Node
+
+```js
+let Dynamsoft = require('dynamsoft-node-barcode');
+// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
+Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
+
+(async()=>{
+    let reader = await Dynamsoft.BarcodeReader.createInstance();
+    for(let result of await reader.decode('https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png')){
+        console.log(result.barcodeText);
+    }
+    reader.destroy();
+    process.exit();
+})();
+```-->
+
 ## Table of Contents
-- [Features](#features)
 - [Quick Usage](#quick-usage)
+- [Features](#features)
 - [Live Demo](#live-demo)
 - [Getting Started: HelloWorld](#getting-started-helloworld)
 - [Getting Started: Take a closer look](#getting-started-take-a-closer-look)
@@ -44,6 +83,8 @@
   GS1 Composite Code
 
   GS1 DataBar: **`Omnidirectional`**, **`Truncated`**, **`Stacked`**, **`Stacked Omnidirectional`**, **`Limited`**, **`Expanded`**, and **`Expanded Stacked`**.
+
+  Postal Code: **`POSTNET`**, **`PLANET`**, **`Australian Post`**, **`RM4SCC`**.
 
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
@@ -84,7 +125,6 @@
   | getIntermediateResults | X | &radic; |
   | initRuntimeSettingsWithString | X | &radic; |
   | outputSettingsToString | X | &radic; |
-  | outputSettingsToString | X | &radic; |
   | scenarios<sup>2</sup> | To C | To B  |
 
   <sup>1</sup> The wasm size is measured in 7.2.2. In later version the size may different.
@@ -92,45 +132,6 @@
   <sup>2</sup> The simplified edition download and compile faster. Suitable for the scenario that scanning a few codes and redirecting to another page. When you need the feature only in the full, or scenarios that are less sensitive to initialization speed, such as long time video decoding and decoding barcodes in image files, use the full feature edition.
 
   The simplified edition is default used. To switch to full feature edition, use the api `Dynamsoft.BarcodeReader._bUseFullFeature = true`. `_bUseFullFeature` must be set before `loadWasm`.
-
-## Quick Usage
-<!-- ### Node
-
-```js
-let Dynamsoft = require('dynamsoft-node-barcode');
-// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
-Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
-
-(async()=>{
-    let reader = await Dynamsoft.BarcodeReader.createInstance();
-    for(let result of await reader.decode('https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png')){
-        console.log(result.barcodeText);
-    }
-    reader.destroy();
-    process.exit();
-})();
-``` -->
-
-### Web
-
-```html
-<!DOCTYPE html>
-<html>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
-    <script>
-        let barcodeScanner = null;
-        Dynamsoft.BarcodeScanner.createInstance({
-            onFrameRead: results => {console.log(results);},
-            onUnduplicatedRead: (txt, result) => {alert(txt);}
-        }).then(scanner => {
-            barcodeScanner = scanner;
-            barcodeScanner.show();
-        });
-    </script>
-</body>
-</html>
-```
 
 ## Live Demo
 
@@ -162,16 +163,15 @@ Create an HTML file with the following content. Deploy it to your web server if 
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
-        let barcodeScanner = null;
-        Dynamsoft.BarcodeScanner.createInstance({
-            onFrameRead: results => {console.log(results);},
-            onUnduplicatedRead: (txt, result) => {alert(txt);}
-        }).then(scanner => {
-            barcodeScanner = scanner;
-            barcodeScanner.show();
-        });
+        let scanner = null;
+        (async()=>{
+            scanner = await Dynamsoft.BarcodeScanner.createInstance();
+            scanner.onFrameRead = results => {console.log(results);};
+            scanner.onUnduplicatedRead = (txt, result) => {alert(txt);};
+            await scanner.show();
+        })();
     </script>
 </body>
 </html>
@@ -220,13 +220,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like unpkg as well
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   The api may change slightly between versions. Please use a specific version in your production environment to ensure stability.
@@ -235,21 +235,20 @@ Now, take a look at the sample code. You can find that there is nothing but two 
   
   ```javascript
   <script>
-      let barcodeScanner = null;
-      Dynamsoft.BarcodeScanner.createInstance({
-          onFrameRead: results => {console.log(results);},
-          onUnduplicatedRead: (txt, result) => {alert(txt);}
-      }).then(scanner => {
-          barcodeScanner = scanner;
-          barcodeScanner.show();
-      });
+    let scanner = null;
+    (async()=>{
+        scanner = await Dynamsoft.BarcodeScanner.createInstance();
+        scanner.onFrameRead = results => {console.log(results);};
+        scanner.onUnduplicatedRead = (txt, result) => {alert(txt);};
+        await scanner.show();
+    })();
   </script>
   ```
   For now, pay attention to the following two events.
 
     * `onFrameRead`
       This event is triggered after a single frame is scanned. The `results` object contains all the barcode results that the library found on this frame.
-  * `onUnduplicatedRead`
+    * `onUnduplicatedRead`
       This event is triggered when a new barcode (not a duplicate) is found. `txt` holds the barcode text value while `result` is an object that holds details of the found barcode.
 
 In the following sections, you'll find more detailed information on how the library works and how you can customize it to your needs.
@@ -276,7 +275,7 @@ Dynamsoft.BarcodeReader.createInstance()
     .then(reader=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
 ```
 
-> Including the library with a script tag doesn't automatically initializes the library. When you want to load wasm in advance, and create a reader or scanner instance later, it is a good choice can call `loadWasm`.
+> Including the library with a script tag doesn't automatically initialize the library. For better performance, you may want to load the wasm in advance and create a reader or scanner instance later in which case it's a good idea to call `loadWasm`.
 
 The detailed initialization includes the following steps:
 
@@ -298,39 +297,21 @@ The library needs to initialize every time the page loads.
 When creating an instance of the `BarcodeScanner` object, there are a number of configuration options. The following code shows some of the most useful ones:
 
 ```js
-let barcodeScanner = null;
-Dynamsoft.BarcodeScanner.createInstance({
-    // The following two callbacks are explained in previous context
-    onFrameRead: results => {console.log(results);},
-    onUnduplicatedRead: (txt, result) => {alert(txt);}
-}).then(async scanner => {
-    barcodeScanner = scanner;
-    // updateVideoSettings sets which camera and what resolution to use
-    await barcodeScanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
+// updateVideoSettings sets which camera and what resolution to use
+await scanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMode: "environment" } });
 
-    let runtimeSettings = await barcodeScanner.getRuntimeSettings();
-    // Specify which symbologies are to enabled
-    runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED | Dynamsoft.EnumBarcodeFormat.BF_QR_CODE;
-    // By default, the library assumes accurate focus and good lighting. The settings below are for more complex environments. Check out according API descriptions for more info.
-    runtimeSettings.localizationModes = [
-        Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
-        Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
-        Dynamsoft.EnumLocalizationMode.LM_STATISTICS,
-        Dynamsoft.EnumLocalizationMode.LM_LINES,
-        0,0,0,0
-    ];
-    // Discard results which have a low confidence score.
-    runtimeSettings.minResultConfidence = 30;
-    await barcodeScanner.updateRuntimeSettings(runtimeSettings);
+await scanner.updateRuntimeSettings("speed"); // speed, balance, coverage
+let runtimeSettings = await scanner.getRuntimeSettings(); // get settings for modification
+// Specify which symbologies are to enabled
+runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED | Dynamsoft.EnumBarcodeFormat.BF_QR_CODE;
+await scanner.updateRuntimeSettings(runtimeSettings);
 
-    let scanSettings = await barcodeScanner.getScanSettings();
-    // Disregard duplicated results found in a specified time period
-    scanSettings.duplicateForgetTime = 20000;
-    // Set a interval so that the CPU can relax
-    scanSettings.intervalTime = 300;
-    await barcodeScanner.updateScanSettings(scanSettings);
-    barcodeScanner.show();
-})
+let scanSettings = await scanner.getScanSettings();
+// Disregard duplicated results found in a specified time period
+scanSettings.duplicateForgetTime = 20000;
+// Set a interval so that the CPU can relax
+scanSettings.intervalTime = 300;
+await scanner.updateScanSettings(scanSettings);
 ```
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/yfkcajxz/)
@@ -338,30 +319,20 @@ Dynamsoft.BarcodeScanner.createInstance({
 As you can see in the code, there are basically three categories of configurations.
 
 * `get/updateVideoSettings`: Configures the data source, I.E., the video stream. These settings include which camera to use , the resolution, etc.. Check out more information [here](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
-* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html). Below lists the recommended settings for specific usage.
+* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html). 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/f24h8c1m/)
   
-  **fast**
-  
-  ```javascript
-  let settings = await barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [Dynamsoft.EnumLocalizationMode.LM_STATISTICS, 0, 0, 0, 0, 0, 0, 0];
-  settings.deblurLevel = 0;
-  await barcodeScanner.updateRuntimeSettings(settings);
+  e.g.
+  ```js
+  await barcodeScanner.updateRuntimeSettings("speed");
   ```
-  **1D**
-  ```javascript
-  let settings = await barcodeScanner.getRuntimeSettings();
-  settings.localizationModes = [
-        Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
-        Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
-        Dynamsoft.EnumLocalizationMode.LM_LINES, 0, 0, 0, 0, 0];
-  settings.deblurLevel = 0;
-  await barcodeScanner.updateRuntimeSettings(settings);
+  ```js
+  await barcodeScanner.updateRuntimeSettings("balance");
   ```
-  **2D**
-  
-  ```javascript
+  ```js
+  await barcodeScanner.updateRuntimeSettings("coverage");
+  ```
+  ```js
   let settings = await barcodeScanner.getRuntimeSettings();
   settings.localizationModes = [
         Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
@@ -374,7 +345,19 @@ As you can see in the code, there are basically three categories of configuratio
 
 ### Customizing the UI
 
-While the library provides a built-in `BarcodeScanner` which has its own UI, you are free to use your own UI. Check out the following code on how it's done.
+While the library provides a built-in `BarcodeScanner` which has its own UI, you are free to use your own UI. 
+
+The default scanner UI is defined in `dist/dbr.scanner.html`. There are 3 most useful way to customizing the UI:
+
+1. Modfiy `dist/dbr.scanner.html` directly. If you use the cdn we provided, you can't modify it.
+
+2. Copy `dist/dbr.scanner.html` into your own separated html and modify it. Call `scanner.setUIElement(url)` to apply it.
+
+3. Integrate the UI into your main html. Call `scanner.setUIElement(HTMLElement)` to apply it.
+
+The 3 way is similar, for the sake of demonstration, we now introduce the 3rd way.
+
+Check out the following code on how it's done.
 
 ```html
 <!DOCTYPE html>
@@ -384,17 +367,16 @@ While the library provides a built-in `BarcodeScanner` which has its own UI, you
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
-        let barcodeScanner = null;
-        Dynamsoft.BarcodeScanner.createInstance({
-            UIElement: document.getElementById('div-video-container'),
-            onFrameRead: results => {console.log(results);},
-            onUnduplicatedRead: (txt, result) => {alert(txt);}
-        }).then(scanner => {
-            barcodeScanner = scanner;
-            barcodeScanner.show();
-        });
+        let scanner = null;
+        (async()=>{
+            scanner = await Dynamsoft.BarcodeScanner.createInstance();
+            await scanner.setUIElement(document.getElementById('div-video-container'));
+            scanner.onFrameRead = results => {console.log(results);};
+            scanner.onUnduplicatedRead = (txt, result) => {alert(txt);};
+            await scanner.show();
+        })();
     </script>
 </body>
 </html>
@@ -443,6 +425,9 @@ Too many resolutions may be overwhelming for end users. Check out the following 
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/tnfjks4q/)
 
+For more usage about customizing UI, please refer to the `dist/dbr.scanner.html` matched your version.
+
+<!--
 #### Customizing Further
 
 You may not want to use elements with the default class names to show the camera list or resolution list. In this case, you need to populate the two lists yourself.
@@ -454,30 +439,23 @@ For camera list, you can use the API `getAllCameras()` to get all available came
 ```
 
 ```javascript
-let currentCamera = "";
 let cameraList = document.getElementById("custom-camera-list");
-barcodeScanner.show()
-    .then(() => barcodeScanner.getCurrentCamera())
-    .then(camera => {
-        currentCamera = camera;
-    })
-    .then(() => barcodeScanner.getAllCameras())
-    .then(allCameras => {
-        cameraList.options.length = 0;
-        for (let i = 0; i < allCameras.length; i++) {
-            let camera = allCameras[i];
-            cameraList.options.add(new Option(camera.label, camera.deviceId));
-            if (camera.deviceId == currentCamera.deviceId)
-                cameraList.selectedIndex = i;
-        }
-    });
+let allCameras = await scanner.getAllCameras();
+let currentCamera = await scanner.getCurrentCamera();
+cameraList.options.length = 0;
+for (let camera of allCameras) {
+    cameraList.options.add(new Option(camera.label, camera.deviceId));
+    if (camera.deviceId == currentCamera.deviceId){
+        cameraList.selectedIndex = i;
+    }
+}
 ```
 
 Switch to the selected camera.
 
 ```js
-cameraList.onchange = () => {
-    barcodeScanner.setCurrentCamera(cameraList.options[cameraList.selectedIndex].value);
+cameraList.onchange = async() => {
+    await scanner.setCurrentCamera(cameraList.options[cameraList.selectedIndex].value);
 };
 ```
 
@@ -486,16 +464,14 @@ cameraList.onchange = () => {
 If you have more than one camera and would like to use a certain one of them. Try out the code below.
 
 ```js
-barcodeScanner.show()
-    .then(() => barcodeScanner.getAllCameras())
-    .then(allCameras => {
-        for (let camera of allCameras) {
-            if (camera.label == 'Your-Camera-Name') {
-                barcodeScanner.setCurrentCamera(camera.deviceId);
-                break;
-            }
-        }
-    });
+await barcodeScanner.show();
+let allCameras = await barcodeScanner.getAllCameras();
+for (let camera of allCameras) {
+    if (camera.label == 'Your-Camera-Name') {
+        await barcodeScanner.setCurrentCamera(camera.deviceId);
+        break;
+    }
+}
 ```
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/kLvgt3w2/)
@@ -512,8 +488,8 @@ For resolution list, you can show your preferred resolutions and use the API `se
 
 ```javascript
 let resolutionList = document.getElementById("custom-camera-resolution");
-resolutionList.onchange = () => {
-    barcodeScanner.setResolution(
+resolutionList.onchange = async() => {
+    await barcodeScanner.setResolution(
         resolutionList.options[resolutionList.selectedIndex].getAttribute("data-width"),
         resolutionList.options[resolutionList.selectedIndex].getAttribute("data-height")
     );
@@ -521,6 +497,7 @@ resolutionList.onchange = () => {
 ```
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/djhvno5b/)
+-->
 
 ## Advanced Usage
 
@@ -542,22 +519,21 @@ Try the following code to show found barcodes in `input` elements on the page
 
 ```js
 let iptIndex = 0;
-let barcodeScanner = null;
-Dynamsoft.BarcodeScanner.createInstance({
-    UIElement: document.getElementById('div-video-container'),
-    onFrameRead: results => {console.log(results);},
-    onUnduplicatedRead: (txt)=>{
+let scanner = null;
+(async()=>{
+    scanner = await Dynamsoft.BarcodeScanner.createInstance();
+    await scanner.setUIElement(document.getElementById('div-video-container'));
+    scanner.onFrameRead = results => {console.log(results);};
+    scanner.onUnduplicatedRead = (txt)=>{
         document.getElementById('ipt-' + iptIndex).value = txt;
         if(3 == ++iptIndex){
-            barcodeScanner.onUnduplicatedRead = undefined;
+            scanner.onUnduplicatedRead = undefined;
             // Hide the scanner if you only need to read these three barcodes
-            barcodeScanner.hide();
+            scanner.hide();
         }
-    }
-}).then(scanner => {
-    barcodeScanner = scanner;
-    barcodeScanner.show();
-});
+    };
+    await scanner.show();
+})();
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/tz9ngm2a/)
 
@@ -577,7 +553,7 @@ settings.region.regionLeft = 25;
 settings.region.regionTop = 25;
 settings.region.regionRight = 75;
 settings.region.regionBottom = 75;
-await barcodeScanner.updateRuntimeSettings(settings);
+await scanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)
 
@@ -662,7 +638,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
   ```html
   <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.3-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   To use your license, you simply need to replace `PRODUCT-KEYS` with it.

@@ -38,18 +38,20 @@ __pycache__
 /.gitattributes
 /.*ignore
 /DBR-*
+/src
 
-!/dist
-/dist/*
 #!/dist/class
 #!/dist/enum
 #!/dist/interface
 !/dist/dbr.js
+!/dist/dbr.mjs
+!/dist/dbr.browser.mjs
 !/dist/dbr-*.worker.js
 !/dist/dbr-*.wasm.js
 !/dist/dbr-*.wasm
 !/dist/dbr.d.ts
-!/dist/dbr-*.d.ts
+!/dist/dbr.reference.d.ts
+!/dist/dbr.scanner.html
 
 !/README.md
 !/package.json

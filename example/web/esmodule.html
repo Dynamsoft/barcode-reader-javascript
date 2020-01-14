@@ -11,10 +11,14 @@
     <br><br>
     <button id="btn-show-scanner">show scanner</button>
 
-<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200114.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script type="module">
+    import Dynamsoft from 'https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200114.0/dist/dbr.browser.mjs';
+    
+    // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license.
+    Dynamsoft.BarcodeReader.productKeys = "PRODUCT-KEYS";
+    
+    Dynamsoft.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200114.0/dist/";
 
-<script>
     // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
 
     // reader for decoding picture

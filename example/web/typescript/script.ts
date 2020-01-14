@@ -1,20 +1,20 @@
-/* eslint-disable no-console */
-import Dynamsoft from "keillion-dynamsoft-javascript-barcode";
+/// <reference path="../../../dist/dbr.reference.d.ts" />
+
 Dynamsoft.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200114.0/dist/";
 // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
 Dynamsoft.BarcodeReader.productKeys = "PRODUCT-KEYS";
 // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
 
 // reader for decoding picture
-let reader = null;
+let reader:BarcodeReader = null;
 // scanner for decoding video
-let scanner = null;
+let scanner:BarcodeScanner = null;
 
 // decode input picture
-document.getElementById('ipt-file').addEventListener('change', async function(){
+(document.getElementById('ipt-file') as HTMLInputElement).addEventListener('change', async function(){
     try{
         reader = reader || await Dynamsoft.BarcodeReader.createInstance();
-        let resultsToAlert = [];
+        let resultsToAlert:string[] = [];
         for(let i = 0; i < this.files.length; ++i){
             let file = this.files[i];
             resultsToAlert.push(i + '. ' + file.name + ":");
@@ -33,7 +33,7 @@ document.getElementById('ipt-file').addEventListener('change', async function(){
 });
 
 // decode video from camera
-document.getElementById('btn-show-scanner').addEventListener('click', async () => {
+(document.getElementById('btn-show-scanner') as HTMLButtonElement).addEventListener('click', async () => {
     try{
         scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
         scanner.onFrameRead = results => {
