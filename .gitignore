@@ -40,6 +40,8 @@ __pycache__
 /DBR-*
 /src
 
+!/dist
+/dist/*
 #!/dist/class
 #!/dist/enum
 #!/dist/interface
