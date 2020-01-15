@@ -596,7 +596,7 @@ On your server put the following files in the same directory.
 
 The `engineResourcePath` need to be set before `loadWasm`.
 ```js
-Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir";
+Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 ```
 
 ## Changelog
