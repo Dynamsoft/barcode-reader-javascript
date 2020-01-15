@@ -542,7 +542,7 @@ let scanner = null;
 To speed up the scanning process, you can choose to scan only a specific area/region.
 
 ```javascript
-let settings = await barcodeScanner.getRuntimeSettings();
+let settings = await scanner.getRuntimeSettings();
 /*
  * 1 means true
  * Using a percentage is easier
