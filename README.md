@@ -121,6 +121,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   | Patch Code | **X** | &radic; |
   | GS1 Composite Code | **X** | &radic; |
   | GS1 DataBar | **X** | &radic; |
+  | Postal Code | **X** | &radic; |
   | DPM | **X** | &radic; |
   | getRuntimeSettings | &radic; | &radic; |
   | updateRuntimeSettings | &radic; | &radic; |
@@ -563,17 +564,19 @@ For commercial usage, we highly recommend self-hosted deployment. The following 
 * **Step one**: Place the files
   
 
-Create a directory called `dist` on your server and put the following files in there.
+On your server put the following files in the same directory.
 
 > [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js) to get these files.
 
   ```
-  dbr-<version>.js
-  dbr-<version>.worker.js
-  dbr-<version>.wasm.js
-  dbr-<version>.wasm
-  dbr-<version>.full.wasm.js
-  dbr-<version>.full.wasm
+  dbr.js // For <script>
+  dbr.browser.mjs // For <script type="module">
+  dbr.scanner.html // Scanner default UI
+  dbr-<version>.worker.js // A worker thread for decoding
+  dbr-<version>.wasm.js // Compact Editions
+  dbr-<version>.wasm // Compact Editions
+  dbr-<version>.full.wasm.js // Full Editions
+  dbr-<version>.full.wasm // Full Editions
   ```
 
 * **Step two**: Configure the server
@@ -589,7 +592,12 @@ Create a directory called `dist` on your server and put the following files in t
   > * Java&trade; EE web app: [web.xml](https://github.com/dynamsoft-dbr/javascript-barcode/blob/dac614f8033661901d85381dfaff8d612115862a/documents/conf/web.xml)
   > * Node.js: [npm mime](https://github.com/broofa/node-mime)
 
+* **Step three**: Configure the engineResourcePath
 
+The `engineResourcePath` need to be set before `loadWasm`.
+```js
+Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir";
+```
 
 ## Changelog
 
