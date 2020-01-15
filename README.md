@@ -266,16 +266,25 @@ The library is based on the `WebAssembly` standard, therefore, **on first use**,
 
 `Dynamsoft.BarcodeReader.loadWasm` is the API to start the initialization. 
 
-```javascript
-Dynamsoft.BarcodeReader.loadWasm()
-    .then(()=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
+```js
+try{
+    await Dynamsoft.BarcodeReader.loadWasm();
+}catch(ex){
+    console.error(ex);
+}
 ```
 
 That said, as shown in the sample above, you don't necessarily need to call the above API because other APIs like `Dynamsoft.BarcodeReader.createInstance` and `Dynamsoft.BarcodeScanner.createInstance` will call `loadWasm` themselves.
 
-```javascript
-Dynamsoft.BarcodeReader.createInstance()
-    .then(reader=>{ /* success */ }, ex=>{console.error(ex.message||ex);})
+```js
+let reader = null;
+let scanner = null;
+try{
+    reader = await Dynamsoft.BarcodeReader.createInstance();
+    scanner = await Dynamsoft.BarcodeScanner.createInstance();
+}catch(ex){
+    console.error(ex);
+}
 ```
 
 > **NOTE**: Including the library with a script tag doesn't automatically initialize the library. For better performance, you may want to call `loadWasm` to download and compile the `wasm` file in advance and create a reader or scanner instance later.
