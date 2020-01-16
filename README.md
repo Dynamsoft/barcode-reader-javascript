@@ -67,6 +67,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   - [Read a specific area/region](#read-a-specific-arearegion)
 - [Self-hosted Deployment](#self-hosted-deployment)
 - [Changelog](#changelog)
+- [How to Upgrade](#how-to-upgrade)
 - [API Documentation](#api-documentation)
 - [License Activation](#license-activation)
 - [License Agreement](#license-agreement)
@@ -613,6 +614,24 @@ Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 ## Changelog
 
 https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
+
+## How to Upgrade
+
+#### From version `7.2.2-v2` to `7.3.0-v0`
+
+* If you are using a CDN, just make sure to change the version number in the URL like this
+
+```javascript
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+```
+
+* If you have deployed the library files on your own server, you'll need to replace the old files with the ones from the new version. Download the latest version [here](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx).
+
+#### From versions prior to`7.2.2-v2` to `7.3.0-v0`
+
+Dynamsoft made quite some changes in the version `7.2.2-v2`, therefore it may take a bit more effort to upgrade the library from an older version to the version `7.2.2-v2` or a later version including the latest `7.3.0-v0` (as of January, 2020). Apart from changing the code to include the correct version of the library, you'll also need to make changes to your code related to the APIs of the library. Check out [this post](https://blog.dynamsoft.com/insights/dynamsoft-barcode-reader-sdk-for-javascript-upgrade-from-v7-1-3-to-v7-2-2/) for more information. If you need more help with the upgrade, please feel free to contact [Dynamsoft Support](#contact-us).
+
+
 
 ## API Documentation
 
