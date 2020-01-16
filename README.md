@@ -114,7 +114,9 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   | `wasm` size<sup>1</sup>\(gzip\) | 810KB | 1.1 MB |
   | 1D | &radic; | &radic; |
   | QR | &radic; | &radic; |
+  | Mirco QR | **X** | &radic; |
   | PDF417 | &radic; | &radic; |
+  | Mirco PDF417 | **X** | &radic; |
   | DataMatrix | &radic; | &radic; |
   | Aztec | **X** | &radic; |
   | MaxiCode | **X** | &radic; |
