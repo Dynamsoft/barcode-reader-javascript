@@ -1,4 +1,6 @@
 const express = require('express');
+const fs = require('fs');
+const https = require('https');
 const util = require('util');
 const path = require('path');
 const multer = require('multer');
@@ -18,4 +20,10 @@ app.post('/collect', collect.any(), async(req, res) => {
 });
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+let httpsServer = https.createServer({
+    key: fs.readFileSync(path.join(__dirname, 'pem/ryans-key.pem')),
+    cert: fs.readFileSync(path.join(__dirname, 'pem/ryans-cert.pem'))
+}, app);
+
+let httpsPort = 4443;
+httpsServer.listen(httpsPort, () => console.log('https://localhost:'+httpsPort+'/'));
