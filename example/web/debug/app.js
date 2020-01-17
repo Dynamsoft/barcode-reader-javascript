@@ -26,4 +26,4 @@ let httpsServer = https.createServer({
 }, app);
 
 let httpsPort = 4443;
-httpsServer.listen(httpsPort, () => console.log('https://localhost:'+httpsPort+'/'));
+httpsServer.listen(httpsPort, () => console.log('Page is available in https://localhost:'+httpsPort+'/'));
