@@ -1,11 +1,20 @@
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
+const cors = require('cors');
 const util = require('util');
 const path = require('path');
 const multer = require('multer');
 
 const app = express();
+// Access-Control-Allow-Origin: **any**
+app.use(cors({
+    origin: (origin, callback) => {
+        return callback(null, true);
+    }
+}));
+
+// collect images
 const collect = multer({ storage: multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, 'public/collect'));
@@ -14,10 +23,11 @@ const collect = multer({ storage: multer.diskStorage({
         cb(null, Date.now()+'.png');
     }
 }) });//dest: path.join(__dirname, 'public/collect')
-
 app.post('/collect', collect.any(), async(req, res) => {
     res.send(util.inspect(req.files,{depth:null}));
 });
+
+// static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 let httpsServer = https.createServer({
