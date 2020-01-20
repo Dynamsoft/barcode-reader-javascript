@@ -133,6 +133,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					</li>
 					<li><a href="#self-hosted-deployment">Self-hosted Deployment</a></li>
 					<li><a href="#changelog">Changelog</a></li>
+					<li><a href="#how-to-upgrade">How to Upgrade</a></li>
 					<li><a href="#api-documentation">API Documentation</a></li>
 					<li><a href="#license-activation">License Activation</a></li>
 					<li><a href="#license-agreement">License Agreement</a></li>
@@ -153,6 +154,25 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					<li><p>Supported Data Sources: <strong><code>Blob</code></strong>, <strong><code>HTMLImageElement</code></strong>, <strong><code>HTMLVideoElement</code></strong>, and <strong><code>URL</code></strong>, etc.</p>
 					</li>
 					<li><p>Browser Compatibility:</p>
+						<ul>
+							<li><p>Unlike normal server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:</p>
+								<ul>
+									<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices/getUserMedia</a> <ul>
+											<li>Required only for in-browser video streaming. If a browser doesn&#39;t have this API the <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> is used automatically. If the API exists but doesn&#39;t work correctly, <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> can be used as an alternative.</li>
+										</ul>
+									</li>
+									<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly">WebAssembly</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob">Blob</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL">URL/createObjectURL</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a><ul>
+											<li>These four features are required for the library to work.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Combining the requirements above results in the following table of supported browsers.</p>
+								<blockquote>
+									<p><strong>NOTE</strong>:  Apart from the browsers, the operating systems running on the target devices may also impose some limitations of their own that could restrict the use of the library. Therefore, the following table serves as a rough estimation instead of an accurate guideline. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.</p>
+								</blockquote>
+							</li>
+						</ul>
 						<table>
 							<thead>
 								<tr>
@@ -180,6 +200,8 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 						<p><sup>1</sup> On iOS, camera video streaming only works in Safari.</p>
 						<p><sup>2</sup> On Edge, due to strict Same-origin policy, you must host the library in the same domain as your web page.</p>
 						<p><sup>3</sup> Safari 11.2.2 ~ 11.2.6 are not supported.</p>
+						<blockquote>
+						</blockquote>
 					</li>
 					<li><p>Compact and Full Editions</p>
 						<p>As more and more features are being added to the library, the supporting <code>wasm</code> file is getting bigger and bigger. For flexibility, we provide two editions. The compact edition has less features but downloads and compiles faster, on the other hand, the full edition has all features built-in. </p>
@@ -207,8 +229,18 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 									<td align="center">&radic;</td>
 								</tr>
 								<tr>
+									<td align="center">Mirco QR</td>
+									<td align="center"><strong>X</strong></td>
+									<td align="center">&radic;</td>
+								</tr>
+								<tr>
 									<td align="center">PDF417</td>
 									<td align="center">&radic;</td>
+									<td align="center">&radic;</td>
+								</tr>
+								<tr>
+									<td align="center">Mirco PDF417</td>
+									<td align="center"><strong>X</strong></td>
 									<td align="center">&radic;</td>
 								</tr>
 								<tr>
@@ -703,6 +735,23 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 					<h2>Changelog</h2>
 				</a>
 				<p><a href="https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript">https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript</a></p>
+				<a href="#how-to-upgrade" id="how-to-upgrade" style="color: inherit; text-decoration: none;">
+					<h2>How to Upgrade</h2>
+				</a>
+				<a href="#from-version-code722-v2code-to-code730-v0code" id="from-version-code722-v2code-to-code730-v0code" style="color: inherit; text-decoration: none;">
+					<h4>From version <code>7.2.2-v2</code> to <code>7.3.0-v0</code></h4>
+				</a>
+				<ul>
+					<li>If you are using a CDN, just make sure to change the version number in the URL like this</li>
+				</ul>
+				<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+				<ul>
+					<li>If you have deployed the library files on your own server, you&#39;ll need to replace the old files with the ones from the new version. Download the latest version <a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx">here</a>.</li>
+				</ul>
+				<a href="#from-versions-prior-tocode722-v2code-to-code730-v0code" id="from-versions-prior-tocode722-v2code-to-code730-v0code" style="color: inherit; text-decoration: none;">
+					<h4>From versions prior to<code>7.2.2-v2</code> to <code>7.3.0-v0</code></h4>
+				</a>
+				<p>Dynamsoft made quite some changes in the version <code>7.2.2-v2</code>, therefore it may take a bit more effort to upgrade the library from an older version to the version <code>7.2.2-v2</code> or a later version including the latest <code>7.3.0-v0</code> (as of January, 2020). Apart from changing the code to include the correct version of the library, you&#39;ll also need to make changes to your code related to the APIs of the library. Check out <a href="https://blog.dynamsoft.com/insights/dynamsoft-barcode-reader-sdk-for-javascript-upgrade-from-v7-1-3-to-v7-2-2/">this post</a> for more information. If you need more help with the upgrade, please feel free to contact <a href="#contact-us">Dynamsoft Support</a>.</p>
 				<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">
 					<h2>API Documentation</h2>
 				</a>
@@ -746,7 +795,7 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 				<a href="#contact-us" id="contact-us" style="color: inherit; text-decoration: none;">
 					<h2>Contact Us</h2>
 				</a>
-				<p>If there are any questions, please feel free to contact <a href="mailto:&#115;&#117;&#x70;&#x70;&#111;&#114;&#x74;&#x40;&#x64;&#121;&#110;&#97;&#x6d;&#115;&#x6f;&#102;&#x74;&#x2e;&#99;&#111;&#x6d;">&#115;&#117;&#x70;&#x70;&#111;&#114;&#x74;&#x40;&#x64;&#121;&#110;&#97;&#x6d;&#115;&#x6f;&#102;&#x74;&#x2e;&#99;&#111;&#x6d;</a>.</p>
+				<p>If there are any questions, please feel free to contact <a href="mailto:&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#100;&#121;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#111;&#x6d;">&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#100;&#121;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#111;&#x6d;</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

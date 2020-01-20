@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+</head>
+<body>
+
+    <button id="btn-show-scanner">show scanner</button>
+    <br>
+    <label><input type="radio" name="video-settings" checked value="default">default</label>
+    <label><input type="radio" name="video-settings" value="back-camera">back camera</label>
+    <label><input type="radio" name="video-settings" value="only-video">only video</label>
+    <br>
+    <label><input id="cb-send-img" type="checkbox">send image to</label><input id="ipt-server-url" placeholder="server url, default ./collect">
+    <br>
+    <div id="div-video-container" style="width:100%;height:calc(100vh - 100px);"></div>
+
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. PRODUCT-KEYS-->
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+
+<script>
+    eruda.init();
+    //Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    Dynamsoft.BarcodeReader._onLog = console.log;
+
+    // scanner for decoding video
+    let scanner = null;
+
+    // decode video from camera
+    document.getElementById('btn-show-scanner').addEventListener('click', async () => {
+        try{
+            scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
+
+            scanner.bPlaySoundOnSuccessfulRead = true;
+
+            let settings = await scanner.getRuntimeSettings();
+            if(Dynamsoft.BarcodeReader._bUseFullFeature){
+                settings.intermediateResultTypes = 1;// the intermediateResult need a real PRODUCT-KEYS support it
+            }else{
+                scanner.bSaveOriCanvas = true;
+            }
+            settings.localizationModes = [2,0,0,0,0,0,0,0];//16
+            settings.timeout = 100000;
+            await scanner.updateRuntimeSettings(settings);
+
+            let processingCount = 0;
+            scanner.onFrameRead = async results => {
+                if(results.length){
+                    console.log(results);
+                }
+                let bSendImg = !!document.getElementById("cb-send-img").checked;
+                if(bSendImg && processingCount < 4){ // max 4 request
+                    ++processingCount;
+                    try{
+                        let cvss = dbr.BarcodeReader._bUseFullFeature? await scanner.getIntermediateCanvas() : [scanner.oriCanvas];
+                        // send oriCanvas as png to server
+                        let fd = new FormData();
+                        for(let cvs of cvss){               
+                            let blob = await new Promise(resolve=>{
+                                cvs.toBlob(blob=>resolve(blob));
+                            });
+                            fd.append("img",blob);
+                        }
+                        await fetch(document.getElementById("ipt-server-url").value || "collect", {
+                            method: "POST",
+                            body: fd
+                        });
+                    }catch(ex){
+                        console.error(ex);
+                    }
+                    --processingCount;
+                }
+            };
+
+            scanner.onUnduplicatedRead = (txt, result) => {
+                console.log(result.barcodeFormatString + ': ' + txt);
+            };
+
+            switchVideoSettings();
+            document.getElementById('div-video-container').appendChild(scanner.getUIElement());
+            await scanner.show();
+        }catch(ex){
+            alert(ex.message);
+            throw ex;
+        }
+    });
+
+    let switchVideoSettings = async()=>{
+        if(!scanner)return;
+        switch(document.querySelector('input[name="video-settings"]:checked').value){
+            case "back-camera":
+                await scanner.updateVideoSettings({video:{facingMode:"environment"}});
+                break;
+            case "only-video":
+                await scanner.updateVideoSettings({video:true});
+                break;
+            default:
+                await scanner.updateVideoSettings({video:{width:{ideal:1280},height:{ideal:720},facingMode:{ideal:"environment"}}});
+        }
+    };
+    for(let ipt of document.querySelectorAll('input[name="video-settings"]')){
+        ipt.addEventListener("change", switchVideoSettings);
+    }
+</script>
+</body>
+</html>
