@@ -93,6 +93,16 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 * Browser Compatibility:
 
+  * Unlike normal server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:
+    * [MediaDevices/getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) 
+      * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) can be used as an alternative.
+    * [WebAssembly](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly), [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob),  [URL/createObjectURL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL), [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
+      * These four features are required for the library to work.
+    
+  * Combining the requirements above results in the following table of supported browsers.
+
+    > **NOTE**:  Apart from the browsers, the operating systems running on the target devices may also impose some limitations of their own that could restrict the use of the library. Therefore, the following table serves as a rough estimation instead of an accurate guideline. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.
+
   | Browser Name | Version |
   |:-:|:-:|
   | Chrome | v57+ (v59+ on Android/iOS<sup>1</sup>) |
@@ -105,6 +115,8 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   <sup>2</sup> On Edge, due to strict Same-origin policy, you must host the library in the same domain as your web page.
 
   <sup>3</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
+
+  >  
 
 * Compact and Full Editions
 

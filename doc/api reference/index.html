@@ -154,6 +154,25 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					<li><p>Supported Data Sources: <strong><code>Blob</code></strong>, <strong><code>HTMLImageElement</code></strong>, <strong><code>HTMLVideoElement</code></strong>, and <strong><code>URL</code></strong>, etc.</p>
 					</li>
 					<li><p>Browser Compatibility:</p>
+						<ul>
+							<li><p>Unlike normal server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:</p>
+								<ul>
+									<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices/getUserMedia</a> <ul>
+											<li>Required only for in-browser video streaming. If a browser doesn&#39;t have this API the <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> is used automatically. If the API exists but doesn&#39;t work correctly, <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> can be used as an alternative.</li>
+										</ul>
+									</li>
+									<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly">WebAssembly</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob">Blob</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL">URL/createObjectURL</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a><ul>
+											<li>These four features are required for the library to work.</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><p>Combining the requirements above results in the following table of supported browsers.</p>
+								<blockquote>
+									<p><strong>NOTE</strong>:  Apart from the browsers, the operating systems running on the target devices may also impose some limitations of their own that could restrict the use of the library. Therefore, the following table serves as a rough estimation instead of an accurate guideline. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.</p>
+								</blockquote>
+							</li>
+						</ul>
 						<table>
 							<thead>
 								<tr>
@@ -181,6 +200,8 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 						<p><sup>1</sup> On iOS, camera video streaming only works in Safari.</p>
 						<p><sup>2</sup> On Edge, due to strict Same-origin policy, you must host the library in the same domain as your web page.</p>
 						<p><sup>3</sup> Safari 11.2.2 ~ 11.2.6 are not supported.</p>
+						<blockquote>
+						</blockquote>
 					</li>
 					<li><p>Compact and Full Editions</p>
 						<p>As more and more features are being added to the library, the supporting <code>wasm</code> file is getting bigger and bigger. For flexibility, we provide two editions. The compact edition has less features but downloads and compiles faster, on the other hand, the full edition has all features built-in. </p>
@@ -774,7 +795,7 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 				<a href="#contact-us" id="contact-us" style="color: inherit; text-decoration: none;">
 					<h2>Contact Us</h2>
 				</a>
-				<p>If there are any questions, please feel free to contact <a href="mailto:&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#64;&#x64;&#x79;&#x6e;&#97;&#x6d;&#x73;&#111;&#102;&#116;&#x2e;&#x63;&#x6f;&#x6d;">&#x73;&#117;&#112;&#112;&#x6f;&#x72;&#116;&#64;&#x64;&#x79;&#x6e;&#97;&#x6d;&#x73;&#111;&#102;&#116;&#x2e;&#x63;&#x6f;&#x6d;</a>.</p>
+				<p>If there are any questions, please feel free to contact <a href="mailto:&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#100;&#121;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#111;&#x6d;">&#115;&#117;&#112;&#112;&#x6f;&#x72;&#x74;&#64;&#100;&#121;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#111;&#x6d;</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

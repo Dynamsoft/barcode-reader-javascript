@@ -15,9 +15,13 @@ app.use(cors({
 }));
 
 // collect images
+const dirCollect = path.join(__dirname, 'public/collect');
+if(!fs.existsSync(dirCollect)){
+    fs.mkdirSync(dirCollect);
+}
 const collect = multer({ storage: multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, 'public/collect'));
+        cb(null, dirCollect);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now()+'.png');

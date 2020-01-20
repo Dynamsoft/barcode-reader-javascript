@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.3.0 (js 20200103)
+* @version 7.3.0.1 (js 20200103)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -517,15 +517,6 @@ export declare class BarcodeReader {
 	static BarcodeReaderException(ag0: any, ag1: any): Error;
 	private _handleRetJsonString;
 	/**
-	 * The method is only supported in the full feature edition.
-	 * Returns intermediate results containing the original image, the colour clustered image, the binarized Image, contours, Lines, TextBlocks, etc.
-	 * ```js
-	 * let imResults = await reader.getIntermediateResults();
-	 * ```
-	 * @ignore
-	 */
-	getIntermediateResults(): Promise<any>;
-	/**
 	 * Sets the optional argument for a specified mode in Modes parameters.
 	 * ```js
 	 * await reader.setModeArgument("BinarizationModes", 0, "EnableFillBinaryVacancy", "1");
@@ -547,9 +538,18 @@ export declare class BarcodeReader {
 	 */
 	getModeArgument(modeName: string, index: number, argumentName: string): Promise<string>;
 	/**
+	 * The method is only supported in the full feature edition.
+	 * Returns intermediate results containing the original image, the colour clustered image, the binarized Image, contours, Lines, TextBlocks, etc.
+	 * ```js
+	 * let imResults = await reader.getIntermediateResults();
+	 * ```
 	 * @ignore
 	 */
-	getIntermediateCanvas(): Promise<HTMLCanvasElement | null>;
+	getIntermediateResults(): Promise<any>;
+	/**
+	 * @ignore
+	 */
+	getIntermediateCanvas(): Promise<HTMLCanvasElement[]>;
 	/**
 	 * Destructor the `BarcodeReader` object.
 	 * Equivalent to the previous method `deleteInstance()`.

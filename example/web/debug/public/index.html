@@ -17,14 +17,13 @@
     <div id="div-video-container" style="width:100%;height:calc(100vh - 100px);"></div>
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. PRODUCT-KEYS-->
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
 
 <script>
-    // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
-
-    Dynamsoft.BarcodeReader._onLog = console.log;
     eruda.init();
+    //Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    Dynamsoft.BarcodeReader._onLog = console.log;
 
     // scanner for decoding video
     let scanner = null;
@@ -33,8 +32,19 @@
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
             scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
-            
-            scanner.bSaveOriCanvas = true;
+
+            scanner.bPlaySoundOnSuccessfulRead = true;
+
+            let settings = await scanner.getRuntimeSettings();
+            if(Dynamsoft.BarcodeReader._bUseFullFeature){
+                settings.intermediateResultTypes = 1;// the intermediateResult need a real PRODUCT-KEYS support it
+            }else{
+                scanner.bSaveOriCanvas = true;
+            }
+            settings.localizationModes = [2,0,0,0,0,0,0,0];//16
+            settings.timeout = 100000;
+            await scanner.updateRuntimeSettings(settings);
+
             let processingCount = 0;
             scanner.onFrameRead = async results => {
                 if(results.length){
@@ -44,12 +54,15 @@
                 if(bSendImg && processingCount < 4){ // max 4 request
                     ++processingCount;
                     try{
+                        let cvss = dbr.BarcodeReader._bUseFullFeature? await scanner.getIntermediateCanvas() : [scanner.oriCanvas];
                         // send oriCanvas as png to server
-                        let blob = await new Promise(resolve=>{
-                            scanner.oriCanvas.toBlob(blob=>resolve(blob));
-                        });
                         let fd = new FormData();
-                        fd.append("img",blob);
+                        for(let cvs of cvss){               
+                            let blob = await new Promise(resolve=>{
+                                cvs.toBlob(blob=>resolve(blob));
+                            });
+                            fd.append("img",blob);
+                        }
                         await fetch(document.getElementById("ipt-server-url").value || "collect", {
                             method: "POST",
                             body: fd
