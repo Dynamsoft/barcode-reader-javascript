@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.3.0.1 (js 20200103)
+* @version 7.3.0.2 (js 20200103)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -364,6 +364,10 @@ export declare class BarcodeReader {
 	 */
 	static isLoaded(): boolean;
 	/**
+	 * Indicates whether the instance has been destroyed.
+	 */
+	bDestroyed: boolean;
+	/**
 	 * Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
 	 */
 	static loadWasm(): Promise<void>;
@@ -618,6 +622,23 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * @ignore
 	 */
 	UIElement: HTMLElement;
+	/**
+	 * Get the HTML element that contains your scanner object.
+	 */
+	getUIElement(): HTMLElement;
+	/**
+	 * set the HTML element that contains your scanner object.
+	 * ```html
+	 * <video class="dbrScanner-video" playsinline="true"></video>
+	 * <script>
+	 *     let scanner = await Dynamsoft.BarcodeScanner.createInstance();
+	 *     scanner.setUIElement(document.getElementByClass("dbrScanner-video")[0]);
+	 *     await scanner.show();
+	 * </script>
+	 * ```
+	 * @param element
+	 */
+	setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
 	/**
 	 * @ignore
 	 */
@@ -902,23 +923,6 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * @param settings
 	 */
 	updateScanSettings(settings: ScannerConfig): Promise<void>;
-	/**
-	 * Get the HTML element that contains your scanner object.
-	 */
-	getUIElement(): HTMLElement;
-	/**
-	 * set the HTML element that contains your scanner object.
-	 * ```html
-	 * <video class="dbrScanner-video" playsinline="true"></video>
-	 * <script>
-	 *     let scanner = await Dynamsoft.BarcodeScanner.createInstance();
-	 *     scanner.setUIElement(document.getElementByClass("dbrScanner-video")[0]);
-	 *     await scanner.show();
-	 * </script>
-	 * ```
-	 * @param element
-	 */
-	setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
 	/**
 	 * Get current video settings of the BarcodeScanner object and saves it into a struct.
 	 */
