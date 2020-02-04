@@ -8,12 +8,12 @@
   },
   "dependencies": {
     "core-js": "^3.4.3",
+    "keillion-dynamsoft-javascript-barcode": "0.20200204.7",
     "vue": "^2.6.10"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
     "@vue/cli-service": "^4.1.0",
-    "keillion-dynamsoft-javascript-barcode": "0.20200204.6",
     "vue-template-compiler": "^2.6.10"
   }
 }
