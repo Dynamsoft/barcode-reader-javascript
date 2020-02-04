@@ -41,7 +41,9 @@
 
             let settings = await scanner.getRuntimeSettings();
             if(Dynamsoft.BarcodeReader._bUseFullFeature){
-                settings.intermediateResultTypes = dbr.EnumIntermediateResultType.IRT_BINARIZED_IMAGE | dbr.EnumIntermediateResultType.IRT_TRANSFORMED_GRAYSCALE_IMAGE;//32 |  | 4
+                settings.intermediateResultTypes = dbr.EnumIntermediateResultType.IRT_BINARIZED_IMAGE 
+                | dbr.EnumIntermediateResultType.IRT_TRANSFORMED_GRAYSCALE_IMAGE
+                | dbr.EnumIntermediateResultType.IRT_CONTOUR;//32 |  | 4
             }else{
                 scanner.bSaveOriCanvas = true;
             }
@@ -54,7 +56,22 @@
                 if(results.length){
                     console.log(results);
                 }
-                for(let cvs of await scanner.getIntermediateCanvas()){
+                let irs = await scanner.getIntermediateResults();
+                let cvss = await scanner.getIntermediateCanvas();
+                for(let ir of irs){
+                    let ctx = cvss[0].getContext('2d');
+                    ctx.strokeStyle = "#0f0";
+                    if(ir.dateType == dbr.EnumIMResultDataType.IMRDT_CONTOUR){
+                        ctx.beginPath();
+                        ctx.moveTo(ir.results[0].x, ir.results[0].y);
+                        for(let r of ir.results){
+                            ctx.moveTo(r.x, r.y);
+                        }
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                }
+                for(let cvs of cvss){
                     document.body.append(cvs);
                 }//debug
                 let bSendImg = !!document.getElementById("cb-send-img").checked;
