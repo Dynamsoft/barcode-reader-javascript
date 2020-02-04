@@ -41,7 +41,7 @@
 
             let settings = await scanner.getRuntimeSettings();
             if(Dynamsoft.BarcodeReader._bUseFullFeature){
-                settings.intermediateResultTypes = dbr.EnumIntermediateResultType.IRT_BINARIZED_IMAGE;// | dbr.EnumIntermediateResultType.IRT_TRANSFORMED_GRAYSCALE_IMAGE;//32 |  | 4
+                settings.intermediateResultTypes = dbr.EnumIntermediateResultType.IRT_BINARIZED_IMAGE | dbr.EnumIntermediateResultType.IRT_TRANSFORMED_GRAYSCALE_IMAGE;//32 |  | 4
             }else{
                 scanner.bSaveOriCanvas = true;
             }
