@@ -256,7 +256,7 @@ function La() {
   e.HEAPF32 = Ja = new Float32Array(buffer);
   e.HEAPF64 = Ka = new Float64Array(buffer);
 }
-var qa = 884928;
+var qa = 885152;
 assert(!0, "stack must start aligned");
 assert(!0, "heap must start aligned");
 e.TOTAL_STACK && assert(5242880 === e.TOTAL_STACK, "the stack size can no longer be determined at runtime");
@@ -271,9 +271,9 @@ wa && (buffer = wa.buffer);
 Ma = buffer.byteLength;
 assert(0 === Ma % 65536);
 La();
-p[qa >> 2] = 6127824;
+p[qa >> 2] = 6128048;
 function Na() {
-  var a = y[221237], b = y[221238];
+  var a = y[221293], b = y[221294];
   34821223 == a && 2310721022 == b || m("Stack overflow! Stack cookie has been overwritten, expected hex dwords 0x89BACDFE and 0x02135467, but received 0x" + b.toString(16) + " " + a.toString(16));
   1668509029 !== p[0] && m("Runtime error: The application has corrupted its heap memory area (address zero)!");
 }
@@ -415,7 +415,7 @@ function lb(a) {
 }
 e.asm = function(a, b) {
   b.memory = wa;
-  b.table = new WebAssembly.Table({initial:3472, maximum:3472, element:"anyfunc"});
+  b.table = new WebAssembly.Table({initial:3477, maximum:3477, element:"anyfunc"});
   a = lb(b);
   assert(a, "binaryen setup failed (no wasm support?)");
   return a;
@@ -2434,7 +2434,7 @@ function ae(a) {
   ae.ja = c;
   return ae.ja;
 }
-Da("GMT", 884832, 4);
+Da("GMT", 885056, 4);
 function be() {
   function a(a) {
     return (a = a.toTimeString().match(/\(([A-Za-z ]+)\)$/)) ? a[1] : "GMT";
@@ -3420,7 +3420,7 @@ var Z = e.asm({}, {ClassHandle:Nc, ClassHandle_clone:Vc, ClassHandle_delete:Wc, 
   return eval(x(a)) | 0;
 }, emscripten_run_script_string:Y, ensureOverloadTable:dd, exposePublicSymbol:ed, extendError:Ic, fabs:Xa, fabsf:Xa, floatReadValueFromPointer:Qd, floor:$a, flushPendingDeletes:$c, genericPointerToWireType:jd, getBasestPointer:wd, getInheritedInstance:xd, getInheritedInstanceCount:rd, getLiveInheritedInstances:td, getShiftFromSize:Ac, getTypeName:Dd, get_first_emval:Od, getenv:ae, heap32VectorToArray:Jd, init_ClassHandle:bd, init_RegisteredPointer:Ad, init_embind:vd, init_emval:Pd, integerReadValueFromPointer:Rd, 
 jsStackTrace:qb, localtime:function(a) {
-  return fe(a, 884784);
+  return fe(a, 885008);
 }, localtime_r:fe, makeClassHandle:yd, makeLegalFunctionName:Gc, memcpy:function(a, b, c) {
   a |= 0;
   b |= 0;
@@ -4424,8 +4424,8 @@ function wf() {
   }
   if (!(0 < bb)) {
     assert(!0);
-    y[221237] = 34821223;
-    y[221238] = 2310721022;
+    y[221293] = 34821223;
+    y[221294] = 2310721022;
     if (e.preRun) {
       for ("function" == typeof e.preRun && (e.preRun = [e.preRun]); e.preRun.length;) {
         Ua();
