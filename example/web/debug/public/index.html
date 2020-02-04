@@ -61,7 +61,7 @@
                 for(let ir of irs){
                     let ctx = cvss[0].getContext('2d');
                     ctx.strokeStyle = "#0f0";
-                    if(ir.dateType == dbr.EnumIMResultDataType.IMRDT_CONTOUR){
+                    if(ir.dataType == dbr.EnumIMResultDataType.IMRDT_CONTOUR){
                         ctx.beginPath();
                         ctx.moveTo(ir.results[0].x, ir.results[0].y);
                         for(let r of ir.results){
