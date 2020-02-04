@@ -59,16 +59,18 @@
                 let irs = await scanner.getIntermediateResults();
                 let cvss = await scanner.getIntermediateCanvas();
                 for(let ir of irs){
-                    let ctx = cvss[0].getContext('2d');
-                    ctx.strokeStyle = "#0f0";
                     if(ir.dataType == dbr.EnumIMResultDataType.IMRDT_CONTOUR){
-                        ctx.beginPath();
-                        ctx.moveTo(ir.results[0].x, ir.results[0].y);
+                        let ctx = cvss[0].getContext('2d');
+                        ctx.strokeStyle = "#0f0";
                         for(let r of ir.results){
-                            ctx.moveTo(r.x, r.y);
+                            ctx.beginPath();
+                            ctx.moveTo(r[0].x, r[0].y);
+                            for(let p of r){
+                                ctx.moveTo(p.x, p.y);
+                            }
+                            ctx.closePath();
+                            ctx.stroke();
                         }
-                        ctx.closePath();
-                        ctx.stroke();
                     }
                 }
                 for(let cvs of cvss){
