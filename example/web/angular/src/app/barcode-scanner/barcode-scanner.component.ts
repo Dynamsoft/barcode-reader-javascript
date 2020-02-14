@@ -14,26 +14,26 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     try{
-        let scanner = this.scanner = this.scanner || await Dynamsoft.BarcodeScanner.createInstance();
+        this.scanner = this.scanner || await Dynamsoft.BarcodeScanner.createInstance();
 
         if(this.bDestroyed){
-            this.destroy();
-            return;
+          this.scanner.destroy();
+          return;
         }
 
-        scanner.setUIElement(this.elementRef.nativeElement);
-        scanner.onFrameRead = results => {
+        this.scanner.setUIElement(this.elementRef.nativeElement);
+        this.scanner.onFrameRead = results => {
             if(results.length){
                 console.log(results);
             }
         };
-        scanner.onUnduplicatedRead = (txt, result) => {
+        this.scanner.onUnduplicatedRead = (txt, result) => {
           this.appendMessage.emit(result.barcodeFormatString + ': ' + txt);
         };
-        await scanner.open();
+        await this.scanner.open();
 
         if(this.bDestroyed){
-            this.destroy();
+            this.scanner.destroy();
             return;
         }
 
@@ -43,14 +43,9 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy(){
-    
-  }
-  async destroy(){
     this.bDestroyed = true;
     if(this.scanner){
-        this.scanner.close();
         this.scanner.destroy();
-        this.scanner = null;
     }
-}
+  }
 }
