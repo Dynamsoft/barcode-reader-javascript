@@ -14,17 +14,15 @@
     <br>
     <label><input id="cb-send-img" type="checkbox">send image to</label><input id="ipt-server-url" placeholder="server url, default ./collect">
     <br>
-    <textarea id="ipt-to-server-txt" placeholder="send txt to server"></textarea><button id="btn-send-txt">send txt to server</button>
-    <br>
     <div id="div-video-container" style="width:100%;height:calc(100vh - 100px);"></div>
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
 <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. PRODUCT-KEYS-->
-<script src="https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200205.10/dist/dbr.js" data-productKeys="t0068MgAAACXV+VA2eoEEYzmrlAOopZda7ZdI7oIlR890Bd3J18G6E/LU5CLErO/kutAz2YOKPEVtVojKloy2yOYnRthJAWU="></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
 
 <script>
     eruda.init();
-    Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    //Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
     Dynamsoft.BarcodeReader._onLog = console.log;
 
     // scanner for decoding video
@@ -34,16 +32,12 @@
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
             scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
-            scanner.singleFrameMode=true;
-            scanner._singleFrameModeIpt.removeAttribute("capture");
 
             scanner.bPlaySoundOnSuccessfulRead = true;
 
             let settings = await scanner.getRuntimeSettings();
             if(Dynamsoft.BarcodeReader._bUseFullFeature){
-                settings.intermediateResultTypes = dbr.EnumIntermediateResultType.IRT_BINARIZED_IMAGE 
-                | dbr.EnumIntermediateResultType.IRT_TRANSFORMED_GRAYSCALE_IMAGE
-                | dbr.EnumIntermediateResultType.IRT_CONTOUR;//32 |  | 4
+                settings.intermediateResultTypes = 1;// the intermediateResult need a real PRODUCT-KEYS support it
             }else{
                 scanner.bSaveOriCanvas = true;
             }
@@ -56,26 +50,6 @@
                 if(results.length){
                     console.log(results);
                 }
-                let irs = await scanner.getIntermediateResults();
-                let cvss = await scanner.getIntermediateCanvas();
-                for(let ir of irs){
-                    if(ir.dataType == dbr.EnumIMResultDataType.IMRDT_CONTOUR){
-                        let ctx = cvss[0].getContext('2d');
-                        ctx.strokeStyle = "#0f0";
-                        for(let r of ir.results){
-                            ctx.beginPath();
-                            ctx.moveTo(r[0].x, r[0].y);
-                            for(let p of r){
-                                ctx.lineTo(p.x, p.y);
-                            }
-                            ctx.closePath();
-                            ctx.stroke();
-                        }
-                    }
-                }
-                for(let cvs of cvss){
-                    document.body.append(cvs);
-                }//debug
                 let bSendImg = !!document.getElementById("cb-send-img").checked;
                 if(bSendImg && processingCount < 4){ // max 4 request
                     ++processingCount;
@@ -129,13 +103,6 @@
     for(let ipt of document.querySelectorAll('input[name="video-settings"]')){
         ipt.addEventListener("change", switchVideoSettings);
     }
-
-    document.getElementById("btn-send-txt").addEventListener('click', async()=>{
-        await fetch("logtxt", {
-            method: "POST",
-            body: document.getElementById("ipt-to-server-txt").value
-        });
-    });
 </script>
 </body>
 </html>
