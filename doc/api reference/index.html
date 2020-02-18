@@ -72,11 +72,18 @@
 				<blockquote>
 					<p>Also see <a href="https://github.com/dynamsoft-dbr/node-javascript-barcode">Dynamsoft JavaScript Barcode SDK for Node</a>.</p>
 				</blockquote>
+				<a href="#install" id="install" style="color: inherit; text-decoration: none;">
+					<h2>Install</h2>
+				</a>
+				<p>yarn</p>
+				<pre><code>$ yarn <span class="hljs-keyword">add</span><span class="bash"> dynamsoft-javascript-barcode</span></code></pre><p>node</p>
+				<pre><code>$ <span class="hljs-keyword">node</span> <span class="hljs-title">install</span> dynamsoft-javascript-barcode --save</code></pre><p>cdn</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- or --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<p><a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js">Download zip</a></p>
 				<a href="#quick-usage" id="quick-usage" style="color: inherit; text-decoration: none;">
 					<h2>Quick Usage</h2>
-				</a>
-				<a href="#web" id="web" style="color: inherit; text-decoration: none;">
-					<h3>Web</h3>
 				</a>
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
@@ -93,6 +100,9 @@
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
+				<p><a href="./example/web/vue">Vue example</a></p>
+				<p><a href="./example/web/react">React example</a></p>
+				<p><a href="./example/web/angular">Angular example</a></p>
 				<!--
 ### Node
 
@@ -115,6 +125,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					<h2>Table of Contents</h2>
 				</a>
 				<ul>
+					<li><a href="#install">Install</a></li>
 					<li><a href="#quick-usage">Quick Usage</a></li>
 					<li><a href="#features">Features</a></li>
 					<li><a href="#live-demo">Live Demo</a></li>
@@ -701,10 +712,7 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 				<ul>
 					<li><strong>Step one</strong>: Place the files</li>
 				</ul>
-				<p>On your server put the following files in the same directory.</p>
-				<blockquote>
-					<p><a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js">Download zip</a> to get these files.</p>
-				</blockquote>
+				<p>On your server put the following files in the same directory. You can get them in <code>dist/</code>.</p>
 				<pre><code>  dbr<span class="hljs-selector-class">.js</span> <span class="hljs-comment">// For &lt;script&gt;</span>
   dbr<span class="hljs-selector-class">.browser</span><span class="hljs-selector-class">.mjs</span> <span class="hljs-comment">// For &lt;script type="module"&gt;</span>
   dbr<span class="hljs-selector-class">.scanner</span><span class="hljs-selector-class">.html</span> <span class="hljs-comment">// Scanner default UI</span>
@@ -795,7 +803,7 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 				<a href="#contact-us" id="contact-us" style="color: inherit; text-decoration: none;">
 					<h2>Contact Us</h2>
 				</a>
-				<p>If there are any questions, please feel free to contact <a href="mailto:&#115;&#117;&#x70;&#112;&#x6f;&#114;&#x74;&#64;&#100;&#x79;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#x6f;&#x6d;">&#115;&#117;&#x70;&#112;&#x6f;&#114;&#x74;&#64;&#100;&#x79;&#x6e;&#x61;&#x6d;&#115;&#111;&#102;&#x74;&#46;&#99;&#x6f;&#x6d;</a>.</p>
+				<p>If there are any questions, please feel free to contact <a href="mailto:&#x73;&#117;&#x70;&#x70;&#111;&#114;&#x74;&#x40;&#x64;&#x79;&#x6e;&#97;&#x6d;&#115;&#x6f;&#x66;&#116;&#46;&#99;&#111;&#x6d;">&#x73;&#117;&#x70;&#x70;&#111;&#114;&#x74;&#x40;&#x64;&#x79;&#x6e;&#97;&#x6d;&#115;&#x6f;&#x66;&#116;&#46;&#99;&#111;&#x6d;</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

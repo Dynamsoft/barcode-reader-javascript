@@ -11,9 +11,28 @@
 
 > Also see [Dynamsoft JavaScript Barcode SDK for Node](https://github.com/dynamsoft-dbr/node-javascript-barcode).
 
-## Quick Usage
+## Install
 
-### Web
+yarn
+```
+$ yarn add dynamsoft-javascript-barcode
+```
+
+node
+```
+$ node install dynamsoft-javascript-barcode --save
+```
+
+cdn
+```html
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<!-- or -->
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+```
+
+[Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
+
+## Quick Usage
 
 ```html
 <!DOCTYPE html>
@@ -32,6 +51,12 @@
 </body>
 </html>
 ```
+
+[Vue example](./example/web/vue)
+
+[React example](./example/web/react)
+
+[Angular example](./example/web/angular)
 
 <!--
 ### Node
@@ -53,6 +78,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 -->
 
 ## Table of Contents
+- [Install](#install)
 - [Quick Usage](#quick-usage)
 - [Features](#features)
 - [Live Demo](#live-demo)
@@ -588,9 +614,7 @@ For commercial usage, we highly recommend self-hosted deployment. The following 
 * **Step one**: Place the files
   
 
-On your server put the following files in the same directory.
-
-> [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js) to get these files.
+On your server put the following files in the same directory. You can get them in `dist/`.
 
   ```
   dbr.js // For <script>
