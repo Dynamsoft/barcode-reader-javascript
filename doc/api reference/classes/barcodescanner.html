@@ -263,7 +263,7 @@ scanner.show();</code></pre>
 							<p>The event that is triggered once a single frame has been scanned.
 							The results object contains all the barcode results that the reader was able to decode.</p>
 							<pre><code class="language-js">scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">in</span> results){
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
         <span class="hljs-built_in">console</span>.log(result.barcodeText);
     }
 };</code></pre>
@@ -302,7 +302,7 @@ scanner.show();</code></pre>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>scanner.played = rsl=&gt;{ console.log(rsl.width+&#39;x&#39;+rsl.height) };</p>
+							<p>scanner.onplayed = rsl=&gt;{ console.log(rsl.width+&#39;x&#39;+rsl.height) };</p>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">

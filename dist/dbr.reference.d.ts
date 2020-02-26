@@ -58,7 +58,6 @@ declare enum EnumBarcodeFormat {
 	BF_ALL = -32505857,
 	BF_ONED = 2047,
 	BF_GS1_DATABAR = 260096,
-	BF_POSTALCODE = 32505856,
 	BF_CODE_39 = 1,
 	BF_CODE_128 = 2,
 	BF_CODE_93 = 4,
@@ -78,11 +77,6 @@ declare enum EnumBarcodeFormat {
 	BF_GS1_DATABAR_EXPANDED_STACKED = 65536,
 	BF_GS1_DATABAR_LIMITED = 131072,
 	BF_PATCHCODE = 262144,
-	BF_USPSINTELLIGENTMAIL = 1048576,
-	BF_POSTNET = 2097152,
-	BF_PLANET = 4194304,
-	BF_AUSTRALIANPOST = 8388608,
-	BF_UKROYALMAIL = 16777216,
 	BF_PDF417 = 33554432,
 	BF_QR_CODE = 67108864,
 	BF_DATAMATRIX = 134217728,
@@ -826,7 +820,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	 */
 	_unbindUI(): void;
 	/**
-	 * scanner.played = rsl=>{ console.log(rsl.width+'x'+rsl.height) };
+	 * scanner.onplayed = rsl=>{ console.log(rsl.width+'x'+rsl.height) };
 	 */
 	onPlayed?: (info: ScannerPlayCallbackInfo) => void;
 	/**
@@ -834,7 +828,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * The results object contains all the barcode results that the reader was able to decode.
 	 * ```js
 	 * scanner.onFrameRead = results => {
-	 *     for(let result in results){
+	 *     for(let result of results){
 	 *         console.log(result.barcodeText);
 	 *     }
 	 * };

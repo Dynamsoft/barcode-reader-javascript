@@ -52,11 +52,11 @@ cdn
 </html>
 ```
 
-[Vue example](./example/web/vue)
+[Vue example](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/example/web/vue)
 
-[React example](./example/web/react)
+[React example](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/example/web/react)
 
-[Angular example](./example/web/angular)
+[Angular example](https://github.com/dynamsoft-dbr/javascript-barcode/tree/master/example/web/angular)
 
 <!--
 ### Node
@@ -101,7 +101,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 ## Features
 
-* Supported Symbologies: 
+#### Supported Symbologies: 
 
   1D barcode: **`Code 39`**, **`Code 128`**, **`Code 93`**,  **`Codabar`**, **`Interleaved 2 of 5 (ITF)`**, **`EAN-13`**, **`EAN-8`**, **`UPC-A`**, **`UPC-E`**, **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`Code 39 Extended`**.
 
@@ -117,9 +117,9 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 * Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
-* Browser Compatibility:
+#### Browser Compatibility:
 
-  * Unlike normal server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:
+  * Unlike typical server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:
     * [MediaDevices/getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) 
       * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) can be used as an alternative.
     * [WebAssembly](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly), [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob),  [URL/createObjectURL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL), [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
@@ -127,7 +127,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     
   * Combining the requirements above results in the following table of supported browsers.
 
-    > **NOTE**:  Apart from the browsers, the operating systems running on the target devices may also impose some limitations of their own that could restrict the use of the library. Therefore, the following table serves as a rough estimation instead of an accurate guideline. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.
+    > **NOTE**: Apart from the browsers, the operating systems running on the target devices may also impose some limitations of their own that could restrict the use of the library. Therefore, the following table serves as a rough estimation instead of an accurate guideline. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.
 
   | Browser Name | Version |
   |:-:|:-:|
@@ -136,7 +136,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   | Edge<sup>2</sup> | v16+ |
   | Safari<sup>3</sup> | v11+ |
 
-  <sup>1</sup> On iOS, camera video streaming only works in Safari.
+  <sup>1</sup> Video streaming is not supported in Chrome/Firefox on iOS.
 
   <sup>2</sup> On Edge, due to strict Same-origin policy, you must host the library in the same domain as your web page.
 
@@ -144,36 +144,36 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   >  
 
-* Compact and Full Editions
+#### Compact and Full Editions
 
-  As more and more features are being added to the library, the supporting `wasm` file is getting bigger and bigger. For flexibility, we provide two editions. The compact edition has less features but downloads and compiles faster, on the other hand, the full edition has all features built-in. 
+  As more features are being added to the library, the supporting `wasm` file is getting larger. For flexibility, we provide two editions. The compact edition has fewer features but downloads and compiles faster; on the other hand, the full edition has all features built-in.
 
   | Features | Compact edition | Full edition |
   |:-:|:-:|:-:|
   | `wasm` size<sup>1</sup>\(gzip\) | 810KB | 1.1 MB |
-  | 1D | &radic; | &radic; |
-  | QR | &radic; | &radic; |
-  | Mirco QR | **X** | &radic; |
-  | PDF417 | &radic; | &radic; |
-  | Mirco PDF417 | **X** | &radic; |
-  | DataMatrix | &radic; | &radic; |
-  | Aztec | **X** | &radic; |
-  | MaxiCode | **X** | &radic; |
-  | Patch Code | **X** | &radic; |
-  | GS1 Composite Code | **X** | &radic; |
-  | GS1 DataBar | **X** | &radic; |
-  | Postal Code | **X** | &radic; |
-  | DPM | **X** | &radic; |
-  | getRuntimeSettings | &radic; | &radic; |
-  | updateRuntimeSettings | &radic; | &radic; |
-  | getIntermediateResults | **X** | &radic; |
-  | initRuntimeSettingsWithString | **X** | &radic; |
-  | outputSettingsToString | **X** | &radic; |
-  | **recommended scenario<sup>2</sup>** | To C | To B  |
+  | 1D | &#10003; | &#10003; |
+  | QR | &#10003; | &#10003; |
+  | Mirco QR | - | &#10003; |
+  | PDF417 | &#10003; | &#10003; |
+  | Mirco PDF417 | - | &#10003; |
+  | DataMatrix | &#10003; | &#10003; |
+  | Aztec | - | &#10003; |
+  | MaxiCode | - | &#10003; |
+  | Patch Code | - | &#10003; |
+  | GS1 Composite Code | - | &#10003; |
+  | GS1 DataBar | - | &#10003; |
+  | Postal Code | - | &#10003; |
+  | DPM | - | &#10003; |
+  | getRuntimeSettings | &#10003; | &#10003; |
+  | updateRuntimeSettings | &#10003; | &#10003; |
+  | getIntermediateResults | - | &#10003; |
+  | initRuntimeSettingsWithString | - | &#10003; |
+  | outputSettingsToString | - | &#10003; |
+  | **recommended scenario<sup>2</sup>** | Customer Facing Application | Enterprise Solution  |
 
   <sup>1</sup> The `wasm` file size is based on version 7.2.2. In later versions, the size may differ.
 
-  <sup>2</sup> The compact edition downloads and compiles faster which makes it more suitable for the scenario where a customer only needs to scan a barcode once. On the contrary, in scenarios where an employee needs to continuously scan lots of barcodes or where specific uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call `loadWasm` or `CreateInstance`.
+  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call `loadWasm` or `CreateInstance`.
 
   `Dynamsoft.BarcodeReader._bUseFullFeature = true;`
 
@@ -199,7 +199,7 @@ This section will help you use the library to build a simple web application to 
 
 Create an HTML file with the following content. Deploy it to your web server if you have it already. 
 
-* The sample is missing one piece of information to work correctly which is the field `PRODUCT-KEYS`, you can acquire a trial key [here](https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx) to replace it.
+* You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx).
 * If you don't have a ready-to-use web server and you happen to have a package manager like `npm` or `yarn`, you can set up a simple http server in minutes. Check out http-server on [npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/en/package/http-server).
 
 ```html
@@ -228,9 +228,9 @@ Open the file in your browser and there will be a pop-up asking for permission t
 
 > **Note**: If you don't see the pop-up, wait a few seconds for the initialization to finish.
 
-##### **General Issue one**
+##### **Possible Scenario 1**
 
-If you open the HTML file as `file:///` or `http://`, the following error may appear in the browser console
+If you open the HTML file as `file:///` or `http://`, the following error may appear in the browser console:
 
 > [Deprecation] getUserMedia() no longer works on insecure origins. To use this feature, you should consider switching your application to a secure origin, such as HTTPS. See https://goo.gl/rStTGz for more details.
 
@@ -249,11 +249,11 @@ To make sure your web application can access the camera, try to configure your w
 - Tomcat: [Setting Up SSL on Tomcat in 5 minutes](https://dzone.com/articles/setting-ssl-tomcat-5-minutes)
 - Node.js: [npm tls](https://nodejs.org/docs/v0.4.1/api/tls.html)
 
-##### **General Issue Two**
+##### **Possible Scenario 2**
 
 For testing purposes, a self-signed certificate can be used when configuring HTTPS. When accessing the site, the browser might say "`the site is not secure`". In this case, go to the certificate settings and trust this certificate. 
 
-> In a production environment, you will need a valid HTTPS certificate that does not have this issue. If you don't have one yet, you can get a free one from [Let’s Encrypt](https://letsencrypt.org/). Of course, you are advised to apply for a paid certificate from companies such as Verisign, GeoTrust, etc.
+> In a production environment, you will need a valid HTTPS certificate that does not have this issue. If you don't have one yet, you can get a free one from [Let’s Encrypt](https://letsencrypt.org/). We recommend obtaining a paid certificate from companies such as Verisign, GeoTrust, etc.
 
 ### Step Three: Time to scan!
 
@@ -275,7 +275,7 @@ Now, take a look at the sample code. You can find that there is nothing but two 
   <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
-  > **NOTE**: Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment as shown above. Using a general major version like `@7` is not recommended.
+  > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
 
 * The following script initializes and uses the library
   
@@ -303,7 +303,7 @@ In the following sections, you'll find more detailed information on how the libr
 
 ### Initializing
 
-The library is based on the `WebAssembly` standard, therefore, **on first use**, it needs some time to download and compile the `wasm` files. After the first use, the browser may cache the file so that the next time no 'downloading' is required.
+The library is based on the `WebAssembly` standard; therefore, **on first use**, it needs some time to download and compile the `wasm` files. After the first use, the browser may cache the file so that the next time no 'downloading' is required.
 
 `Dynamsoft.BarcodeReader.loadWasm` is the API to start the initialization. 
 
@@ -334,7 +334,7 @@ The detailed initialization includes the following steps:
 
 #### 1. Download
 
-Download the necessary resources. Usually we deploy the resources on CDN and set a long cache duration.  If your web server is faster, you should put the resources on your own server instead of the CDN.
+Download the necessary resources. Usually, we deploy the resources on CDN and set a long cache duration. If your web server is faster, you should put the resources on your own server instead of the CDN.
 
 #### 2. Compile
 
@@ -342,12 +342,12 @@ The `wasm` files are automatically compiled once downloaded. The compilation tim
 
 #### 3. Initialize
 
-The library needs to initialize every time the page loads. The initialization basically means creating an `BarcodeReader`or `BarcodeScanner` instance with specified settings.
+The library needs to initialize every time the page loads. The initialization means creating an `BarcodeReader`or `BarcodeScanner` instance with specified settings.
 
 
 ### Configuring Scanner Settings
 
-When creating an instance of the `BarcodeScanner` object, there are a number of configuration options. The following code shows some of the most useful ones:
+When creating an instance of the `BarcodeScanner` object, there are several configuration options. The following code shows some of the most useful ones:
 
 ```js
 // set which camera and what resolution to use
@@ -356,7 +356,7 @@ await scanner.updateVideoSettings({ video: { width: 1280, height: 720, facingMod
 // use one of three built-in RuntimeSetting templates, 'speed' is recommended for decoding from a video stream
 await scanner.updateRuntimeSettings("speed");
 
-// make changes to the template, below it just specifies which symbologies are enabled
+// make changes to the template. The code snippet below demonstrates how to specify which symbologies are enabled
 let runtimeSettings = await scanner.getRuntimeSettings();
 runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED | Dynamsoft.EnumBarcodeFormat.BF_QR_CODE;
 await scanner.updateRuntimeSettings(runtimeSettings);
@@ -365,16 +365,16 @@ await scanner.updateRuntimeSettings(runtimeSettings);
 let scanSettings = await scanner.getScanSettings();
   // disregard duplicated results found in a specified time period
 scanSettings.duplicateForgetTime = 20000;
-  // set a scan interval so that the library may release the CPU from time to time
+  // set a scan interval so the library may release the CPU from time to time
 scanSettings.intervalTime = 300;
 await scanner.updateScanSettings(scanSettings);
 ```
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/yfkcajxz/)
 
-As you can see in the code, there are basically three categories of configurations.
+As you can see in the code, there are three categories of configurations.
 
-* `get/updateVideoSettings`: Configures the data source, I.E., the video stream. These settings include which camera to use , the resolution, etc.. Check out more information [here](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
+* `get/updateVideoSettings`: Configures the data source, i.e., the video stream. These settings include which camera to use, the resolution, etc.. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
 * `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html). 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/f24h8c1m/)
   
@@ -406,7 +406,7 @@ While the library provides a built-in `BarcodeScanner` which has its own UI, fee
 The default scanner UI is defined in the file `dist/dbr.scanner.html`. There are 3 ways to customize it:
 
 1. Modify the file `dist/dbr.scanner.html` directly (only possible when you deploy these files yourself instead of using the CDN).
-2. Copy the file `dist/dbr.scanner.html`, modify it and specify the new file as the default UI by its URL `Dynamsoft.BarcodeScanner.defaultUIElementURL = url`. Note that you must set `defaultUIElementURL` before you call the API `createInstance`.
+2. Copy the file `dist/dbr.scanner.html`, modify it and specify the new file as the default UI by its URL `Dynamsoft.BarcodeScanner.defaultUIElementURL = url`. Note that you must set `defaultUIElementURL` before you call `createInstance`.
 3. Build the UI into your own web page and call `scanner.setUIElement(HTMLElement)` to specify that element.
 
 The following introduces the 3rd way. Check out the following code on how it's done.
@@ -471,9 +471,9 @@ Too many resolutions may be overwhelming for end users. Check out the following 
 </select>
 ```
 
-> **Possible Issue**: Generally you need to provide a resolution that the camera supports. However, in case a camera does not support a specified resolution, it usually will just use the nearest supported resolution. As a result, the selected resolution may not be the actual resolution. 
+> **Possible Issue**: : Generally you need to provide a resolution that the camera supports. However, in case a camera does not support a specified resolution, it usually will just use the nearest supported resolution. As a result, the selected resolution may not be the actual resolution. 
 >
-> **How to tackle it**: To take care of this issue, you can add an option with the class name `dbrScanner-opt-gotResolution` (as shown above) which the library will then use to show the actual resolution being used.
+> **Solution**: To take care of this issue, you can add an option with the class name `dbrScanner-opt-gotResolution` (as shown above) which the library will then use to show the actual resolution being used.
 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/tnfjks4q/)
 
@@ -596,7 +596,7 @@ let settings = await scanner.getRuntimeSettings();
 /*
  * 1 means true
  * Using a percentage is easier
- * The following code ignores 25% to each side of the video stream
+ * The following code shrinks the decoding region by 25% on all sides
  */
 settings.region.regionMeasuredByPercentage = 1;
 settings.region.regionLeft = 25;
@@ -614,7 +614,7 @@ For commercial usage, we highly recommend self-hosted deployment. The following 
 * **Step one**: Place the files
   
 
-On your server put the following files in the same directory. You can get them in `dist/`.
+Locate the following files and place them in the same directory on your server. You can get them in `dist/`.
 
   ```
   dbr.js // For <script>
@@ -629,9 +629,9 @@ On your server put the following files in the same directory. You can get them i
 
 * **Step two**: Configure the server
   
-  Make sure that your webserver serves the `*.wasm` file with `Content-Type: application/wasm` . Otherwise the browser won't be able to recognize it.
+  Make sure that your webserver serves the `*.wasm` file with `Content-Type: application/wasm`. Otherwise, the browser won't be able to recognize it.
   
-  Basically, all you need to do is set the MIME type for `.wasm`  to `application/wasm`.
+  All you need to do is set the MIME type for `.wasm`  to `application/wasm`.
   
   > Different servers are configured differently, below lists a few popular ones
   >
@@ -642,7 +642,7 @@ On your server put the following files in the same directory. You can get them i
 
 * **Step three**: [Optional] Configure the `engineResourcePath`
 
-If the resource files like the `wasm` files are not placed in the same directory as the file `dbr.min.js`.  Then you will need to specify the path with the API `engineResourcePath`. Note that it must be set before `loadWasm` or `createInstance`.
+If the resource files like the `wasm` files are not placed in the same directory as the file `dbr.min.js`.  Then you will need to specify the path with the API `engineResourcePath`. Note that it must be set before `loadWasm` or `createInstance` is called.
 ```js
 Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 ```
@@ -655,17 +655,17 @@ https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
 
 #### From version `7.2.2-v2` to `7.3.0-v0`
 
-* If you are using a CDN, just make sure to change the version number in the URL like this
+* If you are using a CDN, be sure to change the version number in the URL like this
 
 ```javascript
 <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
-* If you have deployed the library files on your own server, you'll need to replace the old files with the ones from the new version. Download the latest version [here](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx).
+* If you have deployed the library files on your own server, you'll need to replace the old files with the new version. Download the latest version [here](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx).
 
 #### From versions prior to`7.2.2-v2` to `7.3.0-v0`
 
-Dynamsoft made quite some changes in the version `7.2.2-v2`, therefore it may take a bit more effort to upgrade the library from an older version to the version `7.2.2-v2` or a later version including the latest `7.3.0-v0` (as of January, 2020). Apart from changing the code to include the correct version of the library, you'll also need to make changes to your code related to the APIs of the library. Check out [this post](https://blog.dynamsoft.com/insights/dynamsoft-barcode-reader-sdk-for-javascript-upgrade-from-v7-1-3-to-v7-2-2/) for more information. If you need more help with the upgrade, please feel free to contact [Dynamsoft Support](#contact-us).
+Dynamsoft made several changes in the version `7.2.2-v2`; therefore it may take a bit more effort to upgrade the library from an older version to the version `7.2.2-v2` or a later version including the latest `7.3.0-v0` (as of January 2020). Apart from changing the code to include the correct version of the library, you'll also need to make changes to your code related to the APIs of the library. Check out [this post](https://blog.dynamsoft.com/insights/dynamsoft-barcode-reader-sdk-for-javascript-upgrade-from-v7-1-3-to-v7-2-2/) for more information. If you need further assistance with the upgrade, please feel free to contact [Dynamsoft Support](#contact-us).
 
 
 
@@ -681,11 +681,11 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 
 ## License Activation
 
-It takes several steps to activate a purchased license, the following steps assume you have already acquired a commercial license from Dynamsoft. If you haven't done so, you can purchase [here](https://www.dynamsoft.com/Secure/Barcode-Reader-BuyIt.aspx).
+It takes several steps to activate a purchased license, the following steps assume you have already acquired a commercial license from Dynamsoft. If you haven't done so yet, you can purchase a license [here](https://www.dynamsoft.com/Secure/Barcode-Reader-BuyIt.aspx).
 
 * **Step One** : Create a Dynamsoft account 
 
-  If you don't have an account yet, sign up [here](https://www.dynamsoft.com/CustomerPortal/Account/Registration.aspx), make sure to use the same email that was registered for the purchase.
+  If you don't have an Dynamsoft account, sign up [here](https://www.dynamsoft.com/CustomerPortal/Account/Registration.aspx). Be sure to use the same email that was registered for the purchase.
 
 * **Step Two** : Log into Dynamsoft Customer Portal 
 
@@ -693,7 +693,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
 * **Step Three** : Activate the License
 
-  Under **Status**, click the link **Activate Now** to input a domain which your license key will be bound to. The domain binding is a security feature to protect your license, although it's optional, it's highly recommended.
+  Under **Status**, click the link **Activate Now** to specify a domain which your license key will be bound to. The domain binding is a security feature to protect your license, although it's optional, it's highly recommended.
 
   > A few examples of the domain
   >
@@ -714,7 +714,7 @@ It takes several steps to activate a purchased license, the following steps assu
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
-  To use your license, you simply need to replace `PRODUCT-KEYS` with it.
+  To use your activated key, you simply need to replace `PRODUCT-KEYS` with it.
 
 ## License Agreement
 
