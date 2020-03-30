@@ -1,0 +1,13 @@
+{
+  "name": "dbrjs-nwjs",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "start": "nw ."
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "keillion-dynamsoft-javascript-barcode": "0.20200330.3"
+  }
+}

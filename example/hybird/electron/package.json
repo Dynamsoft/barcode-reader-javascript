@@ -1,0 +1,14 @@
+{
+  "name": "dbrjs-electron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "keillion-dynamsoft-javascript-barcode": "0.20200330.3",
+    "electron": "^8.1.1"
+  }
+}

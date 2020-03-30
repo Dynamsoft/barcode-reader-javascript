@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.3.0.2 (js 20200214)
+* @version 7.3.0.3 (js 20200214)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -227,9 +227,10 @@ export declare class BarcodeReader {
 	private static _jsVersion;
 	private static _jsEditVersion;
 	protected static _version: string;
-	static readonly version: string;
+	static get version(): string;
 	protected static _productKeys: string;
-	static productKeys: string;
+	static get productKeys(): string;
+	static set productKeys(keys: string);
 	/**
 	 * modify from https://gist.github.com/2107/5529665
 	 * @ignore
@@ -248,6 +249,7 @@ export declare class BarcodeReader {
 	 */
 	static _bUseIndexDB: boolean;
 	protected static _engineResourcePath?: string;
+	static get engineResourcePath(): string;
 	/**
 	 * The SDK will try to automatically explore the engine location.
 	 * If the auto-explored engine location is not accurate, manually specify the engine location.
@@ -256,23 +258,25 @@ export declare class BarcodeReader {
 	 * await Dynamsoft.BarcodeReader.loadWasm();
 	 * ```
 	*/
-	static engineResourcePath: string;
+	static set engineResourcePath(value: string);
 	protected static _licenseServer?: string;
 	/**
 	 * @ignore
 	 */
+	static get licenseServer(): string;
 	/**
-	* @ignore
-	*/
-	static licenseServer: string;
+	 * @ignore
+	 */
+	static set licenseServer(value: string);
 	private static _deviceFriendlyName;
 	/**
 	 * @ignore
 	 */
+	static get deviceFriendlyName(): string;
 	/**
-	* @ignore
-	*/
-	static deviceFriendlyName: string;
+	 * @ignore
+	 */
+	static set deviceFriendlyName(value: string);
 	/**
 	 * @ignore
 	 */
@@ -568,7 +572,7 @@ export interface FrameFilter {
 	 */
 	threshold?: number;
 }
-export interface ScannerConfig {
+export interface ScanSettings {
 	intervalTime?: number;
 	duplicateForgetTime?: number;
 	/**
@@ -608,7 +612,8 @@ export interface ScannerPlayCallbackInfo {
  */
 export declare class BarcodeScanner extends BarcodeReader {
 	private static _defaultUIElementURL;
-	static defaultUIElementURL: string;
+	static get defaultUIElementURL(): string;
+	static set defaultUIElementURL(value: string);
 	/**
 	 * @ignore
 	 */
@@ -626,8 +631,8 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * <video class="dbrScanner-video" playsinline="true"></video>
 	 * <script>
 	 *     let scanner = await Dynamsoft.BarcodeScanner.createInstance();
-	 *     scanner.setUIElement(document.getElementByClass("dbrScanner-video")[0]);
-	 *     await scanner.show();
+	 *     scanner.setUIElement(document.getElementByClassName("dbrScanner-video")[0]);
+	 *     await scanner.open();
 	 * </script>
 	 * ```
 	 * @param element
@@ -652,15 +657,16 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * }
 	 * ```
 	 */
+	get singleFrameMode(): boolean;
 	/**
-	* A mode not use video, get a frame from OS camera instead.
-	* ```js
-	* let scanner = await Dynamsoft.BarcodeReader.createInstance();
-	* scanner.singleFrameMode = true; // use singleFrameMode anyway
-	* scanner.show();
-	* ```
-	*/
-	singleFrameMode: boolean;
+	 * A mode not use video, get a frame from OS camera instead.
+	 * ```js
+	 * let scanner = await Dynamsoft.BarcodeReader.createInstance();
+	 * scanner.singleFrameMode = true; // use singleFrameMode anyway
+	 * scanner.show();
+	 * ```
+	 */
+	set singleFrameMode(value: boolean);
 	private _singleFrameModeIpt;
 	private _clickIptSingleFrameMode;
 	/**
@@ -722,13 +728,14 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * The sound to play when the scanner get successfull read.
 	 */
+	get soundOnSuccessfullRead(): HTMLAudioElement;
 	/**
-	* The sound to play when the scanner get successfull read.
-	* ```js
-	* scanner.soundOnSuccessfullRead = new Audio("./pi.mp3");
-	* ```
-	*/
-	soundOnSuccessfullRead: HTMLAudioElement;
+	 * The sound to play when the scanner get successfull read.
+	 * ```js
+	 * scanner.soundOnSuccessfullRead = new Audio("./pi.mp3");
+	 * ```
+	 */
+	set soundOnSuccessfullRead(value: HTMLAudioElement);
 	/**
 	 * Whether to play sound when the scanner get successfull read.
 	 * ```js
@@ -756,7 +763,8 @@ export declare class BarcodeScanner extends BarcodeReader {
 	barcodeStrokeStyle: string;
 	barcodeLineWidth: number;
 	private _region;
-	private region;
+	private set region(value);
+	private get region();
 	/**
 	 * @ignore
 	 */
@@ -905,7 +913,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * await scanner.updateScanSettings(scanSettings);
 	 * ```
 	 */
-	getScanSettings(): Promise<ScannerConfig>;
+	getScanSettings(): Promise<ScanSettings>;
 	/**
 	 * Update ScanSettings by specify parameter values.
 	 * ```js
@@ -916,7 +924,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * ```
 	 * @param settings
 	 */
-	updateScanSettings(settings: ScannerConfig): Promise<void>;
+	updateScanSettings(settings: ScanSettings): Promise<void>;
 	/**
 	 * Get current video settings of the BarcodeScanner object and saves it into a struct.
 	 */
