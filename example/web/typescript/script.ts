@@ -1,4 +1,4 @@
-/// <reference path="../../../dist/dbr.reference.d.ts" />
+/// <reference path="./node_modules/keillion-dynamsoft-javascript-barcode/dist/dbr.reference.d.ts" />
 
 Dynamsoft.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200330.4/dist/";
 // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
