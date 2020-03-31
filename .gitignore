@@ -26,6 +26,7 @@ __pycache__
 --*
 ==*
 /example/**/package-lock.json
+/example/**/yarn.lock
 /example/**/.git
 /*.zip
 /*.py
