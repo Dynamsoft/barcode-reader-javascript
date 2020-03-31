@@ -1,0 +1,7 @@
+{
+  "name": "dbrjs-ts",
+  "version": "1.0.0",
+  "dependencies": {
+    "typescript": "^3.8.3"
+  }
+}
