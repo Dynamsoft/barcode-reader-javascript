@@ -47,25 +47,26 @@
     "1D barcode"
   ],
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "./node_modules/.bin/dts-bundle-generator -o dist/dbr.d.ts src/dbr.ts & webpack --config webpack.config.js",
     "build:node": "webpack --config webpack.config.node.js",
-    "build:doc": "typedoc --out \"doc/api reference\" --mode file --excludeExternals --excludeNotExported --excludePrivate --excludeProtected --theme minimal --name \"Dynamsoft BarcodeReader SDK for Javascript\" --includeVersion --listInvalidSymbolLinks",
+    "build:doc": "typedoc",
     "test": "node test"
   },
   "devDependencies": {
-    "@types/node": "^12.12.14",
+    "@types/node": "^13.9.8",
     "declaration-bundler-webpack-plugin": "^1.0.3",
-    "fork-ts-checker-webpack-plugin": "^1.5.0",
+    "dts-bundle-generator": "^4.0.0",
+    "fork-ts-checker-webpack-plugin": "^4.1.2",
     "fs-extra": "^8.1.0",
     "localforage": "^1.7.3",
-    "ts-declaration-webpack-plugin": "^1.2.0",
-    "ts-loader": "^6.0.4",
-    "typedoc": "^0.17.0",
+    "ts-loader": "^6.2.2",
+    "typedoc": "^0.17.3",
     "typescript": "^3.8.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-merge": "^4.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }
