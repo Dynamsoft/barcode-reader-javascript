@@ -2,7 +2,7 @@
   "name": "dbrjs-ts",
   "version": "1.0.0",
   "dependencies": {
-    "dynamsoft-javascript-barcode": "7.3.0-v3",
+    "dynamsoft-javascript-barcode": "7.3.0-v4",
     "@types/node": "^13.9.8",
     "typescript": "^3.8.3"
   }

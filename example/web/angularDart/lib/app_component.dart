@@ -20,7 +20,7 @@ class AppComponent implements OnInit {
       if(null == this.reader){
         this.reader = await promiseToFuture<BarcodeReader>(BarcodeReader.createInstance());
       }
-      var results = (await promiseToFuture(this.reader.decode("https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png")) as List<dynamic>);
+      var results = (await promiseToFuture(this.reader.decode("qr.png")) as List<dynamic>);
       var resultsToAlert = [];
       resultsToAlert.add('Sample image:\n');
       for(var result in results){
