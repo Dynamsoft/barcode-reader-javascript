@@ -26,5 +26,11 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     }
     console.log("============== destroy reader ==============");
     reader.destroy();
+    
+    // Since the worker keep alive, you can call
+    await Dynamsoft.BarcodeReader._dbrWorker.terminate();
+    // when you need to exit this process.
+    // Or call
     process.exit();
+    // directly.
 })();
