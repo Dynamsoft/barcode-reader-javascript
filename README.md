@@ -18,9 +18,9 @@ yarn
 $ yarn add dynamsoft-javascript-barcode
 ```
 
-node
+npm
 ```
-$ node install dynamsoft-javascript-barcode --save
+$ npm install dynamsoft-javascript-barcode --save
 ```
 
 cdn
