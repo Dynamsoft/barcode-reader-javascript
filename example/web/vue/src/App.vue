@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld title="Welcome to DBRJS VUE example"/>
+    <HelloWorld title="Welcome to DBRJS VUE Example"/>
   </div>
 </template>
 

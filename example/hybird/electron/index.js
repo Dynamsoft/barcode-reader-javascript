@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const dbrnode = require('dynamsoft-javascript-barcode');
+const dbrnode = require('keillion-dynamsoft-javascript-barcode');
 
 function createWindow () {
   // Create the browser window.

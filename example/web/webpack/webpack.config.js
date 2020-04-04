@@ -10,7 +10,7 @@ module.exports = {
     // plugins: [
     //     new CopyPlugin([
     //         {
-    //             from: './node_modules/dynamsoft-javascript-barcode/dist',
+    //             from: './node_modules/keillion-dynamsoft-javascript-barcode/dist',
     //             to: path.resolve(__dirname, 'dist'),
     //             ignore: ['*.ts'],
     //         }
