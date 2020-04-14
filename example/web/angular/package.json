@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
-    "keillion-dynamsoft-javascript-barcode": "0.20200403.1",
+    "keillion-dynamsoft-javascript-barcode": "0.20200414.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.11.1",
     "zone.js": "~0.10.3"
