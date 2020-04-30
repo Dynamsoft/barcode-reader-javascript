@@ -40,6 +40,7 @@ yarn.lock
 /.*ignore
 /DBR-*
 /src
+/Web.config
 
 !/dist
 /dist/*
@@ -61,5 +62,12 @@ yarn.lock
 !/package.json
 !/LICENSE
 
+!bower.json
+!composer.json
+!package.js
 
 
+
+bower.json
+composer.json
+package.js

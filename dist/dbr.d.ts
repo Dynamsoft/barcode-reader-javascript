@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.3.0.4 (js 20200331)
+* @version 7.4.0 (js 20200331)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -168,6 +168,10 @@ export interface RuntimeSettings {
 	 * The minimum confidence of the result
 	 */
 	minResultConfidence: number;
+	/**
+	 * Sets the way to detect barcodes from a PDF file when using the DecodeFile method.
+	 */
+	PDFReadingMode: EnumPDFReadingMode;
 	/**
 	 * Sets the region definition including the regionTop, regionLeft, regionRight, regionBottom and regionMeasuredByPercentage.
 	 */
@@ -1220,12 +1224,19 @@ export declare enum EnumBarcodeFormat_2 {
 	BF2_POSTNET = 2097152,
 	BF2_PLANET = 4194304,
 	BF2_AUSTRALIANPOST = 8388608,
-	BF2_RM4SCC = 16777216
+	BF2_RM4SCC = 16777216,
+	BF2_DOTCODE = 2
 }
 export declare enum EnumBinarizationMode {
 	BM_AUTO = 1,
 	BM_LOCAL_BLOCK = 2,
 	BM_SKIP = 0
+}
+export declare enum EnumClarityCalculationMethod {
+	ECCM_CONTRAST = 1
+}
+export declare enum EnumClarityFilterMode {
+	CFM_GENERAL = 1
 }
 export declare enum EnumColourClusteringMode {
 	CCM_AUTO = 1,
@@ -1307,7 +1318,8 @@ export declare enum EnumErrorCode {
 	DBR_IRT_LICENSE_INVALID = -10056,
 	DBR_MAXICODE_LICENSE_INVALID = -10057,
 	DBR_GS1_DATABAR_LICENSE_INVALID = -10058,
-	DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059
+	DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059,
+	DBR_DOTCODE_LICENSE_INVALID = -10061
 }
 export declare enum EnumGrayscaleTransformationMode {
 	GTM_INVERTED = 1,
@@ -1327,7 +1339,8 @@ export declare enum EnumIMResultDataType {
 	IMRDT_CONTOUR = 2,
 	IMRDT_LINESEGMENT = 4,
 	IMRDT_LOCALIZATIONRESULT = 8,
-	IMRDT_REGIONOFINTEREST = 16
+	IMRDT_REGIONOFINTEREST = 16,
+	IMRDT_QUADRILATERAL = 32
 }
 export declare enum EnumIntermediateResultSavingMode {
 	IRSM_MEMORY = 1,
@@ -1348,7 +1361,8 @@ export declare enum EnumIntermediateResultType {
 	IRT_LINE_SEGMENT = 512,
 	IRT_FORM = 1024,
 	IRT_SEGMENTATION_BLOCK = 2048,
-	IRT_TYPED_BARCODE_ZONE = 4096
+	IRT_TYPED_BARCODE_ZONE = 4096,
+	IRT_PREDETECTED_QUADRILATERAL = 8192
 }
 export declare enum EnumLocalizationMode {
 	LM_SKIP = 0,
@@ -1359,6 +1373,11 @@ export declare enum EnumLocalizationMode {
 	LM_SCAN_DIRECTLY = 16,
 	LM_STATISTICS_MARKS = 32,
 	LM_STATISTICS_POSTAL_CODE = 64
+}
+export declare enum EnumPDFReadingMode {
+	PDFRM_RASTER = 1,
+	PDFRM_AUTO = 2,
+	PDFRM_VECTOR = 4
 }
 export declare enum EnumQRCodeErrorCorrectionLevel {
 	QRECL_ERROR_CORRECTION_H = 0,
@@ -1423,6 +1442,8 @@ declare const Dynamsoft: {
 	EnumBarcodeFormat: typeof EnumBarcodeFormat;
 	EnumBarcodeFormat_2: typeof EnumBarcodeFormat_2;
 	EnumBinarizationMode: typeof EnumBinarizationMode;
+	EnumClarityCalculationMethod: typeof EnumClarityCalculationMethod;
+	EnumClarityFilterMode: typeof EnumClarityFilterMode;
 	EnumColourClusteringMode: typeof EnumColourClusteringMode;
 	EnumColourConversionMode: typeof EnumColourConversionMode;
 	EnumConflictMode: typeof EnumConflictMode;
@@ -1436,6 +1457,7 @@ declare const Dynamsoft: {
 	EnumIntermediateResultSavingMode: typeof EnumIntermediateResultSavingMode;
 	EnumIntermediateResultType: typeof EnumIntermediateResultType;
 	EnumLocalizationMode: typeof EnumLocalizationMode;
+	EnumPDFReadingMode: typeof EnumPDFReadingMode;
 	EnumQRCodeErrorCorrectionLevel: typeof EnumQRCodeErrorCorrectionLevel;
 	EnumRegionPredetectionMode: typeof EnumRegionPredetectionMode;
 	EnumResultCoordinateType: typeof EnumResultCoordinateType;

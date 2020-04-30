@@ -25,9 +25,9 @@ $ npm install dynamsoft-javascript-barcode --save
 
 cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 <!-- or -->
-<script src="https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
@@ -38,7 +38,7 @@ cdn
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -91,7 +91,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   - [Print out log for better debugging](#print-out-log-for-better-debugging)
   - [Show found barcodes](#show-found-barcodes)
   - [Read a specific area/region](#read-a-specific-arearegion)
-- [Self-hosted Deployment](#self-hosted-deployment)
+- [Self-hosted | Offline | Intranet Deployment](#self-hosted--offline--intranet-deployment)
 - [Changelog](#changelog)
 - [How to Upgrade](#how-to-upgrade)
 - [API Documentation](#api-documentation)
@@ -195,9 +195,9 @@ This section will help you use the library to build a simple web application to 
 * Supported Browser
 * Camera access
 
-### Step One: Write the code in one minute!
+### Step One: Write code in one minute!
 
-Create an HTML file with the following content. Deploy it to your web server if you have it already. 
+Create an HTML file with the following content. Deploy this to your web server and run the application over **HTTPS**.
 
 * You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx).
 * If you don't have a ready-to-use web server and you happen to have a package manager like `npm` or `yarn`, you can set up a simple http server in minutes. Check out http-server on [npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/en/package/http-server).
@@ -207,7 +207,7 @@ Create an HTML file with the following content. Deploy it to your web server if 
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -266,13 +266,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like `unpkg`
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
@@ -419,7 +419,7 @@ The following introduces the 3rd way. Check out the following code on how it's d
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -607,7 +607,7 @@ await scanner.updateRuntimeSettings(settings);
 ```
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/taykq592/)
 
-## Self-hosted Deployment
+## Self-hosted | Offline | Intranet Deployment
 
 For commercial usage, we highly recommend self-hosted deployment. The following steps guide you through how to deploy the library on your own server.
 
@@ -642,7 +642,7 @@ Locate the following files and place them in the same directory on your server. 
 
 * **Step three**: [Optional] Configure the `engineResourcePath`
 
-If the resource files like the `wasm` files are not placed in the same directory as the file `dbr.min.js`.  Then you will need to specify the path with the API `engineResourcePath`. Note that it must be set before `loadWasm` or `createInstance` is called.
+If the resource files like the `wasm` files are not placed in the same directory as the file `dbr.js`.  Then you will need to specify the path with the API `engineResourcePath`. Note that it must be set before `loadWasm` or `createInstance` is called.
 ```js
 Dynamsoft.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 ```
@@ -658,7 +658,7 @@ https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
 * If you are using a CDN, be sure to change the version number in the URL like this
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 * If you have deployed the library files on your own server, you'll need to replace the old files with the new version. Download the latest version [here](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx).
@@ -711,7 +711,7 @@ It takes several steps to activate a purchased license, the following steps assu
 
   ```html
   <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   To use your activated key, you simply need to replace `PRODUCT-KEYS` with it.

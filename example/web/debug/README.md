@@ -8,4 +8,4 @@ Here we use nodejs express.
 
 `node app.js`
 
-Quick Debug: https://dynamsoft-dbr.github.io/javascript-barcode/example/web/debug/public/index.html
+Quick Debug: https://dynamsoft.github.io/javascript-barcode/example/web/debug/public/index.html
