@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.4.3",
-    "keillion-dynamsoft-javascript-barcode": "0.20200429.0",
+    "keillion-dynamsoft-javascript-barcode": "0.20200505.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {
