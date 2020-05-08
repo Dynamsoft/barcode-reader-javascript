@@ -24,10 +24,7 @@
 		"1D barcode"
 	],
 	"homepage": "https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx",
-	"license": [
-	  "For web: https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx#javascript",
-	  "For node: https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx"
-	],
+	"license": "proprietary",
 	"authors": [ { "name": "Dynamsoft", "homepage": "https://www.dynamsoft.com/" } ],
 	"support": {
 		"issues": "https://www.dynamsoft.com/Company/Contact.aspx"
