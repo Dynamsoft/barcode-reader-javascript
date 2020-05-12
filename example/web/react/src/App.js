@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <HelloWorld title="Welcome to DBRJS React example"/>
+      <HelloWorld title="Welcome to DBRJS React Example"/>
     </div>
   );
 }

@@ -17,8 +17,8 @@
     <div id="div-video-container" style="width:100%;height:calc(100vh - 100px);"></div>
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. PRODUCT-KEYS-->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.3.0-v4/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+<!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
 
 <script>
     eruda.init();
@@ -37,7 +37,7 @@
 
             let settings = await scanner.getRuntimeSettings();
             if(Dynamsoft.BarcodeReader._bUseFullFeature){
-                settings.intermediateResultTypes = 1;// the intermediateResult need a real PRODUCT-KEYS support it
+                settings.intermediateResultTypes = 1; // the intermediateResult need a license to support it
             }else{
                 scanner.bSaveOriCanvas = true;
             }
