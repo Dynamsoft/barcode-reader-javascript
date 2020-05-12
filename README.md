@@ -105,9 +105,9 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   1D barcode: **`Code 39`**, **`Code 128`**, **`Code 93`**,  **`Codabar`**, **`Interleaved 2 of 5 (ITF)`**, **`EAN-13`**, **`EAN-8`**, **`UPC-A`**, **`UPC-E`**, **`Industrial 2 of 5`** (Code 2 of 5 Industry, Standard 2 of 5, Code 2 of 5), **`Code 39 Extended`**.
 
-  2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, **`Aztec`**, and **`MaxiCode`**.
+  2D barcode: **`PDF417`**, **`QR`**, **`DataMatrix`**, **`Aztec`**, **`MaxiCode`**, **`Dot Code`**.
 
-  GS1 Databar: **`Omnidirectional`**, **`Truncated`**, **`Stacked`**, **`Stacked Omnidirectional`**, **`Expanded`**, **`Expanded Stacked`** and **`Limited`**.
+  GS1 Databar: **`Omnidirectional`**, **`Truncated`**, **`Stacked`**, **`Stacked Omnidirectional`**, **`Expanded`**, **`Expanded Stacked`**, **`Limited`**.
 
   Patch Code
 
@@ -162,6 +162,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
   | Patch Code | - | &#10003; |
   | GS1 Composite Code | - | &#10003; |
   | GS1 DataBar | - | &#10003; |
+  | Dot Code | - | &#10003; |
   | Postal Code | - | &#10003; |
   | DPM | - | &#10003; |
   | getRuntimeSettings | &#10003; | &#10003; |

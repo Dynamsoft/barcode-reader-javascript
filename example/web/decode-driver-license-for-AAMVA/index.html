@@ -4,27 +4,32 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <script src="driverlicense.js"></script>
     <div id="div-video-container">
         <select class="dbrScanner-sel-camera"></select><select class="dbrScanner-sel-resolution"></select>
         <p>
             <video class="dbrScanner-video" playsinline="true"></video>
         </p>
     </div>
-    <div>
-        <div id="div-licenseInfo"></div>
-    </div>
+    <div id="div-licenseInfo"></div>
     <!--
         Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
     -->
-    <script src="https://cdn.jsdelivr.net/npm/keillion-dynamsoft-javascript-barcode@0.20200506.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="driverlicense.js"></script>
     <script>
         let scanner = null;
-        Dynamsoft.BarcodeScanner.createInstance({
-            UIElement: document.getElementById('div-video-container'),
-            videoSettings: { video: { width: 1280, height: 720, facingMode: "environment" } },
-            onFrameRead: results => {console.log(results);},
-            onUnduplicatedRead: txt => {
+        (async ()=>{
+            scanner = await Dynamsoft.BarcodeScanner.createInstance();
+            await scanner.setUIElement(document.getElementById('div-video-container'));
+
+            let runtimeSettings = await scanner.getRuntimeSettings();
+            runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_PDF417;
+            runtimeSettings.LocalizationModes = [2,8,0,0,0,0,0,0];
+            runtimeSettings.deblurLevel = 2;
+            await scanner.updateRuntimeSettings(runtimeSettings);
+
+            scanner.onFrameRead = results => console.log(results);
+            scanner.onUnduplicatedRead = txt => {
                 alert("PDF417 found");
 
                 // Get infos
@@ -40,19 +45,9 @@
                     p.innerText = info.description + ': ' + info.content;
                     div.appendChild(p);
                 }
-            }
-        }).then(async s => {
-            scanner = s;
-            let runtimeSettings = await scanner.getRuntimeSettings();
-            runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_PDF417;
-            runtimeSettings.LocalizationModes = [2,16,4,8,0,0,0,0];
-            runtimeSettings.deblurLevel = 2;
-            await scanner.updateRuntimeSettings(runtimeSettings);
-            scanner.show().catch(ex=>{
-                console.log(ex);
-                alert(ex.message || ex);
-                scanner.hide();
-            });
-        });
+            };
+
+            await scanner.show();
+        })();
     </script>
 </body></html>

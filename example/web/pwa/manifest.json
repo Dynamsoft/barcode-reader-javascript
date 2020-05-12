@@ -1,6 +1,6 @@
 {
-    "name": "dynamsoft bacode js pwa basic",
-    "short_name": "bacode js",
+    "name": "Dynamsoft Barcode Reader JS PWA basic",
+    "short_name": "Dynamsoft Barcode JS",
     "start_url": "./",
     "scope": ".",
     "display": "standalone",

@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.4.0 (js 20200331)
+* @version 7.4.0 (js 20200512)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -216,7 +216,10 @@ export declare enum EnumImagePixelFormat {
 	IPF_RGB_888 = 6,
 	IPF_ARGB_8888 = 7,
 	IPF_RGB_161616 = 8,
-	IPF_ARGB_16161616 = 9
+	IPF_ARGB_16161616 = 9,
+	IPF_ABGR_8888 = 10,
+	IPF_ABGR_16161616 = 11,
+	IPF_BGR_888 = 12
 }
 /**
  * A class dedicated to image decoding.
@@ -772,13 +775,19 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	set soundOnSuccessfullRead(value: HTMLAudioElement);
 	/**
-	 * Whether to play sound when the scanner get successfull read.
+	 * Whether to play sound when the scanner reads a barcode successfully.
+	 * Default value is `false`, which does not play sound.
+	 * Use `frame` or `true` to play a sound when any barcode is found within a frame.
+	 * Use `unduplicated` to play a sound only when any unique/unduplicated barcode is found within a frame.
 	 * ```js
+	 * scanner.bPlaySoundOnSuccessfulRead = false;
 	 * scanner.bPlaySoundOnSuccessfulRead = true;
+	 * scanner.bPlaySoundOnSuccessfulRead = "frame";
+	 * scanner.bPlaySoundOnSuccessfulRead = "unduplicated";
 	 * scanner.show();
 	 * ```
 	 */
-	bPlaySoundOnSuccessfulRead: boolean;
+	bPlaySoundOnSuccessfulRead: (boolean | string);
 	/**
 	 * @ignore
 	 */
@@ -1332,6 +1341,7 @@ export declare enum EnumImagePreprocessingMode {
 	IPM_GRAY_EQUALIZE = 4,
 	IPM_GRAY_SMOOTH = 8,
 	IPM_SHARPEN_SMOOTH = 16,
+	IPM_MORPHOLOGY = 32,
 	IPM_SKIP = 0
 }
 export declare enum EnumIMResultDataType {
