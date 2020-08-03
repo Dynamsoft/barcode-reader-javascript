@@ -42,11 +42,6 @@ export default {
             };
             await this.scanner.open();
 
-            if(this.bDestroyed){
-                this.scanner.destroy();
-                return;
-            }
-
         }catch(ex){
             this.$emit("appendMessage", ex.message);
             console.error(ex);

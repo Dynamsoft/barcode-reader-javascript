@@ -29,11 +29,6 @@ class BarcodeScanner extends React.Component {
             };
             await this.scanner.open();
 
-            if(this.bDestroyed){
-                this.scanner.destroy();
-                return;
-            }
-
         }catch(ex){
             this.props.appendMessage(ex.message);
             console.error(ex);

@@ -18,7 +18,7 @@
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
 <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.4.0-v1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.5.0-v0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
 
 <script>
     eruda.init();
@@ -35,15 +35,19 @@
 
             scanner.bPlaySoundOnSuccessfulRead = true;
 
-            let settings = await scanner.getRuntimeSettings();
+            let rs = await scanner.getRuntimeSettings();
             if(Dynamsoft.BarcodeReader._bUseFullFeature){
-                settings.intermediateResultTypes = 1; // the intermediateResult need a license to support it
+                rs.intermediateResultTypes = 1; // the intermediateResult need a license to support it
             }else{
                 scanner.bSaveOriCanvas = true;
             }
-            settings.localizationModes = [2,0,0,0,0,0,0,0];//16
-            settings.timeout = 100000;
-            await scanner.updateRuntimeSettings(settings);
+            rs.localizationModes = [2,0,0,0,0,0,0,0];//16
+            rs.timeout = 100000;
+            await scanner.updateRuntimeSettings(rs);
+
+            let ss = await scanner.getScanSettings();
+            ss.intervalTime = 100;
+            await scanner.updateScanSettings(ss);
 
             let processingCount = 0;
             scanner.onFrameRead = async results => {
@@ -58,9 +62,11 @@
                         // send oriCanvas as png to server
                         let fd = new FormData();
                         for(let cvs of cvss){               
-                            let blob = await new Promise(resolve=>{
-                                cvs.toBlob(blob=>resolve(blob));
-                            });
+                            let blob = cvs.convertToBlob? 
+                                await cvs.convertToBlob():
+                                await new Promise(resolve=>{
+                                    cvs.toBlob(blob=>resolve(blob));
+                                });
                             fd.append("img",blob);
                         }
                         await fetch(document.getElementById("ipt-server-url").value || "collect", {
