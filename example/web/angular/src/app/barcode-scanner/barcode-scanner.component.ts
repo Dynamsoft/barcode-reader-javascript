@@ -32,11 +32,6 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
         };
         await this.scanner.open();
 
-        if(this.bDestroyed){
-            this.scanner.destroy();
-            return;
-        }
-
     }catch(ex){
         this.appendMessage.emit(ex.message);
         console.error(ex);

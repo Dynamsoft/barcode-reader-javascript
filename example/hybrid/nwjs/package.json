@@ -8,6 +8,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "dynamsoft-javascript-barcode": "7.4.0-v1"
+    "dynamsoft-javascript-barcode": "7.5.0-v0"
   }
 }
