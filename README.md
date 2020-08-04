@@ -116,8 +116,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   Postal Code: **`USPS Intelligent Mail`**, **`PostNet`**, **`Planet`**, **`Australian Post`**, **`UK Royal Mail (RM4SCC)`**.
 
-#### Supported Data Sources: 
-  **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
+* Supported Data Sources: **`Blob`**, **`HTMLImageElement`**, **`HTMLVideoElement`**, and **`URL`**, etc.
 
 #### Browser Compatibility:
 
