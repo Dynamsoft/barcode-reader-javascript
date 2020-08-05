@@ -352,7 +352,7 @@ function kb() {
   var a = lb;
   return String.prototype.startsWith ? a.startsWith("data:application/octet-stream;base64,") : 0 === a.indexOf("data:application/octet-stream;base64,");
 }
-var lb = "dbr-7.5.0.1.node.wasm";
+var lb = "dbr-7.5.0.node.wasm";
 if (!kb()) {
   var mb = lb;
   lb = e.locateFile ? e.locateFile(mb, ka) : ka + mb;
