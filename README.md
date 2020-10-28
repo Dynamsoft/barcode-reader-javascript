@@ -32,6 +32,13 @@ cdn
 
 [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
 
+## License Key
+Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a valid license and update `PRODUCT-KEYS`:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+```
+
 ## Quick Usage
 
 ```html
@@ -63,7 +70,7 @@ cdn
 
 ```js
 let Dynamsoft = require('dynamsoft-node-barcode');
-// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
 Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
@@ -201,14 +208,14 @@ This section will help you use the library to build a simple web application to 
 
 Create an HTML file with the following content. Deploy this to your web server and run the application over **HTTPS**.
 
-* You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx).
+* You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/customer/license/trialLicense).
 * If you don't have a ready-to-use web server and you happen to have a package manager like `npm` or `yarn`, you can set up a simple http server in minutes. Check out http-server on [npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/en/package/http-server).
 
 ```html
 <!DOCTYPE html>
 <html>
 <body>
-    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
@@ -420,7 +427,7 @@ The following introduces the 3rd way. Check out the following code on how it's d
     <div id="div-video-container">
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
-    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
@@ -716,7 +723,7 @@ It takes several steps to activate a purchased license, the following steps assu
   You may have noticed that in all the samples above, we have the following line of code
 
   ```html
-  <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+  <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
