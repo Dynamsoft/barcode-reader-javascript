@@ -1,4 +1,4 @@
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 import React from 'react';
 import BarcodeScanner from './BarcodeScanner';
 
@@ -68,7 +68,7 @@ class HelloWorld extends React.Component {
         (async ()=>{
             try{
                 this.appendMessage("======== start read... ========");
-                let reader = this.reader = this.reader || await Dynamsoft.BarcodeReader.createInstance();
+                let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
                 let files = input.files;
                 for(let i = 0; i < files.length; ++i){
                 let file = files[i];

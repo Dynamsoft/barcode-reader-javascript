@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Dynamsoft BarcodeReader SDK for Javascript - v7.6.0</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v7.6.0">
+	<title>Dynamsoft BarcodeReader SDK for Javascript - v8.0.0</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.0.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v7.6.0</a>
+					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Dynamsoft BarcodeReader SDK for Javascript - v7.6.0</h1>
+			<h1>Dynamsoft BarcodeReader SDK for Javascript - v8.0.0</h1>
 		</div>
 	</div>
 </header>
@@ -78,9 +78,9 @@
 				<p>yarn</p>
 				<pre><code>$ yarn <span class="hljs-keyword">add</span><span class="bash"> dynamsoft-javascript-barcode</span></code></pre><p>npm</p>
 				<pre><code>$ npm <span class="hljs-keyword">install </span>dynamsoft-<span class="hljs-keyword">javascript-barcode </span>--save</code></pre><p>cdn</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-comment">&lt;!-- or --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p><a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js">Download zip</a></p>
 				<a href="#quick-usage" id="quick-usage" style="color: inherit; text-decoration: none;">
 					<h2>Quick Usage</h2>
@@ -88,7 +88,7 @@
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -365,7 +365,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -424,9 +424,9 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 				<p>Now, take a look at the sample code. You can find that there is nothing but two scripts inside the <code>&lt;body&gt;</code></p>
 				<ul>
 					<li><p>The following script includes the core library in the application via a <a href="https://www.jsdelivr.com/">jsDelivr</a> CDN</p>
-						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
+						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
 						<p>The same can be done with other CDNs like <code>unpkg</code></p>
-						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
+						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
 						<blockquote>
 							<p><strong>NOTE</strong>: : Since we do change the library a bit in each release, to make sure your application doesn&#39;t get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like <code>@7</code> is not recommended.</p>
 						</blockquote>
@@ -519,6 +519,7 @@ scanSettings.intervalTime = <span class="hljs-number">300</span>;
 					<li><p><code>get/updateRuntimeSettings</code>: Configures the decode engine. Find a full list of these settings and their corresponding descriptions <a href="https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html">here</a>.
 						<a href="https://jsfiddle.net/DynamsoftTeam/f24h8c1m/">Try in JSFiddle</a></p>
 						<p>e.g.</p>
+						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"single"</span>);</code></pre>
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"speed"</span>);</code></pre>
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"balance"</span>);</code></pre>
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"coverage"</span>);</code></pre>
@@ -551,7 +552,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
         <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -766,7 +767,7 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 				<ul>
 					<li>If you are using a CDN, be sure to change the version number in the URL like this</li>
 				</ul>
-				<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
+				<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
 				<ul>
 					<li>If you have deployed the library files on your own server, you&#39;ll need to replace the old files with the new version. Download the latest version <a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx">here</a>.</li>
 				</ul>
@@ -787,26 +788,28 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 				</a>
 				<p>It takes several steps to activate a purchased license, the following steps assume you have already acquired a commercial license from Dynamsoft. If you haven&#39;t done so yet, you can purchase a license <a href="https://www.dynamsoft.com/Secure/Barcode-Reader-BuyIt.aspx">here</a>.</p>
 				<ul>
-					<li><p><strong>Step One</strong> : Create a Dynamsoft account </p>
+					<li><p><strong>Step One</strong> : Log in the <a href="https://www.dynamsoft.com/customer/license/fullLicense">Customer Portal</a> with your Dynamsoft account </p>
 						<p>If you don&#39;t have an Dynamsoft account, sign up <a href="https://www.dynamsoft.com/CustomerPortal/Account/Registration.aspx">here</a>. Be sure to use the same email that was registered for the purchase.</p>
 					</li>
-					<li><p><strong>Step Two</strong> : Log into Dynamsoft Customer Portal </p>
-						<p>Once logged in, click <strong>Barcode Reader SDK</strong> on the menu bar on the left under <strong>License Center</strong> and you should be able to see your purchased key on the right pane.</p>
+					<li><p><strong>Step Two</strong> : Find the License</p>
+						<p>Once logged in, click <strong>Full License</strong> under <strong>License</strong> on the left menu bar and you should be able to see your purchased key on the right pane.</p>
 					</li>
 					<li><p><strong>Step Three</strong> : Activate the License</p>
-						<p>Under <strong>Status</strong>, click the link <strong>Activate Now</strong> to specify a domain which your license key will be bound to. The domain binding is a security feature to protect your license, although it&#39;s optional, it&#39;s highly recommended.</p>
+						<p>Under <strong>Status</strong>, click the button <strong>Activate</strong> to go to the Activation page, click <strong>Activate</strong> again and confirm the activation.</p>
+					</li>
+					<li><p><strong>Step Four</strong> : Set a Domain</p>
+						<p>This step is optional but recommended. By setting a domain to your key, you can protect it against usage abuse. To do this, go back to <strong>Full License</strong>, find your License and click <strong>Details</strong>. On the Details page, click <strong>Order Detail</strong> to get to the order details page where you can see a <strong>Set Domain</strong> button. Click it, specify a domain and submit.</p>
 						<blockquote>
 							<p>A few examples of the domain</p>
 							<p><a href="http://www.dynamsoft.com">www.dynamsoft.com</a></p>
 							<p>demo.dynamsoft.com</p>
 							<p>*.dynamsoft.com</p>
-							<p>*.dynamsoft.com;*.yoursite.com</p>
 						</blockquote>
 					</li>
-					<li><p><strong>Step Four</strong> : Use the License</p>
+					<li><p><strong>Step Five</strong> : Use the License</p>
 						<p>You may have noticed that in all the samples above, we have the following line of code</p>
 						<pre><code class="language-html"><span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 						<p>To use your activated key, you simply need to replace <code>PRODUCT-KEYS</code> with it.</p>
 					</li>
 				</ul>
@@ -865,6 +868,9 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 					</li>
 					<li class=" tsd-kind-enum">
 						<a href="enums/enumdpmcodereadingmode.html" class="tsd-kind-icon">EnumDPMCode<wbr>Reading<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/enumdeblurmode.html" class="tsd-kind-icon">Enum<wbr>Deblur<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-enum">
 						<a href="enums/enumdeformationresistingmode.html" class="tsd-kind-icon">Enum<wbr>Deformation<wbr>Resisting<wbr>Mode</a>
@@ -966,7 +972,7 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 						<a href="interfaces/videodeviceinfo.html" class="tsd-kind-icon">Video<wbr>Device<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#dynamsoft" class="tsd-kind-icon">Dynamsoft</a>
+						<a href="globals.html#dbr" class="tsd-kind-icon">DBR</a>
 					</li>
 				</ul>
 			</nav>

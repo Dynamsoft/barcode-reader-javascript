@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 
 export default {
     data(){
@@ -24,7 +24,7 @@ export default {
     },
     async mounted(){
         try{
-            this.scanner = await Dynamsoft.BarcodeScanner.createInstance();
+            this.scanner = await DBR.BarcodeScanner.createInstance();
 
             if(this.bDestroyed){
                 this.scanner.destroy();

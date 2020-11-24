@@ -1,10 +1,10 @@
-let Dynamsoft = require('../../dist/dbr.js');
+let DBR = require('../../dist/dbr.js');
 // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
-Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
+DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
     console.log("============== create reader ==============");
-    let reader = await Dynamsoft.BarcodeReader.createInstance();
+    let reader = await DBR.BarcodeReader.createInstance();
     console.log("============== decode buffer ==============");
     let fs = require('fs');
     let buffer = fs.readFileSync(__dirname + '/../sample.png');
@@ -28,7 +28,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     reader.destroy();
     
     // Since the worker keep alive, you can call
-    await Dynamsoft.BarcodeReader._dbrWorker.terminate();
+    await DBR.BarcodeReader._dbrWorker.terminate();
     // when you need to exit this process.
     // Or call
     process.exit();

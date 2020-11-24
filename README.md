@@ -25,9 +25,9 @@ $ npm install dynamsoft-javascript-barcode --save
 
 cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 <!-- or -->
-<script src="https://unpkg.com/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
@@ -38,7 +38,7 @@ cdn
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -209,7 +209,7 @@ Create an HTML file with the following content. Deploy this to your web server a
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -268,13 +268,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like `unpkg`
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
@@ -382,6 +382,9 @@ As you can see in the code, there are three categories of configurations.
   
   e.g.
   ```js
+  await barcodeScanner.updateRuntimeSettings("single");
+  ```
+  ```js
   await barcodeScanner.updateRuntimeSettings("speed");
   ```
   ```js
@@ -421,7 +424,7 @@ The following introduces the 3rd way. Check out the following code on how it's d
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -664,7 +667,7 @@ https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript
 * If you are using a CDN, be sure to change the version number in the URL like this
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 * If you have deployed the library files on your own server, you'll need to replace the old files with the new version. Download the latest version [here](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx).
@@ -689,17 +692,21 @@ Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-R
 
 It takes several steps to activate a purchased license, the following steps assume you have already acquired a commercial license from Dynamsoft. If you haven't done so yet, you can purchase a license [here](https://www.dynamsoft.com/Secure/Barcode-Reader-BuyIt.aspx).
 
-* **Step One** : Create a Dynamsoft account 
+* **Step One** : Log in the [Customer Portal](https://www.dynamsoft.com/customer/license/fullLicense) with your Dynamsoft account 
 
   If you don't have an Dynamsoft account, sign up [here](https://www.dynamsoft.com/CustomerPortal/Account/Registration.aspx). Be sure to use the same email that was registered for the purchase.
 
-* **Step Two** : Log into Dynamsoft Customer Portal 
+* **Step Two** : Find the License
 
-  Once logged in, click **Barcode Reader SDK** on the menu bar on the left under **License Center** and you should be able to see your purchased key on the right pane.
+  Once logged in, click **Full License** under **License** on the left menu bar and you should be able to see your purchased key on the right pane.
 
 * **Step Three** : Activate the License
 
-  Under **Status**, click the link **Activate Now** to specify a domain which your license key will be bound to. The domain binding is a security feature to protect your license, although it's optional, it's highly recommended.
+  Under **Status**, click the button **Activate** to go to the Activation page, click **Activate** again and confirm the activation.
+  
+* **Step Four** : Set a Domain
+
+  This step is optional but recommended. By setting a domain to your key, you can protect it against usage abuse. To do this, go back to **Full License**, find your License and click **Details**. On the Details page, click **Order Detail** to get to the order details page where you can see a **Set Domain** button. Click it, specify a domain and submit.
 
   > A few examples of the domain
   >
@@ -708,16 +715,14 @@ It takes several steps to activate a purchased license, the following steps assu
   > demo.dynamsoft.com
   >
   > \*.dynamsoft.com
-  >
-  > \*.dynamsoft.com;\*.yoursite.com
 
-* **Step Four** : Use the License
+* **Step Five** : Use the License
 
   You may have noticed that in all the samples above, we have the following line of code
 
   ```html
   <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   To use your activated key, you simply need to replace `PRODUCT-KEYS` with it.

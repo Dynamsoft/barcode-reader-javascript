@@ -1,7 +1,7 @@
 import 'dart:js';
 import 'package:angular/angular.dart';
 import 'dart:html';
-import 'package:dbrjs_angulardart/dynamsoft.dart';
+import 'package:dbrjs_angulardart/dbr.dart';
 import 'package:js/js_util.dart';
 
 @Component(
