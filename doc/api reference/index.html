@@ -68,7 +68,7 @@
 					<img src="https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg" alt="jsdelivr">
 				<img src="https://img.shields.io/snyk/vulnerabilities/npm/dynamsoft-javascript-barcode.svg" alt=""></p>
 				<p><img src="https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png" alt="Dynamsoft JavaScript Barcode SDK"></p>
-				<p><a href="https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx">Dynamsoft BarcodeReader SDK for Web</a> is a JavaScript library for barcode scanning based on the <strong>WebAssembly</strong> technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.</p>
+				<p><a href="https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx">Dynamsoft JavaScript Barcode SDK for Web</a> is a JavaScript library for barcode scanning based on the <strong>WebAssembly</strong> technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.</p>
 				<blockquote>
 					<p>Also see <a href="https://github.com/dynamsoft-dbr/node-javascript-barcode">Dynamsoft JavaScript Barcode SDK for Node</a>.</p>
 				</blockquote>
@@ -82,6 +82,11 @@
 <span class="hljs-comment">&lt;!-- or --&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p><a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js">Download zip</a></p>
+				<a href="#license-key" id="license-key" style="color: inherit; text-decoration: none;">
+					<h2>License Key</h2>
+				</a>
+				<p>Please visit <a href="https://www.dynamsoft.com/customer/license/trialLicense">https://www.dynamsoft.com/customer/license/trialLicense</a> to get a valid license and update <code>PRODUCT-KEYS</code>:</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<a href="#quick-usage" id="quick-usage" style="color: inherit; text-decoration: none;">
 					<h2>Quick Usage</h2>
 				</a>
@@ -108,7 +113,7 @@
 
 ```js
 let DBR = require('dynamsoft-node-barcode');
-// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
@@ -173,7 +178,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					<li><p>Unlike typical server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:</p>
 						<ul>
 							<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices/getUserMedia</a> <ul>
-									<li>Required only for in-browser video streaming. If a browser doesn&#39;t have this API the <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> is used automatically. If the API exists but doesn&#39;t work correctly, <a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode">Single Frame Mode</a> can be used as an alternative.</li>
+									<li>Required only for in-browser video streaming. If a browser doesn&#39;t have this API the <a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode">Single Frame Mode</a> is used automatically. If the API exists but doesn&#39;t work correctly, <a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode">Single Frame Mode</a> can be used as an alternative.</li>
 								</ul>
 							</li>
 							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly">WebAssembly</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob">Blob</a>,  <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL">URL/createObjectURL</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">Web Workers</a><ul>
@@ -336,7 +341,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 						</tr>
 				</tbody></table>
 				<p>  <sup>1</sup> The <code>wasm</code> file size is based on version 7.2.2. In later versions, the size may differ.</p>
-				<p>  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call <code>loadWasm</code> or <code>CreateInstance</code>.</p>
+				<p>  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call <code>loadWasm</code> or <code>createInstance</code>.</p>
 				<p>  <code>Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true;</code></p>
 				<a href="#live-demo" id="live-demo" style="color: inherit; text-decoration: none;">
 					<h2>Live Demo</h2>
@@ -358,13 +363,13 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 				</a>
 				<p>Create an HTML file with the following content. Deploy this to your web server and run the application over <strong>HTTPS</strong>.</p>
 				<ul>
-					<li>You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key <a href="https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx">here</a>.</li>
+					<li>You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key <a href="https://www.dynamsoft.com/customer/license/trialLicense">here</a>.</li>
 					<li>If you don&#39;t have a ready-to-use web server and you happen to have a package manager like <code>npm</code> or <code>yarn</code>, you can set up a simple http server in minutes. Check out http-server on <a href="https://www.npmjs.com/package/http-server">npm</a> or <a href="https://yarnpkg.com/en/package/http-server">yarn</a>.</li>
 				</ul>
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
+    <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. --&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
@@ -551,7 +556,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"div-video-container"</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
+    <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. --&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
@@ -687,8 +692,8 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 					<h2>Changelog</h2>
 				</a>
 				<p><a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/">https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/</a></p>
-				<a href="#how-to-upgrade-from-version-7xx-to-8xx" id="how-to-upgrade-from-version-7xx-to-8xx" style="color: inherit; text-decoration: none;">
-					<h2>How to Upgrade from version <code>7.x.x</code> to <code>8.x.x</code></h2>
+				<a href="#how-to-upgrade" id="how-to-upgrade" style="color: inherit; text-decoration: none;">
+					<h2>How to Upgrade</h2>
 				</a>
 				<p><a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x">https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x</a></p>
 				<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">

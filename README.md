@@ -36,7 +36,7 @@ cdn
 Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a valid license and update `PRODUCT-KEYS`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 ## Quick Usage
@@ -70,7 +70,7 @@ Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a va
 
 ```js
 let DBR = require('dynamsoft-node-barcode');
-// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
@@ -129,7 +129,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   * Unlike typical server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:
     * [MediaDevices/getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) 
-      * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html#singleframemode) can be used as an alternative.
+      * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode) can be used as an alternative.
     * [WebAssembly](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly), [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob),  [URL/createObjectURL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL), [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
       * These four features are required for the library to work.
     
@@ -182,7 +182,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   <sup>1</sup> The `wasm` file size is based on version 7.2.2. In later versions, the size may differ.
 
-  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call `loadWasm` or `CreateInstance`.
+  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call `loadWasm` or `createInstance`.
 
   `Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true;`
 
@@ -215,7 +215,7 @@ Create an HTML file with the following content. Deploy this to your web server a
 <!DOCTYPE html>
 <html>
 <body>
-    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
@@ -430,9 +430,8 @@ The following introduces the 3rd way. Check out the following code on how it's d
     <div id="div-video-container">
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
-    <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
-
     <script>
         let scanner = null;
         (async()=>{
@@ -596,7 +595,7 @@ Dynamsoft.DBR.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 
 https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/
 
-## How to Upgrade from version `7.x.x` to `8.x.x` 
+## How to Upgrade
 
 https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x
 
