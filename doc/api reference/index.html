@@ -92,7 +92,7 @@
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
-            scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+            scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
             scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);};
             scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> {alert(txt);};
             <span class="hljs-keyword">await</span> scanner.show();
@@ -107,12 +107,12 @@
 ### Node
 
 ```js
-let Dynamsoft = require('dynamsoft-node-barcode');
+let DBR = require('dynamsoft-node-barcode');
 // Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license
-Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
+DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
-    let reader = await Dynamsoft.BarcodeReader.createInstance();
+    let reader = await DBR.BarcodeReader.createInstance();
     for(let result of await reader.decode('https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png')){
         console.log(result.barcodeText);
     }
@@ -337,7 +337,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 				</tbody></table>
 				<p>  <sup>1</sup> The <code>wasm</code> file size is based on version 7.2.2. In later versions, the size may differ.</p>
 				<p>  <sup>2</sup> The compact edition downloads and compiles faster, which makes it more suitable for the scenario where a customer only needs to scan a barcode once. In comparison, scenarios where an employee needs to scan lots of barcodes continuously or where uncommon barcodes or advanced features are required, use the full edition by simply setting the following before you call <code>loadWasm</code> or <code>CreateInstance</code>.</p>
-				<p>  <code>Dynamsoft.BarcodeReader._bUseFullFeature = true;</code></p>
+				<p>  <code>Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true;</code></p>
 				<a href="#live-demo" id="live-demo" style="color: inherit; text-decoration: none;">
 					<h2>Live Demo</h2>
 				</a>
@@ -369,7 +369,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
-            scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+            scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
             scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);};
             scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> {alert(txt);};
             <span class="hljs-keyword">await</span> scanner.show();
@@ -377,7 +377,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/pL4e7yrd/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/3gtaycm0/">Try in JSFiddle</a></p>
 				<a href="#step-two-tackle-a-few-issues" id="step-two-tackle-a-few-issues" style="color: inherit; text-decoration: none;">
 					<h3>Step Two: Tackle a few issues.</h3>
 				</a>
@@ -435,7 +435,7 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 						<pre><code class="language-javascript">&lt;script&gt;
   <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
   <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
-      scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+      scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
       scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);};
       scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> {alert(txt);};
       <span class="hljs-keyword">await</span> scanner.show();
@@ -458,18 +458,18 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 					<h3>Initializing</h3>
 				</a>
 				<p>The library is based on the <code>WebAssembly</code> standard; therefore, <strong>on first use</strong>, it needs some time to download and compile the <code>wasm</code> files. After the first use, the browser may cache the file so that the next time no &#39;downloading&#39; is required.</p>
-				<p><code>Dynamsoft.BarcodeReader.loadWasm</code> is the API to start the initialization. </p>
+				<p><code>Dynamsoft.DBR.BarcodeReader.loadWasm</code> is the API to start the initialization. </p>
 				<pre><code class="language-js"><span class="hljs-keyword">try</span>{
-    <span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.loadWasm();
+    <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();
 }<span class="hljs-keyword">catch</span>(ex){
     <span class="hljs-built_in">console</span>.error(ex);
 }</code></pre>
-				<p>That said, as shown in the sample above, you don&#39;t necessarily need to call the above API because other APIs like <code>Dynamsoft.BarcodeReader.createInstance</code> and <code>Dynamsoft.BarcodeScanner.createInstance</code> will call <code>loadWasm</code> themselves.</p>
+				<p>That said, as shown in the sample above, you don&#39;t necessarily need to call the above API because other APIs like <code>Dynamsoft.DBR.BarcodeReader.createInstance</code> and <code>Dynamsoft.DBR.BarcodeScanner.createInstance</code> will call <code>loadWasm</code> themselves.</p>
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> reader = <span class="hljs-literal">null</span>;
 <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
 <span class="hljs-keyword">try</span>{
-    reader = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeReader.createInstance();
-    scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+    reader = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.createInstance();
+    scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
 }<span class="hljs-keyword">catch</span>(ex){
     <span class="hljs-built_in">console</span>.error(ex);
 }</code></pre>
@@ -496,12 +496,12 @@ Dynamsoft.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 				<pre><code class="language-js"><span class="hljs-comment">// set which camera and what resolution to use</span>
 <span class="hljs-keyword">await</span> scanner.updateVideoSettings({ <span class="hljs-attr">video</span>: { <span class="hljs-attr">width</span>: <span class="hljs-number">1280</span>, <span class="hljs-attr">height</span>: <span class="hljs-number">720</span>, <span class="hljs-attr">facingMode</span>: <span class="hljs-string">"environment"</span> } });
 
-<span class="hljs-comment">// use one of three built-in RuntimeSetting templates, 'speed' is recommended for decoding from a video stream</span>
-<span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(<span class="hljs-string">"speed"</span>);
+<span class="hljs-comment">// use one of three built-in RuntimeSetting templates, 'single' is recommended for decoding from a video stream</span>
+<span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(<span class="hljs-string">"single"</span>);
 
 <span class="hljs-comment">// make changes to the template. The code snippet below demonstrates how to specify which symbologies are enabled</span>
 <span class="hljs-keyword">let</span> runtimeSettings = <span class="hljs-keyword">await</span> scanner.getRuntimeSettings();
-runtimeSettings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED | Dynamsoft.EnumBarcodeFormat.BF_QR_CODE;
+runtimeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED | Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
 <span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(runtimeSettings);
 
 <span class="hljs-comment">// set up the scanner behavior</span>
@@ -511,13 +511,13 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">20000</span>;
   <span class="hljs-comment">// set a scan interval so the library may release the CPU from time to time</span>
 scanSettings.intervalTime = <span class="hljs-number">300</span>;
 <span class="hljs-keyword">await</span> scanner.updateScanSettings(scanSettings);</code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/yfkcajxz/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/pa7g85wh/">Try in JSFiddle</a></p>
 				<p>As you can see in the code, there are three categories of configurations.</p>
 				<ul>
 					<li><p><code>get/updateVideoSettings</code>: Configures the data source, i.e., the video stream. These settings include which camera to use, the resolution, etc.. Learn more <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax">here</a>.</p>
 					</li>
-					<li><p><code>get/updateRuntimeSettings</code>: Configures the decode engine. Find a full list of these settings and their corresponding descriptions <a href="https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html">here</a>.
-						<a href="https://jsfiddle.net/DynamsoftTeam/f24h8c1m/">Try in JSFiddle</a></p>
+					<li><p><code>get/updateRuntimeSettings</code>: Configures the decode engine. Find a full list of these settings and their corresponding descriptions <a href="https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest">here</a>.
+						<a href="https://jsfiddle.net/DynamsoftTeam/h3o4kfau/">Try in JSFiddle</a></p>
 						<p>e.g.</p>
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"single"</span>);</code></pre>
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"speed"</span>);</code></pre>
@@ -525,13 +525,13 @@ scanSettings.intervalTime = <span class="hljs-number">300</span>;
 						<pre><code class="language-js"><span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(<span class="hljs-string">"coverage"</span>);</code></pre>
 						<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> barcodeScanner.getRuntimeSettings();
 settings.localizationModes = [
-      Dynamsoft.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
-      Dynamsoft.EnumLocalizationMode.LM_SCAN_DIRECTLY,
-      Dynamsoft.EnumLocalizationMode.LM_LINES, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
+      Dynamsoft.DBR.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
+      Dynamsoft.DBR.EnumLocalizationMode.LM_SCAN_DIRECTLY,
+      Dynamsoft.DBR.EnumLocalizationMode.LM_LINES, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>];
 settings.deblurLevel = <span class="hljs-number">2</span>;
 <span class="hljs-keyword">await</span> barcodeScanner.updateRuntimeSettings(settings);</code></pre>
 					</li>
-					<li><p><code>get/updateScanSettings</code>: Configures the behavior of the scanner which includes <code>duplicateForgetTime</code>, <code>intervalTime</code> and <code>filter</code>, etc.</p>
+					<li><p><code>get/updateScanSettings</code>: Configures the behavior of the scanner which includes <code>duplicateForgetTime</code>, <code>intervalTime</code>, etc.</p>
 					</li>
 				</ul>
 				<a href="#customizing-the-ui" id="customizing-the-ui" style="color: inherit; text-decoration: none;">
@@ -541,7 +541,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
 				<p>The default scanner UI is defined in the file <code>dist/dbr.scanner.html</code>. There are 3 ways to customize it:</p>
 				<ol>
 					<li>Modify the file <code>dist/dbr.scanner.html</code> directly (only possible when you deploy these files yourself instead of using the CDN).</li>
-					<li>Copy the file <code>dist/dbr.scanner.html</code>, modify it and specify the new file as the default UI by its URL <code>Dynamsoft.BarcodeScanner.defaultUIElementURL = url</code>. Note that you must set <code>defaultUIElementURL</code> before you call <code>createInstance</code>.</li>
+					<li>Copy the file <code>dist/dbr.scanner.html</code>, modify it and specify the new file as the default UI by its URL <code>Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = url</code>. Note that you must set <code>defaultUIElementURL</code> before you call <code>createInstance</code>.</li>
 					<li>Build the UI into your own web page and call <code>scanner.setUIElement(HTMLElement)</code> to specify that element.</li>
 				</ol>
 				<p>The following introduces the 3rd way. Check out the following code on how it&#39;s done.</p>
@@ -556,7 +556,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
-            scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+            scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
             <span class="hljs-keyword">await</span> scanner.setUIElement(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div-video-container'</span>));
             scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);};
             scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> {alert(txt);};
@@ -565,7 +565,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
     </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/2jzeq1r6/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/21chb5pd/">Try in JSFiddle</a></p>
 				<p>The code has set the element <code>div-video-container</code> as the UI and inside it there is a video element for showing the video stream.</p>
 				<blockquote>
 					<p><strong>NOTE</strong>: The class name of the video element must be set to <code>dbrScanner-video</code>.</p>
@@ -576,12 +576,12 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
 					<p>If the class names match the default ones which are <code>dbrScanner-sel-camera</code> and <code>dbrScanner-sel-resolution</code>, the library will automatically populate the lists and handle the camera/resolution switching automatically.</p>
 				</blockquote>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-camera"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/nbj75vxu/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/4uwhngms/">Try in JSFiddle</a></p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-resolution"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span></code></pre>
 				<blockquote>
 					<p>8 default resolutions will automatically show up.</p>
 				</blockquote>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/25v08paf/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/ygx0mvL7/">Try in JSFiddle</a></p>
 				<p>Too many resolutions may be overwhelming for end users. Check out the following code on how to offer your own resolution options.</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-sel-resolution"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-opt-gotResolution"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"got"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span>
@@ -593,78 +593,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
 					<p><strong>Possible Issue</strong>: : Generally you need to provide a resolution that the camera supports. However, in case a camera does not support a specified resolution, it usually will just use the nearest supported resolution. As a result, the selected resolution may not be the actual resolution. </p>
 					<p><strong>Solution</strong>: To take care of this issue, you can add an option with the class name <code>dbrScanner-opt-gotResolution</code> (as shown above) which the library will then use to show the actual resolution being used.</p>
 				</blockquote>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/tnfjks4q/">Try in JSFiddle</a></p>
-				<!--
-#### Customizing Further
-
-You may not want to use elements with the default class names to show the camera list or resolution list. In this case, you need to populate the two lists yourself.
-
-For camera list, you can use the API `getAllCameras()` to get all available cameras and then populate them on the page.
-
-```HTML
-<select id="custom-camera-list"></select>
-```
-
-```javascript
-let cameraList = document.getElementById("custom-camera-list");
-let allCameras = await scanner.getAllCameras();
-let currentCamera = await scanner.getCurrentCamera();
-cameraList.options.length = 0;
-for (let camera of allCameras) {
-    cameraList.options.add(new Option(camera.label, camera.deviceId));
-    if (camera.deviceId == currentCamera.deviceId){
-        cameraList.selectedIndex = i;
-    }
-}
-```
-
-Switch to the selected camera.
-
-```js
-cameraList.onchange = async() => {
-    await scanner.setCurrentCamera(cameraList.options[cameraList.selectedIndex].value);
-};
-```
-
-[Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/2L9ta7mj/)
-
-If you have more than one camera and would like to use a certain one of them. Try out the code below.
-
-```js
-await barcodeScanner.show();
-let allCameras = await barcodeScanner.getAllCameras();
-for (let camera of allCameras) {
-    if (camera.label == 'Your-Camera-Name') {
-        await barcodeScanner.setCurrentCamera(camera.deviceId);
-        break;
-    }
-}
-```
-
-[Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/kLvgt3w2/)
-
-For resolution list, you can show your preferred resolutions and use the API `setResolution` to set the selected option.
-
-```html
-<select id="custom-camera-resolution">
-    <option data-width="1920" data-height="1080">1920 x 1080</option>
-    <option data-width="1280" data-height="720">1280 x 720</option>
-    <option data-width="640" data-height="480">640 x 480</option>
-</select>
-```
-
-```javascript
-let resolutionList = document.getElementById("custom-camera-resolution");
-resolutionList.onchange = async() => {
-    await barcodeScanner.setResolution(
-        resolutionList.options[resolutionList.selectedIndex].getAttribute("data-width"),
-        resolutionList.options[resolutionList.selectedIndex].getAttribute("data-height")
-    );
-};
-```
-
-[Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/djhvno5b/)
--->
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/9r8bucof/">Try in JSFiddle</a></p>
 				<a href="#advanced-usage" id="advanced-usage" style="color: inherit; text-decoration: none;">
 					<h2>Advanced Usage</h2>
 				</a>
@@ -672,7 +601,7 @@ resolutionList.onchange = async() => {
 					<h3><strong>Print out log for better debugging</strong></h3>
 				</a>
 				<p>Include the following in your code to print internal logs in the console.</p>
-				<pre><code class="language-javascript">Dynamsoft.BarcodeReader._onLog = <span class="hljs-built_in">console</span>.log;</code></pre>
+				<pre><code class="language-javascript">Dynamsoft.DBR.BarcodeReader._onLog = <span class="hljs-built_in">console</span>.log;</code></pre>
 				<a href="#show-found-barcodes" id="show-found-barcodes" style="color: inherit; text-decoration: none;">
 					<h3>Show found barcodes</h3>
 				</a>
@@ -683,7 +612,7 @@ resolutionList.onchange = async() => {
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> iptIndex = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
 <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
-    scanner = <span class="hljs-keyword">await</span> Dynamsoft.BarcodeScanner.createInstance();
+    scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
     <span class="hljs-keyword">await</span> scanner.setUIElement(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'div-video-container'</span>));
     scanner.onFrameRead = <span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> {<span class="hljs-built_in">console</span>.log(results);};
     scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt</span>)=&gt;</span>{
@@ -696,7 +625,7 @@ resolutionList.onchange = async() => {
     };
     <span class="hljs-keyword">await</span> scanner.show();
 })();</code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/tz9ngm2a/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/9d6uxe15/">Try in JSFiddle</a></p>
 				<a href="#read-a-specific-arearegion" id="read-a-specific-arearegion" style="color: inherit; text-decoration: none;">
 					<h3>Read a specific area/region</h3>
 				</a>
@@ -713,7 +642,7 @@ settings.region.regionTop = <span class="hljs-number">25</span>;
 settings.region.regionRight = <span class="hljs-number">75</span>;
 settings.region.regionBottom = <span class="hljs-number">75</span>;
 <span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(settings);</code></pre>
-				<p><a href="https://jsfiddle.net/DynamsoftTeam/taykq592/">Try in JSFiddle</a></p>
+				<p><a href="https://jsfiddle.net/DynamsoftTeam/ju0c64ow/">Try in JSFiddle</a></p>
 				<a href="#self-hosted--offline--intranet-deployment" id="self-hosted--offline--intranet-deployment" style="color: inherit; text-decoration: none;">
 					<h2>Self-hosted | Offline | Intranet Deployment</h2>
 				</a>
@@ -747,7 +676,7 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 					</li>
 				</ul>
 				<p>If the resource files like the <code>wasm</code> files are not placed in the same directory as the file <code>dbr.js</code>.  Then you will need to specify the path with the API <code>engineResourcePath</code>. Note that it must be set before <code>loadWasm</code> or <code>createInstance</code> is called.</p>
-				<pre><code class="language-js">Dynamsoft.BarcodeReader.engineResourcePath = <span class="hljs-string">"url/to/the/dir/"</span>;</code></pre>
+				<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"url/to/the/dir/"</span>;</code></pre>
 				<a href="#known-issues" id="known-issues" style="color: inherit; text-decoration: none;">
 					<h2>Known Issues</h2>
 				</a>
@@ -757,62 +686,19 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 				<a href="#changelog" id="changelog" style="color: inherit; text-decoration: none;">
 					<h2>Changelog</h2>
 				</a>
-				<p><a href="https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript">https://www.dynamsoft.com/Products/Dynamic-Barcode-Reader-News.aspx#javascript</a></p>
-				<a href="#how-to-upgrade" id="how-to-upgrade" style="color: inherit; text-decoration: none;">
-					<h2>How to Upgrade</h2>
+				<p><a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/">https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/</a></p>
+				<a href="#how-to-upgrade-from-version-7xx-to-8xx" id="how-to-upgrade-from-version-7xx-to-8xx" style="color: inherit; text-decoration: none;">
+					<h2>How to Upgrade from version <code>7.x.x</code> to <code>8.x.x</code></h2>
 				</a>
-				<a href="#from-version-722-v2-to-730-v0" id="from-version-722-v2-to-730-v0" style="color: inherit; text-decoration: none;">
-					<h4>From version <code>7.2.2-v2</code> to <code>7.3.0-v0</code></h4>
-				</a>
-				<ul>
-					<li>If you are using a CDN, be sure to change the version number in the URL like this</li>
-				</ul>
-				<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
-				<ul>
-					<li>If you have deployed the library files on your own server, you&#39;ll need to replace the old files with the new version. Download the latest version <a href="https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx">here</a>.</li>
-				</ul>
-				<a href="#from-versions-prior-to722-v2-to-730-v0" id="from-versions-prior-to722-v2-to-730-v0" style="color: inherit; text-decoration: none;">
-					<h4>From versions prior to<code>7.2.2-v2</code> to <code>7.3.0-v0</code></h4>
-				</a>
-				<p>Dynamsoft made several changes in the version <code>7.2.2-v2</code>; therefore it may take a bit more effort to upgrade the library from an older version to the version <code>7.2.2-v2</code> or a later version including the latest <code>7.3.0-v0</code> (as of January 2020). Apart from changing the code to include the correct version of the library, you&#39;ll also need to make changes to your code related to the APIs of the library. Check out <a href="https://blog.dynamsoft.com/insights/dynamsoft-barcode-reader-sdk-for-javascript-upgrade-from-v7-1-3-to-v7-2-2/">this post</a> for more information. If you need further assistance with the upgrade, please feel free to contact <a href="#contact-us">Dynamsoft Support</a>.</p>
+				<p><a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x">https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x</a></p>
 				<a href="#api-documentation" id="api-documentation" style="color: inherit; text-decoration: none;">
 					<h2>API Documentation</h2>
 				</a>
-				<!--for github: link need use online-->
-				<p><a href="https://www.dynamsoft.com/help/Barcode-Reader-wasm/">Online Document</a></p>
-				<!-- Decoding Images: [BarcodeReader](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodereader.html)
-
-Decoding Video Stream: [BarcodeScanner](https://www.dynamsoft.com/help/Barcode-Reader-wasm/classes/barcodescanner.html) -->
+				<p><a href="https://www.dynamsoft.com/barcode-reader/programming/javascript/?ver=latest">Online Document</a></p>
 				<a href="#license-activation" id="license-activation" style="color: inherit; text-decoration: none;">
 					<h2>License Activation</h2>
 				</a>
-				<p>It takes several steps to activate a purchased license, the following steps assume you have already acquired a commercial license from Dynamsoft. If you haven&#39;t done so yet, you can purchase a license <a href="https://www.dynamsoft.com/Secure/Barcode-Reader-BuyIt.aspx">here</a>.</p>
-				<ul>
-					<li><p><strong>Step One</strong> : Log in the <a href="https://www.dynamsoft.com/customer/license/fullLicense">Customer Portal</a> with your Dynamsoft account </p>
-						<p>If you don&#39;t have an Dynamsoft account, sign up <a href="https://www.dynamsoft.com/CustomerPortal/Account/Registration.aspx">here</a>. Be sure to use the same email that was registered for the purchase.</p>
-					</li>
-					<li><p><strong>Step Two</strong> : Find the License</p>
-						<p>Once logged in, click <strong>Full License</strong> under <strong>License</strong> on the left menu bar and you should be able to see your purchased key on the right pane.</p>
-					</li>
-					<li><p><strong>Step Three</strong> : Activate the License</p>
-						<p>Under <strong>Status</strong>, click the button <strong>Activate</strong> to go to the Activation page, click <strong>Activate</strong> again and confirm the activation.</p>
-					</li>
-					<li><p><strong>Step Four</strong> : Set a Domain</p>
-						<p>This step is optional but recommended. By setting a domain to your key, you can protect it against usage abuse. To do this, go back to <strong>Full License</strong>, find your License and click <strong>Details</strong>. On the Details page, click <strong>Order Detail</strong> to get to the order details page where you can see a <strong>Set Domain</strong> button. Click it, specify a domain and submit.</p>
-						<blockquote>
-							<p>A few examples of the domain</p>
-							<p><a href="http://www.dynamsoft.com">www.dynamsoft.com</a></p>
-							<p>demo.dynamsoft.com</p>
-							<p>*.dynamsoft.com</p>
-						</blockquote>
-					</li>
-					<li><p><strong>Step Five</strong> : Use the License</p>
-						<p>You may have noticed that in all the samples above, we have the following line of code</p>
-						<pre><code class="language-html"><span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-						<p>To use your activated key, you simply need to replace <code>PRODUCT-KEYS</code> with it.</p>
-					</li>
-				</ul>
+				<p><a href="https://www.dynamsoft.com/barcode-reader/license-activation/set-full-license.html?ver=latest">https://www.dynamsoft.com/barcode-reader/license-activation/set-full-license.html?ver=latest</a></p>
 				<a href="#license-agreement" id="license-agreement" style="color: inherit; text-decoration: none;">
 					<h2>License Agreement</h2>
 				</a>
