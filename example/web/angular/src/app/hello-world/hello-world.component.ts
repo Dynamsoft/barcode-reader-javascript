@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 
 @Component({
   selector: 'app-hello-world',
@@ -43,7 +43,7 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
   async onIptChange(event) {
     try{
       this.appendMessage("======== start read... ========");
-      let reader = this.reader = this.reader || await Dynamsoft.BarcodeReader.createInstance();
+      let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
       let input = event.target;
       let files = input.files;
       for(let i = 0; i < files.length; ++i){

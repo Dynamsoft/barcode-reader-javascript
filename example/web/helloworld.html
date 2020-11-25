@@ -12,10 +12,10 @@
     <button id="btn-show-scanner">show scanner</button>
 
 <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 
 <script>
-    // Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    // Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
 
     // reader for decoding picture
     let reader = null;
@@ -25,7 +25,7 @@
     // decode input picture
     document.getElementById('ipt-file').addEventListener('change', async function(){
         try{
-            reader = reader || await Dynamsoft.BarcodeReader.createInstance();
+            reader = reader || await Dynamsoft.DBR.BarcodeReader.createInstance();
             let resultsToAlert = [];
             for(let i = 0; i < this.files.length; ++i){
                 let file = this.files[i];
@@ -47,7 +47,7 @@
     // decode video from camera
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
-            scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
+            scanner = scanner || await Dynamsoft.DBR.BarcodeScanner.createInstance();
             scanner.onFrameRead = results => {
                 if(results.length){
                     console.log(results);

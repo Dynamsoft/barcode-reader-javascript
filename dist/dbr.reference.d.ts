@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2020, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 7.6.0 (js 20200605)
+* @version 8.0.0 (js 20201113)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -118,6 +118,51 @@ interface RegionDefinition {
 	regionTop: number;
 	regionMeasuredByPercentage: number | boolean;
 }
+declare enum EnumIntermediateResultType {
+	IRT_NO_RESULT = 0,
+	IRT_ORIGINAL_IMAGE = 1,
+	IRT_COLOUR_CLUSTERED_IMAGE = 2,
+	IRT_COLOUR_CONVERTED_GRAYSCALE_IMAGE = 4,
+	IRT_TRANSFORMED_GRAYSCALE_IMAGE = 8,
+	IRT_PREDETECTED_REGION = 16,
+	IRT_PREPROCESSED_IMAGE = 32,
+	IRT_BINARIZED_IMAGE = 64,
+	IRT_TEXT_ZONE = 128,
+	IRT_CONTOUR = 256,
+	IRT_LINE_SEGMENT = 512,
+	IRT_FORM = 1024,
+	IRT_SEGMENTATION_BLOCK = 2048,
+	IRT_TYPED_BARCODE_ZONE = 4096,
+	IRT_PREDETECTED_QUADRILATERAL = 8192
+}
+declare enum EnumTerminatePhase {
+	TP_REGION_PREDETECTED = 1,
+	TP_IMAGE_PREPROCESSED = 2,
+	TP_IMAGE_BINARIZED = 4,
+	TP_BARCODE_LOCALIZED = 8,
+	TP_BARCODE_TYPE_DETERMINED = 16,
+	TP_BARCODE_RECOGNIZED = 32
+}
+declare enum EnumTextResultOrderMode {
+	TROM_CONFIDENCE = 1,
+	TROM_POSITION = 2,
+	TROM_FORMAT = 4,
+	TROM_SKIP = 0,
+	TROM_REV = 2147483648
+}
+declare enum EnumBinarizationMode {
+	BM_AUTO = 1,
+	BM_LOCAL_BLOCK = 2,
+	BM_SKIP = 0,
+	BM_THRESHOLD = 4,
+	BM_REV = 2147483648
+}
+declare enum EnumPDFReadingMode {
+	PDFRM_RASTER = 1,
+	PDFRM_AUTO = 2,
+	PDFRM_VECTOR = 4,
+	PDFRM_REV = 2147483648
+}
 declare enum EnumScaleUpMode {
 	SUM_AUTO = 1,
 	SUM_LINEAR_INTERPOLATION = 2,
@@ -225,7 +270,7 @@ declare enum EnumImagePixelFormat {
 /**
  * A class dedicated to image decoding.
  * ```js
- * let reader = await Dynamsoft.BarcodeReader.createInstance();
+ * let reader = await DBR.BarcodeReader.createInstance();
  * let results = await reader.decode(imageSource);
  * for(let result of results){
  *     console.log(result.barcodeText);
@@ -244,6 +289,19 @@ declare class BarcodeReader {
 	 * Get or set the Dynamsoft Barcode Reader SDK product keys.
 	 */
 	static set productKeys(keys: string);
+	static get handshakeCode(): string;
+	/**
+	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.
+	 */
+	static set handshakeCode(keys: string);
+	/** @ignore */
+	static _sessionPassword?: string;
+	static set sessionPassword(value: string);
+	static get sessionPassword(): string;
+	/** @ignore */
+	static _limitModules?: string[];
+	/** @ignore */
+	static _chargeWay?: string;
 	/**
 	 * modify from https://gist.github.com/2107/5529665
 	 * @ignore
@@ -263,16 +321,15 @@ declare class BarcodeReader {
 	 * The SDK will try to automatically explore the engine location.
 	 * If the auto-explored engine location is not accurate, manually specify the engine location.
 	 * ```js
-	 * Dynamsoft.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
-	 * await Dynamsoft.BarcodeReader.loadWasm();
+	 * DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
+	 * await DBR.BarcodeReader.loadWasm();
 	 * ```
 	*/
 	static set engineResourcePath(value: string);
-	protected static _licenseServer?: string;
 	/** @ignore */
-	static get licenseServer(): string;
-	/** @ignore */
-	static set licenseServer(value: string);
+	protected static _licenseServer?: string[];
+	static get licenseServer(): string[] | string;
+	static set licenseServer(value: string[] | string);
 	private static _deviceFriendlyName;
 	/**
 	 * @ignore
@@ -321,8 +378,8 @@ declare class BarcodeReader {
 	 *
 	 * Need to be set before loadWasm.
 	 * ```js
-	 * Dynamsoft.BarcodeReader._bUseFullFeature = true;
-	 * await Dynamsoft.BarcodeReader.loadWasm();
+	 * DBR.BarcodeReader._bUseFullFeature = true;
+	 * await DBR.BarcodeReader.loadWasm();
 	 * ```
 	 * For web, `_bUseFullFeature` is false as default.
 	 * For Node.js, `_bUseFullFeature` will not work, and BarcodeReader will always work on full feature.
@@ -385,6 +442,22 @@ declare class BarcodeReader {
 	 * Indicates whether the instance has been destroyed.
 	 */
 	bDestroyed: boolean;
+	/** @ignore */
+	protected static _lastErrorCode: number;
+	/** @ignore */
+	static get lastErrorCode(): number;
+	/** @ignore */
+	protected static _lastErrorString: string;
+	/** @ignore */
+	static get lastErrorString(): string;
+	/** @ignore */
+	protected _lastErrorCode: number;
+	/** @ignore */
+	get lastErrorCode(): number;
+	/** @ignore */
+	protected _lastErrorString: string;
+	/** @ignore */
+	get lastErrorString(): string;
 	/**
 	 * Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
 	 * @category Initialize and Destroy
@@ -394,7 +467,7 @@ declare class BarcodeReader {
 	/**
 	 * Create a `BarcodeReader` object.
 	 * ```
-	 * let reader = await Dynamsoft.BarcodeReader.createInstance();
+	 * let reader = await DBR.BarcodeReader.createInstance();
 	 * ```
 	  * @category Initialize and Destroy
 	 */
@@ -482,7 +555,7 @@ declare class BarcodeReader {
 	 * ```js
 	 * await reader.updateRuntimeSettings('balance');
 	 * let settings = await reader.getRuntimeSettings();
-	 * settings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED;
+	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 	 * await reader.updateRuntimeSettings(settings);
 	 * ```
 	 * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
@@ -641,7 +714,7 @@ interface ScannerPlayCallbackInfo {
 /**
  * A class dedicated to video decoding.
  * ```js
- * let scanner = await Dynamsoft.BarcodeScanner.createInstance();
+ * let scanner = await DBR.BarcodeScanner.createInstance();
  * scanner.onUnduplicatedRead = txt => console.log(txt);
  * await scanner.show();
  * ```
@@ -663,8 +736,8 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * ```html
 	 * <video class="dbrScanner-video" playsinline="true"></video>
 	 * <script>
-	 *     let scanner = await Dynamsoft.BarcodeScanner.createInstance();
-	 *     scanner.setUIElement(document.getElementByClassName("dbrScanner-video")[0]);
+	 *     let scanner = await DBR.BarcodeScanner.createInstance();
+	 *     scanner.setUIElement(document.getElementsByClassName("dbrScanner-video")[0]);
 	 *     await scanner.open();
 	 * </script>
 	 * ```
@@ -680,7 +753,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * A mode not use video, get a frame from OS camera instead.
 	 * ```js
-	 * let scanner = await Dynamsoft.BarcodeReader.createInstance();
+	 * let scanner = await DBR.BarcodeReader.createInstance();
 	 * if(scanner.singleFrameMode){
 	 *     // the browser does not provide webrtc API, dbrjs automatically use singleFrameMode instead
 	 *     scanner.show();
@@ -691,7 +764,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * A mode not use video, get a frame from OS camera instead.
 	 * ```js
-	 * let scanner = await Dynamsoft.BarcodeReader.createInstance();
+	 * let scanner = await DBR.BarcodeReader.createInstance();
 	 * scanner.singleFrameMode = true; // use singleFrameMode anyway
 	 * scanner.show();
 	 * ```
@@ -793,7 +866,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Create a `BarcodeScanner` object.
 	* ```
-	* let scanner = await Dynamsoft.BarcodeScanner.createInstance();
+	* let scanner = await DBR.BarcodeScanner.createInstance();
 	* ```
 	 * @param config
 	 * @category Initialize and Destroy
@@ -809,13 +882,13 @@ declare class BarcodeScanner extends BarcodeReader {
 	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
 	private clearMapDecodeRecord;
 	/**
-	 * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` and `single`(experimental) to use preset settings for BarcodeScanner.
-	 * We recommend using the speed-optimized `single`(experimental) preset if scanning only one barcode at a time. The `single`(experimental) is only available in `BarcodeScanner`.
-	 * The default settings for BarcodeScanner is `speed`.
+	 * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` and `single` to use preset settings for BarcodeScanner.
+	 * We recommend using the speed-optimized `single` preset if scanning only one barcode at a time. The `single` is only available in `BarcodeScanner`.
+	 * The default settings for BarcodeScanner is `single`, starting from version 8.0.0.
 	 * ```js
 	 * await scanner.updateRuntimeSettings('balance');
 	 * let settings = await scanner.getRuntimeSettings();
-	 * settings.barcodeFormatIds = Dynamsoft.EnumBarcodeFormat.BF_ONED;
+	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 	 * await scanner.updateRuntimeSettings(settings);
 	 * ```
 	 * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
@@ -1132,10 +1205,6 @@ declare class BarcodeScanner extends BarcodeReader {
 	 */
 	destroy(): Promise<any>;
 }
-declare enum EnumAccompanyingTextRecognitionMode {
-	ATRM_GENERAL = 1,
-	ATRM_SKIP = 0
-}
 declare enum EnumBarcodeColourMode {
 	BICM_DARK_ON_LIGHT = 1,
 	BICM_LIGHT_ON_DARK = 2,
@@ -1163,13 +1232,6 @@ declare enum EnumBarcodeFormat_2 {
 	BF2_RM4SCC = 16777216,
 	BF2_DOTCODE = 2
 }
-declare enum EnumBinarizationMode {
-	BM_AUTO = 1,
-	BM_LOCAL_BLOCK = 2,
-	BM_SKIP = 0,
-	BM_THRESHOLD = 4,
-	BM_REV = 2147483648
-}
 declare enum EnumClarityCalculationMethod {
 	ECCM_CONTRAST = 1
 }
@@ -1190,6 +1252,16 @@ declare enum EnumColourConversionMode {
 declare enum EnumConflictMode {
 	CM_IGNORE = 1,
 	CM_OVERWRITE = 2
+}
+declare enum EnumDeblurMode {
+	DM_SKIP = 0,
+	DM_DIRECT_BINARIZATION = 1,
+	DM_THRESHOLD_BINARIZATION = 2,
+	DM_GRAY_EQUALIZATION = 4,
+	DM_SMOOTHING = 8,
+	DM_MORPHING = 16,
+	DM_DEEP_ANALYSIS = 32,
+	DM_SHARPENING = 64
 }
 declare enum EnumDeformationResistingMode {
 	DRM_AUTO = 1,
@@ -1292,23 +1364,6 @@ declare enum EnumIntermediateResultSavingMode {
 	IRSM_FILESYSTEM = 2,
 	IRSM_BOTH = 4
 }
-declare enum EnumIntermediateResultType {
-	IRT_NO_RESULT = 0,
-	IRT_ORIGINAL_IMAGE = 1,
-	IRT_COLOUR_CLUSTERED_IMAGE = 2,
-	IRT_COLOUR_CONVERTED_GRAYSCALE_IMAGE = 4,
-	IRT_TRANSFORMED_GRAYSCALE_IMAGE = 8,
-	IRT_PREDETECTED_REGION = 16,
-	IRT_PREPROCESSED_IMAGE = 32,
-	IRT_BINARIZED_IMAGE = 64,
-	IRT_TEXT_ZONE = 128,
-	IRT_CONTOUR = 256,
-	IRT_LINE_SEGMENT = 512,
-	IRT_FORM = 1024,
-	IRT_SEGMENTATION_BLOCK = 2048,
-	IRT_TYPED_BARCODE_ZONE = 4096,
-	IRT_PREDETECTED_QUADRILATERAL = 8192
-}
 declare enum EnumLocalizationMode {
 	LM_SKIP = 0,
 	LM_AUTO = 1,
@@ -1320,12 +1375,6 @@ declare enum EnumLocalizationMode {
 	LM_STATISTICS_POSTAL_CODE = 64,
 	LM_CENTRE = 128,
 	LM_REV = 2147483648
-}
-declare enum EnumPDFReadingMode {
-	PDFRM_RASTER = 1,
-	PDFRM_AUTO = 2,
-	PDFRM_VECTOR = 4,
-	PDFRM_REV = 2147483648
 }
 declare enum EnumQRCodeErrorCorrectionLevel {
 	QRECL_ERROR_CORRECTION_H = 0,
@@ -1352,14 +1401,6 @@ declare enum EnumResultType {
 	RT_CANDIDATE_TEXT = 2,
 	RT_PARTIAL_TEXT = 3
 }
-declare enum EnumTerminatePhase {
-	TP_REGION_PREDETECTED = 1,
-	TP_IMAGE_PREPROCESSED = 2,
-	TP_IMAGE_BINARIZED = 4,
-	TP_BARCODE_LOCALIZED = 8,
-	TP_BARCODE_TYPE_DETERMINED = 16,
-	TP_BARCODE_RECOGNIZED = 32
-}
 declare enum EnumTextAssistedCorrectionMode {
 	TACM_AUTO = 1,
 	TACM_VERIFYING = 2,
@@ -1373,23 +1414,63 @@ declare enum EnumTextFilterMode {
 	TFM_SKIP = 0,
 	TFM_REV = 2147483648
 }
-declare enum EnumTextResultOrderMode {
-	TROM_CONFIDENCE = 1,
-	TROM_POSITION = 2,
-	TROM_FORMAT = 4,
-	TROM_SKIP = 0,
-	TROM_REV = 2147483648
-}
 declare enum EnumTextureDetectionMode {
 	TDM_AUTO = 1,
 	TDM_GENERAL_WIDTH_CONCENTRATION = 2,
 	TDM_SKIP = 0,
 	TDM_REV = 2147483648
 }
-declare const Dynamsoft: {
+declare enum EnumLicenseModule {
+	/**One-D barcodes license module*/
+	DM_LM_ONED = "1",
+	/**QR Code barcodes license module*/
+	DM_LM_QR_CODE = "2",
+	/**PDF417 barcodes license module*/
+	DM_LM_PDF417 = "3",
+	/**Datamatrix barcodes license module*/
+	DM_LM_DATAMATRIX = "4",
+	/**Aztec barcodes license module*/
+	DM_LM_AZTEC = "5",
+	/**MAXICODE barcodes license module*/
+	DM_LM_MAXICODE = "6",
+	/**Patch code barcodes license module*/
+	DM_LM_PATCHCODE = "7",
+	/**GS1 Databar barcodes license module*/
+	DM_LM_GS1_DATABAR = "8",
+	/**GS1 Composite barcodes license module*/
+	DM_LM_GS1_COMPOSITE = "9",
+	/**Postal code barcodes license module*/
+	DM_LM_POSTALCODE = "10",
+	/**DotCode barcodes license module*/
+	DM_LM_DOTCODE = "11",
+	/**Intermediate result license module*/
+	DM_LM_INTERMEDIATE_RESULT = "12",
+	/**Datamatrix DPM(Direct Part Marking) license module*/
+	DM_LM_DPM = "13",
+	/**Nonstandard barcodes license module*/
+	DM_LM_NONSTANDARD_BARCODE = "16"
+}
+declare enum EnumChargeWay {
+	/**The charge way automatically determined by the license server.*/
+	DM_CW_AUTO = "",
+	/**Charges by the count of devices.*/
+	DM_CW_DEVICE_COUNT = "DeviceCount",
+	/**Charges by the count of barcode scans.*/
+	DM_CW_SCAN_COUNT = "ScanCount",
+	/**Charges by the count of concurrent devices.*/
+	DM_CW_CONCURRENT_DEVICE_COUNT = "ConcurrentDeviceCount",
+	/**Charges by the count of app domains.*/
+	DM_CW_APP_DOMIAN_COUNT = "Domain",
+	/**Charges by the count of active devices.*/
+	DM_CW_ACTIVE_DEVICE_COUNT = "ActiveDeviceCount",
+	/**Charges by the count of instances.*/
+	DM_CW_INSTANCE_COUNT = "InstanceCount",
+	/**Charges by the count of concurrent instances.*/
+	DM_CW_CONCURRENT_INSTANCE_COUNT = "ConcurrentInstanceCount"
+}
+declare const DBR: {
 	BarcodeReader: typeof BarcodeReader;
 	BarcodeScanner: typeof BarcodeScanner;
-	EnumAccompanyingTextRecognitionMode: typeof EnumAccompanyingTextRecognitionMode;
 	EnumBarcodeColourMode: typeof EnumBarcodeColourMode;
 	EnumBarcodeComplementMode: typeof EnumBarcodeComplementMode;
 	EnumBarcodeFormat: typeof EnumBarcodeFormat;
@@ -1400,6 +1481,7 @@ declare const Dynamsoft: {
 	EnumColourClusteringMode: typeof EnumColourClusteringMode;
 	EnumColourConversionMode: typeof EnumColourConversionMode;
 	EnumConflictMode: typeof EnumConflictMode;
+	EnumDeblurMode: typeof EnumDeblurMode;
 	EnumDeformationResistingMode: typeof EnumDeformationResistingMode;
 	EnumDPMCodeReadingMode: typeof EnumDPMCodeReadingMode;
 	EnumErrorCode: typeof EnumErrorCode;
@@ -1421,7 +1503,13 @@ declare const Dynamsoft: {
 	EnumTextFilterMode: typeof EnumTextFilterMode;
 	EnumTextResultOrderMode: typeof EnumTextResultOrderMode;
 	EnumTextureDetectionMode: typeof EnumTextureDetectionMode;
+	EnumLicenseModule: typeof EnumLicenseModule;
+	EnumChargeWay: typeof EnumChargeWay;
 };
 
 
 
+
+declare var Dynamsoft:{
+    DBR: typeof DBR;
+}

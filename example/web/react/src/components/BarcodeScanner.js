@@ -1,4 +1,4 @@
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 import React from 'react';
 import './BarcodeScanner.css';
 
@@ -11,7 +11,7 @@ class BarcodeScanner extends React.Component {
     }
     async componentDidMount(){
         try{
-            this.scanner = this.scanner || await Dynamsoft.BarcodeScanner.createInstance();
+            this.scanner = this.scanner || await DBR.BarcodeScanner.createInstance();
 
             if(this.bDestroyed){
                 this.scanner.destroy();

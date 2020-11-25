@@ -18,12 +18,12 @@
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
 <!-- Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
 
 <script>
     eruda.init();
-    //Dynamsoft.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
-    Dynamsoft.BarcodeReader._onLog = console.log;
+    //Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    Dynamsoft.DBR.BarcodeReader._onLog = console.log;
 
     // scanner for decoding video
     let scanner = null;
@@ -31,12 +31,12 @@
     // decode video from camera
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
-            scanner = scanner || await Dynamsoft.BarcodeScanner.createInstance();
+            scanner = scanner || await Dynamsoft.DBR.BarcodeScanner.createInstance();
 
             scanner.bPlaySoundOnSuccessfulRead = true;
 
             let rs = await scanner.getRuntimeSettings();
-            if(Dynamsoft.BarcodeReader._bUseFullFeature){
+            if(Dynamsoft.DBR.BarcodeReader._bUseFullFeature){
                 rs.intermediateResultTypes = 1; // the intermediateResult need a license to support it
             }else{
                 scanner.bSaveOriCanvas = true;
@@ -58,7 +58,7 @@
                 if(bSendImg && processingCount < 4){ // max 4 request
                     ++processingCount;
                     try{
-                        let cvss = dbr.BarcodeReader._bUseFullFeature? await scanner.getIntermediateCanvas() : [scanner.oriCanvas];
+                        let cvss = Dynamsoft.DBR.BarcodeReader._bUseFullFeature? await scanner.getIntermediateCanvas() : [scanner.oriCanvas];
                         // send oriCanvas as png to server
                         let fd = new FormData();
                         for(let cvs of cvss){               

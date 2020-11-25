@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 import BarcodeScanner from "./BarcodeScanner";
 
 export default {
@@ -60,7 +60,7 @@ export default {
     async onIptChange(event) {
       try{
         this.appendMessage("======== start read... ========");
-        let reader = this.reader = this.reader || await Dynamsoft.BarcodeReader.createInstance();
+        let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
         let input = event.target;
         let files = input.files;
         for(let i = 0; i < files.length; ++i){

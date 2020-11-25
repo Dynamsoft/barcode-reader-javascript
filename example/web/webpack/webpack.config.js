@@ -6,7 +6,7 @@ module.exports = {
 
     //You can let dbrjs use local resource:
     //1. config copy resource to './dist/' by use `copy-webpack-plugin`
-    //2. set `Dynamsoft.BarcodeReader.engineResourcePath = './dist/'` in `./src/index.js`
+    //2. set `DBR.BarcodeReader.engineResourcePath = './dist/'` in `./src/index.js`
     // plugins: [
     //     new CopyPlugin([
     //         {

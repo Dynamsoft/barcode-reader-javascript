@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ElementRef} from '@angular/core';
-import Dynamsoft from "../Dynamsoft";
+import DBR from "../dbr";
 
 @Component({
   selector: 'app-barcode-scanner',
@@ -14,7 +14,7 @@ export class BarcodeScannerComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     try{
-        this.scanner = this.scanner || await Dynamsoft.BarcodeScanner.createInstance();
+        this.scanner = this.scanner || await DBR.BarcodeScanner.createInstance();
 
         if(this.bDestroyed){
           this.scanner.destroy();
