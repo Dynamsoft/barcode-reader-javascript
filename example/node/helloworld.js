@@ -1,5 +1,5 @@
 let DBR = require('../../dist/dbr.js');
-// Please visit https://www.dynamsoft.com/CustomerPortal/Portal/TrialLicense.aspx to get trial license.
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get trial license.
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
