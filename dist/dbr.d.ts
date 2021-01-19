@@ -2,9 +2,9 @@
 * Dynamsoft JavaScript Library
 * @product Dynamsoft Barcode Reader JS Edition
 * @website http://www.dynamsoft.com
-* @preserve Copyright 2020, Dynamsoft Corporation
+* @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.0.0 (js 20201113)
+* @version 8.1.0 (js 20210118)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -57,8 +57,8 @@ export interface LocalizationResult {
 	y4: number;
 }
 export declare enum EnumBarcodeFormat {
-	BF_ALL = -32505857,
-	BF_ONED = 2047,
+	BF_ALL = -31457281,
+	BF_ONED = 1050623,
 	BF_GS1_DATABAR = 260096,
 	BF_CODE_39 = 1,
 	BF_CODE_128 = 2,
@@ -87,6 +87,7 @@ export declare enum EnumBarcodeFormat {
 	BF_MICRO_QR = 1073741824,
 	BF_MICRO_PDF417 = 524288,
 	BF_GS1_COMPOSITE = -2147483648,
+	BF_MSI_CODE = 1048576,
 	BF_NULL = 0
 }
 export interface TextResult {
@@ -417,6 +418,7 @@ export declare class BarcodeReader {
 	protected videoCvses?: (HTMLCanvasElement | OffscreenCanvas)[];
 	protected videoGlCvs?: HTMLCanvasElement | OffscreenCanvas;
 	protected videoGlCtx?: WebGLRenderingContext | WebGL2RenderingContext;
+	protected glGreyProgram?: WebGLProgram;
 	protected bFilterRegionInJs: boolean;
 	protected userDefinedRegion: any;
 	protected _region?: RegionDefinition | RegionDefinition[];
@@ -819,11 +821,13 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * Use `frame` or `true` to play a sound when any barcode is found within a frame.
 	 * Use `unduplicated` to play a sound only when any unique/unduplicated barcode is found within a frame.
 	 * ```js
-	 * scanner.bPlaySoundOnSuccessfulRead = false;
-	 * scanner.bPlaySoundOnSuccessfulRead = true;
-	 * scanner.bPlaySoundOnSuccessfulRead = "frame";
-	 * scanner.bPlaySoundOnSuccessfulRead = "unduplicated";
-	 * scanner.show();
+	 * // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+	 * startPlayButton.addEventListener('click', function() {
+	 *   scanner.bPlaySoundOnSuccessfulRead = false;
+	 *   scanner.bPlaySoundOnSuccessfulRead = true;
+	 *   scanner.bPlaySoundOnSuccessfulRead = "frame";
+	 *   scanner.bPlaySoundOnSuccessfulRead = "unduplicated";
+	 * });
 	 * ```
 	 */
 	bPlaySoundOnSuccessfulRead: (boolean | string);
@@ -881,6 +885,9 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
 	private clearMapDecodeRecord;
+	private static readonly singlePresetRegion;
+	private static isRegionSinglePreset;
+	private static isRegionNormalPreset;
 	/**
 	 * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` and `single` to use preset settings for BarcodeScanner.
 	 * We recommend using the speed-optimized `single` preset if scanning only one barcode at a time. The `single` is only available in `BarcodeScanner`.
@@ -1333,7 +1340,11 @@ export declare enum EnumErrorCode {
 	DBR_MAXICODE_LICENSE_INVALID = -10057,
 	DBR_GS1_DATABAR_LICENSE_INVALID = -10058,
 	DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059,
-	DBR_DOTCODE_LICENSE_INVALID = -10061
+	DBR_DOTCODE_LICENSE_INVALID = -10061,
+	DMERR_NO_LICENSE = -20000,
+	DMERR_LICENSE_SYNC_FAILED = -20003,
+	DMERR_TRIAL_LICENSE = -20010,
+	DMERR_FAILED_TO_REACH_LTS = -20200
 }
 export declare enum EnumGrayscaleTransformationMode {
 	GTM_INVERTED = 1,
