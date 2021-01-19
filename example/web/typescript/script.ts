@@ -1,6 +1,6 @@
 /// <reference path="./node_modules/dynamsoft-javascript-barcode/dist/dbr.reference.d.ts" />
 
-Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.0.0/dist/";
+Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/";
 // Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
 Dynamsoft.DBR.BarcodeReader.productKeys = "PRODUCT-KEYS";
 // Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.

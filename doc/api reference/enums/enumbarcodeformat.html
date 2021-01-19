@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EnumBarcodeFormat | Dynamsoft BarcodeReader SDK for Javascript - v8.0.0</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.0.0">
+	<title>EnumBarcodeFormat | Dynamsoft BarcodeReader SDK for Javascript - v8.1.0</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.1.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.0.0</a>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -93,6 +93,7 @@
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_maxicode" class="tsd-kind-icon">BF_<wbr>MAXICODE</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_micro_pdf417" class="tsd-kind-icon">BF_<wbr>MICRO_<wbr>PDF417</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_micro_qr" class="tsd-kind-icon">BF_<wbr>MICRO_<wbr>QR</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_msi_code" class="tsd-kind-icon">BF_<wbr>MSI_<wbr>CODE</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_null" class="tsd-kind-icon">BF_<wbr>NULL</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_oned" class="tsd-kind-icon">BF_<wbr>ONED</a></li>
 								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="enumbarcodeformat.html#bf_patchcode" class="tsd-kind-icon">BF_<wbr>PATCHCODE</a></li>
@@ -110,7 +111,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
 					<a name="bf_all" class="tsd-anchor"></a>
 					<h3>BF_<wbr>ALL</h3>
-					<div class="tsd-signature tsd-kind-icon">BF_<wbr>ALL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = -32505857</span></div>
+					<div class="tsd-signature tsd-kind-icon">BF_<wbr>ALL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = -31457281</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in src/enum/enumbarcodeformat.ts:2</li>
@@ -348,9 +349,9 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="bf_null" class="tsd-anchor"></a>
-					<h3>BF_<wbr>NULL</h3>
-					<div class="tsd-signature tsd-kind-icon">BF_<wbr>NULL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+					<a name="bf_msi_code" class="tsd-anchor"></a>
+					<h3>BF_<wbr>MSI_<wbr>CODE</h3>
+					<div class="tsd-signature tsd-kind-icon">BF_<wbr>MSI_<wbr>CODE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1048576</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in src/enum/enumbarcodeformat.ts:32</li>
@@ -358,9 +359,19 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="bf_null" class="tsd-anchor"></a>
+					<h3>BF_<wbr>NULL</h3>
+					<div class="tsd-signature tsd-kind-icon">BF_<wbr>NULL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/enum/enumbarcodeformat.ts:33</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
 					<a name="bf_oned" class="tsd-anchor"></a>
 					<h3>BF_<wbr>ONED</h3>
-					<div class="tsd-signature tsd-kind-icon">BF_<wbr>ONED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 2047</span></div>
+					<div class="tsd-signature tsd-kind-icon">BF_<wbr>ONED<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = 1050623</span></div>
 					<aside class="tsd-sources">
 						<ul>
 							<li>Defined in src/enum/enumbarcodeformat.ts:3</li>
@@ -505,6 +516,9 @@
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
 								<a href="enumbarcodeformat.html#bf_micro_qr" class="tsd-kind-icon">BF_<wbr>MICRO_<wbr>QR</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="enumbarcodeformat.html#bf_msi_code" class="tsd-kind-icon">BF_<wbr>MSI_<wbr>CODE</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
 								<a href="enumbarcodeformat.html#bf_null" class="tsd-kind-icon">BF_<wbr>NULL</a>
