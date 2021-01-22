@@ -25,9 +25,9 @@ $ npm install dynamsoft-javascript-barcode --save
 
 cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 <!-- or -->
-<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
@@ -36,7 +36,7 @@ cdn
 Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a valid license and update `PRODUCT-KEYS`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 ## Quick Usage
@@ -45,7 +45,7 @@ Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a va
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -216,7 +216,7 @@ Create an HTML file with the following content. Deploy this to your web server a
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -275,13 +275,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like `unpkg`
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
@@ -431,7 +431,7 @@ The following introduces the 3rd way. Check out the following code on how it's d
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
