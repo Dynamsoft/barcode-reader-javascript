@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { BarcodeReader, BarcodeScanner } from "dynamsoft-javascript-barcode";
-BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.0/dist/";
+BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/";
 // Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
 BarcodeReader.productKeys = "PRODUCT-KEYS";
 // BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.

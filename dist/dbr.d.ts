@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.1.0 (js 20210118)
+* @version 8.1.2 (js 20210121)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -417,8 +417,9 @@ export declare class BarcodeReader {
 	maxVideoCvsLength: number;
 	protected videoCvses?: (HTMLCanvasElement | OffscreenCanvas)[];
 	protected videoGlCvs?: HTMLCanvasElement | OffscreenCanvas;
-	protected videoGlCtx?: WebGLRenderingContext | WebGL2RenderingContext;
-	protected glGreyProgram?: WebGLProgram;
+	protected videoGl?: WebGLRenderingContext | WebGL2RenderingContext;
+	protected glImgData?: Uint8Array;
+	protected bufferShared: Uint8Array | Uint8ClampedArray;
 	protected bFilterRegionInJs: boolean;
 	protected userDefinedRegion: any;
 	protected _region?: RegionDefinition | RegionDefinition[];
@@ -829,6 +830,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 *   scanner.bPlaySoundOnSuccessfulRead = "unduplicated";
 	 * });
 	 * ```
+	 * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
 	 */
 	bPlaySoundOnSuccessfulRead: (boolean | string);
 	/** @ignore */
