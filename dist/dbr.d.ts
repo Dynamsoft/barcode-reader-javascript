@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.1.2 (js 20210121)
+* @version 8.1.3 (js 20210225)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -90,6 +90,9 @@ export declare enum EnumBarcodeFormat {
 	BF_MSI_CODE = 1048576,
 	BF_NULL = 0
 }
+/**
+ * @see [C++ TextResult](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/TextResult.html?src=cpp&&ver=latest)
+*/
 export interface TextResult {
 	/**
 	 * The barcode text.
@@ -172,7 +175,7 @@ export declare enum EnumScaleUpMode {
 	SUM_REV = 2147483648
 }
 /**
- * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
+ * @see [C++ RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?src=cpp&&ver=latest)
  */
 export interface RuntimeSettings {
 	/**
@@ -295,6 +298,12 @@ export declare class BarcodeReader {
 	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.
 	 */
 	static set handshakeCode(keys: string);
+	protected static _organizationID: string;
+	static get organizationID(): string;
+	/**
+	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.
+	 */
+	static set organizationID(value: string);
 	/** @ignore */
 	static _sessionPassword?: string;
 	static set sessionPassword(value: string);
@@ -548,7 +557,6 @@ export declare class BarcodeReader {
 	 * settings.deblurLevel = 5;
 	 * await reader.updateRuntimeSettings(settings);
 	 * ```
-	 * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
 	 * @category Runtime Settings
 	 */
 	getRuntimeSettings(): Promise<RuntimeSettings>;
@@ -561,7 +569,6 @@ export declare class BarcodeReader {
 	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 	 * await reader.updateRuntimeSettings(settings);
 	 * ```
-	 * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
 	 * @category Runtime Settings
 	 */
 	updateRuntimeSettings(settings: RuntimeSettings | string): Promise<void>;
@@ -900,7 +907,6 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 	 * await scanner.updateRuntimeSettings(settings);
 	 * ```
-	 * @see [RuntimeSettings](https://www.dynamsoft.com/help/Barcode-Reader/struct_dynamsoft_1_1_barcode_1_1_public_runtime_settings.html)
 	 * @category Runtime Settings
 	 */
 	updateRuntimeSettings(settings: RuntimeSettings | string): Promise<void>;

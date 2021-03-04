@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import DBR from "~/plugins/dbr";
+import DBR from "~/dbr";
 
 export default {
     data(){

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DBR from "~/plugins/dbr";
+import DBR from "~/dbr";
 import BarcodeScanner from "./BarcodeScanner";
 
 export default {
