@@ -47,6 +47,12 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
-    }
-  }
+    },
+    //// https://stackoverflow.com/questions/48206821/in-a-nuxtjs-spa-how-to-link-the-assets-with-relative-urls#answer-49023639
+    //publicPath: ''
+  },
+  //// https://stackoverflow.com/questions/48206821/in-a-nuxtjs-spa-how-to-link-the-assets-with-relative-urls#answer-49023639
+  // router: {
+  //   base: ''
+  // }
 }

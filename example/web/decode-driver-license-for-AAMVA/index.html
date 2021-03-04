@@ -14,7 +14,7 @@
     <!--
         Please visit https://www.dynamsoft.com/customer/license/trialLicense to get trial license.
     -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script src="driverlicense.js"></script>
     <script>
         let scanner = null;
@@ -22,10 +22,11 @@
             scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
             await scanner.setUIElement(document.getElementById('div-video-container'));
 
+            await scanner.updateRuntimeSettings("balance");
             let runtimeSettings = await scanner.getRuntimeSettings();
             runtimeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_PDF417;
             runtimeSettings.LocalizationModes = [2,8,0,0,0,0,0,0];
-            runtimeSettings.deblurLevel = 2;
+            runtimeSettings.deblurLevel = 3;
             await scanner.updateRuntimeSettings(runtimeSettings);
 
             scanner.onFrameRead = results => console.log(results);

@@ -59,6 +59,7 @@ yarn.lock
 !/dist/README.md
 
 !/README.md
+!/README.NODE.md
 !/package.json
 !/LICENSE
 

@@ -21,11 +21,11 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
         console.log(result.barcodeText);
     }
     console.log("============== decode url ==============");
-    for(let result of await reader.decode('https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png')){
+    for(let result of await reader.decode('https://demo.dynamsoft.com/barcode-reader/img/AllSupportedBarcodeTypes.png')){
         console.log(result.barcodeText);
     }
     console.log("============== destroy reader ==============");
-    reader.destroy();
+    await reader.destroy();
     
     // Since the worker keep alive, you can call
     await DBR.BarcodeReader._dbrWorker.terminate();

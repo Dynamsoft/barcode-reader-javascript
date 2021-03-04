@@ -7,9 +7,9 @@
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
-[Dynamsoft JavaScript Barcode SDK for Web](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript library for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
+[Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript library for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
 
-> Also see [Dynamsoft JavaScript Barcode SDK for Node](https://github.com/dynamsoft-dbr/node-javascript-barcode).
+> Also see [Dynamsoft JavaScript Barcode SDK for Node](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md).
 
 ## Install
 
@@ -25,9 +25,9 @@ $ npm install dynamsoft-javascript-barcode --save
 
 cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 <!-- or -->
-<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 [Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
@@ -36,7 +36,7 @@ cdn
 Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a valid license and update `PRODUCT-KEYS`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 ## Quick Usage
@@ -45,7 +45,7 @@ Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a va
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -75,7 +75,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
     let reader = await DBR.BarcodeReader.createInstance();
-    for(let result of await reader.decode('https://demo.dynamsoft.com/dbr/img/AllSupportedBarcodeTypes.png')){
+    for(let result of await reader.decode('https://demo.dynamsoft.com/barcode-reader/img/AllSupportedBarcodeTypes.png')){
         console.log(result.barcodeText);
     }
     reader.destroy();
@@ -188,7 +188,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 ## Live Demo
 
-The following is a screenshot of the live demo. Try it [here](https://demo.dynamsoft.com/dbr_wasm/barcode_reader_javascript.html).
+The following is a screenshot of the live demo. Try it [here](https://demo.dynamsoft.com/barcode-reader-js/).
 
 <img src="https://raw.githubusercontent.com/dynamsoft-dbr/javascript-barcode/dac614f8033661901d85381dfaff8d612115862a/img/dbr-wasm-demo-scaning.jpg">
 
@@ -216,7 +216,7 @@ Create an HTML file with the following content. Deploy this to your web server a
 <html>
 <body>
     <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -275,13 +275,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like `unpkg`
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
@@ -389,26 +389,35 @@ As you can see in the code, there are three categories of configurations.
   
   e.g.
   ```js
-  await barcodeScanner.updateRuntimeSettings("single");
+  await scanner.updateRuntimeSettings("single");
   ```
   ```js
-  await barcodeScanner.updateRuntimeSettings("speed");
+  await scanner.updateRuntimeSettings("speed");
   ```
   ```js
-  await barcodeScanner.updateRuntimeSettings("balance");
+  await scanner.updateRuntimeSettings("balance");
   ```
   ```js
-  await barcodeScanner.updateRuntimeSettings("coverage");
+  await scanner.updateRuntimeSettings("coverage");
   ```
   ```js
-  let settings = await barcodeScanner.getRuntimeSettings();
+  let settings = await scanner.getRuntimeSettings();
   settings.localizationModes = [
         Dynamsoft.DBR.EnumLocalizationMode.LM_CONNECTED_BLOCKS,
         Dynamsoft.DBR.EnumLocalizationMode.LM_SCAN_DIRECTLY,
         Dynamsoft.DBR.EnumLocalizationMode.LM_LINES, 0, 0, 0, 0, 0];
   settings.deblurLevel = 2;
-  await barcodeScanner.updateRuntimeSettings(settings);
+  await scanner.updateRuntimeSettings(settings);
   ```
+
+  See [Barcode reading settings Guide](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/user-guide.html?ver=latest#use-publicruntimesettings-struct-to-change-settings) for basic usage.
+
+  See [C++ API RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html) for more details.
+
+  To find out which settings best suit your usage scenario, visit [DBR Main Online Demo](https://demo.dynamsoft.com/barcode-reader/).
+
+  Any questions, please contact [Dynamsoft support](https://www.dynamsoft.com/Company/Contact.aspx).
+
 * `get/updateScanSettings`: Configures the behavior of the scanner which includes `duplicateForgetTime`, `intervalTime`, etc.
 
 ### Customizing the UI
@@ -431,7 +440,7 @@ The following introduces the 3rd way. Check out the following code on how it's d
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
     <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.2/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -589,7 +598,7 @@ Dynamsoft.DBR.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 
 ## Known Issues
 
-* We use `webgl` in `BarcodeScannner` by default. If you need a specific resolution like `800 * 600` and find the barcode area is wrong, you can turn `webgl` off by setting `scanner._bUseWebgl = false;`.  
+* <del>We use `webgl` in `BarcodeScannner` by default. If you need a specific resolution like `800 * 600` and find the barcode area is wrong, you can turn `webgl` off by setting `scanner._bUseWebgl = false;`.</del> Fixed in 8.1.2.
 
 ## Changelog
 
