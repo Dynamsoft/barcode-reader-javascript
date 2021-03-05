@@ -558,7 +558,7 @@ await scanner.updateRuntimeSettings(settings);
 
 ## Self-hosted | Offline | Intranet Deployment
 
-For commercial usage, we highly recommend self-hosted deployment. The following steps guide you through how to deploy the library on your own server.
+For commercial usage, we highly recommend self-hosted deployment and use reliable commercial CDN to accelerate. The following steps guide you through how to deploy the library on your own server.
 
 * **Step one**: Place the files
   
