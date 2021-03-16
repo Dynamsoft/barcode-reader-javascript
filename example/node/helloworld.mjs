@@ -1,7 +1,7 @@
 import DBR from '../../dist/dbr.js';
 import url from 'url'
 import fs from 'fs'
-// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get trial license.
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get trial license.
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{

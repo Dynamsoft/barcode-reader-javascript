@@ -7,7 +7,7 @@
 
 ![Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/blog/wp-content/uploads/2018/12/blog_dbr6.4.1db06493aba126f0c7f177687cf56a9038dd655a1fd2d4374ab571ce738111858.png)
 
-[Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx) is a JavaScript library for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
+[Dynamsoft JavaScript Barcode SDK](https://www.dynamsoft.com/barcode-reader/sdk-javascript/?utm_source=github&package=js) is a JavaScript library for barcode scanning based on the **WebAssembly** technology. It supports real-time localization and decoding of various barcode types. The library is capable of scanning barcodes from static images as well as directly from live video streams. It also supports reading multiple barcodes at once.
 
 > Also see [Dynamsoft JavaScript Barcode SDK for Node](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md).
 
@@ -25,18 +25,18 @@ $ npm install dynamsoft-javascript-barcode --save
 
 cdn
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 <!-- or -->
-<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://unpkg.com/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
-[Download zip](https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js)
+[Download zip](https://www.dynamsoft.com/barcode-reader/downloads/?utm_source=github&package=js)
 
 ## License Key
-Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a valid license and update `PRODUCT-KEYS`:
+Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a valid license and update `PRODUCT-KEYS`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 ```
 
 ## Quick Usage
@@ -45,7 +45,7 @@ Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a va
 <!DOCTYPE html>
 <html>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -70,7 +70,7 @@ Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a va
 
 ```js
 let DBR = require('dynamsoft-node-barcode');
-// Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license
+// Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a trial license
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
@@ -129,7 +129,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
   * Unlike typical server-based applications, this library requires some advanced features which fortunately are supported by all mainstream modern browsers. These advanced features are listed below:
     * [MediaDevices/getUserMedia](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) 
-      * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest#singleframemode) can be used as an alternative.
+      * Required only for in-browser video streaming. If a browser doesn't have this API the [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest&utm_source=github&package=js#singleframemode) is used automatically. If the API exists but doesn't work correctly, [Single Frame Mode](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/BarcodeScanner/accessors.html?ver=latest&utm_source=github&package=js#singleframemode) can be used as an alternative.
     * [WebAssembly](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly), [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob),  [URL/createObjectURL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL), [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
       * These four features are required for the library to work.
     
@@ -208,15 +208,15 @@ This section will help you use the library to build a simple web application to 
 
 Create an HTML file with the following content. Deploy this to your web server and run the application over **HTTPS**.
 
-* You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/customer/license/trialLicense).
+* You will need to replace <code>PRODUCT-KEYS</code> with a trial key for the sample code to work correctly. You can acquire a trial key [here](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js).
 * If you don't have a ready-to-use web server and you happen to have a package manager like `npm` or `yarn`, you can set up a simple http server in minutes. Check out http-server on [npm](https://www.npmjs.com/package/http-server) or [yarn](https://yarnpkg.com/en/package/http-server).
 
 ```html
 <!DOCTYPE html>
 <html>
 <body>
-    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a trial license. -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -275,13 +275,13 @@ Now, take a look at the sample code. You can find that there is nothing but two 
 * The following script includes the core library in the application via a [jsDelivr](https://www.jsdelivr.com/) CDN
   
   ```javascript
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
   
   The same can be done with other CDNs like `unpkg`
   
   ```javascript
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
   ```
 
   > **NOTE**: : Since we do change the library a bit in each release, to make sure your application doesn't get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like `@7` is not recommended.
@@ -384,7 +384,7 @@ await scanner.updateScanSettings(scanSettings);
 As you can see in the code, there are three categories of configurations.
 
 * `get/updateVideoSettings`: Configures the data source, i.e., the video stream. These settings include which camera to use, the resolution, etc.. Learn more [here](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia#Syntax).
-* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest). 
+* `get/updateRuntimeSettings`: Configures the decode engine. Find a full list of these settings and their corresponding descriptions [here](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&utm_source=github&package=js). 
 [Try in JSFiddle](https://jsfiddle.net/DynamsoftTeam/h3o4kfau/)
   
   e.g.
@@ -410,13 +410,13 @@ As you can see in the code, there are three categories of configurations.
   await scanner.updateRuntimeSettings(settings);
   ```
 
-  See [Barcode reading settings Guide](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/user-guide.html?ver=latest#use-publicruntimesettings-struct-to-change-settings) for basic usage.
+  See [Barcode reading settings Guide](https://www.dynamsoft.com/barcode-reader/programming/cplusplus/user-guide.html?ver=latest&utm_source=github&package=js#use-publicruntimesettings-struct-to-change-settings) for basic usage.
 
-  See [C++ API RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html) for more details.
+  See [C++ API RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?utm_source=github&package=js) for more details.
 
-  To find out which settings best suit your usage scenario, visit [DBR Main Online Demo](https://demo.dynamsoft.com/barcode-reader/).
+  To find out which settings best suit your usage scenario, visit [DBR Main Online Demo](https://demo.dynamsoft.com/barcode-reader/?utm_source=github&package=js).
 
-  Any questions, please contact [Dynamsoft support](https://www.dynamsoft.com/Company/Contact.aspx).
+  Any questions, please contact [Dynamsoft support](https://www.dynamsoft.com/Company/Contact.aspx?utm_source=github&package=js).
 
 * `get/updateScanSettings`: Configures the behavior of the scanner which includes `duplicateForgetTime`, `intervalTime`, etc.
 
@@ -439,8 +439,8 @@ The following introduces the 3rd way. Check out the following code on how it's d
     <div id="div-video-container">
         <video class="dbrScanner-video" playsinline="true"></video>
     </div>
-    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense to get a trial license. -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.1.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a trial license. -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script>
         let scanner = null;
         (async()=>{
@@ -602,25 +602,25 @@ Dynamsoft.DBR.BarcodeReader.engineResourcePath = "url/to/the/dir/";
 
 ## Changelog
 
-https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/
+[Changelog](https://www.dynamsoft.com/barcode-reader/programming/javascript/release-notes/?utm_source=github&package=js)
 
 ## How to Upgrade
 
-https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x
+[From v7x to v8x](https://www.dynamsoft.com/barcode-reader/programming/javascript/user-guide/upgrade.html?ver=latest#from-v7x-to-v8x&utm_source=github&package=js)
 
 ## API Documentation
 
-[Online Document](https://www.dynamsoft.com/barcode-reader/programming/javascript/?ver=latest)
+[Online Document](https://www.dynamsoft.com/barcode-reader/programming/javascript/?ver=latest&utm_source=github&package=js)
 
 <!-- https://dynamsoft.github.io/javascript-barcode/doc/api%20reference/index.html -->
 
 ## License Activation
 
-https://www.dynamsoft.com/barcode-reader/license-activation/set-full-license.html?ver=latest
+[License Activation](https://www.dynamsoft.com/barcode-reader/license-activation/set-full-license.html?ver=latest&utm_source=github&package=js)
 
 ## License Agreement
 
-https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx#javascript
+[License Agreement](https://www.dynamsoft.com/Products/barcode-reader-license-agreement.aspx?utm_source=github&package=js#javascript)
 
 ## Contact Us
 If there are any questions, please feel free to contact <support@dynamsoft.com>.
