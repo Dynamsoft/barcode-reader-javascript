@@ -1,1 +1,1 @@
-https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js
+https://www.dynamsoft.com/Downloads/Dynamic-Barcode-Reader-Download.aspx?edition=js&utm_source=github&package=js
