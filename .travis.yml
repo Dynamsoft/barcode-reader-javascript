@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+  - "12.13"
+
+deploy:
+  provider: npm
+  email: $EMAIL
+  api_key: $API_KEY
+  on:
+    tags: true
+    branch: master
