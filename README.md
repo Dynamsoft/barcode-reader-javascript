@@ -33,7 +33,7 @@ cdn
 [Download zip](https://www.dynamsoft.com/barcode-reader/downloads/?utm_source=github&package=js)
 
 ## License Key
-Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a valid license and update `PRODUCT-KEYS`:
+Please visit [https://www.dynamsoft.com/customer/license/trialLicense](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js) to get a valid license and update `PRODUCT-KEYS`:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
