@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.2.1 (js 20210326)
+* @version 8.2.3 (js 20210413)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -271,10 +271,77 @@ declare enum EnumImagePixelFormat {
 	IPF_ABGR_16161616 = 11,
 	IPF_BGR_888 = 12
 }
+declare enum EnumErrorCode {
+	DBR_SYSTEM_EXCEPTION = 1,
+	DBR_SUCCESS = 0,
+	DBR_UNKNOWN = -10000,
+	DBR_NO_MEMORY = -10001,
+	DBR_NULL_REFERENCE = -10002,
+	DBR_LICENSE_INVALID = -10003,
+	DBR_LICENSE_EXPIRED = -10004,
+	DBR_FILE_NOT_FOUND = -10005,
+	DBR_FILETYPE_NOT_SUPPORTED = -10006,
+	DBR_BPP_NOT_SUPPORTED = -10007,
+	DBR_INDEX_INVALID = -10008,
+	DBR_BARCODE_FORMAT_INVALID = -10009,
+	DBR_CUSTOM_REGION_INVALID = -10010,
+	DBR_MAX_BARCODE_NUMBER_INVALID = -10011,
+	DBR_IMAGE_READ_FAILED = -10012,
+	DBR_TIFF_READ_FAILED = -10013,
+	DBR_QR_LICENSE_INVALID = -10016,
+	DBR_1D_LICENSE_INVALID = -10017,
+	DBR_DIB_BUFFER_INVALID = -10018,
+	DBR_PDF417_LICENSE_INVALID = -10019,
+	DBR_DATAMATRIX_LICENSE_INVALID = -10020,
+	DBR_PDF_READ_FAILED = -10021,
+	DBR_PDF_DLL_MISSING = -10022,
+	DBR_PAGE_NUMBER_INVALID = -10023,
+	DBR_CUSTOM_SIZE_INVALID = -10024,
+	DBR_CUSTOM_MODULESIZE_INVALID = -10025,
+	DBR_RECOGNITION_TIMEOUT = -10026,
+	DBR_JSON_PARSE_FAILED = -10030,
+	DBR_JSON_TYPE_INVALID = -10031,
+	DBR_JSON_KEY_INVALID = -10032,
+	DBR_JSON_VALUE_INVALID = -10033,
+	DBR_JSON_NAME_KEY_MISSING = -10034,
+	DBR_JSON_NAME_VALUE_DUPLICATED = -10035,
+	DBR_TEMPLATE_NAME_INVALID = -10036,
+	DBR_JSON_NAME_REFERENCE_INVALID = -10037,
+	DBR_PARAMETER_VALUE_INVALID = -10038,
+	DBR_DOMAIN_NOT_MATCHED = -10039,
+	DBR_RESERVEDINFO_NOT_MATCHED = -10040,
+	DBR_AZTEC_LICENSE_INVALID = -10041,
+	DBR_LICENSE_DLL_MISSING = -10042,
+	DBR_LICENSEKEY_NOT_MATCHED = -10043,
+	DBR_REQUESTED_FAILED = -10044,
+	DBR_LICENSE_INIT_FAILED = -10045,
+	DBR_PATCHCODE_LICENSE_INVALID = -10046,
+	DBR_POSTALCODE_LICENSE_INVALID = -10047,
+	DBR_DPM_LICENSE_INVALID = -10048,
+	DBR_FRAME_DECODING_THREAD_EXISTS = -10049,
+	DBR_STOP_DECODING_THREAD_FAILED = -10050,
+	DBR_SET_MODE_ARGUMENT_ERROR = -10051,
+	DBR_LICENSE_CONTENT_INVALID = -10052,
+	DBR_LICENSE_KEY_INVALID = -10053,
+	DBR_LICENSE_DEVICE_RUNS_OUT = -10054,
+	DBR_GET_MODE_ARGUMENT_ERROR = -10055,
+	DBR_IRT_LICENSE_INVALID = -10056,
+	DBR_MAXICODE_LICENSE_INVALID = -10057,
+	DBR_GS1_DATABAR_LICENSE_INVALID = -10058,
+	DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059,
+	DBR_DOTCODE_LICENSE_INVALID = -10061,
+	DMERR_NO_LICENSE = -20000,
+	DMERR_LICENSE_SYNC_FAILED = -20003,
+	DMERR_TRIAL_LICENSE = -20010,
+	DMERR_FAILED_TO_REACH_LTS = -20200
+}
+interface BarcodeReaderException extends Error {
+	code?: EnumErrorCode;
+}
 /**
  * A class dedicated to image decoding.
  * ```js
- * let reader = await DBR.BarcodeReader.createInstance();
+ * let reader = await Dynamsoft.DBR.BarcodeReader.createInstance();
  * let results = await reader.decode(imageSource);
  * for(let result of results){
  *     console.log(result.barcodeText);
@@ -331,8 +398,8 @@ declare class BarcodeReader {
 	 * The SDK will try to automatically explore the engine location.
 	 * If the auto-explored engine location is not accurate, manually specify the engine location.
 	 * ```js
-	 * DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
-	 * await DBR.BarcodeReader.loadWasm();
+	 * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
+	 * await Dynamsoft.DBR.BarcodeReader.loadWasm();
 	 * ```
 	*/
 	static set engineResourcePath(value: string);
@@ -479,7 +546,7 @@ declare class BarcodeReader {
 	/**
 	 * Create a `BarcodeReader` object.
 	 * ```
-	 * let reader = await DBR.BarcodeReader.createInstance();
+	 * let reader = await Dynamsoft.DBR.BarcodeReader.createInstance();
 	 * ```
 	  * @category Initialize and Destroy
 	 */
@@ -557,6 +624,7 @@ declare class BarcodeReader {
 	 * settings.deblurLevel = 5;
 	 * await reader.updateRuntimeSettings(settings);
 	 * ```
+	 * @see [RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&utm_source=github&package=js)
 	 * @category Runtime Settings
 	 */
 	getRuntimeSettings(): Promise<RuntimeSettings>;
@@ -566,9 +634,10 @@ declare class BarcodeReader {
 	 * ```js
 	 * await reader.updateRuntimeSettings('balance');
 	 * let settings = await reader.getRuntimeSettings();
-	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
+	 * settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 	 * await reader.updateRuntimeSettings(settings);
 	 * ```
+	 * @see [RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&utm_source=github&package=js)
 	 * @category Runtime Settings
 	 */
 	updateRuntimeSettings(settings: RuntimeSettings | string): Promise<void>;
@@ -633,8 +702,9 @@ declare class BarcodeReader {
 	private _decode_Base64;
 	private _decode_Url;
 	private _decode_FilePath;
+	static fixResultLocationWhenFilterRegionInJs(region: any, results: TextResult[], sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
 	/** @ignore */
-	static BarcodeReaderException(ag0: any, ag1: any): Error;
+	static BarcodeReaderException(ag0: any, ag1: any): BarcodeReaderException;
 	protected _handleRetJsonString(objRet: any): any;
 	/**
 	 * Sets the optional argument for a specified mode in Modes parameters.
@@ -675,7 +745,7 @@ declare class BarcodeReader {
 	 * Equivalent to the previous method `deleteInstance()`.
 	 * @category Initialize and Destroy
 	 */
-	destroy(): Promise<any>;
+	destroy(): Promise<void>;
 }
 interface FrameFilter {
 	/**
@@ -724,7 +794,7 @@ interface ScannerPlayCallbackInfo {
 /**
  * A class dedicated to video decoding.
  * ```js
- * let scanner = await DBR.BarcodeScanner.createInstance();
+ * let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
  * scanner.onUnduplicatedRead = txt => console.log(txt);
  * await scanner.show();
  * ```
@@ -746,7 +816,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * ```html
 	 * <video class="dbrScanner-video" playsinline="true"></video>
 	 * <script>
-	 *     let scanner = await DBR.BarcodeScanner.createInstance();
+	 *     let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
 	 *     scanner.setUIElement(document.getElementsByClassName("dbrScanner-video")[0]);
 	 *     await scanner.open();
 	 * </script>
@@ -763,7 +833,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * A mode not use video, get a frame from OS camera instead.
 	 * ```js
-	 * let scanner = await DBR.BarcodeReader.createInstance();
+	 * let scanner = await Dynamsoft.DBR.BarcodeReader.createInstance();
 	 * if(scanner.singleFrameMode){
 	 *     // the browser does not provide webrtc API, dbrjs automatically use singleFrameMode instead
 	 *     scanner.show();
@@ -774,7 +844,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * A mode not use video, get a frame from OS camera instead.
 	 * ```js
-	 * let scanner = await DBR.BarcodeReader.createInstance();
+	 * let scanner = await Dynamsoft.DBR.BarcodeReader.createInstance();
 	 * scanner.singleFrameMode = true; // use singleFrameMode anyway
 	 * scanner.show();
 	 * ```
@@ -790,6 +860,8 @@ declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	_lastDeviceId: string;
 	private _intervalDetectVideoPause;
+	private _vc_bPlayingVideoBeforeHide;
+	private _ev_documentHideEvent;
 	/** @ignore */
 	_video: HTMLVideoElement;
 	/** @ignore */
@@ -840,6 +912,27 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
 	 */
 	bPlaySoundOnSuccessfulRead: (boolean | string);
+	/**
+	 * Whether to vibrate when the scanner reads a barcode successfully.
+	 * Default value is `false`, which does not vibrate.
+	 * Use `frame` or `true` to play a sound when any barcode is found within a frame.
+	 * Use `unduplicated` to play a sound only when any unique/unduplicated barcode is found within a frame.
+	 * ```js
+	 * // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+	 * startPlayButton.addEventListener('click', function() {
+	 *   scanner.bVibrateOnSuccessfulRead = false;
+	 *   scanner.bVibrateOnSuccessfulRead = true;
+	 *   scanner.bVibrateOnSuccessfulRead = "frame";
+	 *   scanner.bVibrateOnSuccessfulRead = "unduplicated";
+	 * });
+	 * ```
+	 * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
+	 */
+	bVibrateOnSuccessfulRead: (boolean | string);
+	/**
+	 * @see [[bVibrateOnSuccessfulRead]]
+	 */
+	vibrateDuration: number;
 	/** @ignore */
 	_allCameras: VideoDeviceInfo[];
 	/** @ignore */
@@ -879,7 +972,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Create a `BarcodeScanner` object.
 	* ```
-	* let scanner = await DBR.BarcodeScanner.createInstance();
+	* let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
 	* ```
 	 * @param config
 	 * @category Initialize and Destroy
@@ -893,20 +986,26 @@ declare class BarcodeScanner extends BarcodeReader {
 	decodeUrl(source: string): Promise<TextResult[]>;
 	/** @ignore */
 	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
+	/**
+	 * await scanner.showVideo();
+	 * console.log(await scanner.decodeCurrentFrame());
+	 */
+	decodeCurrentFrame(): Promise<TextResult[]>;
 	private clearMapDecodeRecord;
 	private static readonly singlePresetRegion;
 	private static isRegionSinglePreset;
 	private static isRegionNormalPreset;
 	/**
 	 * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` and `single` to use preset settings for BarcodeScanner.
-	 * We recommend using the speed-optimized `single` preset if scanning only one barcode at a time. The `single` is only available in `BarcodeScanner`.
-	 * The default settings for BarcodeScanner is `single`, starting from version 8.0.0.
+	 * We recommend using the speed-optimized `single` preset if scanning only one line at a time. The `single` is only available in `BarcodeScanner`.
+	 * The default settings for BarcodeScanner is `single`.
 	 * ```js
 	 * await scanner.updateRuntimeSettings('balance');
 	 * let settings = await scanner.getRuntimeSettings();
-	 * settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
+	 * settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 	 * await scanner.updateRuntimeSettings(settings);
 	 * ```
+	 * @see [RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&utm_source=github&package=js)
 	 * @category Runtime Settings
 	 */
 	updateRuntimeSettings(settings: RuntimeSettings | string): Promise<void>;
@@ -1196,6 +1295,15 @@ declare class BarcodeScanner extends BarcodeReader {
 	 */
 	open(): Promise<ScannerPlayCallbackInfo>;
 	/**
+	 * Bind UI, open the camera, but not decode.
+	 * ```js
+	 * await scanner.openVideo();
+	 * console.log(await scanner.decodeCurrentFrame());
+	 * ```
+	 * @category Open and Close
+	 */
+	openVideo(): Promise<ScannerPlayCallbackInfo>;
+	/**
 	 * Stop decoding, release camera, unbind UI.
 	 * @category Open and Close
 	 */
@@ -1208,6 +1316,15 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * @category Open and Close
 	 */
 	show(): Promise<ScannerPlayCallbackInfo>;
+	/**
+	 * Bind UI, open the camera, but not decode, and remove the UIElement `display` style if the original style is `display:none;`.
+	 * ```js
+	 * await scanner.showVideo()
+	 * console.log(await scanner.decodeCurrentFrame());
+	 * ```
+	 * @category Open and Close
+	 */
+	showVideo(): Promise<ScannerPlayCallbackInfo>;
 	/**
 	 * Stop decoding, release camera, unbind UI, and set the Element as `display:none;`.
 	 * @category Open and Close
@@ -1289,70 +1406,6 @@ declare enum EnumDPMCodeReadingMode {
 	DPMCRM_GENERAL = 2,
 	DPMCRM_SKIP = 0,
 	DPMCRM_REV = 2147483648
-}
-declare enum EnumErrorCode {
-	DBR_SYSTEM_EXCEPTION = 1,
-	DBR_SUCCESS = 0,
-	DBR_UNKNOWN = -10000,
-	DBR_NO_MEMORY = -10001,
-	DBR_NULL_REFERENCE = -10002,
-	DBR_LICENSE_INVALID = -10003,
-	DBR_LICENSE_EXPIRED = -10004,
-	DBR_FILE_NOT_FOUND = -10005,
-	DBR_FILETYPE_NOT_SUPPORTED = -10006,
-	DBR_BPP_NOT_SUPPORTED = -10007,
-	DBR_INDEX_INVALID = -10008,
-	DBR_BARCODE_FORMAT_INVALID = -10009,
-	DBR_CUSTOM_REGION_INVALID = -10010,
-	DBR_MAX_BARCODE_NUMBER_INVALID = -10011,
-	DBR_IMAGE_READ_FAILED = -10012,
-	DBR_TIFF_READ_FAILED = -10013,
-	DBR_QR_LICENSE_INVALID = -10016,
-	DBR_1D_LICENSE_INVALID = -10017,
-	DBR_DIB_BUFFER_INVALID = -10018,
-	DBR_PDF417_LICENSE_INVALID = -10019,
-	DBR_DATAMATRIX_LICENSE_INVALID = -10020,
-	DBR_PDF_READ_FAILED = -10021,
-	DBR_PDF_DLL_MISSING = -10022,
-	DBR_PAGE_NUMBER_INVALID = -10023,
-	DBR_CUSTOM_SIZE_INVALID = -10024,
-	DBR_CUSTOM_MODULESIZE_INVALID = -10025,
-	DBR_RECOGNITION_TIMEOUT = -10026,
-	DBR_JSON_PARSE_FAILED = -10030,
-	DBR_JSON_TYPE_INVALID = -10031,
-	DBR_JSON_KEY_INVALID = -10032,
-	DBR_JSON_VALUE_INVALID = -10033,
-	DBR_JSON_NAME_KEY_MISSING = -10034,
-	DBR_JSON_NAME_VALUE_DUPLICATED = -10035,
-	DBR_TEMPLATE_NAME_INVALID = -10036,
-	DBR_JSON_NAME_REFERENCE_INVALID = -10037,
-	DBR_PARAMETER_VALUE_INVALID = -10038,
-	DBR_DOMAIN_NOT_MATCHED = -10039,
-	DBR_RESERVEDINFO_NOT_MATCHED = -10040,
-	DBR_AZTEC_LICENSE_INVALID = -10041,
-	DBR_LICENSE_DLL_MISSING = -10042,
-	DBR_LICENSEKEY_NOT_MATCHED = -10043,
-	DBR_REQUESTED_FAILED = -10044,
-	DBR_LICENSE_INIT_FAILED = -10045,
-	DBR_PATCHCODE_LICENSE_INVALID = -10046,
-	DBR_POSTALCODE_LICENSE_INVALID = -10047,
-	DBR_DPM_LICENSE_INVALID = -10048,
-	DBR_FRAME_DECODING_THREAD_EXISTS = -10049,
-	DBR_STOP_DECODING_THREAD_FAILED = -10050,
-	DBR_SET_MODE_ARGUMENT_ERROR = -10051,
-	DBR_LICENSE_CONTENT_INVALID = -10052,
-	DBR_LICENSE_KEY_INVALID = -10053,
-	DBR_LICENSE_DEVICE_RUNS_OUT = -10054,
-	DBR_GET_MODE_ARGUMENT_ERROR = -10055,
-	DBR_IRT_LICENSE_INVALID = -10056,
-	DBR_MAXICODE_LICENSE_INVALID = -10057,
-	DBR_GS1_DATABAR_LICENSE_INVALID = -10058,
-	DBR_GS1_COMPOSITE_LICENSE_INVALID = -10059,
-	DBR_DOTCODE_LICENSE_INVALID = -10061,
-	DMERR_NO_LICENSE = -20000,
-	DMERR_LICENSE_SYNC_FAILED = -20003,
-	DMERR_TRIAL_LICENSE = -20010,
-	DMERR_FAILED_TO_REACH_LTS = -20200
 }
 declare enum EnumGrayscaleTransformationMode {
 	GTM_INVERTED = 1,

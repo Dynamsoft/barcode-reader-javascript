@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BarcodeScanner | Dynamsoft BarcodeReader SDK for Javascript - v8.2.1</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.2.1">
+	<title>BarcodeScanner | Dynamsoft BarcodeReader SDK for Javascript - v8.2.3</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.2.3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.2.1</a>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.2.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -66,7 +66,7 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>A class dedicated to video decoding.</p>
-						<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> DBR.BarcodeScanner.createInstance();
+						<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
 scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-params">txt</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(txt);
 <span class="hljs-keyword">await</span> scanner.show();</code></pre>
 					</div>
@@ -104,10 +104,12 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="barcodescanner.html#bdestroyed" class="tsd-kind-icon">b<wbr>Destroyed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#bplaysoundonsuccessfulread" class="tsd-kind-icon">b<wbr>Play<wbr>Sound<wbr>OnSuccessful<wbr>Read</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="barcodescanner.html#bsaveoricanvas" class="tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#bvibrateonsuccessfulread" class="tsd-kind-icon">b<wbr>Vibrate<wbr>OnSuccessful<wbr>Read</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#onframeread" class="tsd-kind-icon">on<wbr>Frame<wbr>Read</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#onplayed" class="tsd-kind-icon">on<wbr>Played</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#onunduplicatedread" class="tsd-kind-icon">on<wbr>Unduplicated<wbr>Read</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="barcodescanner.html#oricanvas" class="tsd-kind-icon">ori<wbr>Canvas</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="barcodescanner.html#vibrateduration" class="tsd-kind-icon">vibrate<wbr>Duration</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -140,7 +142,9 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#hide" class="tsd-kind-icon">hide</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#isopen" class="tsd-kind-icon">is<wbr>Open</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#open" class="tsd-kind-icon">open</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#openvideo" class="tsd-kind-icon">open<wbr>Video</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#show" class="tsd-kind-icon">show</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#showvideo" class="tsd-kind-icon">show<wbr>Video</a></li>
 							</ul>
 							<h3>Play and Pause Methods</h3>
 							<ul class="tsd-index-list">
@@ -182,9 +186,11 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 							</ul>
 							<h3>Other Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#decodecurrentframe" class="tsd-kind-icon">decode<wbr>Current<wbr>Frame</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#getscansettings" class="tsd-kind-icon">get<wbr>Scan<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#updatescansettings" class="tsd-kind-icon">update<wbr>Scan<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="barcodescanner.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="barcodescanner.html#fixresultlocationwhenfilterregioninjs" class="tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</a></li>
 							</ul>
 						</section>
 					</div>
@@ -198,7 +204,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">barcode<wbr>Fill<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;rgba(254,180,32,0.3)&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:267</li>
+							<li>Defined in src/class/barcodescanner.ts:309</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,7 +216,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">barcode<wbr>Line<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:275</li>
+							<li>Defined in src/class/barcodescanner.ts:317</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -222,7 +228,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">barcode<wbr>Stroke<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;rgba(254,180,32,0.9)&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:271</li>
+							<li>Defined in src/class/barcodescanner.ts:313</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -234,7 +240,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">region<wbr>Mask<wbr>Fill<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;rgba(0,0,0,0.5)&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:255</li>
+							<li>Defined in src/class/barcodescanner.ts:297</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +252,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">region<wbr>Mask<wbr>Line<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:263</li>
+							<li>Defined in src/class/barcodescanner.ts:305</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -258,7 +264,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">region<wbr>Mask<wbr>Stroke<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;rgb(254,142,20)&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:259</li>
+							<li>Defined in src/class/barcodescanner.ts:301</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -289,7 +295,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function"><span class="hljs-param
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Play<wbr>Sound<wbr>OnSuccessful<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:241</li>
+							<li>Defined in src/class/barcodescanner.ts:261</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -329,12 +335,38 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="bvibrateonsuccessfulread" class="tsd-anchor"></a>
+					<h3>b<wbr>Vibrate<wbr>OnSuccessful<wbr>Read</h3>
+					<div class="tsd-signature tsd-kind-icon">b<wbr>Vibrate<wbr>OnSuccessful<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> = false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/class/barcodescanner.ts:279</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether to vibrate when the scanner reads a barcode successfully.
+								Default value is <code>false</code>, which does not vibrate.
+								Use <code>frame</code> or <code>true</code> to play a sound when any barcode is found within a frame.
+							Use <code>unduplicated</code> to play a sound only when any unique/unduplicated barcode is found within a frame.</p>
+							<pre><code class="language-js"><span class="hljs-comment">// https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies</span>
+startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  scanner.bVibrateOnSuccessfulRead = <span class="hljs-literal">false</span>;
+  scanner.bVibrateOnSuccessfulRead = <span class="hljs-literal">true</span>;
+  scanner.bVibrateOnSuccessfulRead = <span class="hljs-string">"frame"</span>;
+  scanner.bVibrateOnSuccessfulRead = <span class="hljs-string">"unduplicated"</span>;
+});</code></pre>
+							<p>refer: <code>favicon bug</code> <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&amp;q=favicon&amp;can=2">https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&amp;q=favicon&amp;can=2</a></p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="onframeread" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> on<wbr>Frame<wbr>Read</h3>
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Frame<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>results<span class="tsd-signature-symbol">: </span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:751</li>
+							<li>Defined in src/class/barcodescanner.ts:823</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -376,7 +408,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Played<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>info<span class="tsd-signature-symbol">: </span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:738</li>
+							<li>Defined in src/class/barcodescanner.ts:810</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -412,7 +444,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 					<div class="tsd-signature tsd-kind-icon">on<wbr>Unduplicated<wbr>Read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>txt<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, result<span class="tsd-signature-symbol">: </span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodescanner.ts:764</li>
+							<li>Defined in src/class/barcodescanner.ts:836</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -470,6 +502,23 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="vibrateduration" class="tsd-anchor"></a>
+					<h3>vibrate<wbr>Duration</h3>
+					<div class="tsd-signature tsd-kind-icon">vibrate<wbr>Duration<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 300</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/class/barcodescanner.ts:283</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="barcodescanner.html#bvibrateonsuccessfulread">bVibrateOnSuccessfulRead</a></p>
+							</dd>
+						</dl>
+					</div>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
@@ -490,7 +539,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>A mode not use video, get a frame from OS camera instead.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> DBR.BarcodeReader.createInstance();
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.createInstance();
 <span class="hljs-keyword">if</span>(scanner.singleFrameMode){
     <span class="hljs-comment">// the browser does not provide webrtc API, dbrjs automatically use singleFrameMode instead</span>
     scanner.show();
@@ -508,7 +557,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>A mode not use video, get a frame from OS camera instead.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> DBR.BarcodeReader.createInstance();
+									<pre><code class="language-js"><span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.createInstance();
 scanner.singleFrameMode = <span class="hljs-literal">true</span>; <span class="hljs-comment">// use singleFrameMode anyway</span>
 scanner.show();</code></pre>
 								</div>
@@ -534,7 +583,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:210</li>
+									<li>Defined in src/class/barcodescanner.ts:230</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -547,7 +596,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:217</li>
+									<li>Defined in src/class/barcodescanner.ts:237</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -651,8 +700,8 @@ scanner.show();</code></pre>
 								<div class="lead">
 									<p>The SDK will try to automatically explore the engine location.
 									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
-									<pre><code class="language-js">DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
-<span class="hljs-keyword">await</span> DBR.BarcodeReader.loadWasm();</code></pre>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+<span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -668,8 +717,8 @@ scanner.show();</code></pre>
 								<div class="lead">
 									<p>The SDK will try to automatically explore the engine location.
 									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
-									<pre><code class="language-js">DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
-<span class="hljs-keyword">await</span> DBR.BarcodeReader.loadWasm();</code></pre>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+<span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -914,7 +963,7 @@ scanner.show();</code></pre>
 							<aside class="tsd-sources">
 								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#destroy">destroy</a></p>
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1855</li>
+									<li>Defined in src/class/barcodescanner.ts:1961</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -938,13 +987,13 @@ scanner.show();</code></pre>
 							<aside class="tsd-sources">
 								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#createinstance">createInstance</a></p>
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:308</li>
+									<li>Defined in src/class/barcodescanner.ts:350</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create a <code>BarcodeScanner</code> object.</p>
-									<pre><code><span class="hljs-keyword">let</span> scanner = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">DBR</span>.</span><span class="hljs-module"><span class="hljs-identifier">BarcodeScanner</span>.</span></span>create<span class="hljs-constructor">Instance()</span>;</code></pre>
+									<pre><code><span class="hljs-keyword">let</span> scanner = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Dynamsoft</span>.</span><span class="hljs-module"><span class="hljs-identifier">DBR</span>.</span><span class="hljs-module"><span class="hljs-identifier">BarcodeScanner</span>.</span></span>create<span class="hljs-constructor">Instance()</span>;</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1016,7 +1065,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1820</li>
+									<li>Defined in src/class/barcodescanner.ts:1911</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1038,7 +1087,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1843</li>
+									<li>Defined in src/class/barcodescanner.ts:1949</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1060,7 +1109,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1016</li>
+									<li>Defined in src/class/barcodescanner.ts:1088</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1082,13 +1131,37 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1809</li>
+									<li>Defined in src/class/barcodescanner.ts:1886</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Bind UI, open the camera, start decoding.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.open()</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="openvideo" class="tsd-anchor"></a>
+					<h3>open<wbr>Video</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">open<wbr>Video<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/class/barcodescanner.ts:1901</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Bind UI, open the camera, but not decode.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.openVideo();
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> scanner.decodeCurrentFrame());</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1105,13 +1178,37 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1832</li>
+									<li>Defined in src/class/barcodescanner.ts:1923</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Bind UI, open the camera, start decoding, and remove the UIElement <code>display</code> style if the original style is <code>display:none;</code>.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.show()</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="showvideo" class="tsd-anchor"></a>
+					<h3>show<wbr>Video</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">show<wbr>Video<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/class/barcodescanner.ts:1939</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Bind UI, open the camera, but not decode, and remove the UIElement <code>display</code> style if the original style is <code>display:none;</code>.</p>
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.showVideo()
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">await</span> scanner.decodeCurrentFrame());</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/scannerplaycallbackinfo.html" class="tsd-signature-type">ScannerPlayCallbackInfo</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1131,7 +1228,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1062</li>
+									<li>Defined in src/class/barcodescanner.ts:1134</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1153,7 +1250,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1265</li>
+									<li>Defined in src/class/barcodescanner.ts:1337</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1175,7 +1272,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1080</li>
+									<li>Defined in src/class/barcodescanner.ts:1152</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1212,7 +1309,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1277</li>
+									<li>Defined in src/class/barcodescanner.ts:1349</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1234,7 +1331,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1036</li>
+									<li>Defined in src/class/barcodescanner.ts:1108</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1289,7 +1386,7 @@ scanner.show();</code></pre>
 									<p>set the HTML element that contains your scanner object.</p>
 									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-    <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> DBR.BarcodeScanner.createInstance();
+    <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeScanner.createInstance();
     scanner.setUIElement(<span class="hljs-built_in">document</span>.getElementsByClassName(<span class="hljs-string">"dbrScanner-video"</span>)[<span class="hljs-number">0</span>]);
     <span class="hljs-keyword">await</span> scanner.open();
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -1318,7 +1415,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:808</li>
+									<li>Defined in src/class/barcodescanner.ts:880</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1344,7 +1441,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1308</li>
+									<li>Defined in src/class/barcodescanner.ts:1380</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1390,7 +1487,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:836</li>
+									<li>Defined in src/class/barcodescanner.ts:908</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1413,7 +1510,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:880</li>
+									<li>Defined in src/class/barcodescanner.ts:952</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1437,7 +1534,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:990</li>
+									<li>Defined in src/class/barcodescanner.ts:1062</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1459,7 +1556,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1390</li>
+									<li>Defined in src/class/barcodescanner.ts:1462</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1495,7 +1592,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:867</li>
+									<li>Defined in src/class/barcodescanner.ts:939</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1527,7 +1624,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1414</li>
+									<li>Defined in src/class/barcodescanner.ts:1486</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1563,7 +1660,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1462</li>
+									<li>Defined in src/class/barcodescanner.ts:1534</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1599,7 +1696,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:897</li>
+									<li>Defined in src/class/barcodescanner.ts:969</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1631,7 +1728,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1438</li>
+									<li>Defined in src/class/barcodescanner.ts:1510</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1667,7 +1764,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1371</li>
+									<li>Defined in src/class/barcodescanner.ts:1443</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1697,7 +1794,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1352</li>
+									<li>Defined in src/class/barcodescanner.ts:1424</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1727,7 +1824,7 @@ scanner.show();</code></pre>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:1002</li>
+									<li>Defined in src/class/barcodescanner.ts:1074</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1760,7 +1857,7 @@ scanner.show();</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#getmodeargument">getModeArgument</a></p>
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1967</li>
+									<li>Defined in src/class/barcodereader.ts:1939</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1796,7 +1893,7 @@ scanner.show();</code></pre>
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#getruntimesettings">getRuntimeSettings</a></p>
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:988</li>
+									<li>Defined in src/class/barcodereader.ts:989</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1806,6 +1903,11 @@ scanner.show();</code></pre>
 settings.deblurLevel = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">await</span> reader.updateRuntimeSettings(settings);</code></pre>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&amp;utm_source=github&amp;package=js">RuntimeSettings</a></p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/runtimesettings.html" class="tsd-signature-type">RuntimeSettings</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -1822,7 +1924,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#resetruntimesettings">resetRuntimeSettings</a></p>
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1133</li>
+									<li>Defined in src/class/barcodereader.ts:1135</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1846,7 +1948,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#setmodeargument">setModeArgument</a></p>
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1925</li>
+									<li>Defined in src/class/barcodereader.ts:1897</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1885,19 +1987,24 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 							<aside class="tsd-sources">
 								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#updateruntimesettings">updateRuntimeSettings</a></p>
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:396</li>
+									<li>Defined in src/class/barcodescanner.ts:465</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Update runtime settings with a given struct, or a string of <code>speed</code>, <code>balance</code>, <code>coverage</code> and <code>single</code> to use preset settings for BarcodeScanner.
-										We recommend using the speed-optimized <code>single</code> preset if scanning only one barcode at a time. The <code>single</code> is only available in <code>BarcodeScanner</code>.
-									The default settings for BarcodeScanner is <code>single</code>, starting from version 8.0.0.</p>
+										We recommend using the speed-optimized <code>single</code> preset if scanning only one line at a time. The <code>single</code> is only available in <code>BarcodeScanner</code>.
+									The default settings for BarcodeScanner is <code>single</code>.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(<span class="hljs-string">'balance'</span>);
 <span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> scanner.getRuntimeSettings();
-settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
+settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 <span class="hljs-keyword">await</span> scanner.updateRuntimeSettings(settings);</code></pre>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?ver=latest&amp;utm_source=github&amp;package=js">RuntimeSettings</a></p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -1913,6 +2020,29 @@ settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Other Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="decodecurrentframe" class="tsd-anchor"></a>
+					<h3>decode<wbr>Current<wbr>Frame</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Current<wbr>Frame<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/class/barcodescanner.ts:404</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>await scanner.showVideo();
+									console.log(await scanner.decodeCurrentFrame());</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getscansettings" class="tsd-anchor"></a>
 					<h3>get<wbr>Scan<wbr>Settings</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1922,7 +2052,7 @@ settings.barcodeFormatIds = DBR.EnumBarcodeFormat.BF_ONED;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:924</li>
+									<li>Defined in src/class/barcodescanner.ts:996</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1948,7 +2078,7 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:957</li>
+									<li>Defined in src/class/barcodescanner.ts:1029</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1995,6 +2125,51 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="fixresultlocationwhenfilterregioninjs" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs<span class="tsd-signature-symbol">(</span>region<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, results<span class="tsd-signature-symbol">: </span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span>, sx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#fixresultlocationwhenfilterregioninjs">fixResultLocationWhenFilterRegionInJs</a></p>
+								<ul>
+									<li>Defined in src/class/barcodereader.ts:1750</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>region: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5>results: <a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>sx: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sy: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>sHeight: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>dWidth: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>dHeight: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -2020,6 +2195,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="barcodescanner.html#bsaveoricanvas" class="tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="barcodescanner.html#bvibrateonsuccessfulread" class="tsd-kind-icon">b<wbr>Vibrate<wbr>OnSuccessful<wbr>Read</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="barcodescanner.html#barcodefillstyle" class="tsd-kind-icon">barcode<wbr>Fill<wbr>Style</a>
@@ -2050,6 +2228,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="barcodescanner.html#regionmaskstrokestyle" class="tsd-kind-icon">region<wbr>Mask<wbr>Stroke<wbr>Style</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="barcodescanner.html#vibrateduration" class="tsd-kind-icon">vibrate<wbr>Duration</a>
 							</li>
 							<li class=" tsd-kind-accessor tsd-parent-kind-class">
 								<a href="barcodescanner.html#singleframemode" class="tsd-kind-icon">single<wbr>Frame<wbr>Mode</a>
@@ -2086,6 +2267,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodescanner.html#close" class="tsd-kind-icon">close</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="barcodescanner.html#decodecurrentframe" class="tsd-kind-icon">decode<wbr>Current<wbr>Frame</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a>
@@ -2125,6 +2309,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodescanner.html#open" class="tsd-kind-icon">open</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="barcodescanner.html#openvideo" class="tsd-kind-icon">open<wbr>Video</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodescanner.html#pause" class="tsd-kind-icon">pause</a>
@@ -2169,6 +2356,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 								<a href="barcodescanner.html#show" class="tsd-kind-icon">show</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="barcodescanner.html#showvideo" class="tsd-kind-icon">show<wbr>Video</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodescanner.html#stop" class="tsd-kind-icon">stop</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -2191,6 +2381,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="barcodescanner.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="barcodescanner.html#fixresultlocationwhenfilterregioninjs" class="tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static">
 								<a href="barcodescanner.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
