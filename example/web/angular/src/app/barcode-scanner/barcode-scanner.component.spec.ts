@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BarcodeScannerComponent } from './barcode-scanner.component';
 
@@ -6,12 +6,12 @@ describe('BarcodeScannerComponent', () => {
   let component: BarcodeScannerComponent;
   let fixture: ComponentFixture<BarcodeScannerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ BarcodeScannerComponent ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BarcodeScannerComponent);

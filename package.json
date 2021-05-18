@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-javascript-barcode",
-  "version": "8.2.3",
+  "version": "8.2.5",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "files": [
     "/dist/dbr.js",
@@ -11,7 +11,8 @@
     "/dist/dbr-*.wasm",
     "/dist/dbr.d.ts",
     "/dist/dbr.reference.d.ts",
-    "/dist/dbr.scanner.html"
+    "/dist/dbr.scanner.html",
+    "/dist/lts.license.dialog.html"
   ],
   "homepage": "https://www.dynamsoft.com/barcode-reader/sdk-javascript/",
   "main": "dist/dbr.js",
@@ -66,8 +67,6 @@
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-merge": "^4.2.2"
-  },
-  "dependencies": {
   },
   "peerDependencies": {
     "node-fetch": "^2.6.1",
