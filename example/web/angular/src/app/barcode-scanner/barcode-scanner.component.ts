@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ElementRef} from '@angular/core';
-import { BarcodeScanner, TextResult } from 'keillion-dynamsoft-javascript-barcode';
+import { BarcodeScanner, TextResult } from 'dynamsoft-javascript-barcode';
 import DBR from "../dbr";
 
 @Component({

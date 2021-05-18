@@ -1,5 +1,5 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
-import { BarcodeReader } from 'keillion-dynamsoft-javascript-barcode';
+import { BarcodeReader } from 'dynamsoft-javascript-barcode';
 import DBR from "../dbr";
 
 @Component({
