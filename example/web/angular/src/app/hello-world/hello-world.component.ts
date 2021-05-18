@@ -1,19 +1,20 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
+import { BarcodeReader } from 'keillion-dynamsoft-javascript-barcode';
 import DBR from "../dbr";
 
 @Component({
   selector: 'app-hello-world',
   templateUrl: './hello-world.component.html',
-  styleUrls: ['./hello-world.component.scss']
+  styleUrls: []
 })
 export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
 
-  @Input() title;
-  @ViewChild('divMessage', {static: false}) divMessage: ElementRef;
+  @Input() title:string = null as any as string;
+  @ViewChild('divMessage', {static: false}) divMessage: ElementRef = null as any as ElementRef;
   
-  reader = null;
+  reader:BarcodeReader|null = null;
   messageKeyBase = 0;
-  messages = [];
+  messages:string[] = [];
   needMessage2Bottom = false;
   bShowScanner = false;
 
@@ -32,7 +33,7 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
     }
   }
 
-  appendMessage(str){
+  appendMessage(str:string){
     this.messages.push(str);
     if(this.messages.length > 500){
       ++this.messageKeyBase;
@@ -40,12 +41,12 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
     }
     this.needMessage2Bottom = true;
   }
-  async onIptChange(event) {
+  async onIptChange(event:Event) {
     try{
       this.appendMessage("======== start read... ========");
       let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
-      let input = event.target;
-      let files = input.files;
+      let input = event.target as HTMLInputElement;
+      let files = input.files as FileList;
       for(let i = 0; i < files.length; ++i){
         let file = files[i];
         this.appendMessage(file.name + ':')

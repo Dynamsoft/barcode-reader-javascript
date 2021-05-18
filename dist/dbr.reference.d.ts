@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.2.3 (js 20210413)
+* @version 8.2.5 (js 20210426)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -368,7 +368,8 @@ declare class BarcodeReader {
 	protected static _organizationID: string;
 	static get organizationID(): string;
 	/**
-	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.
+	 * Get or set the Dynamsoft Barcode Reader SDK organizationID. Then if you want to use default handshake of this organization, you can keep handshakeCode empty;
+	 * @see [[handshakeCode]]
 	 */
 	static set organizationID(value: string);
 	/** @ignore */
@@ -434,6 +435,10 @@ declare class BarcodeReader {
 	 * @ignore
 	 */
 	static _bSendSmallRecordsForDebug: boolean;
+	/**
+	 * @ignore
+	 */
+	static _bNeverShowDialog: boolean;
 	/**
 	 * Whether to use full feature wasm.
 	 * The api may change in later version.
@@ -530,6 +535,8 @@ declare class BarcodeReader {
 	/** @ignore */
 	static get lastErrorString(): string;
 	/** @ignore */
+	protected _setWarnnedEx: Set<string>;
+	/** @ignore */
 	protected _lastErrorCode: number;
 	/** @ignore */
 	get lastErrorCode(): number;
@@ -537,11 +544,18 @@ declare class BarcodeReader {
 	protected _lastErrorString: string;
 	/** @ignore */
 	get lastErrorString(): string;
+	private static _loadWasmErr;
 	/**
 	 * Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
 	 * @category Initialize and Destroy
 	 */
 	static loadWasm(): Promise<void>;
+	/**
+	 * @param type "warn" or "error"
+	 * @param content
+	 * @returns
+	 */
+	protected static showDialog(type: string, content: string): Promise<void>;
 	protected static createInstanceInWorker(bScanner?: boolean): Promise<number>;
 	/**
 	 * Create a `BarcodeReader` object.
@@ -901,7 +915,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	 * Use `frame` or `true` to play a sound when any barcode is found within a frame.
 	 * Use `unduplicated` to play a sound only when any unique/unduplicated barcode is found within a frame.
 	 * ```js
-	 * // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+	 * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
 	 * startPlayButton.addEventListener('click', function() {
 	 *   scanner.bPlaySoundOnSuccessfulRead = false;
 	 *   scanner.bPlaySoundOnSuccessfulRead = true;
@@ -915,18 +929,18 @@ declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Whether to vibrate when the scanner reads a barcode successfully.
 	 * Default value is `false`, which does not vibrate.
-	 * Use `frame` or `true` to play a sound when any barcode is found within a frame.
-	 * Use `unduplicated` to play a sound only when any unique/unduplicated barcode is found within a frame.
+	 * Use `frame` or `true` to vibrate when any barcode is found within a frame.
+	 * Use `unduplicated` to vibrate only when any unique/unduplicated barcode is found within a frame.
 	 * ```js
-	 * // https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
-	 * startPlayButton.addEventListener('click', function() {
+	 * // Can I use? https://caniuse.com/?search=vibrate
+	 * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+	 * startVibrateButton.addEventListener('click', function() {
 	 *   scanner.bVibrateOnSuccessfulRead = false;
 	 *   scanner.bVibrateOnSuccessfulRead = true;
 	 *   scanner.bVibrateOnSuccessfulRead = "frame";
 	 *   scanner.bVibrateOnSuccessfulRead = "unduplicated";
 	 * });
 	 * ```
-	 * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
 	 */
 	bVibrateOnSuccessfulRead: (boolean | string);
 	/**
@@ -987,8 +1001,11 @@ declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
 	/**
+	 * ```js
 	 * await scanner.showVideo();
 	 * console.log(await scanner.decodeCurrentFrame());
+	 * ```
+	 * @category Decode
 	 */
 	decodeCurrentFrame(): Promise<TextResult[]>;
 	private clearMapDecodeRecord;
@@ -997,7 +1014,7 @@ declare class BarcodeScanner extends BarcodeReader {
 	private static isRegionNormalPreset;
 	/**
 	 * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` and `single` to use preset settings for BarcodeScanner.
-	 * We recommend using the speed-optimized `single` preset if scanning only one line at a time. The `single` is only available in `BarcodeScanner`.
+	 * We recommend using the speed-optimized `single` preset if scanning only one barcode at a time. The `single` is only available in `BarcodeScanner`.
 	 * The default settings for BarcodeScanner is `single`.
 	 * ```js
 	 * await scanner.updateRuntimeSettings('balance');
