@@ -11,6 +11,8 @@ Once integrated, your users can open your website in a browser, access their cam
 
 In this guide, you will learn step by step on how to integrate this library into your website.
 
+> Also see [Dynamsoft Barcode Reader for Node](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md).
+
 Table of Contents:
 
 * [Hello World - Simplest Implementation](#hello-world---simplest-implementation)
