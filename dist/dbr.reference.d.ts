@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.2.5 (js 20210426)
+* @version 8.2.7 (js 20210426)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
