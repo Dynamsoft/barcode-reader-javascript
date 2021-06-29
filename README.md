@@ -56,7 +56,7 @@ The complete code of the "Hello World" example is shown below
 <html>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"></script>
     <script>
         // initializes and uses the library
         let scanner = null;
@@ -123,13 +123,13 @@ The simplest way to include the library is to use either the [jsDelivr](https://
 * jsDelivr
 
   ``` html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"></script>
   ```
 
 * UNPKG  
 
   ``` html
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"></script>
   ```
 
 #### 2.1.2 Host the library yourself (recommended)
@@ -157,7 +157,7 @@ The following shows a few ways to download the library.
 Depending on how you downloaded the library and where you put it. You can typically include it like this:
 
 ``` html
-<script src="/DBR-JS-8.2.5/dist/dbr.js"></script>
+<script src="/DBR-JS-8.4.0/dist/dbr.js"></script>
 ```
 
 or
