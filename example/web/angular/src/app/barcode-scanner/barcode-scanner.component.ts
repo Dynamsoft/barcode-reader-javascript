@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ElementRef} from '@angular/core';
+import "../dbr";
 import { BarcodeScanner, TextResult } from 'dynamsoft-javascript-barcode';
-import DBR from "../dbr";
 
 @Component({
   selector: 'app-barcode-scanner',
@@ -9,39 +9,39 @@ import DBR from "../dbr";
 })
 export class BarcodeScannerComponent implements OnInit, OnDestroy {
   bDestroyed = false;
-  scanner:BarcodeScanner|null = null;
+  pScanner:Promise<BarcodeScanner>|null = null;
   @Output() appendMessage = new EventEmitter();
   constructor(private elementRef : ElementRef) { }
 
   async ngOnInit() {
     try{
-        this.scanner = this.scanner || await DBR.BarcodeScanner.createInstance();
+        let scanner = await (this.pScanner = this.pScanner || BarcodeScanner.createInstance());
 
         if(this.bDestroyed){
-          this.scanner.destroy();
+          scanner.destroy();
           return;
         }
 
-        this.scanner.setUIElement(this.elementRef.nativeElement);
-        this.scanner.onFrameRead = (results:TextResult[]) => {
+        scanner.setUIElement(this.elementRef.nativeElement);
+        scanner.onFrameRead = (results:TextResult[]) => {
             if(results.length){
                 console.log(results);
             }
         };
-        this.scanner.onUnduplicatedRead = (txt:string, result:TextResult) => {
+        scanner.onUnduplicatedRead = (txt:string, result:TextResult) => {
           this.appendMessage.emit(result.barcodeFormatString + ': ' + txt);
         };
-        await this.scanner.open();
+        await scanner.open();
 
     }catch(ex){
         this.appendMessage.emit(ex.message);
         console.error(ex);
     }
   }
-  ngOnDestroy(){
+  async ngOnDestroy(){
     this.bDestroyed = true;
-    if(this.scanner){
-        this.scanner.destroy();
+    if(this.pScanner){
+        (await this.pScanner).destroy();
     }
   }
 }

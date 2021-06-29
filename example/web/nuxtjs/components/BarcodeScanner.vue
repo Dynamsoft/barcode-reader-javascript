@@ -13,37 +13,38 @@
 </template>
 
 <script>
-import DBR from "~/dbr";
+import "~/dbr";
+import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 
 export default {
     data(){
         return {
             bDestroyed: false,
-            scanner: null
+            pScanner: null
         }
     },
     async mounted(){
         try{
-            this.scanner = await DBR.BarcodeScanner.createInstance();
+            let scanner = await (this.pScanner = this.pScanner || BarcodeScanner.createInstance());
 
             if(this.bDestroyed){
-                this.scanner.destroy();
+                scanner.destroy();
                 return;
             }
 
-            await this.scanner.setUIElement(this.$el);
-            this.scanner.onFrameRead = results => {
+            await scanner.setUIElement(this.$el);
+            scanner.onFrameRead = results => {
                 if(results.length){
                     console.log(results);
                 }
             };
-            this.scanner.onUnduplicatedRead = (txt, result) => {
+            scanner.onUnduplicatedRead = (txt, result) => {
                 this.$emit("appendMessage", result.barcodeFormatString + ': ' + txt);
             };
-            await this.scanner.open();
+            await scanner.open();
 
             if(this.bDestroyed){
-                this.scanner.destroy();
+                scanner.destroy();
                 return;
             }
 
@@ -52,10 +53,10 @@ export default {
             console.error(ex);
         }
     },
-    beforeDestroy() {
+    async beforeDestroy() {
         this.bDestroyed = true;
-        if(this.scanner){
-            this.scanner.destroy();
+        if(this.pScanner){
+            await (this.pScanner).destroy();
         }
     }
 }

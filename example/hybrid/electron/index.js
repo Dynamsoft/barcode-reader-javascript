@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const dbrnode = require('dynamsoft-javascript-barcode');
+const { DBR, BarcodeReader } = require('dynamsoft-javascript-barcode');
 
 function createWindow () {
   // Create the browser window.
@@ -45,11 +45,11 @@ app.on('activate', () => {
 
 // use dbrjs in node
 
-dbrnode.BarcodeReader.productKeys = "PRODUCT-KEYS";
+DBR.productKeys = "PRODUCT-KEYS";
 
 // error! async can't be used on electron's main process??
 // (async()=>{
-//   let reader = await dbrnode.BarcodeReader.createInstance();
+//   let reader = await BarcodeReader.createInstance();
 //   let results = await reader.decode("../../sample.png");
 //   for(let result of results){
 //     console.log(result.barcodeText);
@@ -58,7 +58,7 @@ dbrnode.BarcodeReader.productKeys = "PRODUCT-KEYS";
 // })();
 
 let reader = null;
-dbrnode.BarcodeReader.createInstance().then(r=>{
+BarcodeReader.createInstance().then(r=>{
   reader = r;
   return reader.decode("../../sample.png");
 }).then(results=>{

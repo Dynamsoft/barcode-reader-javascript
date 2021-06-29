@@ -1,43 +1,43 @@
-import DBR from "../dbr";
-import React from 'react';
+import "../dbr";
+import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 import './BarcodeScanner.css';
 
-class BarcodeScanner extends React.Component {
+class ComponentBarcodeScanner extends React.Component {
     constructor(props){
         super(props);
         this.bDestroyed = false;
-        this.scanner = null;
+        this.pScanner = null;
         this.elRef = React.createRef();
     }
     async componentDidMount(){
         try{
-            this.scanner = this.scanner || await DBR.BarcodeScanner.createInstance();
+            let scanner = await (this.pScanner = this.pScanner || BarcodeScanner.createInstance());
 
             if(this.bDestroyed){
-                this.scanner.destroy();
+                scanner.destroy();
                 return;
             }
 
-            this.scanner.setUIElement(this.elRef.current);
-            this.scanner.onFrameRead = results => {
+            scanner.setUIElement(this.elRef.current);
+            scanner.onFrameRead = results => {
                 if(results.length){
                     console.log(results);
                 }
             };
-            this.scanner.onUnduplicatedRead = (txt, result) => {
+            scanner.onUnduplicatedRead = (txt, result) => {
                 this.props.appendMessage(result.barcodeFormatString + ': ' + txt);
             };
-            await this.scanner.open();
+            await scanner.open();
 
         }catch(ex){
             this.props.appendMessage(ex.message);
             console.error(ex);
         }
     }
-    componentWillUnmount(){
+    async componentWillUnmount(){
         this.bDestroyed = true;
-        if(this.scanner){
-            this.scanner.destroy();
+        if(this.pScanner){
+            await (this.pScanner).destroy();
         }
     }
     shouldComponentUpdate(){
@@ -61,4 +61,4 @@ class BarcodeScanner extends React.Component {
     }
 }
 
-export default BarcodeScanner;
+export default ComponentBarcodeScanner;

@@ -1,0 +1,921 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>DBR | Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.4.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="dbr.html">DBR</a>
+				</li>
+			</ul>
+			<h1>Class DBR</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">DBR</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#barcodereader" class="tsd-kind-icon">Barcode<wbr>Reader</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#barcodescanner" class="tsd-kind-icon">Barcode<wbr>Scanner</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumbarcodecolourmode" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Colour<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumbarcodecomplementmode" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Complement<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumbarcodeformat" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumbarcodeformat_2" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format_<wbr>2</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumbinarizationmode" class="tsd-kind-icon">Enum<wbr>Binarization<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumclaritycalculationmethod" class="tsd-kind-icon">Enum<wbr>Clarity<wbr>Calculation<wbr>Method</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumclarityfiltermode" class="tsd-kind-icon">Enum<wbr>Clarity<wbr>Filter<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumcolourclusteringmode" class="tsd-kind-icon">Enum<wbr>Colour<wbr>Clustering<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumcolourconversionmode" class="tsd-kind-icon">Enum<wbr>Colour<wbr>Conversion<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumconflictmode" class="tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumdpmcodereadingmode" class="tsd-kind-icon">EnumDPMCode<wbr>Reading<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumdeblurmode" class="tsd-kind-icon">Enum<wbr>Deblur<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumdeformationresistingmode" class="tsd-kind-icon">Enum<wbr>Deformation<wbr>Resisting<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumerrorcode" class="tsd-kind-icon">Enum<wbr>Error<wbr>Code</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumgrayscaletransformationmode" class="tsd-kind-icon">Enum<wbr>Grayscale<wbr>Transformation<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumimresultdatatype" class="tsd-kind-icon">EnumIMResult<wbr>Data<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumimagepixelformat" class="tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumimagepreprocessingmode" class="tsd-kind-icon">Enum<wbr>Image<wbr>Preprocessing<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumintermediateresultsavingmode" class="tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Saving<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumintermediateresulttype" class="tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumlocalizationmode" class="tsd-kind-icon">Enum<wbr>Localization<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumpdfreadingmode" class="tsd-kind-icon">EnumPDFReading<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumqrcodeerrorcorrectionlevel" class="tsd-kind-icon">EnumQRCode<wbr>Error<wbr>Correction<wbr>Level</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumregionpredetectionmode" class="tsd-kind-icon">Enum<wbr>Region<wbr>Predetection<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumresultcoordinatetype" class="tsd-kind-icon">Enum<wbr>Result<wbr>Coordinate<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumresulttype" class="tsd-kind-icon">Enum<wbr>Result<wbr>Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumscaleupmode" class="tsd-kind-icon">Enum<wbr>Scale<wbr>UpMode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumterminatephase" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Phase</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumtextfiltermode" class="tsd-kind-icon">Enum<wbr>Text<wbr>Filter<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumtextresultordermode" class="tsd-kind-icon">Enum<wbr>Text<wbr>Result<wbr>Order<wbr>Mode</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="dbr.html#enumtexturedetectionmode" class="tsd-kind-icon">Enum<wbr>Texture<wbr>Detection<wbr>Mode</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#engineresourcepath" class="tsd-kind-icon">engine<wbr>Resource<wbr>Path</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#handshakecode" class="tsd-kind-icon">handshake<wbr>Code</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#licenseserver" class="tsd-kind-icon">license<wbr>Server</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#organizationid" class="tsd-kind-icon">organizationID</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#productkeys" class="tsd-kind-icon">product<wbr>Keys</a></li>
+								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-static"><a href="dbr.html#sessionpassword" class="tsd-kind-icon">session<wbr>Password</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-static"><a href="dbr.html#version" class="tsd-kind-icon">version</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="dbr.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="dbr.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="dbr.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="barcodereader" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Barcode<wbr>Reader</h3>
+					<div class="tsd-signature tsd-kind-icon">Barcode<wbr>Reader<span class="tsd-signature-symbol">:</span> <a href="barcodereader.html" class="tsd-signature-type">BarcodeReader</a><span class="tsd-signature-symbol"> = BarcodeReader</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:37</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="barcodescanner" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Barcode<wbr>Scanner</h3>
+					<div class="tsd-signature tsd-kind-icon">Barcode<wbr>Scanner<span class="tsd-signature-symbol">:</span> <a href="barcodescanner.html" class="tsd-signature-type">BarcodeScanner</a><span class="tsd-signature-symbol"> = BarcodeScanner</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:38</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumbarcodecolourmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Barcode<wbr>Colour<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Barcode<wbr>Colour<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbarcodecolourmode.html" class="tsd-signature-type">EnumBarcodeColourMode</a><span class="tsd-signature-symbol"> = EnumBarcodeColourMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:39</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumbarcodecomplementmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Barcode<wbr>Complement<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Barcode<wbr>Complement<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbarcodecomplementmode.html" class="tsd-signature-type">EnumBarcodeComplementMode</a><span class="tsd-signature-symbol"> = EnumBarcodeComplementMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:40</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumbarcodeformat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Barcode<wbr>Format</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Barcode<wbr>Format<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbarcodeformat.html" class="tsd-signature-type">EnumBarcodeFormat</a><span class="tsd-signature-symbol"> = EnumBarcodeFormat</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:41</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumbarcodeformat_2" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Barcode<wbr>Format_<wbr>2</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Barcode<wbr>Format_<wbr>2<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbarcodeformat_2.html" class="tsd-signature-type">EnumBarcodeFormat_2</a><span class="tsd-signature-symbol"> = EnumBarcodeFormat_2</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:42</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumbinarizationmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Binarization<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Binarization<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumbinarizationmode.html" class="tsd-signature-type">EnumBinarizationMode</a><span class="tsd-signature-symbol"> = EnumBinarizationMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:43</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumclaritycalculationmethod" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Clarity<wbr>Calculation<wbr>Method</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Clarity<wbr>Calculation<wbr>Method<span class="tsd-signature-symbol">:</span> <a href="../enums/enumclaritycalculationmethod.html" class="tsd-signature-type">EnumClarityCalculationMethod</a><span class="tsd-signature-symbol"> = EnumClarityCalculationMethod</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:44</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumclarityfiltermode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Clarity<wbr>Filter<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Clarity<wbr>Filter<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumclarityfiltermode.html" class="tsd-signature-type">EnumClarityFilterMode</a><span class="tsd-signature-symbol"> = EnumClarityFilterMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:45</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumcolourclusteringmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Colour<wbr>Clustering<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Colour<wbr>Clustering<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumcolourclusteringmode.html" class="tsd-signature-type">EnumColourClusteringMode</a><span class="tsd-signature-symbol"> = EnumColourClusteringMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:46</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumcolourconversionmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Colour<wbr>Conversion<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Colour<wbr>Conversion<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumcolourconversionmode.html" class="tsd-signature-type">EnumColourConversionMode</a><span class="tsd-signature-symbol"> = EnumColourConversionMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:47</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumconflictmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Conflict<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumconflictmode.html" class="tsd-signature-type">EnumConflictMode</a><span class="tsd-signature-symbol"> = EnumConflictMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:48</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumdpmcodereadingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EnumDPMCode<wbr>Reading<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">EnumDPMCode<wbr>Reading<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumdpmcodereadingmode.html" class="tsd-signature-type">EnumDPMCodeReadingMode</a><span class="tsd-signature-symbol"> = EnumDPMCodeReadingMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:51</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumdeblurmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Deblur<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Deblur<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumdeblurmode.html" class="tsd-signature-type">EnumDeblurMode</a><span class="tsd-signature-symbol"> = EnumDeblurMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:49</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumdeformationresistingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Deformation<wbr>Resisting<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Deformation<wbr>Resisting<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumdeformationresistingmode.html" class="tsd-signature-type">EnumDeformationResistingMode</a><span class="tsd-signature-symbol"> = EnumDeformationResistingMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:50</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumerrorcode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Error<wbr>Code</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Error<wbr>Code<span class="tsd-signature-symbol">:</span> <a href="../enums/enumerrorcode.html" class="tsd-signature-type">EnumErrorCode</a><span class="tsd-signature-symbol"> = EnumErrorCode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:52</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumgrayscaletransformationmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Grayscale<wbr>Transformation<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Grayscale<wbr>Transformation<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumgrayscaletransformationmode.html" class="tsd-signature-type">EnumGrayscaleTransformationMode</a><span class="tsd-signature-symbol"> = EnumGrayscaleTransformationMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:53</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumimresultdatatype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EnumIMResult<wbr>Data<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">EnumIMResult<wbr>Data<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/enumimresultdatatype.html" class="tsd-signature-type">EnumIMResultDataType</a><span class="tsd-signature-symbol"> = EnumIMResultDataType</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:56</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumimagepixelformat" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Image<wbr>Pixel<wbr>Format</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format<span class="tsd-signature-symbol">:</span> <a href="../enums/enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a><span class="tsd-signature-symbol"> = EnumImagePixelFormat</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:54</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumimagepreprocessingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Image<wbr>Preprocessing<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Image<wbr>Preprocessing<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumimagepreprocessingmode.html" class="tsd-signature-type">EnumImagePreprocessingMode</a><span class="tsd-signature-symbol"> = EnumImagePreprocessingMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:55</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumintermediateresultsavingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Intermediate<wbr>Result<wbr>Saving<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Saving<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumintermediateresultsavingmode.html" class="tsd-signature-type">EnumIntermediateResultSavingMode</a><span class="tsd-signature-symbol"> = EnumIntermediateResultSavingMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:57</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumintermediateresulttype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Intermediate<wbr>Result<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/enumintermediateresulttype.html" class="tsd-signature-type">EnumIntermediateResultType</a><span class="tsd-signature-symbol"> = EnumIntermediateResultType</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:58</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumlocalizationmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Localization<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Localization<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumlocalizationmode.html" class="tsd-signature-type">EnumLocalizationMode</a><span class="tsd-signature-symbol"> = EnumLocalizationMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:59</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumpdfreadingmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EnumPDFReading<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">EnumPDFReading<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumpdfreadingmode.html" class="tsd-signature-type">EnumPDFReadingMode</a><span class="tsd-signature-symbol"> = EnumPDFReadingMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:60</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumqrcodeerrorcorrectionlevel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> EnumQRCode<wbr>Error<wbr>Correction<wbr>Level</h3>
+					<div class="tsd-signature tsd-kind-icon">EnumQRCode<wbr>Error<wbr>Correction<wbr>Level<span class="tsd-signature-symbol">:</span> <a href="../enums/enumqrcodeerrorcorrectionlevel.html" class="tsd-signature-type">EnumQRCodeErrorCorrectionLevel</a><span class="tsd-signature-symbol"> = EnumQRCodeErrorCorrectionLevel</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:61</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumregionpredetectionmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Region<wbr>Predetection<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Region<wbr>Predetection<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumregionpredetectionmode.html" class="tsd-signature-type">EnumRegionPredetectionMode</a><span class="tsd-signature-symbol"> = EnumRegionPredetectionMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:62</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumresultcoordinatetype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Result<wbr>Coordinate<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Result<wbr>Coordinate<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/enumresultcoordinatetype.html" class="tsd-signature-type">EnumResultCoordinateType</a><span class="tsd-signature-symbol"> = EnumResultCoordinateType</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:63</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumresulttype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Result<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Result<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../enums/enumresulttype.html" class="tsd-signature-type">EnumResultType</a><span class="tsd-signature-symbol"> = EnumResultType</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:64</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumscaleupmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Scale<wbr>UpMode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Scale<wbr>UpMode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumscaleupmode.html" class="tsd-signature-type">EnumScaleUpMode</a><span class="tsd-signature-symbol"> = EnumScaleUpMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:65</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumterminatephase" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Terminate<wbr>Phase</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Terminate<wbr>Phase<span class="tsd-signature-symbol">:</span> <a href="../enums/enumterminatephase.html" class="tsd-signature-type">EnumTerminatePhase</a><span class="tsd-signature-symbol"> = EnumTerminatePhase</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:66</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumtextfiltermode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Text<wbr>Filter<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Text<wbr>Filter<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumtextfiltermode.html" class="tsd-signature-type">EnumTextFilterMode</a><span class="tsd-signature-symbol"> = EnumTextFilterMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:67</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumtextresultordermode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Text<wbr>Result<wbr>Order<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Text<wbr>Result<wbr>Order<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumtextresultordermode.html" class="tsd-signature-type">EnumTextResultOrderMode</a><span class="tsd-signature-symbol"> = EnumTextResultOrderMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:68</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="enumtexturedetectionmode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Enum<wbr>Texture<wbr>Detection<wbr>Mode</h3>
+					<div class="tsd-signature tsd-kind-icon">Enum<wbr>Texture<wbr>Detection<wbr>Mode<span class="tsd-signature-symbol">:</span> <a href="../enums/enumtexturedetectionmode.html" class="tsd-signature-type">EnumTextureDetectionMode</a><span class="tsd-signature-symbol"> = EnumTextureDetectionMode</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in src/dbr.ts:69</li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="engineresourcepath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> engine<wbr>Resource<wbr>Path</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> engineResourcePath<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> engineResourcePath<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:86</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:87</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="handshakecode" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> handshake<wbr>Code</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> handshakeCode<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> handshakeCode<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:73</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:74</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keys: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="licenseserver" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> license<wbr>Server</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> licenseServer<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> licenseServer<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:88</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:89</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="organizationid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> organizationID</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> organizationID<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> organizationID<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:75</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:76</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keys: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="productkeys" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> product<wbr>Keys</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> productKeys<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> productKeys<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:71</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:72</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keys: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+					<a name="sessionpassword" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> session<wbr>Password</h3>
+					<ul class="tsd-signatures tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> sessionPassword<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">set</span> sessionPassword<span class="tsd-signature-symbol">(</span>keys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:77</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:78</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>keys: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+					<a name="version" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> version</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> version<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:70</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="detectenvironment" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> detect<wbr>Environment</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">detect<wbr>Environment<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:81</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isloaded" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Loaded</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Loaded<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:108</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="loadwasm" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> load<wbr>Wasm</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">load<wbr>Wasm<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in src/dbr.ts:109</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="dbr.html" class="tsd-kind-icon">DBR</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#barcodereader" class="tsd-kind-icon">Barcode<wbr>Reader</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#barcodescanner" class="tsd-kind-icon">Barcode<wbr>Scanner</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumbarcodecolourmode" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Colour<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumbarcodecomplementmode" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Complement<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumbarcodeformat" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumbarcodeformat_2" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Format_<wbr>2</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumbinarizationmode" class="tsd-kind-icon">Enum<wbr>Binarization<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumclaritycalculationmethod" class="tsd-kind-icon">Enum<wbr>Clarity<wbr>Calculation<wbr>Method</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumclarityfiltermode" class="tsd-kind-icon">Enum<wbr>Clarity<wbr>Filter<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumcolourclusteringmode" class="tsd-kind-icon">Enum<wbr>Colour<wbr>Clustering<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumcolourconversionmode" class="tsd-kind-icon">Enum<wbr>Colour<wbr>Conversion<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumconflictmode" class="tsd-kind-icon">Enum<wbr>Conflict<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumdpmcodereadingmode" class="tsd-kind-icon">EnumDPMCode<wbr>Reading<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumdeblurmode" class="tsd-kind-icon">Enum<wbr>Deblur<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumdeformationresistingmode" class="tsd-kind-icon">Enum<wbr>Deformation<wbr>Resisting<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumerrorcode" class="tsd-kind-icon">Enum<wbr>Error<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumgrayscaletransformationmode" class="tsd-kind-icon">Enum<wbr>Grayscale<wbr>Transformation<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumimresultdatatype" class="tsd-kind-icon">EnumIMResult<wbr>Data<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumimagepixelformat" class="tsd-kind-icon">Enum<wbr>Image<wbr>Pixel<wbr>Format</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumimagepreprocessingmode" class="tsd-kind-icon">Enum<wbr>Image<wbr>Preprocessing<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumintermediateresultsavingmode" class="tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Saving<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumintermediateresulttype" class="tsd-kind-icon">Enum<wbr>Intermediate<wbr>Result<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumlocalizationmode" class="tsd-kind-icon">Enum<wbr>Localization<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumpdfreadingmode" class="tsd-kind-icon">EnumPDFReading<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumqrcodeerrorcorrectionlevel" class="tsd-kind-icon">EnumQRCode<wbr>Error<wbr>Correction<wbr>Level</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumregionpredetectionmode" class="tsd-kind-icon">Enum<wbr>Region<wbr>Predetection<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumresultcoordinatetype" class="tsd-kind-icon">Enum<wbr>Result<wbr>Coordinate<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumresulttype" class="tsd-kind-icon">Enum<wbr>Result<wbr>Type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumscaleupmode" class="tsd-kind-icon">Enum<wbr>Scale<wbr>UpMode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumterminatephase" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Phase</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumtextfiltermode" class="tsd-kind-icon">Enum<wbr>Text<wbr>Filter<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumtextresultordermode" class="tsd-kind-icon">Enum<wbr>Text<wbr>Result<wbr>Order<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#enumtexturedetectionmode" class="tsd-kind-icon">Enum<wbr>Texture<wbr>Detection<wbr>Mode</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#engineresourcepath" class="tsd-kind-icon">engine<wbr>Resource<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#handshakecode" class="tsd-kind-icon">handshake<wbr>Code</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#licenseserver" class="tsd-kind-icon">license<wbr>Server</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#organizationid" class="tsd-kind-icon">organizationID</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#productkeys" class="tsd-kind-icon">product<wbr>Keys</a>
+							</li>
+							<li class=" tsd-kind-accessor tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#sessionpassword" class="tsd-kind-icon">session<wbr>Password</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#version" class="tsd-kind-icon">version</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="dbr.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>

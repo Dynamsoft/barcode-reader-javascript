@@ -1,11 +1,12 @@
-import DBR from "../dbr";
+import "../dbr";
+import { BarcodeReader } from 'dynamsoft-javascript-barcode';
+import ComponentBarcodeScanner from "./BarcodeScanner";
 import React from 'react';
-import BarcodeScanner from './BarcodeScanner';
 
 class HelloWorld extends React.Component {
     constructor(props){
         super(props);
-        this.reader = null;
+        this.pReader = null;
         this.refDivMessage = React.createRef();
         this.state = {
             messageKeyBase: 0,
@@ -16,9 +17,9 @@ class HelloWorld extends React.Component {
     componentDidUpdate(){
         this.refDivMessage.current.scrollTop = this.refDivMessage.current.scrollHeight;
     }
-    componentWillUnmount(){
-        if(this.reader){
-            this.reader.destroy();
+    async componentWillUnmount(){
+        if(this.pReader){
+            (await this.pReader).destroy();
         }
     }
     render() {
@@ -36,7 +37,7 @@ class HelloWorld extends React.Component {
                 ) : (
                     <div>
                         <button onClick={this.hideScanner}>hide scanner</button>
-                        <BarcodeScanner appendMessage={this.appendMessage}></BarcodeScanner>
+                        <ComponentBarcodeScanner appendMessage={this.appendMessage}></ComponentBarcodeScanner>
                     </div>
                 ) }
             
@@ -68,7 +69,7 @@ class HelloWorld extends React.Component {
         (async ()=>{
             try{
                 this.appendMessage("======== start read... ========");
-                let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
+                let reader = await (this.pReader = this.pReader || BarcodeReader.createInstance());
                 let files = input.files;
                 for(let i = 0; i < files.length; ++i){
                 let file = files[i];

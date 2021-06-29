@@ -25,18 +25,19 @@
 </template>
 
 <script>
-import DBR from "../dbr";
+import "../dbr";
+import { BarcodeScanner } from 'dynamsoft-javascript-barcode';
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 export default {
   setup(props, context) {
     const root = ref(null);
-    const scanner = ref(null);
+    const pScanner = ref(null);
     const bDestroyed = ref(false);
 
     onMounted(async () => {
       try {
-        scanner.value = await DBR.BarcodeScanner.createInstance();
+        let scanner = await (pScanner.value = pScanner.value || BarcodeScanner.createInstance());
     
         if (bDestroyed.value) {
           scanner.value.destroy();
@@ -61,10 +62,10 @@ export default {
         console.error(ex);
       }
     });
-    onBeforeUnmount(() => {
+    onBeforeUnmount(async() => {
       bDestroyed.value = true;
-      if (scanner.value) {
-        scanner.value.destroy();
+      if (pScanner.value) {
+        await(pScanner.value).destroy();
       }
     });
     return {
