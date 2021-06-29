@@ -14,7 +14,7 @@
     "/dist/dbr.scanner.html",
     "/dist/lts.license.dialog.html"
   ],
-  "homepage": "https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx",
+  "homepage": "https://www.dynamsoft.com/barcode-reader/sdk-javascript/",
   "main": "dist/dbr.js",
   "module": "dist/dbr.mjs",
   "browser": "dist/dbr.browser.mjs",
