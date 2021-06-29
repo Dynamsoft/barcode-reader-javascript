@@ -11,7 +11,7 @@
 
     <div v-if="bShowScanner">
       <button v-on:click="hideScanner">hide scanner</button>
-      <BarcodeScanner v-on:appendMessage="appendMessage"></BarcodeScanner>
+      <component-barcode-scanner v-on:appendMessage="appendMessage"></component-barcode-scanner>
     </div>
 
     <div class="div-message" ref="divMessage">
@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import DBR from "../dbr";
-import BarcodeScanner from "./BarcodeScanner";
+import "../dbr";
+import { BarcodeReader } from 'dynamsoft-javascript-barcode';
+import ComponentBarcodeScanner from "./BarcodeScanner";
 
 export default {
   props: {
@@ -32,21 +33,21 @@ export default {
   },
   data() { 
     return {
-      reader: null,
+      pReader: null,
       messageKeyBase: 0,
       messages: [],
       bShowScanner: false
     };
   },
   components: {
-    BarcodeScanner
+    ComponentBarcodeScanner
   },
   updated(){
     this.$refs.divMessage.scrollTop = this.$refs.divMessage.scrollHeight;
   },
-  beforeDestroy(){
-    if(this.reader){
-      this.reader.destroy();
+  async beforeDestroy(){
+    if(this.pReader){
+      (await this.pReader).destroy();
     }
   },
   methods: {
@@ -60,7 +61,7 @@ export default {
     async onIptChange(event) {
       try{
         this.appendMessage("======== start read... ========");
-        let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
+        let reader = await (this.pReader = this.pReader || BarcodeReader.createInstance());
         let input = event.target;
         let files = input.files;
         for(let i = 0; i < files.length; ++i){

@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.2.5 (js 20210426)
+* @version 8.4.0 (js 20210628)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -17,12 +17,6 @@ export interface LocalizationResult {
 	 * The angle of a barcode. Values range from 0 to 360.
 	 */
 	angle: number;
-	/**
-	 * The stage when the results are returned.
-	 */
-	/**
-	 * The array which stores the coordinates of four result points. e.g. ["60, 82", "60, 88", "51, 88", "51, 82"]
-	 */
 	/**
 	 * The X coordinate of the left-most point.
 	 */
@@ -174,18 +168,50 @@ export declare enum EnumScaleUpMode {
 	SUM_SKIP = 0,
 	SUM_REV = 2147483648
 }
+export declare enum EnumLocalizationMode {
+	LM_SKIP = 0,
+	LM_AUTO = 1,
+	LM_CONNECTED_BLOCKS = 2,
+	LM_LINES = 8,
+	LM_STATISTICS = 4,
+	LM_SCAN_DIRECTLY = 16,
+	LM_STATISTICS_MARKS = 32,
+	LM_STATISTICS_POSTAL_CODE = 64,
+	LM_CENTRE = 128,
+	LM_REV = 2147483648
+}
+export declare enum EnumBarcodeFormat_2 {
+	BF2_NULL = 0,
+	BF2_POSTALCODE = 32505856,
+	BF2_NONSTANDARD_BARCODE = 1,
+	BF2_USPSINTELLIGENTMAIL = 1048576,
+	BF2_POSTNET = 2097152,
+	BF2_PLANET = 4194304,
+	BF2_AUSTRALIANPOST = 8388608,
+	BF2_RM4SCC = 16777216,
+	BF2_DOTCODE = 2
+}
+export declare enum EnumResultCoordinateType {
+	RCT_PIXEL = 1,
+	RCT_PERCENTAGE = 2
+}
 /**
  * @see [C++ RuntimeSettings](https://www.dynamsoft.com/barcode-reader/programming/c-cplusplus/struct/PublicRuntimeSettings.html?src=cpp&&ver=latest)
  */
 export interface RuntimeSettings {
 	/**
 	 * Sets the formats of the barcode in BarcodeFormat group 1 to be read. Barcode formats in BarcodeFormat group 1 can be combined.
+	 * ```js
+	 * let runtimeSettings = await reader.getRuntimeSettings();
+	 * runtimeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED | Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
+	 * await reader.updateRuntimeSettings(runtimeSettings);
+	 * ```
 	 */
-	barcodeFormatIds: number;
+	barcodeFormatIds: number | EnumBarcodeFormat;
 	/**
 	 * Sets the formats of the barcode in BarcodeFormat group 2 to be read. Barcode formats in BarcodeFormat group 1 can be combined.
 	 */
-	barcodeFormatIds_2: number;
+	barcodeFormatIds_2: number | EnumBarcodeFormat_2;
 	/**
 	 * Sets the mode and priority for binarization.
 	 */
@@ -209,7 +235,7 @@ export interface RuntimeSettings {
 	/**
 	 * Sets the mode and priority for localization algorithms.
 	 */
-	localizationModes: number[];
+	localizationModes: number[] | EnumLocalizationMode[];
 	/**
 	 * Sets the range of barcode text length for barcodes search
 	 */
@@ -219,17 +245,21 @@ export interface RuntimeSettings {
 	 */
 	minResultConfidence: number;
 	/**
-	 * Sets the way to detect barcodes from a PDF file when using the DecodeFile method.
+	 * Not available in JS. Sets the way to detect barcodes from a PDF file when using the DecodeFile method.
 	 */
 	PDFReadingMode: EnumPDFReadingMode;
 	/**
 	 * Sets the region definition including the regionTop, regionLeft, regionRight, regionBottom and regionMeasuredByPercentage.
+	 *
+	 * Experimental feature:
+	 *
+	 * In [BarcodeScanner](../BarcodeScanner.md), `region` can be an array. For example `region = [r0, r1, r2]`, 0th frame use `r0`, 1st use `r1`, 2nd use `r2`, 3rd use `r0`, and then loop like this.
 	 */
 	region: RegionDefinition;
 	/**
 	 * Specifies the format for the coordinates returned
 	 */
-	resultCoordinateType: number;
+	resultCoordinateType: number | EnumResultCoordinateType;
 	/**
 	 * Sets whether or not to return the clarity of the barcode zone.
 	 */
@@ -339,7 +369,8 @@ export interface BarcodeReaderException extends Error {
 	code?: EnumErrorCode;
 }
 /**
- * A class dedicated to image decoding.
+ * The `BarcodeReader` class is used for image decoding
+ * Comparing to `BarcodeScanner`, the default decoding settings are more accurate but slower.
  * ```js
  * let reader = await Dynamsoft.DBR.BarcodeReader.createInstance();
  * let results = await reader.decode(imageSource);
@@ -349,31 +380,66 @@ export interface BarcodeReaderException extends Error {
  * ```
  */
 export declare class BarcodeReader {
-	protected static bNode: boolean;
 	private static _jsVersion;
 	private static _jsEditVersion;
 	protected static _version: string;
+	/**
+	 * Get the current version.
+	*/
 	static get version(): string;
 	protected static _productKeys: string;
 	static get productKeys(): string;
 	/**
 	 * Get or set the Dynamsoft Barcode Reader SDK product keys.
+	 * ```js
+	 * Dynamsoft.DBR.BarcodeReader.productKeys = "PRODUCT-KEYS";
+	 * ```
+	 * For convenience, you can set `productKeys` in `script` tag instead.
+	 * ```html
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+	 * ```
 	 */
 	static set productKeys(keys: string);
 	static get handshakeCode(): string;
 	/**
-	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.
+	 * Get or set the Dynamsoft Barcode Reader SDK handshake code. The `handshakeCode` is an alias of `productKeys`. Specifically refers to the key that requires **network** authentication.
+	 * ```js
+	 * Dynamsoft.DBR.BarcodeReader.handshakeCode = "123****-mytest";
+	 * ```
+	 * For convenience, you can set `handshakeCode` in `script` tag instead.
+	 * ```html
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js" data-handshakeCode="123****-mytest"></script>
+	 * ```
 	 */
 	static set handshakeCode(keys: string);
 	protected static _organizationID: string;
 	static get organizationID(): string;
 	/**
-	 * Get or set the Dynamsoft Barcode Reader SDK organizationID. Then if you want to use default handshake of this organization, you can keep handshakeCode empty;
+	 * Use organization ID to get authentication from network. Keep handshakeCode empty if you want to use default `handshake` of the organization.
+	 * ```js
+	 * Dynamsoft.DBR.BarcodeReader.organizationID = "123****";
+	 * ```
+	 * For convenience, you can set `organizationID` in `script` tag instead.
+	 * ```html
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js" data-organizationID="123****"></script>
+	 * ```
 	 * @see [[handshakeCode]]
 	 */
 	static set organizationID(value: string);
 	/** @ignore */
-	static _sessionPassword?: string;
+	static _sessionPassword: string;
+	/**
+	 * Specify a password to protect the `Handshake Code` from abuse.
+	 * ```js
+	 * Dynamsoft.DBR.BarcodeReader.handshakeCode = "123****-mytest";
+	 * Dynamsoft.DBR.BarcodeReader.sessionPassword = "@#$%****";
+	 * ```
+	 * For convenience, you can set `organizationID` in `script` tag instead.
+	 * ```html
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js" data-handshakeCode="123****-mytest" data-sessionPassword="@#$%****"></script>
+	 * ```
+	 * @see [[handshakeCode]]
+	 */
 	static set sessionPassword(value: string);
 	static get sessionPassword(): string;
 	/** @ignore */
@@ -387,19 +453,22 @@ export declare class BarcodeReader {
 	static browserInfo: any;
 	/**
 	 * Detect environment and get a report.
+	 * ```js
+	 * console.log(Dynamsoft.DBR.BarcodeReader.detectEnvironment());
+	 * // {"wasm":true, "worker":true, "getUserMedia":true, "camera":true, "browser":"Chrome", "version":90, "OS":"Windows"}
+	 * ```
 	 */
 	static detectEnvironment(): Promise<any>;
 	/** @ignore */
 	static _workerName: string;
-	/** @ignore */
-	static _bUseIndexDB: boolean;
 	protected static _engineResourcePath?: string;
 	static get engineResourcePath(): string;
 	/**
-	 * The SDK will try to automatically explore the engine location.
-	 * If the auto-explored engine location is not accurate, manually specify the engine location.
+	 * Specify the Barcode Reader SDK engine (WASM) url. The SDK tries to automatically explore the engine location.
+	 * If the auto-explored engine location is incorrect, you can manually specify the engine location.
+	 * The property needs to be set before [[loadWasm]].
 	 * ```js
-	 * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/";
+	 * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/";
 	 * await Dynamsoft.DBR.BarcodeReader.loadWasm();
 	 * ```
 	*/
@@ -407,6 +476,9 @@ export declare class BarcodeReader {
 	/** @ignore */
 	protected static _licenseServer?: string[];
 	static get licenseServer(): string[] | string;
+	/**
+	 * Specify the license server URL.
+	*/
 	static set licenseServer(value: string[] | string);
 	private static _deviceFriendlyName;
 	/**
@@ -434,16 +506,14 @@ export declare class BarcodeReader {
 	/**
 	 * @ignore
 	 */
-	static _bSendSmallRecordsForDebug: boolean;
-	/**
-	 * @ignore
-	 */
 	static _bNeverShowDialog: boolean;
 	/**
-	 * Whether to use full feature wasm.
-	 * The api may change in later version.
+	 * Whether to use full feature wasm. The api may change in later version.
+	 * For web, `_bUseFullFeature` is false as default.
+	 * For Node.js, `_bUseFullFeature` will not work, and BarcodeReader will always work on full feature.
+	 * The property needs to be set before `loadWasm`.
 	 * <pre>
-	 * Min wasm:
+	 * Compact wasm:
 	 * oned + qr + pdf417 + datamatrix.
 	 * ===
 	 * Full wasm:
@@ -454,22 +524,20 @@ export declare class BarcodeReader {
 	 * intermediate results API
 	 * ===
 	 * e.g.:
-	 * Use min in video deocode (small, download and initialization fast).
+	 * Use compact in video deocode (small, download and initialization fast).
 	 * Use full in file decode (need high level deblur).
 	 * </pre>
 	 *
-	 * Need to be set before loadWasm.
 	 * ```js
 	 * DBR.BarcodeReader._bUseFullFeature = true;
 	 * await DBR.BarcodeReader.loadWasm();
 	 * ```
-	 * For web, `_bUseFullFeature` is false as default.
-	 * For Node.js, `_bUseFullFeature` will not work, and BarcodeReader will always work on full feature.
 	 */
 	protected static __bUseFullFeature: boolean;
 	static get _bUseFullFeature(): boolean;
 	static set _bUseFullFeature(value: boolean);
-	protected static _dbrWorker: Worker;
+	/** @ignore */
+	static _dbrWorker: Worker;
 	protected static _nextTaskID: number;
 	protected static _taskCallbackMap: Map<number, (body: any) => void>;
 	private static _loadWasmStatus;
@@ -512,13 +580,14 @@ export declare class BarcodeReader {
 	_timeEnterInnerDBR: any;
 	/** @ignore */
 	_bUseWebgl: boolean;
-	protected decodeRecords: string[];
+	/** @ignore */
+	decodeRecords: any;
 	/**
 	 * @ignore A callback when wasm download success in browser environment.
 	 */
 	static _onWasmDownloaded: () => void;
 	/**
-	 * Determine if the decoding module has been loaded successfully.
+	 * Check if the decoding module is loaded.
 	 * @category Initialize and Destroy
 	 */
 	static isLoaded(): boolean;
@@ -544,9 +613,19 @@ export declare class BarcodeReader {
 	protected _lastErrorString: string;
 	/** @ignore */
 	get lastErrorString(): string;
+	/** @ignore */
+	_lastInnerDecodeDuration: number;
 	private static _loadWasmErr;
 	/**
-	 * Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.
+	 * Before most operations, `loadWasm` needs to be excuted firstly.
+	 * Most time, you do not need excute `loadWasm` manually. Because when you excute [[createInstance]], `loadWasm` will be excuted implicitly.
+	 * Some properties can't be changed after `loadWasm`.
+	 * Calling `loadWasm` in advance can avoid the long wait when `createInstance`.
+	 * ```js
+	 * window.addEventListener('DOMContentLoaded', (event) => {
+	 *   DBR.BarcodeReader.loadWasm();
+	 * });
+	 * ```
 	 * @category Initialize and Destroy
 	 */
 	static loadWasm(): Promise<void>;
@@ -558,7 +637,7 @@ export declare class BarcodeReader {
 	protected static showDialog(type: string, content: string): Promise<void>;
 	protected static createInstanceInWorker(bScanner?: boolean): Promise<number>;
 	/**
-	 * Create a `BarcodeReader` object.
+	 * Create a `BarcodeReader` instance.
 	 * ```
 	 * let reader = await Dynamsoft.DBR.BarcodeReader.createInstance();
 	 * ```
@@ -566,13 +645,37 @@ export declare class BarcodeReader {
 	 */
 	static createInstance(): Promise<BarcodeReader>;
 	/**
-	 * The main decoding method can accept a variety of data types, including binary data, images, base64(with mime), urls, etc.
+	 * Decode barcodes from a image.
+	 *
+	 * The main decoding method can accept a variety of data types, including binary data, images, base64 (with mime), urls, etc.
+	 *
+	 * The image format can be `png`, `jpeg`, `bmp`, `gif` and a few other (some browsers support `webp`, `tif`).
+	 *
 	 * ```js
 	 * let results = await reader.decode(blob);
 	 * for(let result of results){
 	 *     console.log(result.barcodeText);
 	 * }
+	 *
+	 * let results2 = await reader.decode(htmlImageElement);
+	 * let results2 = await reader.decode(url);
+	 *
+	 * // like `data:image/png;base64,iV************`
+	 * let results3 = await reader.decode(base64WithMime);
 	 * ```
+	 *
+	 * And you can get a frame to decode from the `HTMLVideoElement`.
+	 *
+	 * ```js
+	 * // The frame currently played will be decode.
+	 * let results;
+	 * try{
+	 *   results = await reader.decode(htmlVideoElement);
+	 * }catch(ex){
+	 *   // If no frame in the video, will throw an exception.
+	 * }
+	 * ```
+	 * If you need to continuously decode a video, you can use [BarcodeScanner](../BarcodeScanner/index.md) instead.
 	 * @param source
 	 * @category Decode
 	 */
@@ -619,7 +722,7 @@ export declare class BarcodeReader {
 	 */
 	_decodeBuffer_Blob(buffer: Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
 	/**
-	 * Decode barcodes from raw buffer.
+	 * Decode barcodes from raw image data.
 	 * @param buffer
 	 * @param width
 	 * @param height
@@ -628,11 +731,11 @@ export declare class BarcodeReader {
 	 * @param config
 	 * @category Decode
 	 */
-	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob | Buffer, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
+	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob | Buffer, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<TextResult[]>;
 	/** @ignore */
 	_decodeFileInMemory_Uint8Array(bytes: Uint8Array): Promise<any>;
 	/**
-	 * Gets current settings and save it into a struct.
+	 * Gets current runtime settings.
 	 * ```js
 	 * let settings = await reader.getRuntimeSettings();
 	 * settings.deblurLevel = 5;
@@ -716,12 +819,13 @@ export declare class BarcodeReader {
 	private _decode_Base64;
 	private _decode_Url;
 	private _decode_FilePath;
+	/** @ignore */
 	static fixResultLocationWhenFilterRegionInJs(region: any, results: TextResult[], sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
 	/** @ignore */
 	static BarcodeReaderException(ag0: any, ag1: any): BarcodeReaderException;
 	protected _handleRetJsonString(objRet: any): any;
 	/**
-	 * Sets the optional argument for a specified mode in Modes parameters.
+	 * Set argument value for the specified mode parameter.
 	 * ```js
 	 * await reader.setModeArgument("BinarizationModes", 0, "EnableFillBinaryVacancy", "1");
 	 * ```
@@ -733,7 +837,7 @@ export declare class BarcodeReader {
 	 */
 	setModeArgument(modeName: string, index: number, argumentName: string, argumentValue: string): Promise<void>;
 	/**
-	 * Gets the optional argument for a specified mode in Modes parameters.
+	 * Get argument value for the specified mode parameter.
 	 * ```js
 	 * let argumentValue = await reader.getModeArgument("BinarizationModes", 0, "EnableFillBinaryVacancy");
 	 * ```
@@ -755,8 +859,7 @@ export declare class BarcodeReader {
 	/** @ignore */
 	getIntermediateCanvas(): Promise<HTMLCanvasElement[]>;
 	/**
-	 * Destructor the `BarcodeReader` object.
-	 * Equivalent to the previous method `deleteInstance()`.
+	 * Destroy the `BarcodeReader` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
 	destroy(): Promise<void>;
@@ -775,6 +878,12 @@ export interface FrameFilter {
 	 */
 	threshold?: number;
 }
+/**
+ * let scanSettings = await scanner.getScanSettings();
+ * scanSettings.intervalTime = 100; // 100ms
+ * scanSettings.duplicateForgetTime = 3000; // 3s
+ * await scanner.updateScanSettings(scanSettings);
+ */
 export interface ScanSettings {
 	intervalTime?: number;
 	duplicateForgetTime?: number;
@@ -806,7 +915,7 @@ export interface ScannerPlayCallbackInfo {
 	width: number;
 }
 /**
- * A class dedicated to video decoding.
+ * The `BarcodeScanner` class is used for video decoding.
  * ```js
  * let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
  * scanner.onUnduplicatedRead = txt => console.log(txt);
@@ -816,22 +925,31 @@ export interface ScannerPlayCallbackInfo {
 export declare class BarcodeScanner extends BarcodeReader {
 	private static _defaultUIElementURL;
 	static get defaultUIElementURL(): string;
+	/**
+	 * The url of the default scanner UI.
+	 * Can only be changed before `createInstance`.
+	 * ```js
+	 * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.scanner.html";
+	 * let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
+	 * await scanner.show();
+	 * ```
+	 */
 	static set defaultUIElementURL(value: string);
 	/** @ignore */
 	/** @ignore */
 	UIElement: HTMLElement;
 	/**
-	 * Get the HTML element that contains your scanner object.
+	 * Get HTML element containing the `BarcodeScanner` instance.
 	 * @category UI
 	 */
 	getUIElement(): HTMLElement;
 	/**
-	 * set the HTML element that contains your scanner object.
+	 * Set html element containing the `BarcodeScanner` instance.
 	 * ```html
 	 * <video class="dbrScanner-video" playsinline="true"></video>
 	 * <script>
 	 *     let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
-	 *     scanner.setUIElement(document.getElementsByClassName("dbrScanner-video")[0]);
+	 *     await scanner.setUIElement(document.getElementsByClassName("dbrScanner-video")[0]);
 	 *     await scanner.open();
 	 * </script>
 	 * ```
@@ -917,10 +1035,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * ```js
 	 * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
 	 * startPlayButton.addEventListener('click', function() {
-	 *   scanner.bPlaySoundOnSuccessfulRead = false;
 	 *   scanner.bPlaySoundOnSuccessfulRead = true;
-	 *   scanner.bPlaySoundOnSuccessfulRead = "frame";
-	 *   scanner.bPlaySoundOnSuccessfulRead = "unduplicated";
 	 * });
 	 * ```
 	 * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
@@ -935,15 +1050,13 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * // Can I use? https://caniuse.com/?search=vibrate
 	 * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
 	 * startVibrateButton.addEventListener('click', function() {
-	 *   scanner.bVibrateOnSuccessfulRead = false;
 	 *   scanner.bVibrateOnSuccessfulRead = true;
-	 *   scanner.bVibrateOnSuccessfulRead = "frame";
-	 *   scanner.bVibrateOnSuccessfulRead = "unduplicated";
 	 * });
 	 * ```
 	 */
 	bVibrateOnSuccessfulRead: (boolean | string);
 	/**
+	 * Get or set how long (ms) the vibration lasts.
 	 * @see [[bVibrateOnSuccessfulRead]]
 	 */
 	vibrateDuration: number;
@@ -954,26 +1067,32 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	_videoTrack: MediaStreamTrack;
 	/**
+	 * Set the style used when filling the mask beyond the region.
 	 * @category UI
 	 */
 	regionMaskFillStyle: string;
 	/**
+	 * Set the style of the region border.
 	 * @category UI
 	 */
 	regionMaskStrokeStyle: string;
 	/**
+	 * Set the width of the region border.
 	 * @category UI
 	 */
 	regionMaskLineWidth: number;
 	/**
+	 * Set the style used when filling in located barcode.
 	 * @category UI
 	 */
 	barcodeFillStyle: string;
 	/**
+	 * Set the style of the located barcode border.
 	 * @category UI
 	 */
 	barcodeStrokeStyle: string;
 	/**
+	 * Set the width of the located barcode border.
 	 * @category UI
 	 */
 	barcodeLineWidth: number;
@@ -1001,13 +1120,14 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
 	/**
+	 * Decode barcodes from the current frame of the video.
 	 * ```js
 	 * await scanner.showVideo();
 	 * console.log(await scanner.decodeCurrentFrame());
 	 * ```
 	 * @category Decode
 	 */
-	decodeCurrentFrame(): Promise<TextResult[]>;
+	decodeCurrentFrame(config?: any): Promise<TextResult[]>;
 	private clearMapDecodeRecord;
 	private static readonly singlePresetRegion;
 	private static isRegionSinglePreset;
@@ -1037,12 +1157,16 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	_unbindUI(): void;
 	/**
+	 * Triggered when the camera video stream is played.
+	 * ```js
 	 * scanner.onplayed = rsl=>{ console.log(rsl.width+'x'+rsl.height) };
+	 * await scanner.show(); // or open, play, setCurrentCamera, like these.
+	 * ```
 	 */
 	onPlayed?: (info: ScannerPlayCallbackInfo) => void;
 	/**
-	 * The event that is triggered once a single frame has been scanned.
-	 * The results object contains all the barcode results that the reader was able to decode.
+	 * The event is triggered after a frame has been scanned.
+	 * The results object contains all the barcode results in this frame.
 	 * ```js
 	 * scanner.onFrameRead = results => {
 	 *     for(let result of results){
@@ -1053,9 +1177,9 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	onFrameRead?: (results: TextResult[]) => void;
 	/**
-	 * This event is triggered when a not duplicated new barcode is found.
-	 * txt holds the barcode text result. result contains the actual barcode result, including the text result.
-	 * Old barcode will remember for duplicateForgetTime.
+	 * This event is triggered when a new, unduplicated barcode is found.
+	 * `txt` holds the barcode text result. `result` contains more info.
+	 * Old barcodes will be remembered for `duplicateForgetTime`.
 	 * ```js
 	 * scanner.onUnduplicatedRead = (txt, result) => {
 	 *     alert(txt);
@@ -1067,7 +1191,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/** @ignore */
 	private _renderSelCameraInfo;
 	/**
-	 * Get infomation of all available cameras on your device.
+	 * Get infomation of all available cameras on the device.
 	 * ```js
 	 * let cameras = await scanner.getAllCameras();
 	 * if(cameras.length){
@@ -1078,7 +1202,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	getAllCameras(): Promise<VideoDeviceInfo[]>;
 	/**
-	 * Get infomation of the currently used camera.
+	 * Get information about the currently used camera.
 	 * ```js
 	 * let camera = await scanner.getCurrentCamera();
 	 * ```
@@ -1098,7 +1222,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	setCurrentCamera(cameraInfoOrDeviceId: any): Promise<ScannerPlayCallbackInfo>;
 	/**
-	 * Get current video resolution.
+	 * Get current camera resolution.
 	 * ```js
 	 * let rsl = await scanner.getResolution();
 	 * console.log(rsl.width + " x " + rsl.height);
@@ -1107,7 +1231,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	getResolution(): number[];
 	/**
-	 * Set the camera resolution.
+	 * Set current camera resolution.
 	 * ```js
 	 * await scanner.setResolution(width, height);
 	 * ```
@@ -1117,7 +1241,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	setResolution(width: number | number[], height: number): Promise<ScannerPlayCallbackInfo>;
 	/**
-	 * Get current scan settings of the BarcodeScanner object and saves it into a struct.
+	 * Get current scan settings.
 	 * ```js
 	 * let scanSettings = await scanner.getScanSettings();
 	 * scanSettings.intervalTime = 50;
@@ -1127,7 +1251,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	getScanSettings(): Promise<ScanSettings>;
 	/**
-	 * Update ScanSettings by specify parameter values.
+	 * Modify and update scan settings.
 	 * ```js
 	 * let scanSettings = await scanner.getScanSettings();
 	 * scanSettings.intervalTime = 50;
@@ -1138,12 +1262,12 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	updateScanSettings(settings: ScanSettings): Promise<void>;
 	/**
-	 * Get current video settings of the BarcodeScanner object and saves it into a struct.
+	 * Get current video settings.
 	 * @category Camera Settings
 	 */
 	getVideoSettings(): MediaStreamConstraints;
 	/**
-	 * Video play settings.
+	 * Modify and update video settings.
 	 * ```js
 	 * await scanner.updateVideoSettings({ video: {width: {ideal: 1280}, height: {ideal: 720}, facingMode: {ideal: 'environment'}} });
 	 * ```
@@ -1164,10 +1288,12 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	stop(): void;
 	/**
-	 * Pause the video. Will not release the camera.
+	 * Pause the video. Do not release the camera.
 	 * @category Play and Pause
 	 */
 	pause(): void;
+	private iPlayRound;
+	private promisePlay;
 	/**
 	 * Continue the video.
 	 * ```js
@@ -1195,7 +1321,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * > scanner.getCapabilities()
 	 * < {
 	 *   "aspectRatio":{"max":3840,"min":0.000462962962962963},
-	 *   "colorTemperature": {max: 7000, min: 2850, step: 50},
+	 *   "colorTemperature":{max: 7000, min: 2850, step: 50},
 	 *   "deviceId":"1e...3af7",
 	 *   "exposureCompensation": {max: 2.0000040531158447, min: -2.0000040531158447, step: 0.16666699945926666},
 	 *   "exposureMode":["continuous","manual"],
@@ -1209,7 +1335,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 *   "whiteBalanceMode":["continuous","manual"],
 	 *   "width":{"max":3840,"min":1},
 	 *   "zoom":{max: 606, min: 100, step: 2}
-	 *   }
+	 * }
 	 * ```
 	 * @see [[turnOnTorch]][[turnOffTorch]][[setExposureCompensation]][[setZoom]]
 	 * @category Camera Settings
@@ -1230,7 +1356,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 */
 	applyConstraints(constraints: MediaTrackConstraints): Promise<void>;
 	/**
-	 * Turn on the torch. Chrome only.
+	 * Turn on the torch/flashlight. Chrome only.
 	 * Only available when the scanner is open.
 	 * Will reject if not support.
 	 * ```js
@@ -1306,7 +1432,9 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Bind UI, open the camera, start decoding.
 	 * ```js
-	 * await scanner.open()
+	 * await scanner.setUIElement(document.getElementById("my-barcode-scanner"));
+	 * scanner.onUnduplicatedRead = (txt, result) => { alert(txt); console.log(result); };
+	 * await scanner.open();
 	 * ```
 	 * @category Open and Close
 	 */
@@ -1314,6 +1442,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Bind UI, open the camera, but not decode.
 	 * ```js
+	 * await scanner.setUIElement(document.getElementById("my-barcode-scanner"));
 	 * await scanner.openVideo();
 	 * console.log(await scanner.decodeCurrentFrame());
 	 * ```
@@ -1322,13 +1451,22 @@ export declare class BarcodeScanner extends BarcodeReader {
 	openVideo(): Promise<ScannerPlayCallbackInfo>;
 	/**
 	 * Stop decoding, release camera, unbind UI.
+	 * ```js
+	 * await scanner.open();
+	 * await scanner.close();
+	 *
+	 * await scanner.openVideo();
+	 * await scanner.close();
+	 * ```
 	 * @category Open and Close
 	 */
-	close(): void;
+	close(): Promise<void>;
 	/**
 	 * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
 	 * ```js
-	 * await scanner.show()
+	 * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.scanner.html");
+	 * scanner.onUnduplicatedRead = (txt, result) => { alert(txt); console.log(result); };
+	 * await scanner.show();
 	 * ```
 	 * @category Open and Close
 	 */
@@ -1344,12 +1482,18 @@ export declare class BarcodeScanner extends BarcodeReader {
 	showVideo(): Promise<ScannerPlayCallbackInfo>;
 	/**
 	 * Stop decoding, release camera, unbind UI, and set the Element as `display:none;`.
+	 * ```js
+	 * await scanner.show();
+	 * await scanner.hide();
+	 *
+	 * await scanner.showVideo();
+	 * await scanner.hide();
+	 * ```
 	 * @category Open and Close
 	 */
-	hide(): void;
+	hide(): Promise<void>;
 	/**
-	 * Destructor the `BarcodeScanner` object.
-	 * Equivalent to the previous method `deleteInstance()`.
+	 * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
 	destroy(): Promise<any>;
@@ -1369,17 +1513,6 @@ export declare enum EnumBarcodeComplementMode {
 	BCM_GENERAL = 2,
 	BCM_SKIP = 0,
 	BCM_REV = 2147483648
-}
-export declare enum EnumBarcodeFormat_2 {
-	BF2_NULL = 0,
-	BF2_POSTALCODE = 32505856,
-	BF2_NONSTANDARD_BARCODE = 1,
-	BF2_USPSINTELLIGENTMAIL = 1048576,
-	BF2_POSTNET = 2097152,
-	BF2_PLANET = 4194304,
-	BF2_AUSTRALIANPOST = 8388608,
-	BF2_RM4SCC = 16777216,
-	BF2_DOTCODE = 2
 }
 export declare enum EnumClarityCalculationMethod {
 	ECCM_CONTRAST = 1
@@ -1453,18 +1586,6 @@ export declare enum EnumIntermediateResultSavingMode {
 	IRSM_FILESYSTEM = 2,
 	IRSM_BOTH = 4
 }
-export declare enum EnumLocalizationMode {
-	LM_SKIP = 0,
-	LM_AUTO = 1,
-	LM_CONNECTED_BLOCKS = 2,
-	LM_LINES = 8,
-	LM_STATISTICS = 4,
-	LM_SCAN_DIRECTLY = 16,
-	LM_STATISTICS_MARKS = 32,
-	LM_STATISTICS_POSTAL_CODE = 64,
-	LM_CENTRE = 128,
-	LM_REV = 2147483648
-}
 export declare enum EnumQRCodeErrorCorrectionLevel {
 	QRECL_ERROR_CORRECTION_H = 0,
 	QRECL_ERROR_CORRECTION_L = 1,
@@ -1480,22 +1601,11 @@ export declare enum EnumRegionPredetectionMode {
 	RPM_SKIP = 0,
 	RPM_REV = 2147483648
 }
-export declare enum EnumResultCoordinateType {
-	RCT_PIXEL = 1,
-	RCT_PERCENTAGE = 2
-}
 export declare enum EnumResultType {
 	RT_STANDARD_TEXT = 0,
 	RT_RAW_TEXT = 1,
 	RT_CANDIDATE_TEXT = 2,
 	RT_PARTIAL_TEXT = 3
-}
-export declare enum EnumTextAssistedCorrectionMode {
-	TACM_AUTO = 1,
-	TACM_VERIFYING = 2,
-	TACM_VERIFYING_PATCHING = 4,
-	TACM_SKIP = 0,
-	TACM_REV = 2147483648
 }
 export declare enum EnumTextFilterMode {
 	TFM_AUTO = 1,
@@ -1509,92 +1619,81 @@ export declare enum EnumTextureDetectionMode {
 	TDM_SKIP = 0,
 	TDM_REV = 2147483648
 }
-export declare enum EnumLicenseModule {
-	/**One-D barcodes license module*/
-	DM_LM_ONED = "1",
-	/**QR Code barcodes license module*/
-	DM_LM_QR_CODE = "2",
-	/**PDF417 barcodes license module*/
-	DM_LM_PDF417 = "3",
-	/**Datamatrix barcodes license module*/
-	DM_LM_DATAMATRIX = "4",
-	/**Aztec barcodes license module*/
-	DM_LM_AZTEC = "5",
-	/**MAXICODE barcodes license module*/
-	DM_LM_MAXICODE = "6",
-	/**Patch code barcodes license module*/
-	DM_LM_PATCHCODE = "7",
-	/**GS1 Databar barcodes license module*/
-	DM_LM_GS1_DATABAR = "8",
-	/**GS1 Composite barcodes license module*/
-	DM_LM_GS1_COMPOSITE = "9",
-	/**Postal code barcodes license module*/
-	DM_LM_POSTALCODE = "10",
-	/**DotCode barcodes license module*/
-	DM_LM_DOTCODE = "11",
-	/**Intermediate result license module*/
-	DM_LM_INTERMEDIATE_RESULT = "12",
-	/**Datamatrix DPM(Direct Part Marking) license module*/
-	DM_LM_DPM = "13",
-	/**Nonstandard barcodes license module*/
-	DM_LM_NONSTANDARD_BARCODE = "16"
+export declare class DBR {
+	static BarcodeReader: typeof BarcodeReader;
+	static BarcodeScanner: typeof BarcodeScanner;
+	static EnumBarcodeColourMode: typeof EnumBarcodeColourMode;
+	static EnumBarcodeComplementMode: typeof EnumBarcodeComplementMode;
+	static EnumBarcodeFormat: typeof EnumBarcodeFormat;
+	static EnumBarcodeFormat_2: typeof EnumBarcodeFormat_2;
+	static EnumBinarizationMode: typeof EnumBinarizationMode;
+	static EnumClarityCalculationMethod: typeof EnumClarityCalculationMethod;
+	static EnumClarityFilterMode: typeof EnumClarityFilterMode;
+	static EnumColourClusteringMode: typeof EnumColourClusteringMode;
+	static EnumColourConversionMode: typeof EnumColourConversionMode;
+	static EnumConflictMode: typeof EnumConflictMode;
+	static EnumDeblurMode: typeof EnumDeblurMode;
+	static EnumDeformationResistingMode: typeof EnumDeformationResistingMode;
+	static EnumDPMCodeReadingMode: typeof EnumDPMCodeReadingMode;
+	static EnumErrorCode: typeof EnumErrorCode;
+	static EnumGrayscaleTransformationMode: typeof EnumGrayscaleTransformationMode;
+	static EnumImagePixelFormat: typeof EnumImagePixelFormat;
+	static EnumImagePreprocessingMode: typeof EnumImagePreprocessingMode;
+	static EnumIMResultDataType: typeof EnumIMResultDataType;
+	static EnumIntermediateResultSavingMode: typeof EnumIntermediateResultSavingMode;
+	static EnumIntermediateResultType: typeof EnumIntermediateResultType;
+	static EnumLocalizationMode: typeof EnumLocalizationMode;
+	static EnumPDFReadingMode: typeof EnumPDFReadingMode;
+	static EnumQRCodeErrorCorrectionLevel: typeof EnumQRCodeErrorCorrectionLevel;
+	static EnumRegionPredetectionMode: typeof EnumRegionPredetectionMode;
+	static EnumResultCoordinateType: typeof EnumResultCoordinateType;
+	static EnumResultType: typeof EnumResultType;
+	static EnumScaleUpMode: typeof EnumScaleUpMode;
+	static EnumTerminatePhase: typeof EnumTerminatePhase;
+	static EnumTextFilterMode: typeof EnumTextFilterMode;
+	static EnumTextResultOrderMode: typeof EnumTextResultOrderMode;
+	static EnumTextureDetectionMode: typeof EnumTextureDetectionMode;
+	static get version(): string;
+	static get productKeys(): string;
+	static set productKeys(keys: string);
+	static get handshakeCode(): string;
+	static set handshakeCode(keys: string);
+	static get organizationID(): string;
+	static set organizationID(keys: string);
+	static get sessionPassword(): string;
+	static set sessionPassword(keys: string);
+	/** @ignore */
+	static get browserInfo(): any;
+	static detectEnvironment(): Promise<any>;
+	/** @ignore */
+	static get _workerName(): string;
+	/** @ignore */
+	static set _workerName(name: string);
+	static get engineResourcePath(): string;
+	static set engineResourcePath(value: string);
+	static get licenseServer(): string[] | string;
+	static set licenseServer(value: string[] | string);
+	/** @ignore */
+	static get deviceFriendlyName(): string;
+	/** @ignore */
+	static set deviceFriendlyName(value: string);
+	/** @ignore */
+	static get _onLog(): (message: any) => void;
+	/** @ignore */
+	static set _onLog(value: (message: any) => void);
+	/** @ignore */
+	static get _bWasmDebug(): boolean;
+	/** @ignore */
+	static set _bWasmDebug(value: boolean);
+	/** @ignore */
+	static get _bUseFullFeature(): boolean;
+	/** @ignore */
+	static set _bUseFullFeature(value: boolean);
+	/** @ignore */
+	static get _dbrWorker(): Worker;
+	static isLoaded(): boolean;
+	static loadWasm(): Promise<void>;
 }
-export declare enum EnumChargeWay {
-	/**The charge way automatically determined by the license server.*/
-	DM_CW_AUTO = "",
-	/**Charges by the count of devices.*/
-	DM_CW_DEVICE_COUNT = "DeviceCount",
-	/**Charges by the count of barcode scans.*/
-	DM_CW_SCAN_COUNT = "ScanCount",
-	/**Charges by the count of concurrent devices.*/
-	DM_CW_CONCURRENT_DEVICE_COUNT = "ConcurrentDeviceCount",
-	/**Charges by the count of app domains.*/
-	DM_CW_APP_DOMIAN_COUNT = "Domain",
-	/**Charges by the count of active devices.*/
-	DM_CW_ACTIVE_DEVICE_COUNT = "ActiveDeviceCount",
-	/**Charges by the count of instances.*/
-	DM_CW_INSTANCE_COUNT = "InstanceCount",
-	/**Charges by the count of concurrent instances.*/
-	DM_CW_CONCURRENT_INSTANCE_COUNT = "ConcurrentInstanceCount"
-}
-declare const DBR: {
-	BarcodeReader: typeof BarcodeReader;
-	BarcodeScanner: typeof BarcodeScanner;
-	EnumBarcodeColourMode: typeof EnumBarcodeColourMode;
-	EnumBarcodeComplementMode: typeof EnumBarcodeComplementMode;
-	EnumBarcodeFormat: typeof EnumBarcodeFormat;
-	EnumBarcodeFormat_2: typeof EnumBarcodeFormat_2;
-	EnumBinarizationMode: typeof EnumBinarizationMode;
-	EnumClarityCalculationMethod: typeof EnumClarityCalculationMethod;
-	EnumClarityFilterMode: typeof EnumClarityFilterMode;
-	EnumColourClusteringMode: typeof EnumColourClusteringMode;
-	EnumColourConversionMode: typeof EnumColourConversionMode;
-	EnumConflictMode: typeof EnumConflictMode;
-	EnumDeblurMode: typeof EnumDeblurMode;
-	EnumDeformationResistingMode: typeof EnumDeformationResistingMode;
-	EnumDPMCodeReadingMode: typeof EnumDPMCodeReadingMode;
-	EnumErrorCode: typeof EnumErrorCode;
-	EnumGrayscaleTransformationMode: typeof EnumGrayscaleTransformationMode;
-	EnumImagePixelFormat: typeof EnumImagePixelFormat;
-	EnumImagePreprocessingMode: typeof EnumImagePreprocessingMode;
-	EnumIMResultDataType: typeof EnumIMResultDataType;
-	EnumIntermediateResultSavingMode: typeof EnumIntermediateResultSavingMode;
-	EnumIntermediateResultType: typeof EnumIntermediateResultType;
-	EnumLocalizationMode: typeof EnumLocalizationMode;
-	EnumPDFReadingMode: typeof EnumPDFReadingMode;
-	EnumQRCodeErrorCorrectionLevel: typeof EnumQRCodeErrorCorrectionLevel;
-	EnumRegionPredetectionMode: typeof EnumRegionPredetectionMode;
-	EnumResultCoordinateType: typeof EnumResultCoordinateType;
-	EnumResultType: typeof EnumResultType;
-	EnumScaleUpMode: typeof EnumScaleUpMode;
-	EnumTerminatePhase: typeof EnumTerminatePhase;
-	EnumTextAssistedCorrectionMode: typeof EnumTextAssistedCorrectionMode;
-	EnumTextFilterMode: typeof EnumTextFilterMode;
-	EnumTextResultOrderMode: typeof EnumTextResultOrderMode;
-	EnumTextureDetectionMode: typeof EnumTextureDetectionMode;
-	EnumLicenseModule: typeof EnumLicenseModule;
-	EnumChargeWay: typeof EnumChargeWay;
-};
 export default DBR;
 
 

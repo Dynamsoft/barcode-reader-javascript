@@ -57,7 +57,7 @@ The complete code of the "Hello World" example is shown below
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"></script>
-  <script>
+    <script>
         // initializes and uses the library
         let scanner = null;
         (async () => {

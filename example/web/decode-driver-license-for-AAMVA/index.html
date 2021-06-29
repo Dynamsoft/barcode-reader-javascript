@@ -14,12 +14,13 @@
     <!--
         Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get trial license.
     -->
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
     <script src="driverlicense.js"></script>
     <script>
-        let scanner = null;
+        // scanner for decoding video
+        let pScanner = null;
         (async ()=>{
-            scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
+            let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
             await scanner.setUIElement(document.getElementById('div-video-container'));
 
             await scanner.updateRuntimeSettings("balance");

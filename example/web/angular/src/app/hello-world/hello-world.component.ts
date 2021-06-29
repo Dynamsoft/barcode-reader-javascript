@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
+import "../dbr";
 import { BarcodeReader } from 'dynamsoft-javascript-barcode';
-import DBR from "../dbr";
 
 @Component({
   selector: 'app-hello-world',
@@ -12,7 +12,7 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
   @Input() title:string = null as any as string;
   @ViewChild('divMessage', {static: false}) divMessage: ElementRef = null as any as ElementRef;
   
-  reader:BarcodeReader|null = null;
+  pReader:Promise<BarcodeReader>|null = null;
   messageKeyBase = 0;
   messages:string[] = [];
   needMessage2Bottom = false;
@@ -27,9 +27,9 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
     }
   }
 
-  ngOnDestroy(){
-    if(this.reader){
-      this.reader.destroy();
+  async ngOnDestroy(){
+    if(this.pReader){
+      (await this.pReader).destroy();
     }
   }
 
@@ -44,7 +44,7 @@ export class HelloWorldComponent implements AfterViewChecked, OnDestroy {
   async onIptChange(event:Event) {
     try{
       this.appendMessage("======== start read... ========");
-      let reader = this.reader = this.reader || await DBR.BarcodeReader.createInstance();
+      let reader = await (this.pReader = this.pReader || BarcodeReader.createInstance());
       let input = event.target as HTMLInputElement;
       let files = input.files as FileList;
       for(let i = 0; i < files.length; ++i){

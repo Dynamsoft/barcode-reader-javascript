@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Dynamsoft BarcodeReader SDK for Javascript - v8.2.5</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.2.5">
+	<title>Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.4.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.2.5</a>
+					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Dynamsoft BarcodeReader SDK for Javascript - v8.2.5</h1>
+			<h1>Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</h1>
 		</div>
 	</div>
 </header>
@@ -78,22 +78,22 @@
 				<p>yarn</p>
 				<pre><code>$ yarn <span class="hljs-keyword">add</span><span class="bash"> dynamsoft-javascript-barcode</span></code></pre><p>npm</p>
 				<pre><code>$ npm <span class="hljs-keyword">install </span>dynamsoft-<span class="hljs-keyword">javascript-barcode </span>--save</code></pre><p>cdn</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-comment">&lt;!-- or --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?utm_source=github&amp;package=js">Download zip</a></p>
 				<a href="#license-key" id="license-key" style="color: inherit; text-decoration: none;">
 					<h2>License Key</h2>
 				</a>
 				<p>Please visit <a href="https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&amp;utm_source=github&amp;package=js">https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&amp;utm_source=github&amp;package=js</a> to get a valid license and update <code>PRODUCT-KEYS</code>:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<a href="#quick-usage" id="quick-usage" style="color: inherit; text-decoration: none;">
 					<h2>Quick Usage</h2>
 				</a>
 				<pre><code class="language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -370,7 +370,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&amp;utm_source=github&amp;package=js to get a trial license. --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -429,9 +429,9 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 				<p>Now, take a look at the sample code. You can find that there is nothing but two scripts inside the <code>&lt;body&gt;</code></p>
 				<ul>
 					<li><p>The following script includes the core library in the application via a <a href="https://www.jsdelivr.com/">jsDelivr</a> CDN</p>
-						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
+						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
 						<p>The same can be done with other CDNs like <code>unpkg</code></p>
-						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
+						<pre><code class="language-javascript">&lt;script src=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> data-productKeys=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;&lt;/script&gt;</code></pre>
 						<blockquote>
 							<p><strong>NOTE</strong>: : Since we do change the library a bit in each release, to make sure your application doesn&#39;t get interrupted by automatic updates, use a specific version in your production environment, as shown above. Using a general major version like <code>@7</code> is not recommended.</p>
 						</blockquote>
@@ -561,7 +561,7 @@ settings.deblurLevel = <span class="hljs-number">2</span>;
         <span class="hljs-tag">&lt;<span class="hljs-name">video</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dbrScanner-video"</span> <span class="hljs-attr">playsinline</span>=<span class="hljs-string">"true"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">video</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&amp;utm_source=github&amp;package=js to get a trial license. --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
         <span class="hljs-keyword">let</span> scanner = <span class="hljs-literal">null</span>;
         <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
@@ -730,9 +730,6 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum">
-						<a href="enums/enumaccompanyingtextrecognitionmode.html" class="tsd-kind-icon">Enum<wbr>Accompanying<wbr>Text<wbr>Recognition<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
 						<a href="enums/enumbarcodecolourmode.html" class="tsd-kind-icon">Enum<wbr>Barcode<wbr>Colour<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-enum">
@@ -823,9 +820,6 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 						<a href="enums/enumterminatephase.html" class="tsd-kind-icon">Enum<wbr>Terminate<wbr>Phase</a>
 					</li>
 					<li class=" tsd-kind-enum">
-						<a href="enums/enumtextassistedcorrectionmode.html" class="tsd-kind-icon">Enum<wbr>Text<wbr>Assisted<wbr>Correction<wbr>Mode</a>
-					</li>
-					<li class=" tsd-kind-enum">
 						<a href="enums/enumtextfiltermode.html" class="tsd-kind-icon">Enum<wbr>Text<wbr>Filter<wbr>Mode</a>
 					</li>
 					<li class=" tsd-kind-enum">
@@ -839,6 +833,9 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/barcodescanner.html" class="tsd-kind-icon">Barcode<wbr>Scanner</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/dbr.html" class="tsd-kind-icon">DBR</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/barcodereaderexception.html" class="tsd-kind-icon">Barcode<wbr>Reader<wbr>Exception</a>
@@ -859,28 +856,13 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 						<a href="interfaces/scansettings.html" class="tsd-kind-icon">Scan<wbr>Settings</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/scanneropencallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Open<wbr>Callback<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/scannerplaycallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Play<wbr>Callback<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/scannerupdatedevicecallbackinfo.html" class="tsd-kind-icon">Scanner<wbr>Update<wbr>Device<wbr>Callback<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/textresult.html" class="tsd-kind-icon">Text<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/videodeviceinfo.html" class="tsd-kind-icon">Video<wbr>Device<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#bssr" class="tsd-kind-icon">bSSR</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#globalthis" class="tsd-kind-icon">global<wbr>This</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#dbr" class="tsd-kind-icon">DBR</a>
 					</li>
 				</ul>
 			</nav>
@@ -901,10 +883,11 @@ settings.region.regionBottom = <span class="hljs-number">75</span>;
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 		</div>
 	</div>

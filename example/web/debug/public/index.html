@@ -18,20 +18,20 @@
 
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
 <!-- Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a trial license. -->
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 
 <script>
     eruda.init();
-    //Dynamsoft.DBR.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
-    Dynamsoft.DBR.BarcodeReader._onLog = console.log;
+    //Dynamsoft.DBR._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    Dynamsoft.DBR._onLog = console.log;
 
     // scanner for decoding video
-    let scanner = null;
+    let pScanner = null;
 
     // decode video from camera
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
-            scanner = scanner || await Dynamsoft.DBR.BarcodeScanner.createInstance();
+            let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
 
             scanner.bPlaySoundOnSuccessfulRead = true;
 
@@ -94,7 +94,8 @@
     });
 
     let switchVideoSettings = async()=>{
-        if(!scanner)return;
+        if(!pScanner)return;
+        let scanner = await pScanner;
         switch(document.querySelector('input[name="video-settings"]:checked').value){
             case "back-camera":
                 await scanner.updateVideoSettings({video:{facingMode:"environment"}});
