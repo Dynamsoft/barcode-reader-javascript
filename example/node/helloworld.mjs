@@ -1,13 +1,13 @@
-import DBR from '../../dist/dbr.js';
+import { DBR, BarcodeReader } from '../../dist/dbr.js';
 import url from 'url'
 import fs from 'fs'
 // Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get trial license.
 // If you use nodejs below version 15, please contact support@dynamsoft.com for a offline trial key of nodejs.
-DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
+DBR.productKeys = 'PRODUCT-KEYS';
 
 (async()=>{
     console.log("============== create reader ==============");
-    let reader = await DBR.BarcodeReader.createInstance();
+    let reader = await BarcodeReader.createInstance();
     console.log("============== decode buffer ==============");
     let buffer = fs.readFileSync(new URL('../sample.png', import.meta.url));
     for(let result of await reader.decode(buffer)){
@@ -30,7 +30,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
     await reader.destroy();
     
     // Since the worker keep alive, you can call
-    await DBR.BarcodeReader._dbrWorker.terminate();
+    await DBR._dbrWorker.terminate();
     // when you need to exit this process.
     // Or call
     process.exit();

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BarcodeReader | Dynamsoft BarcodeReader SDK for Javascript - v8.2.5</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.2.5">
+	<title>BarcodeReader | Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.4.0">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.2.5</a>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -65,7 +65,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A class dedicated to image decoding.</p>
+						<p>The <code>BarcodeReader</code> class is used for image decoding
+						Comparing to <code>BarcodeScanner</code>, the default decoding settings are more accurate but slower.</p>
 						<pre><code class="language-js"><span class="hljs-keyword">let</span> reader = <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.createInstance();
 <span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(imageSource);
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
@@ -138,7 +139,6 @@
 							<h3>Other Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="barcodereader.html#fixresultlocationwhenfilterregioninjs" class="tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</a></li>
 							</ul>
 						</section>
 					</div>
@@ -152,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Destroyed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodereader.ts:477</li>
+							<li>Defined in src/class/barcodereader.ts:519</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">b<wbr>Save<wbr>Ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodereader.ts:421</li>
+							<li>Defined in src/class/barcodereader.ts:462</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -185,7 +185,7 @@
 					<div class="tsd-signature tsd-kind-icon">ori<wbr>Canvas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">HTMLCanvasElement</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">OffscreenCanvas</span><span class="tsd-signature-symbol"> = null</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in src/class/barcodereader.ts:430</li>
+							<li>Defined in src/class/barcodereader.ts:471</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -211,7 +211,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:394</li>
+									<li>Defined in src/class/barcodereader.ts:434</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -219,7 +219,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:396</li>
+									<li>Defined in src/class/barcodereader.ts:436</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -243,14 +243,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:269</li>
+									<li>Defined in src/class/barcodereader.ts:310</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The SDK will try to automatically explore the engine location.
-									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+									<p>Specify the Barcode Reader SDK engine (WASM) url. The SDK tries to automatically explore the engine location.
+										If the auto-explored engine location is incorrect, you can manually specify the engine location.
+									The property needs to be set before <a href="barcodereader.html#loadwasm">loadWasm</a>.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/"</span>;
 <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
@@ -259,14 +260,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:279</li>
+									<li>Defined in src/class/barcodereader.ts:321</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The SDK will try to automatically explore the engine location.
-									If the auto-explored engine location is not accurate, manually specify the engine location.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@7.2.2/dist/"</span>;
+									<p>Specify the Barcode Reader SDK engine (WASM) url. The SDK tries to automatically explore the engine location.
+										If the auto-explored engine location is incorrect, you can manually specify the engine location.
+									The property needs to be set before <a href="barcodereader.html#loadwasm">loadWasm</a>.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/"</span>;
 <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
@@ -291,12 +293,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:57</li>
+									<li>Defined in src/class/barcodereader.ts:64</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.</p>
+									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The <code>handshakeCode</code> is an alias of <code>productKeys</code>. Specifically refers to the key that requires <strong>network</strong> authentication.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;</code></pre>
+									<p>For convenience, you can set <code>handshakeCode</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -304,12 +309,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:61</li>
+									<li>Defined in src/class/barcodereader.ts:75</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The handshakeCode is an alias of productKeys. Specifically refers to the key that requires network authentication.</p>
+									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The <code>handshakeCode</code> is an alias of <code>productKeys</code>. Specifically refers to the key that requires <strong>network</strong> authentication.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;</code></pre>
+									<p>For convenience, you can set <code>handshakeCode</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -333,17 +341,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:300</li>
+									<li>Defined in src/class/barcodereader.ts:342</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Specify the license server URL.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:301</li>
+									<li>Defined in src/class/barcodereader.ts:346</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Specify the license server URL.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -365,12 +383,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:76</li>
+									<li>Defined in src/class/barcodereader.ts:90</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get or set the Dynamsoft Barcode Reader SDK organizationID. Then if you want to use default handshake of this organization, you can keep handshakeCode empty;</p>
+									<p>Use organization ID to get authentication from network. Keep handshakeCode empty if you want to use default <code>handshake</code> of the organization.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.organizationID = <span class="hljs-string">"123****"</span>;</code></pre>
+									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -383,12 +404,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:81</li>
+									<li>Defined in src/class/barcodereader.ts:102</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Get or set the Dynamsoft Barcode Reader SDK organizationID. Then if you want to use default handshake of this organization, you can keep handshakeCode empty;</p>
+									<p>Use organization ID to get authentication from network. Keep handshakeCode empty if you want to use default <code>handshake</code> of the organization.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.organizationID = <span class="hljs-string">"123****"</span>;</code></pre>
+									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -423,6 +447,9 @@
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get or set the Dynamsoft Barcode Reader SDK product keys.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.productKeys = <span class="hljs-string">"PRODUCT-KEYS"</span>;</code></pre>
+									<p>For convenience, you can set <code>productKeys</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.3/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -430,12 +457,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:50</li>
+									<li>Defined in src/class/barcodereader.ts:57</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Get or set the Dynamsoft Barcode Reader SDK product keys.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.productKeys = <span class="hljs-string">"PRODUCT-KEYS"</span>;</code></pre>
+									<p>For convenience, you can set <code>productKeys</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.3/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -459,17 +489,45 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:101</li>
+									<li>Defined in src/class/barcodereader.ts:140</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Specify a password to protect the <code>Handshake Code</code> from abuse.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;
+Dynamsoft.DBR.BarcodeReader.sessionPassword = <span class="hljs-string">"@#$%****"</span>;</code></pre>
+									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span> <span class="hljs-attr">data-sessionPassword</span>=<span class="hljs-string">"@#$%****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="barcodereader.html#handshakecode">handshakeCode</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:94</li>
+									<li>Defined in src/class/barcodereader.ts:133</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Specify a password to protect the <code>Handshake Code</code> from abuse.</p>
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;
+Dynamsoft.DBR.BarcodeReader.sessionPassword = <span class="hljs-string">"@#$%****"</span>;</code></pre>
+									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span> <span class="hljs-attr">data-sessionPassword</span>=<span class="hljs-string">"@#$%****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="barcodereader.html#handshakecode">handshakeCode</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -493,6 +551,11 @@
 									<li>Defined in src/class/barcodereader.ts:37</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the current version.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
@@ -510,13 +573,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:2224</li>
+									<li>Defined in src/class/barcodereader.ts:2315</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Destructor the <code>BarcodeReader</code> object.
-									Equivalent to the previous method <code>deleteInstance()</code>.</p>
+									<p>Destroy the <code>BarcodeReader</code> instance. If your page needs to create new instances from time to time, don&#39;t forget to destroy unused old instances, otherwise it will cause memory leaks.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -533,12 +595,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:826</li>
+									<li>Defined in src/class/barcodereader.ts:888</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a <code>BarcodeReader</code> object.</p>
+									<p>Create a <code>BarcodeReader</code> instance.</p>
 									<pre><code><span class="hljs-keyword">let</span> reader = await <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Dynamsoft</span>.</span><span class="hljs-module"><span class="hljs-identifier">DBR</span>.</span><span class="hljs-module"><span class="hljs-identifier">BarcodeReader</span>.</span></span>create<span class="hljs-constructor">Instance()</span>;</code></pre>
 								</div>
 							</div>
@@ -556,12 +618,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:471</li>
+									<li>Defined in src/class/barcodereader.ts:513</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Determine if the decoding module has been loaded successfully.</p>
+									<p>Check if the decoding module is loaded.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -578,12 +640,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:512</li>
+									<li>Defined in src/class/barcodereader.ts:564</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Manually load and compile the decoding module. Used for preloading to avoid taking too long for lazy loading.</p>
+									<p>Before most operations, <code>loadWasm</code> needs to be excuted firstly.
+										Most time, you do not need excute <code>loadWasm</code> manually. Because when you excute <a href="barcodereader.html#createinstance">createInstance</a>, <code>loadWasm</code> will be excuted implicitly.
+										Some properties can&#39;t be changed after <code>loadWasm</code>.
+									Calling <code>loadWasm</code> in advance can avoid the long wait when <code>createInstance</code>.</p>
+									<pre><code class="language-js"><span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, (event) =&gt; {
+  DBR.BarcodeReader.loadWasm();
+});</code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -603,17 +671,34 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:849</li>
+									<li>Defined in src/class/barcodereader.ts:935</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The main decoding method can accept a variety of data types, including binary data, images, base64(with mime), urls, etc.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(blob);
+									<p>Decode barcodes from a image.</p>
+								</div>
+								<p>The main decoding method can accept a variety of data types, including binary data, images, base64 (with mime), urls, etc.</p>
+								<p>The image format can be <code>png</code>, <code>jpeg</code>, <code>bmp</code>, <code>gif</code> and a few other (some browsers support <code>webp</code>, <code>tif</code>).</p>
+								<pre><code class="language-js"><span class="hljs-keyword">let</span> results = <span class="hljs-keyword">await</span> reader.decode(blob);
 <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> result <span class="hljs-keyword">of</span> results){
     <span class="hljs-built_in">console</span>.log(result.barcodeText);
+}
+
+<span class="hljs-keyword">let</span> results2 = <span class="hljs-keyword">await</span> reader.decode(htmlImageElement);
+<span class="hljs-keyword">let</span> results2 = <span class="hljs-keyword">await</span> reader.decode(url);
+
+<span class="hljs-comment">// like `data:image/png;base64,iV************`</span>
+<span class="hljs-keyword">let</span> results3 = <span class="hljs-keyword">await</span> reader.decode(base64WithMime);</code></pre>
+								<p>And you can get a frame to decode from the <code>HTMLVideoElement</code>.</p>
+								<pre><code class="language-js"><span class="hljs-comment">// The frame currently played will be decode.</span>
+<span class="hljs-keyword">let</span> results;
+<span class="hljs-keyword">try</span>{
+  results = <span class="hljs-keyword">await</span> reader.decode(htmlVideoElement);
+}<span class="hljs-keyword">catch</span>(ex){
+  <span class="hljs-comment">// If no frame in the video, will throw an exception.</span>
 }</code></pre>
-								</div>
+								<p>If you need to continuously decode a video, you can use <a href="../BarcodeScanner/index.md">BarcodeScanner</a> instead.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -635,7 +720,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:918</li>
+									<li>Defined in src/class/barcodereader.ts:1004</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -662,18 +747,18 @@
 					<a name="decodebuffer" class="tsd-anchor"></a>
 					<h3>decode<wbr>Buffer</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">decode<wbr>Buffer<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, format<span class="tsd-signature-symbol">: </span><a href="../enums/enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a>, config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">decode<wbr>Buffer<span class="tsd-signature-symbol">(</span>buffer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Uint8Array</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Uint8ClampedArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">ArrayBuffer</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Blob</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Buffer</span>, width<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, stride<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, format<span class="tsd-signature-symbol">: </span><a href="../enums/enumimagepixelformat.html" class="tsd-signature-type">EnumImagePixelFormat</a>, config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1053</li>
+									<li>Defined in src/class/barcodereader.ts:1140</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Decode barcodes from raw buffer.</p>
+									<p>Decode barcodes from raw image data.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -697,7 +782,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> config: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -711,7 +796,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:935</li>
+									<li>Defined in src/class/barcodereader.ts:1021</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -746,12 +831,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:2084</li>
+									<li>Defined in src/class/barcodereader.ts:2176</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets the optional argument for a specified mode in Modes parameters.</p>
+									<p>Get argument value for the specified mode parameter.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">let</span> argumentValue = <span class="hljs-keyword">await</span> reader.getModeArgument(<span class="hljs-string">"BinarizationModes"</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"EnableFillBinaryVacancy"</span>);</code></pre>
 								</div>
 							</div>
@@ -781,12 +866,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1124</li>
+									<li>Defined in src/class/barcodereader.ts:1212</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Gets current settings and save it into a struct.</p>
+									<p>Gets current runtime settings.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> reader.getRuntimeSettings();
 settings.deblurLevel = <span class="hljs-number">5</span>;
 <span class="hljs-keyword">await</span> reader.updateRuntimeSettings(settings);</code></pre>
@@ -811,7 +896,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1270</li>
+									<li>Defined in src/class/barcodereader.ts:1358</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -834,12 +919,12 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:2042</li>
+									<li>Defined in src/class/barcodereader.ts:2134</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Sets the optional argument for a specified mode in Modes parameters.</p>
+									<p>Set argument value for the specified mode parameter.</p>
 									<pre><code class="language-js"><span class="hljs-keyword">await</span> reader.setModeArgument(<span class="hljs-string">"BinarizationModes"</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"EnableFillBinaryVacancy"</span>, <span class="hljs-string">"1"</span>);</code></pre>
 								</div>
 							</div>
@@ -872,7 +957,7 @@ settings.deblurLevel = <span class="hljs-number">5</span>;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:1161</li>
+									<li>Defined in src/class/barcodereader.ts:1249</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -913,59 +998,17 @@ settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in src/class/barcodereader.ts:212</li>
+									<li>Defined in src/class/barcodereader.ts:255</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Detect environment and get a report.</p>
+									<pre><code class="language-js"><span class="hljs-built_in">console</span>.log(Dynamsoft.DBR.BarcodeReader.detectEnvironment());
+<span class="hljs-comment">// {"wasm":true, "worker":true, "getUserMedia":true, "camera":true, "browser":"Chrome", "version":90, "OS":"Windows"}</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="fixresultlocationwhenfilterregioninjs" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs<span class="tsd-signature-symbol">(</span>region<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, results<span class="tsd-signature-symbol">: </span><a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span>, sx<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, sHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dWidth<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, dHeight<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in src/class/barcodereader.ts:1892</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>region: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>results: <a href="../interfaces/textresult.html" class="tsd-signature-type">TextResult</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>sx: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sy: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sWidth: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>sHeight: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>dWidth: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5>dHeight: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1056,9 +1099,6 @@ settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 								<a href="barcodereader.html#detectenvironment" class="tsd-kind-icon">detect<wbr>Environment</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="barcodereader.html#fixresultlocationwhenfilterregioninjs" class="tsd-kind-icon">fix<wbr>Result<wbr>Location<wbr>When<wbr>Filter<wbr>Region<wbr>InJs</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="barcodereader.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
@@ -1087,10 +1127,11 @@ settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 		</div>
 	</div>

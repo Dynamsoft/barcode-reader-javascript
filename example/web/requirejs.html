@@ -13,23 +13,23 @@
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.js"></script>
 <script>
     // reader for decoding picture
-    let reader = null;
+    let pReader = null;
     // scanner for decoding video
-    let scanner = null;
+    let pScanner = null;
 
-    requirejs(['https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/dbr.js'], function(DBR){
+    requirejs(['https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/dbr.js'], function({DBR,BarcodeReader,BarcodeScanner}){
         
         // Please visit https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js to get a trial license.
-        DBR.BarcodeReader.productKeys = "PRODUCT-KEYS";
+        DBR.productKeys = "PRODUCT-KEYS";
 
-        DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.2.5/dist/";
+        DBR.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.4.0/dist/";
         
-        // DBR.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+        // DBR._bUseFullFeature = true; // Control of loading min wasm or full wasm.
         
         // decode input picture
         document.getElementById('ipt-file').addEventListener('change', async function(){
             try{
-                reader = reader || await DBR.BarcodeReader.createInstance();
+                let reader = await (pReader = pReader || BarcodeReader.createInstance());
                 let resultsToAlert = [];
                 for(let i = 0; i < this.files.length; ++i){
                     let file = this.files[i];
@@ -51,7 +51,7 @@
         // decode video from camera
         document.getElementById('btn-show-scanner').addEventListener('click', async () => {
             try{
-                scanner = scanner || await DBR.BarcodeScanner.createInstance();
+                let scanner = await (pScanner = pScanner || BarcodeScanner.createInstance());
                 scanner.onFrameRead = results => {
                     if(results.length){
                         console.log(results);

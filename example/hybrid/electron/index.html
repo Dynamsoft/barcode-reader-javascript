@@ -16,20 +16,20 @@
     <button id="btn-show-scanner">show scanner</button>
   </body>
   <script>
-    const dbrweb = require("dynamsoft-javascript-barcode");
-    dbrweb.BarcodeReader.engineResourcePath = "./node_modules/dynamsoft-javascript-barcode/dist";
-    dbrweb.BarcodeReader.productKeys = "PRODUCT-KEYS";
-    // dbrweb.BarcodeReader._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+    const { DBR, BarcodeReader, BarcodeScanner } = require("dynamsoft-javascript-barcode");
+    DBR.engineResourcePath = "./node_modules/dynamsoft-javascript-barcode/dist";
+    DBR.productKeys = "PRODUCT-KEYS";
+    // DBR._bUseFullFeature = true; // Control of loading min wasm or full wasm.
 
     // reader for decoding picture
-    let reader = null;
+    let pReader = null;
     // scanner for decoding video
-    let scanner = null;
+    let pScanner = null;
 
     // decode input picture
     document.getElementById('ipt-file').addEventListener('change', async function(){
         try{
-            reader = reader || await dbrweb.BarcodeReader.createInstance();
+            let reader = await (pReader = pReader || BarcodeReader.createInstance());
             let resultsToAlert = [];
             for(let i = 0; i < this.files.length; ++i){
                 let file = this.files[i];
@@ -51,7 +51,7 @@
     // decode video from camera
     document.getElementById('btn-show-scanner').addEventListener('click', async () => {
         try{
-            scanner = scanner || await dbrweb.BarcodeScanner.createInstance();
+            let scanner = await (pScanner = pScanner || BarcodeScanner.createInstance());
             scanner.onFrameRead = results => {
                 if(results.length){
                     console.log(results);
