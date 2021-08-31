@@ -13,7 +13,7 @@ Once integrated, your users can open your website in a browser, access their cam
 
 In this guide, you will learn step by step on how to integrate this library into your website.
 
-> For back-end barcode reading with Node.js, see [Dynamsoft Barcode Reader for Node](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md).
+> For back-end barcode reading with Node.js, see [Dynamsoft Barcode Reader for Node](https://github.com/Dynamsoft/javascript-barcode/blob/main/README.NODE.md).
 
 **Table of Contents**
 
@@ -78,7 +78,7 @@ The complete code of the "Hello World" example is shown below
 </html>
 ```
 
-> You can also find the code (with more comments) [on GitHub](https://github.com/Dynamsoft/dbr-browser-samples/blob/main/1.hello-world/1.minimum-code.html).
+> You can also find the code (with more comments) [on GitHub](https://github.com/Dynamsoft/dbr-browser-samples/blob/master/1.hello-world/1.minimum-code.html).
 
 *About the code*
 
