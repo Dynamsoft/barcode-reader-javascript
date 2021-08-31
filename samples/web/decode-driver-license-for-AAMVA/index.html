@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="div-video-container">
+        <select class="dbrScanner-sel-camera"></select><select class="dbrScanner-sel-resolution"></select>
+        <p>
+            <video class="dbrScanner-video" playsinline="true"></video>
+        </p>
+    </div>
+    <div id="div-licenseInfo"></div>
+    <!--
+        Please visit https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&package=js&utm_source=github to get trial license.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+    <script src="driverlicense.js"></script>
+    <script>
+        // scanner for decoding video
+        let pScanner = null;
+        (async ()=>{
+            let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+            await scanner.setUIElement(document.getElementById('div-video-container'));
+
+            await scanner.updateRuntimeSettings("balance");
+            let runtimeSettings = await scanner.getRuntimeSettings();
+            runtimeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_PDF417;
+            runtimeSettings.LocalizationModes = [2,8,0,0,0,0,0,0];
+            runtimeSettings.deblurLevel = 3;
+            await scanner.updateRuntimeSettings(runtimeSettings);
+
+            scanner.onFrameRead = results => console.log(results);
+            scanner.onUnduplicatedRead = txt => {
+                alert("PDF417 found");
+
+                // Get infos
+                let licenseInfo = parseDriverLicense(txt);
+                console.log("licenseInfo", licenseInfo);
+
+                // show
+                let div = document.getElementById("div-licenseInfo");
+                div.innerHTML = '';
+                for(let key in licenseInfo){
+                    let info = licenseInfo[key];
+                    let p = document.createElement('p');
+                    p.innerText = info.description + ': ' + info.content;
+                    div.appendChild(p);
+                }
+            };
+
+            await scanner.show();
+        })();
+    </script>
+</body></html>

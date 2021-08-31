@@ -1,0 +1,6 @@
+<h1>Welcome to DBRJS AngularDart sample</h1>
+Choose image(s) to decode:
+<input (change)="onIptChange($event)" type="file" multiple accept="image/png,image/jpeg,image/bmp,image/gif">
+<br><br>
+<button (click)="showScanner()">show scanner</button>
+<p *ngIf="!bFinishDecodingSample">Running test: decode sample image...</p>

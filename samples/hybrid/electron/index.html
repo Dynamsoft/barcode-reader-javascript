@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" /> -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval';" />
+  </head>
+  <body>
+    <h1>Welcome to DBRJS Electron sample</h1>
+    
+    Choose image(s) to decode:
+    <input id="ipt-file" type="file" multiple accept="image/png,image/jpeg,image/bmp,image/gif">
+    <br><br>
+    <button id="btn-show-scanner">show scanner</button>
+  </body>
+  <script>
+    const { DBR, BarcodeReader, BarcodeScanner } = require("dynamsoft-javascript-barcode");
+    DBR.engineResourcePath = "./node_modules/dynamsoft-javascript-barcode/dist";
+    DBR.productKeys = "PRODUCT-KEYS";
+    // DBR._bUseFullFeature = true; // Control of loading min wasm or full wasm.
+
+    // reader for decoding picture
+    let pReader = null;
+    // scanner for decoding video
+    let pScanner = null;
+
+    // decode input picture
+    document.getElementById('ipt-file').addEventListener('change', async function(){
+        try{
+            let reader = await (pReader = pReader || BarcodeReader.createInstance());
+            let resultsToAlert = [];
+            for(let i = 0; i < this.files.length; ++i){
+                let file = this.files[i];
+                resultsToAlert.push(i + '. ' + file.name + ":");
+                let results = await reader.decode(file);
+                console.log(results);
+                for(let result of results){
+                    resultsToAlert.push(result.barcodeText);
+                }
+            }
+            alert(resultsToAlert.join('\n'));
+        }catch(ex){
+            alert(ex.message);
+            throw ex;
+        }
+        this.value = '';
+    });
+
+    // decode video from camera
+    document.getElementById('btn-show-scanner').addEventListener('click', async () => {
+        try{
+            let scanner = await (pScanner = pScanner || BarcodeScanner.createInstance());
+            scanner.onFrameRead = results => {
+                if(results.length){
+                    console.log(results);
+                }
+            };
+            scanner.onUnduplicatedRead = (txt, result) => {
+                alert(result.barcodeFormatString + ': ' + txt);
+            };
+            await scanner.show();
+        }catch(ex){
+            alert(ex.message);
+            throw ex;
+        }
+    });
+  </script>
+</html>
