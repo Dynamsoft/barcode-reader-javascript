@@ -2,6 +2,7 @@
 node_modules
 dist
 build
+/Test*
 
 # local env files
 .env.local
@@ -21,6 +22,46 @@ yarn-error.log*
 *.sln
 *.sw?
 
+__pycache__
+~~*
+--*
+==*
 package-lock.json
 yarn.lock
 .git
+/*.zip
+/*.py
+/*.exe
+/*.jar
+/*.md
+/*.json
+/*.js
+/*.txt
+/.gitattributes
+/.*ignore
+/DBR-*
+/sampleFromGithub
+/src
+/Web.config
+
+!/dist
+/dist/*
+#!/dist/class
+#!/dist/enum
+#!/dist/interface
+!/dist/dbr.js
+!/dist/dbr.mjs
+!/dist/dbr.browser.mjs
+!/dist/dbr-*.worker.js
+!/dist/dbr-*.wasm.js
+!/dist/dbr-*.wasm
+!/dist/dbr.d.ts
+!/dist/dbr.reference.d.ts
+!/dist/dbr.scanner.html
+!/dist/dls.license.dialog.html
+!/dist/README.md
+
+!/README.md
+!/README.NODE.md
+!/package.json
+!/LICENSE
