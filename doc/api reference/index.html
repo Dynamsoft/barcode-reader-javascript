@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Dynamsoft BarcodeReader SDK for Javascript - v8.6.0</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.6.0">
+	<title>Dynamsoft BarcodeReader SDK for Javascript - v8.6.1</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.6.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.6.0</a>
+					<a href="index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.6.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1>Dynamsoft BarcodeReader SDK for Javascript - v8.6.0</h1>
+			<h1>Dynamsoft BarcodeReader SDK for Javascript - v8.6.1</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 				<p>Once integrated, your users can open your website in a browser, access their cameras and read barcodes directly from the video input.</p>
 				<p>In this guide, you will learn step by step on how to integrate this library into your website.</p>
 				<blockquote>
-					<p>For back-end barcode reading with Node.js, see <a href="https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md">Dynamsoft Barcode Reader for Node</a>.</p>
+					<p>For back-end barcode reading with Node.js, see <a href="https://github.com/Dynamsoft/javascript-barcode/blob/main/README.NODE.md">Dynamsoft Barcode Reader for Node</a>.</p>
 				</blockquote>
 				<p><strong>Table of Contents</strong></p>
 				<ul>
@@ -121,7 +121,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
     <span class="hljs-comment">// initializes and uses the library</span>
     <span class="hljs-keyword">let</span> pScanner = <span class="hljs-literal">null</span>;
@@ -190,10 +190,10 @@
 				<p>The simplest way to include the library is to use either the <a href="https://jsdelivr.com/">jsDelivr</a> or <a href="https://unpkg.com/">UNPKG</a> CDN. The &quot;hello world&quot; example above uses <strong>jsDelivr</strong>.</p>
 				<ul>
 					<li><p>jsDelivr</p>
-						<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+						<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 					</li>
 					<li><p>UNPKG  </p>
-						<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+						<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 					</li>
 				</ul>
 				<a href="#host-the-library-yourself-recommended" id="host-the-library-yourself-recommended" style="color: inherit; text-decoration: none;">
@@ -238,14 +238,14 @@ Dynamsoft.DBR.BarcodeScanner.licenseServer = [<span class="hljs-string">"YOUR-OW
 				<p>An alternative way to specify the license is to use an alphanumeric string which does not require a network connection. The following shows how it could be used. <a href="https://www.dynamsoft.com/company/contact/?utm_source=github">Contact us</a> for more information.</p>
 				<pre><code class="language-javascript">Dynamsoft.DBR.BarcodeReader.productKeys = <span class="hljs-string">"t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoLrnqjLiQQRSH5DBV1UtIs4..."</span></code></pre>
 				<p>Or</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoLrnqjLiQQRSH5DBV1UtIs4..."</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoLrnqjLiQQRSH5DBV1UtIs4..."</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<a href="#specify-the-location-of-the-quotenginequot-files" id="specify-the-location-of-the-quotenginequot-files" style="color: inherit; text-decoration: none;">
 					<h4>Specify the location of the &quot;engine&quot; files</h4>
 				</a>
 				<p>The &quot;engine&quot; files refer to *.worker.js, *.wasm.js and *.wasm, etc. which are loaded by the main library at runtime. This configuration option uses the API <code>engineResourcePath</code> and is often not required as these files usually are in the same location with the main library file (dbr.js). However, in cases where the engine files are not in the same location as the main library file (for example, with frameworks like Angular or React, dbr.js is compiled into another file), this configuration will be required.</p>
 				<p>The following code uses the jsDelivr CDN, feel free to change it to your own location of these files.</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">import</span> DBR <span class="hljs-keyword">from</span> <span class="hljs-string">"dynamsoft-javascript-barcode"</span>;
-DBR.BarcodeScanner.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/"</span>;
+DBR.BarcodeScanner.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/"</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> DBR;</code></pre>
 				<a href="#interact-with-the-library" id="interact-with-the-library" style="color: inherit; text-decoration: none;">
 					<h3>Interact with the library</h3>
