@@ -159,7 +159,7 @@ The following shows a few ways to download the library.
 Depending on how you downloaded the library and where you put it. You can typically include it like this:
 
 ``` html
-<script src="/DBR-JS-8.6.0/dist/dbr.js"></script>
+<script src="/DBR-JS-8.6.1/dist/dbr.js"></script>
 ```
 
 or
