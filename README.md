@@ -13,7 +13,7 @@ Once integrated, your users can open your website in a browser, access their cam
 
 In this guide, you will learn step by step on how to integrate this library into your website.
 
-> For back-end barcode reading with Node.js, see [Dynamsoft Barcode Reader for Node](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.NODE.md).
+> For back-end barcode reading with Node.js, see [Dynamsoft Barcode Reader for Node](https://github.com/Dynamsoft/javascript-barcode/blob/main/README.NODE.md).
 
 **Table of Contents**
 
@@ -58,7 +58,7 @@ The complete code of the "Hello World" example is shown below
 <html>
 
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"></script>
   <script>
     // initializes and uses the library
     let pScanner = null;
@@ -125,13 +125,13 @@ The simplest way to include the library is to use either the [jsDelivr](https://
 * jsDelivr
 
   ``` html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"></script>
   ```
 
 * UNPKG  
 
   ``` html
-  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js"></script>
+  <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"></script>
   ```
 
 #### Host the library yourself (recommended)
@@ -201,7 +201,7 @@ Dynamsoft.DBR.BarcodeReader.productKeys = "t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoL
 Or
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/dbr.js" data-productKeys="t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoLrnqjLiQQRSH5DBV1UtIs4..."></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-productKeys="t0068NQAAACgTVU2aucyxqETXKkiomqhV7YoLrnqjLiQQRSH5DBV1UtIs4..."></script>
 ```
 
 #### Specify the location of the "engine" files
@@ -212,7 +212,7 @@ The following code uses the jsDelivr CDN, feel free to change it to your own loc
   
 ``` javascript
 import DBR from "dynamsoft-javascript-barcode";
-DBR.BarcodeScanner.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.0/dist/";
+DBR.BarcodeScanner.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/";
 export default DBR;
 ```
 
