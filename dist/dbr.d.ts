@@ -4,7 +4,7 @@
 * @website http://www.dynamsoft.com
 * @preserve Copyright 2021, Dynamsoft Corporation
 * @author Dynamsoft
-* @version 8.6.1 (js 20210628)
+* @version 8.6.3 (js 20210628)
 * @fileoverview Dynamsoft JavaScript Library for Barcode Reader
 * More info on DBR JS: https://www.dynamsoft.com/Products/barcode-recognition-javascript.aspx
 */
@@ -399,7 +399,7 @@ export declare class BarcodeReader {
 	 * ```
 	 * For convenience, you can set `productKeys` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 	 * ```
 	 */
 	static set productKeys(keys: string);
@@ -411,7 +411,7 @@ export declare class BarcodeReader {
 	 * ```
 	 * For convenience, you can set `handshakeCode` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-handshakeCode="123****-mytest"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-handshakeCode="123****-mytest"></script>
 	 * ```
 	 */
 	static set handshakeCode(keys: string);
@@ -424,7 +424,7 @@ export declare class BarcodeReader {
 	 * ```
 	 * For convenience, you can set `organizationID` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-organizationID="123****"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-organizationID="123****"></script>
 	 * ```
 	 * @see [[handshakeCode]]
 	 */
@@ -470,7 +470,7 @@ export declare class BarcodeReader {
 	 * If the auto-explored engine location is incorrect, you can manually specify the engine location.
 	 * The property needs to be set before [[loadWasm]].
 	 * ```js
-	 * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/";
+	 * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/";
 	 * await Dynamsoft.DBR.BarcodeReader.loadWasm();
 	 * ```
 	*/
@@ -879,11 +879,12 @@ export declare class BarcodeReader {
 	getIntermediateResults(): Promise<any>;
 	/** @ignore */
 	getIntermediateCanvas(): Promise<HTMLCanvasElement[]>;
+	destroy(): Promise<void>;
 	/**
 	 * Destroy the `BarcodeReader` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
-	destroy(): Promise<void>;
+	destroyContext(): Promise<void>;
 }
 export interface FrameFilter {
 	/**
@@ -955,7 +956,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * The url of the default scanner UI.
 	 * Can only be changed before `createInstance`.
 	 * ```js
-	 * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.scanner.html";
+	 * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.scanner.html";
 	 * let pScanner = null;
 	 * (async()=>{
 	 *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -1270,6 +1271,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * scanner.onplayed = rsl=>{ console.log(rsl.width+'x'+rsl.height) };
 	 * await scanner.show(); // or open, play, setCurrentCamera, like these.
 	 * ```
+	 * @event onPlayed
 	 */
 	onPlayed?: (info: ScannerPlayCallbackInfo) => void;
 	/**
@@ -1282,6 +1284,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 *     }
 	 * };
 	 * ```
+	 * @event onFrameRead
 	 */
 	onFrameRead?: (results: TextResult[]) => void;
 	/**
@@ -1294,6 +1297,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 *     console.log(result);
 	 * };
 	 * ```
+	 * @event onUnduplicatedRead
 	 */
 	onUnduplicatedRead?: (txt: string, result: TextResult) => void;
 	/** @ignore */
@@ -1326,7 +1330,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * }
 	 * ```
 	 * @param cameraInfoOrDeviceId
-	 * @event [[onPlayed]]
+	 * @fires [[onPlayed]]
 	 * @category Camera Settings
 	 */
 	setCurrentCamera(cameraInfoOrDeviceId: any): Promise<ScannerPlayCallbackInfo>;
@@ -1346,7 +1350,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * ```
 	 * @param width
 	 * @param height
-	 * @event [[onPlayed]]
+	 * @fires [[onPlayed]]
 	 * @category Camera Settings
 	 */
 	setResolution(width: number | number[], height: number): Promise<ScannerPlayCallbackInfo>;
@@ -1427,7 +1431,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * \\*** a lot of work ***
 	 * await scanner.play();
 	 * ```
-	 * @event [[onPlayed]]
+	 * @fires [[onPlayed]]
 	 * @category Play and Pause
 	 */
 	play(deviceId?: string, width?: number, height?: number): Promise<ScannerPlayCallbackInfo>;
@@ -1592,7 +1596,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * await scanner.open();
 	 * // await scanner.close();
 	 * ```
-	 * @event [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
+	 * @fires [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
 	 * @category Open and Close
 	 */
 	open(): Promise<ScannerPlayCallbackInfo>;
@@ -1604,7 +1608,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * console.log(await scanner.decodeCurrentFrame());
 	 * // await scanner.close();
 	 * ```
-	 * @event [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
+	 * @fires [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
 	 * @category Open and Close
 	 */
 	openVideo(): Promise<ScannerPlayCallbackInfo>;
@@ -1624,12 +1628,12 @@ export declare class BarcodeScanner extends BarcodeReader {
 	/**
 	 * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
 	 * ```js
-	 * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.scanner.html");
+	 * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.scanner.html");
 	 * scanner.onUnduplicatedRead = (txt, result) => { alert(txt); console.log(result); };
 	 * await scanner.show();
 	 * // await scanner.hide();
 	 * ```
-	 * @event [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
+	 * @fires [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
 	 * @category Open and Close
 	 */
 	show(): Promise<ScannerPlayCallbackInfo>;
@@ -1640,7 +1644,7 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * console.log(await scanner.decodeCurrentFrame());
 	 * // await scanner.hide();
 	 * ```
-	 * @event [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
+	 * @fires [[onPlayed]],[[onUnduplicatedRead]],[[onFrameRead]]
 	 * @category Open and Close
 	 */
 	showVideo(): Promise<ScannerPlayCallbackInfo>;
@@ -1657,11 +1661,12 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * @category Open and Close
 	 */
 	hide(): Promise<void>;
+	destroy(): Promise<any>;
 	/**
 	 * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
-	destroy(): Promise<any>;
+	destroyContext(): Promise<any>;
 }
 export declare enum EnumBarcodeColourMode {
 	BICM_DARK_ON_LIGHT = 1,
@@ -1857,7 +1862,7 @@ export declare class DBR {
 	 * ```
 	 * For convenience, you can set `productKeys` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-productKeys="PRODUCT-KEYS"></script>
 	 * ```
 	 */
 	static set productKeys(keys: string);
@@ -1869,7 +1874,7 @@ export declare class DBR {
 	 * ```
 	 * For convenience, you can set `handshakeCode` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-handshakeCode="123****-mytest"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-handshakeCode="123****-mytest"></script>
 	 * ```
 	 */
 	static set handshakeCode(keys: string);
@@ -1881,7 +1886,7 @@ export declare class DBR {
 	 * ```
 	 * For convenience, you can set `organizationID` in `script` tag instead.
 	 * ```html
-	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js" data-organizationID="123****"></script>
+	 * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js" data-organizationID="123****"></script>
 	 * ```
 	 * @see [[handshakeCode]]
 	 */
@@ -1919,7 +1924,7 @@ export declare class DBR {
 	 * If the auto-explored engine location is incorrect, you can manually specify the engine location.
 	 * The property needs to be set before [[loadWasm]].
 	 * ```js
-	 * Dynamsoft.DBR.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/";
+	 * Dynamsoft.DBR.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/";
 	 * await Dynamsoft.DBR.loadWasm();
 	 * ```
 	*/

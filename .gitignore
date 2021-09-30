@@ -34,6 +34,7 @@ yarn.lock
 /*.exe
 /*.jar
 /*.md
+/*.html
 /*.json
 /*.js
 /*.txt
