@@ -139,7 +139,7 @@
 						<section class="tsd-index-section ">
 							<h3>Initialize and Destroy Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="barcodescanner.html#destroycontext" class="tsd-kind-icon">destroy<wbr>Context</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-static"><a href="barcodescanner.html#createinstance" class="tsd-kind-icon">create<wbr>Instance</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="barcodescanner.html#isloaded" class="tsd-kind-icon">is<wbr>Loaded</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="barcodescanner.html#loadwasm" class="tsd-kind-icon">load<wbr>Wasm</a></li>
@@ -198,6 +198,7 @@
 							</ul>
 							<h3>Other Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="barcodescanner.html#getoriginalimageinacanvas" class="tsd-kind-icon">get<wbr>Original<wbr>Image<wbr>InACanvas</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="barcodescanner.html#getscansettings" class="tsd-kind-icon">get<wbr>Scan<wbr>Settings</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="barcodescanner.html#iscontextdestroyed" class="tsd-kind-icon">is<wbr>Context<wbr>Destroyed</a></li>
@@ -1185,17 +1186,17 @@ Dynamsoft.DBR.BarcodeReader.sessionPassword = <span class="hljs-string">"@#$%***
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Initialize and Destroy Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-					<a name="destroy" class="tsd-anchor"></a>
-					<h3>destroy</h3>
+					<a name="destroycontext" class="tsd-anchor"></a>
+					<h3>destroy<wbr>Context</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">destroy<wbr>Context<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#destroy">destroy</a></p>
+								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#destroycontext">destroyContext</a></p>
 								<ul>
-									<li>Defined in src/class/barcodescanner.ts:2556</li>
+									<li>Defined in src/class/barcodescanner.ts:2569</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2363,6 +2364,24 @@ settings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_ONED;
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Other Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="destroy" class="tsd-anchor"></a>
+					<h3>destroy</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">destroy<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="barcodereader.html">BarcodeReader</a>.<a href="barcodereader.html#destroy">destroy</a></p>
+								<ul>
+									<li>Defined in src/class/barcodescanner.ts:2553</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 					<a name="getoriginalimageinacanvas" class="tsd-anchor"></a>
 					<h3>get<wbr>Original<wbr>Image<wbr>InACanvas</h3>
@@ -2595,6 +2614,9 @@ scanSettings.duplicateForgetTime = <span class="hljs-number">1000</span>;
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
 								<a href="barcodescanner.html#destroy" class="tsd-kind-icon">destroy</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="barcodescanner.html#destroycontext" class="tsd-kind-icon">destroy<wbr>Context</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="barcodescanner.html#getallcameras" class="tsd-kind-icon">get<wbr>All<wbr>Cameras</a>

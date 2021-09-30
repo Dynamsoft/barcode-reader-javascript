@@ -879,11 +879,12 @@ export declare class BarcodeReader {
 	getIntermediateResults(): Promise<any>;
 	/** @ignore */
 	getIntermediateCanvas(): Promise<HTMLCanvasElement[]>;
+	destroy(): Promise<void>;
 	/**
 	 * Destroy the `BarcodeReader` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
-	destroy(): Promise<void>;
+	destroyContext(): Promise<void>;
 }
 export interface FrameFilter {
 	/**
@@ -1660,11 +1661,12 @@ export declare class BarcodeScanner extends BarcodeReader {
 	 * @category Open and Close
 	 */
 	hide(): Promise<void>;
+	destroy(): Promise<any>;
 	/**
 	 * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
 	 * @category Initialize and Destroy
 	 */
-	destroy(): Promise<any>;
+	destroyContext(): Promise<any>;
 }
 export declare enum EnumBarcodeColourMode {
 	BICM_DARK_ON_LIGHT = 1,
