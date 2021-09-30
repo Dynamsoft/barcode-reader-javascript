@@ -42,8 +42,8 @@ const DLAbbrDesMap = {
     'DDB': 'Card Revision Date',
     'DDC': 'HazMat Endorsement Expiration Date',
     'DDD': 'Limited Duration Document Indicator',
-    'DAW': 'Weight(pounds}',
-    'DAX': 'Weight(kilograms}',
+    'DAW': 'Weight(pounds)',
+    'DAX': 'Weight(kilograms)',
     'DDH': 'Under 18 Until',
     'DDI': 'Under 19 Until',
     'DDJ': 'Under 21 Until',
@@ -74,7 +74,7 @@ const DLAbbrDesMap = {
     'DCH': 'Federal Commercial Vehicle Codes',
     'DBO': 'Customer Last Name',
     'DBP': 'Customer First Name',
-    'DBQ': 'Customer Middle Name(s}',
+    'DBQ': 'Customer Middle Name(s)',
     'DBR': 'Name Suffix',
     'PAA': 'Permit Classification Code',
     'PAB': 'Permit Expiration Date',
@@ -84,7 +84,7 @@ const DLAbbrDesMap = {
     'PAF': 'Permit Endorsement Code',
     'ZVA': 'Court Restriction Code',
     'DCT': 'Customer First Name',
-    'DAD': 'Customer Middle Name(s}'
+    'DAD': 'Customer Middle Name(s)'
 };
 
 // Get driver license abbreviation-content map from raw txt

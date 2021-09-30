@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BarcodeScanner | Dynamsoft BarcodeReader SDK for Javascript - v8.6.1</title>
-	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.6.1">
+	<title>BarcodeScanner | Dynamsoft BarcodeReader SDK for Javascript - v8.6.3</title>
+	<meta name="description" content="Documentation for Dynamsoft BarcodeReader SDK for Javascript - v8.6.3">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.6.1</a>
+					<a href="../index.html" class="title">Dynamsoft BarcodeReader SDK for Javascript - v8.6.3</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -802,7 +802,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 								<div class="lead">
 									<p>The url of the default scanner UI.
 									Can only be changed before <code>createInstance</code>.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.scanner.html"</span>;
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.scanner.html"</span>;
 <span class="hljs-keyword">let</span> pScanner = <span class="hljs-literal">null</span>;
 <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
     <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -822,7 +822,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 								<div class="lead">
 									<p>The url of the default scanner UI.
 									Can only be changed before <code>createInstance</code>.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.scanner.html"</span>;
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.scanner.html"</span>;
 <span class="hljs-keyword">let</span> pScanner = <span class="hljs-literal">null</span>;
 <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span>(</span>)=&gt;</span>{
     <span class="hljs-keyword">let</span> scanner = <span class="hljs-keyword">await</span> (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -860,7 +860,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Specify the Barcode Reader SDK engine (WASM) url. The SDK tries to automatically explore the engine location.
 										If the auto-explored engine location is incorrect, you can manually specify the engine location.
 									The property needs to be set before <a href="barcodescanner.html#loadwasm">loadWasm</a>.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/"</span>;
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/"</span>;
 <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
@@ -878,7 +878,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Specify the Barcode Reader SDK engine (WASM) url. The SDK tries to automatically explore the engine location.
 										If the auto-explored engine location is incorrect, you can manually specify the engine location.
 									The property needs to be set before <a href="barcodescanner.html#loadwasm">loadWasm</a>.</p>
-									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/"</span>;
+									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.engineResourcePath = <span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/"</span>;
 <span class="hljs-keyword">await</span> Dynamsoft.DBR.BarcodeReader.loadWasm();</code></pre>
 								</div>
 							</div>
@@ -912,7 +912,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The <code>handshakeCode</code> is an alias of <code>productKeys</code>. Specifically refers to the key that requires <strong>network</strong> authentication.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;</code></pre>
 									<p>For convenience, you can set <code>handshakeCode</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -929,7 +929,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Get or set the Dynamsoft Barcode Reader SDK handshake code. The <code>handshakeCode</code> is an alias of <code>productKeys</code>. Specifically refers to the key that requires <strong>network</strong> authentication.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.handshakeCode = <span class="hljs-string">"123****-mytest"</span>;</code></pre>
 									<p>For convenience, you can set <code>handshakeCode</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-handshakeCode</span>=<span class="hljs-string">"123****-mytest"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1006,7 +1006,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Use organization ID to get authentication from network. Keep handshakeCode empty if you want to use default <code>handshake</code> of the organization.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.organizationID = <span class="hljs-string">"123****"</span>;</code></pre>
 									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -1028,7 +1028,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Use organization ID to get authentication from network. Keep handshakeCode empty if you want to use default <code>handshake</code> of the organization.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.organizationID = <span class="hljs-string">"123****"</span>;</code></pre>
 									<p>For convenience, you can set <code>organizationID</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-organizationID</span>=<span class="hljs-string">"123****"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -1066,7 +1066,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Get or set the Dynamsoft Barcode Reader SDK product keys.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.productKeys = <span class="hljs-string">"PRODUCT-KEYS"</span>;</code></pre>
 									<p>For convenience, you can set <code>productKeys</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1083,7 +1083,7 @@ startPlayButton.addEventListener(<span class="hljs-string">'click'</span>, <span
 									<p>Get or set the Dynamsoft Barcode Reader SDK product keys.</p>
 									<pre><code class="language-js">Dynamsoft.DBR.BarcodeReader.productKeys = <span class="hljs-string">"PRODUCT-KEYS"</span>;</code></pre>
 									<p>For convenience, you can set <code>productKeys</code> in <code>script</code> tag instead.</p>
-									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+									<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"</span> <span class="hljs-attr">data-productKeys</span>=<span class="hljs-string">"PRODUCT-KEYS"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1451,7 +1451,7 @@ scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-para
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Bind UI, open the camera, start decoding, and remove the UIElement <code>display</code> style if the original style is <code>display:none;</code>.</p>
-									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.setUIElement(<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.1/dist/dbr.scanner.html"</span>);
+									<pre><code class="language-js"><span class="hljs-keyword">await</span> scanner.setUIElement(<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.scanner.html"</span>);
 scanner.onUnduplicatedRead = <span class="hljs-function">(<span class="hljs-params">txt, result</span>) =&gt;</span> { alert(txt); <span class="hljs-built_in">console</span>.log(result); };
 <span class="hljs-keyword">await</span> scanner.show();
 <span class="hljs-comment">// await scanner.hide();</span></code></pre>
