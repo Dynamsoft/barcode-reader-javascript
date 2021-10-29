@@ -35,7 +35,7 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.8.1/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.8.3/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
     static set license(keys: string);
@@ -87,7 +87,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.8.1/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.8.3/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
