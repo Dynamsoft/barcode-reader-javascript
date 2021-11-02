@@ -65,9 +65,8 @@ The complete code of the "Hello World" example is shown below
   <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.8.3/dist/dbr.js"></script>
   <script>
     // initializes and uses the library
-    let pScanner = null;
     (async () => {
-      let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+      let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
       scanner.onFrameRead = results => {
         if (results.length > 0) console.log(results);
       };
@@ -138,7 +137,7 @@ The simplest way to include the library is to use either the [jsDelivr](https://
   <script src="https://unpkg.com/dynamsoft-javascript-barcode@8.8.3/dist/dbr.js"></script>
   ```
 
-#### Host the library yourself (recommended)
+#### Host the library yourself
 
 Besides using the CDN, you can also download the library and host its files on your own website / server before including it in your application.
 
@@ -163,7 +162,7 @@ The following shows a few ways to download the library.
 Depending on how you downloaded the library and where you put it. You can typically include it like this:
 
 ``` html
-<script src="/DBR-JS-8.8.3/dist/dbr.js"></script>
+<script src="/dbr-js-8.8.3/dist/dbr.js"></script>
 ```
 
 or
@@ -227,11 +226,24 @@ You can use one of two classes ( `BarcodeScanner` and `BarcodeReader` ) to inter
 To use the library, we first create a `BarcodeScanner` object.
 
 ``` javascript
-let scanner = null, pScanner = null;
+let scanner = null;
 try {
-  scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+  scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
 } catch (ex) {
   console.error(ex);
+}
+```
+
+When creating a `BarcodeScanner` object within a function which may be called more than once, it's best to use a "helper" variable to avoid double creation such as `pScanner` in the following code
+
+``` javascript
+let scanner = null, pScanner = null;
+function createBarcodeScanner(){
+  try {
+    scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+  } catch (ex) {
+    console.error(ex);
+  }
 }
 ```
 
@@ -333,9 +345,8 @@ The built-in UI of the `BarcodeScanner` object is defined in the file `dist/dbr.
       <video class="dbrScanner-video" playsinline="true" style="width:100%;height:100%;position:absolute;left:0;top:0;"></video>
     </div>
     <script>
-      let pScanner = null;
       (async()=>{
-        let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+        let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
         await scanner.setUIElement(document.getElementById('div-video-container'));
         scanner.onFrameRead = results => {console.log(results);};
         scanner.onUnduplicatedRead = (txt, result) => {alert(txt);};
@@ -383,15 +394,12 @@ See also [UI customization samples](https://www.dynamsoft.com/barcode-reader/pro
 
 Interested to test it further? Read on to learn how to request a 30-day free trial.
 
-## Requesting A Trial
+## Requesting a Trial
 
-From version 8.2.5 of the library, if no license is specified, a [7-day free license](https://www.dynamsoft.com/license-server/docs/about/terms.html?ver=latest#public-trial-license?utm_source=github) will be used by default. 
+You can request a 30-day free trial via the [customer portal](https://www.dynamsoft.com/customer/license/trialLicense?utm_source=github&product=dbr&package=js). Or you can [contact our support team](https://www.dynamsoft.com/company/contact/?utm_source=github) to get a free trial license.
 
-> Network connection is required for the 7-day free license to work.
+Since v8.2.5, a 7-day free license is used by default if no license specified. Network connection is required for the default license to work.
 
-After that, if you want to evaluate the library further, you can [register for a Dynamsoft account](https://www.dynamsoft.com/api-common/Regist/Regist?utm_source=github) (if you haven't already done so) and request a 30-day trial in the [customer portal](https://www.dynamsoft.com/customer/license/trialLicense?utm_source=github&product=dbr&package=js).
-
-* If you like, you can also [contact our support team](https://www.dynamsoft.com/company/contact/?utm_source=github) to get a trial license.
 
 ## System Requirements
 
@@ -416,7 +424,7 @@ The following table is a list of supported browsers based on the above requireme
 
   <sup>1</sup> iOS 14.3+ is required for camera video streaming in Chrome and Firefox or Apps using webviews.
 
-  <sup>2</sup> On Edge, due to strict Same-origin policy, you must host the library files on the same domain as your web page. 
+  <sup>2</sup> On legacy Edge (v16 ~ v78), due to strict Same-origin policy, you must host the library files on the same domain as your web page. 
 
   <sup>3</sup> Safari 11.2.2 ~ 11.2.6 are not supported.
      
@@ -429,7 +437,7 @@ Apart from the browsers, the operating systems may impose some limitations of th
 Once you have downloaded the library, you can locate the "dist" directory and copy it to your server (usually as part of your website / web application). The following shows some of the files in this directory:
 
 * `dbr.js` // The main library file
-* `dbr.browser.mjs` // For using the library as a module (`<script type="module">`)
+* `dbr.mjs` // For using the library as a module (`<script type="module">`)
 * `dbr.scanner.html` // Defines the default scanner UI
 * `dbr-<version>.worker.js` // Defines the worker thread for barcode reading
 * `dbr-<version>.wasm.js` // Compact edition of the library (.js)
@@ -445,9 +453,9 @@ Once you have downloaded the library, you can locate the "dist" directory and co
 
   Different types of webservers are configured differently, for example:
 
-  + [Apache](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess)
+  + [Apache](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings)
   + [IIS](https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap)
-  + [NGINX](https://developer.mozilla.org/en-US/NGINX_configuration_snippets)
+  + [NGINX](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types)
 
 * Enable HTTPS
 
@@ -534,9 +542,8 @@ The following shows how to display these images on the page
 ```
 
 ```javascript
-let pScanner = null;
 (async () => {
-    let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+    let scanner = await Dynamsoft.DBR.BarcodeScanner.createInstance();
     /* The default of `_bUseWebgl` is true which means the intermediate result for  
        IRT_ORIGINAL_IMAGE will be one that has been preprocessed by WebGL */
     scanner._bUseWebgl = false;
