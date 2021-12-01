@@ -89,7 +89,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 **Full code**
 
 ```js
-let DBR = require('dynamsoft-node-barcode');
+let DBR = require('dynamsoft-javascript-barcode');
 // Please visit https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&package=js&utm_source=github to get a trial license
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
