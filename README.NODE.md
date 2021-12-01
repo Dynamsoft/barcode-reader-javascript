@@ -6,8 +6,6 @@ Both 1D and 2D barcode symbiology are supported including the popular `Code 39`,
 
 The library is based on `webassembly` which has been an official feature of Node.js since `LTS 8`. If you are using Node.js LTS 8 and have no plan to upgrade it, check out [how to use the library in Node.js LTS 8](#how-to-use-the-library-in-nodejs-lts-8). That said, Node.js version >= LTS 12 is recommended because the library will try to use `worker_threads` when decoding. 
 
-> Also see [Dynamsoft JavaScript Barcode SDK for Web](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.md).
-
 ## Get Started
 
 * Check your Node.js version
