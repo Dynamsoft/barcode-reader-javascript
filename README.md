@@ -44,6 +44,11 @@ You can also:
 * [Try All Online Examples](https://demo.dynamsoft.com/Samples/DBR/JS/index.html?utm_source=github)
 * [Try the Official Demo](https://demo.dynamsoft.com/barcode-reader-js/?utm_source=github)
 
+Other resources:
+
+* [API Document](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/?ver=latest)
+* [Debug sample](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/master/5.others/debug)
+
 ## Hello World - Simplest Implementation
 
 Let's start by testing the "Hello World" example of the library which demonstrates how to use the minimum code to enable a web page to read barcodes from a live video stream.  
