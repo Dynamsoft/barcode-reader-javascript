@@ -47,7 +47,7 @@ You can also:
 Other resources:
 
 * [API Document](https://www.dynamsoft.com/barcode-reader/programming/javascript/api-reference/?ver=latest)
-* [Debug sample](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/master/5.others/debug)
+* [Debug Sample](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/master/5.others/debug)
 
 ## Hello World - Simplest Implementation
 
