@@ -6,7 +6,7 @@ Both 1D and 2D barcode symbiology are supported including the popular `Code 39`,
 
 The library is based on `webassembly` which has been an official feature of Node.js since `LTS 8`. If you are using Node.js LTS 8 and have no plan to upgrade it, check out [how to use the library in Node.js LTS 8](#how-to-use-the-library-in-nodejs-lts-8). That said, Node.js version >= LTS 12 is recommended because the library will try to use `worker_threads` when decoding. 
 
-> Also see [Dynamsoft JavaScript Barcode SDK for Web](https://github.com/Dynamsoft/javascript-barcode/blob/master/README.md).
+Node.js 15+ is required to use online license.
 
 ## Get Started
 
@@ -89,7 +89,7 @@ DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 **Full code**
 
 ```js
-let DBR = require('dynamsoft-node-barcode');
+let DBR = require('dynamsoft-javascript-barcode');
 // Please visit https://www.dynamsoft.com/customer/license/trialLicense?product=dbr&package=js&utm_source=github to get a trial license
 DBR.BarcodeReader.productKeys = 'PRODUCT-KEYS';
 
@@ -116,13 +116,13 @@ let pReader = null;
 To set up the library for decoding, use the APIs `getRuntimeSettings` & `updateRuntimeSettings`.
 
 ```js
-await barcodeScanner.updateRuntimeSettings("speed");
+await reader.updateRuntimeSettings("speed");
 ```
 ```js
-await barcodeScanner.updateRuntimeSettings("balance");
+await reader.updateRuntimeSettings("balance");
 ```
 ```js
-await barcodeScanner.updateRuntimeSettings("coverage");
+await reader.updateRuntimeSettings("coverage");
 ```
 ```js
 let settings = await reader.getRuntimeSettings();
