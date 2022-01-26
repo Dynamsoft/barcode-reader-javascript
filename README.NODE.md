@@ -116,13 +116,13 @@ let pReader = null;
 To set up the library for decoding, use the APIs `getRuntimeSettings` & `updateRuntimeSettings`.
 
 ```js
-await barcodeScanner.updateRuntimeSettings("speed");
+await reader.updateRuntimeSettings("speed");
 ```
 ```js
-await barcodeScanner.updateRuntimeSettings("balance");
+await reader.updateRuntimeSettings("balance");
 ```
 ```js
-await barcodeScanner.updateRuntimeSettings("coverage");
+await reader.updateRuntimeSettings("coverage");
 ```
 ```js
 let settings = await reader.getRuntimeSettings();

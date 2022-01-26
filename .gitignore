@@ -40,7 +40,7 @@ yarn.lock
 /*.txt
 /.gitattributes
 /.*ignore
-/DBR-*
+/dbr-*
 /sampleFromGithub
 /src
 /Web.config
