@@ -537,4 +537,4 @@ When it comes to HTML, newline characters ( `\n` ) are not interpreted as they n
 
 There are two ways in which you can resolve this:
 1. Wrap the element used to display the result in a `<pre>` element.
-2. Manually replace each `\n` character in the result with `<br \>`
+2. Manually replace each `\n` character in the result with `<br>`
