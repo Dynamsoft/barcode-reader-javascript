@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-dist
 build
 /Test*
 
@@ -21,6 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+*.map
 
 __pycache__
 ~~*
@@ -45,25 +45,10 @@ yarn.lock
 /src
 /Web.config
 /samples.url
-
-!/dist
-/dist/*
-!/dist/class
-!/dist/enum
-!/dist/interface
-!/dist/dbr.pure.mjs
-!/dist/dbr.browser.pure.mjs
-!/dist/dbr.browser.pure.esm.js
-!/dist/dbr.pure.js
-!/dist/dbr.mjs
-!/dist/dbr.js
-!/dist/dbr-*.worker.js
-!/dist/dbr-*.wasm.js
-!/dist/dbr-*.wasm
-!/dist/**/*.d.ts
-!/dist/dbr.scanner.html
-!/dist/dls.license.dialog.html
-!/dist/README.md
+/samples
+/temp
+/public
+/README.html
 
 !/README.md
 !/README.NODE.md
