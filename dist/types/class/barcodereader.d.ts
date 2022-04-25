@@ -4,7 +4,12 @@ import { RuntimeSettings } from "../interface/runtimesettings";
 import { EnumImagePixelFormat } from "../enum/enumimagepixelformat";
 import { BarcodeReaderException } from "../interface/barcodereaderexception";
 import { Region } from "../interface/region";
-import { DCEFrame } from "dynamsoft-camera-enhancer";
+import { CameraEnhancer, DCEFrame } from 'dynamsoft-camera-enhancer';
+import { Howl } from 'dm-howler';
+import { ImageSource } from '../interface/imagesource';
+import { DSImage } from '../interface/dsimage';
+import { ScanSettings } from '../interface/scanSettings';
+import { ScannerPlayCallbackInfo } from '../interface/scannerplaycallbackinfo';
 /**
  * The `BarcodeReader` class is used for image decoding
  * Comparing to `BarcodeScanner`, the default decoding settings are more accurate but slower.
@@ -36,10 +41,10 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.0/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
-    static set license(keys: string);
+    static set license(license: string);
     /** @ignore */
     static get productKeys(): string;
     /** @ignore */
@@ -67,14 +72,17 @@ export default class BarcodeReader {
     static set sessionPassword(value: string);
     static get sessionPassword(): string;
     /**
-     * modify from https://gist.github.com/2107/5529665
      * @ignore
      */
-    static browserInfo: any;
+    static browserInfo: {
+        browser: string;
+        version: string | number;
+        OS: string;
+    };
     /**
      * Detect environment and get a report.
      * ```js
-     * console.log(Dynamsoft.DBR.BarcodeReader.detectEnvironment());
+     * console.log(await Dynamsoft.DBR.BarcodeReader.detectEnvironment());
      * // {"wasm":true, "worker":true, "getUserMedia":true, "camera":true, "browser":"Chrome", "version":90, "OS":"Windows"}
      * ```
      */
@@ -88,7 +96,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.0/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
@@ -148,8 +156,15 @@ export default class BarcodeReader {
     static _dbrWorker: Worker;
     protected static _nextTaskID: number;
     protected static _taskCallbackMap: Map<number, (body: any) => void>;
-    private static _loadWasmStatus;
-    private static _loadWasmCallbackArr;
+    private static _pLoad;
+    /** @ignore */
+    static isImageSource(value: any): boolean;
+    /** @ignore */
+    static isDSImage(value: any): boolean;
+    /** @ignore */
+    static isCameraEnhancer(value: any): boolean;
+    /** @ignore */
+    static isDCEFrame(value: any): boolean;
     /** @ignore */
     _instanceID: number;
     protected _ifSaveOriginalImageInACanvas: boolean;
@@ -177,6 +192,7 @@ export default class BarcodeReader {
      */
     getOriginalImageInACanvas(): any;
     /** @ignore  */
+    private canvas;
     protected bFilterRegionInJs: boolean;
     protected userDefinedRegion: any;
     protected _region?: Region | Region[];
@@ -224,7 +240,139 @@ export default class BarcodeReader {
     get lastErrorString(): string;
     /** @ignore */
     _lastInnerDecodeDuration: number;
-    private static _loadWasmErr;
+    private static _defaultUIElementURL;
+    static get defaultUIElementURL(): string;
+    /**
+     * The url of the default scanner UI.
+     * Can only be changed before `createInstance`.
+     * ```js
+     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.ui.html";
+     * let pScanner = null;
+     * (async()=>{
+     *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+     *     await scanner.show();
+     * })();
+     * ```
+     */
+    static set defaultUIElementURL(value: string);
+    /** @ignore */
+    intervalTime: number;
+    /** @ignore */
+    protected _intervalGetVideoFrame: number;
+    protected _loopReadVideoTimeoutId: any;
+    /** @ignore */
+    protected array_getFrameTimeCost: any[];
+    /** @ignore */
+    protected array_decodeFrameTimeCost: any[];
+    /** @ignore */
+    protected _indexCurrentDecodingFrame: number;
+    protected resultsOverlay: HTMLCanvasElement;
+    protected _bPauseScan: boolean;
+    protected _intervalDetectVideoPause: number;
+    /** @ignore */
+    private _soundSource;
+    beepSound: Howl;
+    private get soundSource();
+    private set soundSource(value);
+    /**
+     * Whether to play sound when the scanner reads a barcode successfully.
+     * Default value is `false`, which does not play sound.
+     * Use `frame` or `true` to play a sound when any barcode is found within a frame.
+     * Use `unique` to play a sound only when any unique/unduplicated barcode is found within a frame.
+     * ```js
+     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+     * startPlayButton.addEventListener('click', function() {
+     *   scanner.bPlaySoundOnSuccessfulRead = true;
+     * });
+     * ```
+     * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
+     * @ignore
+     */
+    protected bPlaySoundOnSuccessfulRead: (boolean | string);
+    private get whenToPlaySoundforSuccessfulRead();
+    /**
+     * Whether to play sound when the scanner reads a barcode successfully.
+     * Default value is `never`, which does not play sound.
+     * Use `frame` to play a sound when any barcode is found within a frame.
+     * Use `unique` to play a sound only when any unique/unduplicated barcode is found within a frame.
+     * ```js
+     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+     * startPlayButton.addEventListener('click', function() {
+     *   scanner.whenToPlaySoundforSuccessfulRead = 'frame';
+     * });
+     * ```
+     * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
+     * @ignore
+     */
+    private set whenToPlaySoundforSuccessfulRead(value);
+    /**
+     * Whether to vibrate when the scanner reads a barcode successfully.
+     * Default value is `false`, which does not vibrate.
+     * Use `frame` or `true` to vibrate when any barcode is found within a frame.
+     * Use `unique` to vibrate only when any unique/unduplicated barcode is found within a frame.
+     * ```js
+     * // Can I use? https://caniuse.com/?search=vibrate
+     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+     * startVibrateButton.addEventListener('click', function() {
+     *   scanner.bVibrateOnSuccessfulRead = true;
+     * });
+     * ```
+     * @ignore
+     */
+    protected bVibrateOnSuccessfulRead: (boolean | string);
+    /**
+     * Get or set how long (ms) the vibration lasts.
+     * @see [[whenToVibrateforSuccessfulRead]]
+     * @ignore
+     */
+    protected vibrateDuration: number;
+    private get whenToVibrateforSuccessfulRead();
+    /**
+     * Whether to vibrate when the scanner reads a barcode successfully.
+     * Default value is `never`, which does not vibrate.
+     * Use `frame` to vibrate when any barcode is found within a frame.
+     * Use `unique` to vibrate only when any unique/unduplicated barcode is found within a frame.
+     * ```js
+     * // Can I use? https://caniuse.com/?search=vibrate
+     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
+     * startPlayButton.addEventListener('click', function() {
+     *   scanner.whenToVibrateforSuccessfulRead = 'frame';
+     * });
+     * ```
+     * @ignore
+     */
+    private set whenToVibrateforSuccessfulRead(value);
+    /**
+     * Set the style used when filling in located barcode.
+     * @category UI
+     */
+    barcodeFillStyle: string;
+    /**
+     * Set the style of the located barcode border.
+     * @category UI
+     */
+    barcodeStrokeStyle: string;
+    /**
+     * Set the width of the located barcode border.
+     * @category UI
+     */
+    barcodeLineWidth: number;
+    private _dce;
+    protected set dce(value: CameraEnhancer);
+    protected get dce(): CameraEnhancer;
+    private dceConfig;
+    private imgSource;
+    private callbackCameraChange?;
+    private callbackResolutionChange?;
+    private callbackCameraClose?;
+    private callbackSingleFrameAcquired?;
+    protected _maxCvsSideLength: number;
+    /** @ignore */
+    set maxCvsSideLength(value: number);
+    get maxCvsSideLength(): number;
+    private updateDCEConfig;
+    private releaseDCEConfig;
+    setImageSource(imgSource: ImageSource | CameraEnhancer): void;
     /**
      * Before most operations, `loadWasm` needs to be excuted firstly.
      * Most time, you do not need excute `loadWasm` manually. Because when you excute [[createInstance]], `loadWasm` will be excuted implicitly.
@@ -245,6 +393,7 @@ export default class BarcodeReader {
      */
     protected static showDialog(type: string, content: string): Promise<void>;
     protected static createInstanceInWorker(bScanner?: boolean): Promise<number>;
+    protected constructor();
     /**
      * Create a `BarcodeReader` instance.
      * ```
@@ -256,6 +405,7 @@ export default class BarcodeReader {
       * @category Initialize and Destroy
      */
     static createInstance(): Promise<BarcodeReader>;
+    protected clearMapDecodeRecord(): Promise<void>;
     /**
      * Decode barcodes from a image.
      *
@@ -293,7 +443,7 @@ export default class BarcodeReader {
      * @param source
      * @category Decode
      */
-    decode(source: Blob | Buffer | ArrayBuffer | Uint8Array | Uint8ClampedArray | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string | DCEFrame): Promise<TextResult[]>;
+    decode(source: Blob | Buffer | ArrayBuffer | Uint8Array | Uint8ClampedArray | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string | DCEFrame | DSImage): Promise<TextResult[]>;
     /**
      * The decoding method can accept base64 with or without mime.
      * e.g. `data:image/jpg;base64,Xfjshekk....` or `Xfjshekk...`.
@@ -432,6 +582,8 @@ export default class BarcodeReader {
     _decode_Video(video: HTMLVideoElement, config?: any): Promise<TextResult[]>;
     /**@ignore */
     _decode_DCEFrame(dceFrame: DCEFrame, config?: any): Promise<TextResult[]>;
+    /**@ignore */
+    _decode_DSImage(dsImage: DSImage, config?: any): Promise<TextResult[]>;
     private _decode_Base64;
     private _decode_Url;
     private _decode_FilePath;
@@ -474,6 +626,93 @@ export default class BarcodeReader {
     getIntermediateResults(): Promise<any>;
     /** @ignore */
     getIntermediateCanvas(): Promise<HTMLCanvasElement[]>;
+    protected keepAlive(): Promise<void>;
+    /**
+     * The event is triggered after a frame has been scanned.
+     * The results object contains all the barcode results in this frame.
+     * ```js
+     * scanner.onImageRead = results => {
+     *     for(let result of results){
+     *         console.log(result.barcodeText);
+     *     }
+     * };
+     * scanner.show(); // or open(), to start decoding video stream
+     * ```
+     * @event onImageRead
+     */
+    onImageRead?: (results: TextResult[]) => void;
+    /**
+     * This event is triggered when a new, unduplicated barcode is found.
+     * `txt` holds the barcode text result. `result` contains more info.
+     * Old barcodes will be remembered for `duplicateForgetTime`.
+     * ```js
+     * scanner.onUniqueRead = (txt, result) => {
+     *     alert(txt);
+     *     console.log(result);
+     * };
+     * scanner.show(); // or open(), to start decoding video stream
+     * ```
+     * @event onUniqueRead
+     */
+    onUniqueRead?: (txt: string, result: TextResult) => void;
+    /**
+     * Get current scan settings.
+     * ```js
+     * let scanSettings = await scanner.getScanSettings();
+     * scanSettings.intervalTime = 50;
+     * scanSettings.duplicateForgetTime = 1000;
+     * await scanner.updateScanSettings(scanSettings);
+     * ```
+     */
+    getScanSettings(): Promise<ScanSettings>;
+    /**
+     * Modify and update scan settings.
+     * ```js
+     * let scanSettings = await scanner.getScanSettings();
+     * scanSettings.intervalTime = 50;
+     * scanSettings.duplicateForgetTime = 1000;
+     * await scanner.updateScanSettings(scanSettings);
+     * ```
+     * @param settings
+     */
+    updateScanSettings(settings: ScanSettings): Promise<void>;
+    /** @ignore */
+    _cloneDecodeResults(results: any): any;
+    protected _loopReadVideo(): Promise<void>;
+    /**
+     * start dce fetching frame loop, and get frame from frame queue
+     * @ignore
+     */
+    protected _getVideoFrame(): DCEFrame;
+    _drawResults(results: TextResult[]): void;
+    private _tempSolutionStatus;
+    /**
+     * Bind UI, open the camera, start recognizing.
+     * ```js
+     * await scanner.startScanning(); // Don not modify DOM. Usually used in framework like React, Vue, Angular.
+     * ```
+     * Bind UI, open the camera, start recognizing, and remove the UIElement `display` style if the original style is `display:none;`.
+     * ```js
+     * await scanner.startScanning(true); // Modify Dom and show UI. Useful when you don't use framework.
+     * ```
+     * @category Open and Close
+     */
+    startScanning(bShowUI?: boolean): Promise<ScannerPlayCallbackInfo>;
+    /**
+     * Stop decoding, release camera, unbind UI.
+     * @category Open and Close
+     */
+    stopScanning(bHideUI?: boolean): void;
+    /**
+     * Pause the recognizing process.
+     * @category Pause and Resume
+     */
+    pauseScanning(): void;
+    /**
+     * Resume the recognizing process.
+     * @category Pause and Resume
+     */
+    resumeScanning(): void;
     /**
      * Destroy the `BarcodeReader` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
      * @category Initialize and Destroy
