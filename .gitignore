@@ -40,7 +40,7 @@ yarn.lock
 /*.txt
 /.gitattributes
 /.*ignore
-/dbr-*
+/dynamsoft-barcode-reader-js-*
 /sampleFromGithub
 /src
 /Web.config

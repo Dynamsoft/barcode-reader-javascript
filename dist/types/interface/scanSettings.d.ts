@@ -7,6 +7,8 @@
 export interface ScanSettings {
     intervalTime?: number;
     duplicateForgetTime?: number;
+    oneDRememberFrameCount?: number;
+    oneDTrustFrameCount?: number;
     /**
      * Whether to play sound when the scanner reads a barcode successfully.
      * Default value is `never`, which does not play sound.

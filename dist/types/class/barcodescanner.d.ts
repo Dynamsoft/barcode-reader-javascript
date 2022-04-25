@@ -1,10 +1,10 @@
-import { ScanSettings } from '../interface/scanSettings';
 import { TextResult } from '../interface/textresult';
 import { VideoDeviceInfo } from '../interface/videodeviceinfo';
 import { ScannerPlayCallbackInfo } from '../interface/scannerplaycallbackinfo';
 import BarcodeReader from './barcodereader';
 import { RuntimeSettings } from '../interface/runtimesettings';
 import { Region } from '../interface/region';
+import { DCEFrame } from 'dynamsoft-camera-enhancer';
 /**
  * The `BarcodeScanner` class is used for video decoding.
  * ```js
@@ -17,21 +17,10 @@ import { Region } from '../interface/region';
  * ```
  */
 export default class BarcodeScanner extends BarcodeReader {
-    private static _defaultUIElementURL;
-    static get defaultUIElementURL(): string;
     /**
-     * The url of the default scanner UI.
-     * Can only be changed before `createInstance`.
-     * ```js
-     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.0/dist/dbr.ui.html";
-     * let pScanner = null;
-     * (async()=>{
-     *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
-     *     await scanner.show();
-     * })();
-     * ```
+     * Get the current version.
      */
-    static set defaultUIElementURL(value: string);
+    static get version(): string;
     /** @ignore */
     /**
      * Get HTML element containing the `BarcodeScanner` instance.
@@ -82,104 +71,23 @@ export default class BarcodeScanner extends BarcodeReader {
      * ```
      */
     set singleFrameMode(value: boolean);
-    /** @ignore */
-    intervalTime: number;
-    /** @ignore */
-    private _intervalGetVideoFrame;
-    private _loopReadVideoTimeoutId;
-    /** @ignore */
-    private array_getFrameTimeCost;
-    /** @ignore */
-    private array_decodeFrameTimeCost;
-    /** @ignore */
-    private _indexCurrentDecodingFrame;
-    private resultsOverlay;
+    /**
+     * The event is triggered after a frame has been scanned.
+     * The results object contains all the barcode results in this frame.
+     * ```js
+     * scanner.onFrameRead = results => {
+     *     for(let result of results){
+     *         console.log(result.barcodeText);
+     *     }
+     * };
+     * scanner.show(); // or open(), to start decoding video stream
+     * ```
+     * @event onFrameRead
+     */
+    onFrameRead?: (results: TextResult[]) => void;
+    get onUnduplicatedRead(): (txt: string, result: TextResult) => void;
+    set onUnduplicatedRead(value: (txt: string, result: TextResult) => void);
     private _assertOpen;
-    private _bPauseScan;
-    private _intervalDetectVideoPause;
-    /** @ignore */
-    private _soundOnSuccessfullRead;
-    /**
-     * The sound to play when the scanner get successfull read.
-     * @ignore
-     */
-    private get soundOnSuccessfullRead();
-    /**
-     * The sound to play when the scanner get successfull read.
-     * ```js
-     * scanner.soundOnSuccessfullRead = new Audio("./pi.mp3");
-     * ```
-     * @ignore
-     */
-    private set soundOnSuccessfullRead(value);
-    /**
-     * Whether to play sound when the scanner reads a barcode successfully.
-     * Default value is `false`, which does not play sound.
-     * Use `frame` or `true` to play a sound when any barcode is found within a frame.
-     * Use `unique` to play a sound only when any unique/unduplicated barcode is found within a frame.
-     * ```js
-     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
-     * startPlayButton.addEventListener('click', function() {
-     *   scanner.bPlaySoundOnSuccessfulRead = true;
-     * });
-     * ```
-     * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
-     * @ignore
-     */
-    private bPlaySoundOnSuccessfulRead;
-    private get whenToPlaySoundforSuccessfulRead();
-    /**
-     * Whether to play sound when the scanner reads a barcode successfully.
-     * Default value is `never`, which does not play sound.
-     * Use `frame` to play a sound when any barcode is found within a frame.
-     * Use `unique` to play a sound only when any unique/unduplicated barcode is found within a frame.
-     * ```js
-     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
-     * startPlayButton.addEventListener('click', function() {
-     *   scanner.whenToPlaySoundforSuccessfulRead = 'frame';
-     * });
-     * ```
-     * refer: `favicon bug` https://bugs.chromium.org/p/chromium/issues/detail?id=1069731&q=favicon&can=2
-     * @ignore
-     */
-    private set whenToPlaySoundforSuccessfulRead(value);
-    /**
-     * Whether to vibrate when the scanner reads a barcode successfully.
-     * Default value is `false`, which does not vibrate.
-     * Use `frame` or `true` to vibrate when any barcode is found within a frame.
-     * Use `unique` to vibrate only when any unique/unduplicated barcode is found within a frame.
-     * ```js
-     * // Can I use? https://caniuse.com/?search=vibrate
-     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
-     * startVibrateButton.addEventListener('click', function() {
-     *   scanner.bVibrateOnSuccessfulRead = true;
-     * });
-     * ```
-     * @ignore
-     */
-    private bVibrateOnSuccessfulRead;
-    /**
-     * Get or set how long (ms) the vibration lasts.
-     * @see [[whenToVibrateforSuccessfulRead]]
-     * @ignore
-     */
-    private vibrateDuration;
-    private get whenToVibrateforSuccessfulRead();
-    /**
-     * Whether to vibrate when the scanner reads a barcode successfully.
-     * Default value is `never`, which does not vibrate.
-     * Use `frame` to vibrate when any barcode is found within a frame.
-     * Use `unique` to vibrate only when any unique/unduplicated barcode is found within a frame.
-     * ```js
-     * // Can I use? https://caniuse.com/?search=vibrate
-     * // A user gesture required. https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#chrome_enterprise_policies
-     * startPlayButton.addEventListener('click', function() {
-     *   scanner.whenToVibrateforSuccessfulRead = 'frame';
-     * });
-     * ```
-     * @ignore
-     */
-    private set whenToVibrateforSuccessfulRead(value);
     /**
      * Set the style used when filling the mask beyond the region.
      * @category UI
@@ -198,22 +106,6 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set regionMaskLineWidth(value: string);
     get regionMaskLineWidth(): string;
-    /**
-     * Set the style used when filling in located barcode.
-     * @category UI
-     */
-    barcodeFillStyle: string;
-    /**
-     * Set the style of the located barcode border.
-     * @category UI
-     */
-    barcodeStrokeStyle: string;
-    /**
-     * Set the width of the located barcode border.
-     * @category UI
-     */
-    barcodeLineWidth: number;
-    protected beingLazyDrawRegionsults: boolean;
     protected set region(value: null | Region | Region[]);
     protected get region(): null | Region | Region[];
     /**
@@ -226,10 +118,11 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set ifSaveOriginalImageInACanvas(value: boolean);
     get ifSaveOriginalImageInACanvas(): boolean;
-    private dce;
     private createDCEInstance;
     /** @ignore */
-    constructor();
+    set maxCvsSideLength(value: number);
+    get maxCvsSideLength(): number;
+    private constructor();
     /**
      * Create a `BarcodeScanner` object.
     * ```
@@ -251,7 +144,6 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Decode
      */
     decodeCurrentFrame(config?: any): Promise<TextResult[]>;
-    private clearMapDecodeRecord;
     private static isRegionNormalPreset;
     /**
      * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` or `single` to use preset settings for BarcodeScanner.
@@ -288,34 +180,6 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set onPlayed(value: (info: ScannerPlayCallbackInfo) => void);
     get onPlayed(): (info: ScannerPlayCallbackInfo) => void;
-    /**
-     * The event is triggered after a frame has been scanned.
-     * The results object contains all the barcode results in this frame.
-     * ```js
-     * scanner.onFrameRead = results => {
-     *     for(let result of results){
-     *         console.log(result.barcodeText);
-     *     }
-     * };
-     * scanner.show(); // or open(), to start decoding video stream
-     * ```
-     * @event onFrameRead
-     */
-    onFrameRead?: (results: TextResult[]) => void;
-    /**
-     * This event is triggered when a new, unduplicated barcode is found.
-     * `txt` holds the barcode text result. `result` contains more info.
-     * Old barcodes will be remembered for `duplicateForgetTime`.
-     * ```js
-     * scanner.onUniqueRead = (txt, result) => {
-     *     alert(txt);
-     *     console.log(result);
-     * };
-     * scanner.show(); // or open(), to start decoding video stream
-     * ```
-     * @event onUniqueRead
-     */
-    onUniqueRead?: (txt: string, result: TextResult) => void;
     /**
      * Get infomation of all available cameras on the device.
      * ```js
@@ -369,27 +233,6 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     setResolution(width: number | number[], height: number): Promise<ScannerPlayCallbackInfo>;
     /**
-     * Get current scan settings.
-     * ```js
-     * let scanSettings = await scanner.getScanSettings();
-     * scanSettings.intervalTime = 50;
-     * scanSettings.duplicateForgetTime = 1000;
-     * await scanner.updateScanSettings(scanSettings);
-     * ```
-     */
-    getScanSettings(): Promise<ScanSettings>;
-    /**
-     * Modify and update scan settings.
-     * ```js
-     * let scanSettings = await scanner.getScanSettings();
-     * scanSettings.intervalTime = 50;
-     * scanSettings.duplicateForgetTime = 1000;
-     * await scanner.updateScanSettings(scanSettings);
-     * ```
-     * @param settings
-     */
-    updateScanSettings(settings: ScanSettings): Promise<void>;
-    /**
      * Get current video settings.
      * @category Camera Settings
      */
@@ -414,6 +257,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Open and Close
      */
     isOpen(): boolean;
+    setVideoFit(value: string): void;
     /**
      * Stop the video, and release the camera.
      * ```js
@@ -603,15 +447,12 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Camera Settings
      */
     getFocus(): Object;
-    /** @ignore */
-    _cloneDecodeResults(results: any): any;
-    private _loopReadVideo;
+    protected _loopReadVideo(): Promise<void>;
     /**
      * start dce fetching frame loop, and get frame from frame queue
      * @ignore
      */
-    private _getVideoFrame;
-    _drawResults(results: TextResult[]): void;
+    protected _getVideoFrame(): DCEFrame;
     /**
      * Bind UI, open the camera, start decoding.
      * ```js
@@ -652,7 +493,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.0/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
