@@ -106,6 +106,7 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set regionMaskLineWidth(value: string);
     get regionMaskLineWidth(): string;
+    protected bFilterRegionInJs: boolean;
     protected set region(value: null | Region | Region[]);
     protected get region(): null | Region | Region[];
     /**

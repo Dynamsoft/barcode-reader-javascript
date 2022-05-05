@@ -51,6 +51,7 @@ yarn.lock
 /public
 /README.html
 
+!/legal.txt
 !/README.md
 !/README.NODE.md
 !/package.json
