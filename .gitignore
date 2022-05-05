@@ -43,6 +43,7 @@ yarn.lock
 /dynamsoft-barcode-reader-js-*
 /sampleFromGithub
 /src
+/doc
 /Web.config
 /samples.url
 /samples
