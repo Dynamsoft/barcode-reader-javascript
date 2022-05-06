@@ -106,6 +106,7 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set regionMaskLineWidth(value: string);
     get regionMaskLineWidth(): string;
+    protected bFilterRegionInJs: boolean;
     protected set region(value: null | Region | Region[]);
     protected get region(): null | Region | Region[];
     /**
@@ -258,6 +259,11 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     isOpen(): boolean;
     setVideoFit(value: string): void;
+    /**
+     * Whether to show scan region mask.
+     */
+    set ifShowScanRegionMask(value: boolean);
+    get ifShowScanRegionMask(): boolean;
     /**
      * Stop the video, and release the camera.
      * ```js
@@ -493,7 +499,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();

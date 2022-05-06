@@ -41,7 +41,7 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
     static set license(license: string);
@@ -96,7 +96,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
@@ -246,7 +246,7 @@ export default class BarcodeReader {
      * The url of the default scanner UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.1/dist/dbr.ui.html";
+     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.ui.html";
      * let pScanner = null;
      * (async()=>{
      *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -684,7 +684,7 @@ export default class BarcodeReader {
      * @ignore
      */
     protected _getVideoFrame(): DCEFrame;
-    _drawResults(results: TextResult[]): void;
+    protected _drawResults(results: TextResult[]): void;
     private _tempSolutionStatus;
     /**
      * Bind UI, open the camera, start recognizing.
