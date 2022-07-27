@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-javascript-barcode",
-  "version": "9.0.2",
+  "version": "9.2.10",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "files": [
     "/dist",
@@ -9,11 +9,11 @@
     "/samples.url"
   ],
   "homepage": "https://www.dynamsoft.com/barcode-reader/sdk-javascript",
-  "main": "./dist/dbr.browser.pure.js",
-  "module": "./dist/dbr.browser.pure.esm.js",
+  "main": "./dist/dbr.pure.js",
+  "module": "./dist/dbr.pure.esm.js",
   "exports": {
-    "import": "./dist/dbr.browser.pure.esm.js",
-    "require": "./dist/dbr.browser.pure.js"
+    "import": "./dist/dbr.pure.esm.js",
+    "require": "./dist/dbr.pure.js"
   },
   "sideEffects": false,
   "types": "./dist/types/dbr.d.ts",
@@ -21,7 +21,7 @@
     "name": "Dynamsoft",
     "url": "https://www.dynamsoft.com"
   },
-  "license": "SEE LICENSE IN LICENSE.txt",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/dynamsoft/barcode-reader-javascript.git"
@@ -52,18 +52,16 @@
     "test": "node ./samples/node/helloworld.js"
   },
   "devDependencies": {
-    "@babel/core": "7.15.8",
-    "@babel/preset-env": "7.15.8",
     "@rollup/plugin-node-resolve": "13.0.5",
     "@rollup/plugin-replace": "3.0.0",
     "@rollup/plugin-typescript": "8.3.0",
     "@types/node": "16.11.2",
     "@types/node-fetch": "2.6.1",
     "@types/node-localstorage": "1.3.0",
-    "detect-browser-node-ssr": "^1.0.1",
-    "dlsjs": "http://npm.dynamsoftwebtwain.com/dlsjs/-/dlsjs-1.0.17.tgz",
-    "dm-browser-info": "http://npm.dynamsoftwebtwain.com/dm-browser-info/-/dm-browser-info-1.0.3.tgz",
-    "dm-curscript-path": "http://npm.dynamsoftwebtwain.com/dm-curscript-path/-/dm-curscript-path-1.0.2.tgz",
+    "detect-browser-node-ssr": "^2.0.0",
+    "dlsjs": "http://npm.dynamsoftwebtwain.com/dlsjs/-/dlsjs-1.0.22.tgz",
+    "dm-browser-info": "http://npm.dynamsoftwebtwain.com/dm-browser-info/-/dm-browser-info-1.0.5.tgz",
+    "dm-curscript-path": "http://npm.dynamsoftwebtwain.com/dm-curscript-path/-/dm-curscript-path-1.0.3.tgz",
     "fs-extra": "8.1.0",
     "mutable-promise": "1.1.13",
     "rollup": "2.58.0",
@@ -87,6 +85,6 @@
   },
   "dependencies": {
     "dm-howler": "^2.2.4",
-    "dynamsoft-camera-enhancer": "2.3.2"
+    "dynamsoft-camera-enhancer": "^3.0.0"
   }
 }

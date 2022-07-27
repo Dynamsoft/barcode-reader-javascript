@@ -10,20 +10,7 @@ import { ImageSource } from '../interface/imagesource';
 import { DSImage } from '../interface/dsimage';
 import { ScanSettings } from '../interface/scanSettings';
 import { ScannerPlayCallbackInfo } from '../interface/scannerplaycallbackinfo';
-/**
- * The `BarcodeReader` class is used for image decoding
- * Comparing to `BarcodeScanner`, the default decoding settings are more accurate but slower.
- * ```js
- * let pReader = null;
- * (async()=>{
- *     let reader = await (pReader = pReader || Dynamsoft.DBR.BarcodeReader.createInstance());
- *     let results = await reader.decode(imageSource);
- *     for(let result of results){
- *         console.log(result.barcodeText);
- *     }
- * })();
- * ```
- */
+import { Warning } from '../interface/warning';
 export default class BarcodeReader {
     private static _jsVersion;
     private static _jsEditVersion;
@@ -41,7 +28,7 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.10/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
     static set license(license: string);
@@ -96,7 +83,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.10/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
@@ -115,8 +102,6 @@ export default class BarcodeReader {
     static set deviceFriendlyName(value: string);
     /** @ignore */
     static _isShowRelDecodeTimeInResults: boolean;
-    /** @ignore */
-    _canvasMaxWH: number;
     /** @ignore */
     static _onLog: any;
     /** @ignore */
@@ -161,8 +146,6 @@ export default class BarcodeReader {
     static isImageSource(value: any): boolean;
     /** @ignore */
     static isDSImage(value: any): boolean;
-    /** @ignore */
-    static isCameraEnhancer(value: any): boolean;
     /** @ignore */
     static isDCEFrame(value: any): boolean;
     /** @ignore */
@@ -246,7 +229,7 @@ export default class BarcodeReader {
      * The url of the default scanner UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.ui.html";
+     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.10/dist/dbr.ui.html";
      * let pScanner = null;
      * (async()=>{
      *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -255,6 +238,8 @@ export default class BarcodeReader {
      * ```
      */
     static set defaultUIElementURL(value: string);
+    static onWarning: (warning: Warning) => void;
+    protected static _fireHTTPSWarnning(): void;
     /** @ignore */
     intervalTime: number;
     /** @ignore */
@@ -266,7 +251,7 @@ export default class BarcodeReader {
     protected array_decodeFrameTimeCost: any[];
     /** @ignore */
     protected _indexCurrentDecodingFrame: number;
-    protected resultsOverlay: HTMLCanvasElement;
+    protected _dbrDrawingLayer: any;
     protected _bPauseScan: boolean;
     protected _intervalDetectVideoPause: number;
     /** @ignore */
@@ -342,6 +327,7 @@ export default class BarcodeReader {
      * @ignore
      */
     private set whenToVibrateforSuccessfulRead(value);
+    protected captureAndDecodeInParallel: boolean;
     /**
      * Set the style used when filling in located barcode.
      * @category UI
@@ -360,8 +346,9 @@ export default class BarcodeReader {
     private _dce;
     protected set dce(value: CameraEnhancer);
     protected get dce(): CameraEnhancer;
-    private dceConfig;
-    private imgSource;
+    protected _drawingItemNamespace: any;
+    private _dceControler;
+    private _imgSource;
     private callbackCameraChange?;
     private callbackResolutionChange?;
     private callbackCameraClose?;
@@ -370,9 +357,9 @@ export default class BarcodeReader {
     /** @ignore */
     set maxCvsSideLength(value: number);
     get maxCvsSideLength(): number;
-    private updateDCEConfig;
-    private releaseDCEConfig;
-    setImageSource(imgSource: ImageSource | CameraEnhancer): void;
+    private _registerDCEControler;
+    private _logoutDCEControler;
+    setImageSource(imgSource: ImageSource | CameraEnhancer, options?: any): Promise<void>;
     /**
      * Before most operations, `loadWasm` needs to be excuted firstly.
      * Most time, you do not need excute `loadWasm` manually. Because when you excute [[createInstance]], `loadWasm` will be excuted implicitly.
@@ -588,7 +575,9 @@ export default class BarcodeReader {
     private _decode_Url;
     private _decode_FilePath;
     /** @ignore */
-    static fixResultLocationWhenFilterRegionInJs(region: any, results: TextResult[], sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
+    static recalculateResultLocation(results: Array<{
+        localizationResult: any;
+    }>, sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
     /** @ignore */
     static BarcodeReaderException(ag0: any, ag1: any): BarcodeReaderException;
     protected _handleRetJsonString(objRet: any): any;
@@ -684,7 +673,9 @@ export default class BarcodeReader {
      * @ignore
      */
     protected _getVideoFrame(): DCEFrame;
-    protected _drawResults(results: TextResult[]): void;
+    protected _drawResults(results: Array<{
+        localizationResult: any;
+    }>): void;
     private _tempSolutionStatus;
     /**
      * Bind UI, open the camera, start recognizing.
@@ -707,7 +698,7 @@ export default class BarcodeReader {
      * Pause the recognizing process.
      * @category Pause and Resume
      */
-    pauseScanning(): void;
+    pauseScanning(options?: any): void;
     /**
      * Resume the recognizing process.
      * @category Pause and Resume
