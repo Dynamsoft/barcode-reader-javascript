@@ -49,5 +49,6 @@ export interface ScanSettings {
      * @see [[whenToVibrateforSuccessfulRead]]
      */
     vibrateDuration?: number;
+    captureAndDecodeInParallel?: boolean;
 }
 //# sourceMappingURL=scanSettings.d.ts.map

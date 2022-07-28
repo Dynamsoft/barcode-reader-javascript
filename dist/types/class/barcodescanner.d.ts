@@ -5,6 +5,7 @@ import BarcodeReader from './barcodereader';
 import { RuntimeSettings } from '../interface/runtimesettings';
 import { Region } from '../interface/region';
 import { DCEFrame } from 'dynamsoft-camera-enhancer';
+import { Warning } from '../interface/warning';
 /**
  * The `BarcodeScanner` class is used for video decoding.
  * ```js
@@ -21,6 +22,10 @@ export default class BarcodeScanner extends BarcodeReader {
      * Get the current version.
      */
     static get version(): string;
+    static onWarning: (warning: Warning) => void;
+    protected static _fireHTTPSWarnning(): void;
+    onWarning: (warning: Warning) => void;
+    private _fireResolutionWarning;
     /** @ignore */
     /**
      * Get HTML element containing the `BarcodeScanner` instance.
@@ -87,6 +92,9 @@ export default class BarcodeScanner extends BarcodeReader {
     onFrameRead?: (results: TextResult[]) => void;
     get onUnduplicatedRead(): (txt: string, result: TextResult) => void;
     set onUnduplicatedRead(value: (txt: string, result: TextResult) => void);
+    get video(): HTMLVideoElement;
+    set videoSrc(source: string | MediaStream | MediaSource | Blob);
+    get videoSrc(): string | MediaStream | MediaSource | Blob;
     private _assertOpen;
     /**
      * Set the style used when filling the mask beyond the region.
@@ -264,6 +272,10 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set ifShowScanRegionMask(value: boolean);
     get ifShowScanRegionMask(): boolean;
+    set ifSaveLastUsedCamera(value: boolean);
+    get ifSaveLastUsedCamera(): boolean;
+    set ifSkipCameraInspection(value: boolean);
+    get ifSkipCameraInspection(): boolean;
     /**
      * Stop the video, and release the camera.
      * ```js
@@ -304,7 +316,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * ```
      * @category Play and Pause
      */
-    pauseScan(): void;
+    pauseScan(options?: any): void;
     /**
      * Resume the decoding process.
      * ```js
@@ -470,7 +482,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @fires [[onPlayed]],[[onUniqueRead]],[[onFrameRead]]
      * @category Open and Close
      */
-    open(): Promise<import("dynamsoft-camera-enhancer/dist/types/interface/playcallbackinfo").PlayCallbackInfo>;
+    open(): Promise<import("dynamsoft-camera-enhancer").PlayCallbackInfo>;
     /**
      * Bind UI, open the camera, but not decode.
      * ```js
@@ -482,7 +494,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @fires [[onPlayed]],[[onUniqueRead]],[[onFrameRead]]
      * @category Open and Close
      */
-    openVideo(): Promise<import("dynamsoft-camera-enhancer/dist/types/interface/playcallbackinfo").PlayCallbackInfo>;
+    openVideo(): Promise<import("dynamsoft-camera-enhancer").PlayCallbackInfo>;
     /**
      * Stop decoding, release camera, unbind UI.
      * ```js
@@ -499,7 +511,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.0.2/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.11/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
@@ -507,7 +519,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @fires [[onPlayed]],[[onUniqueRead]],[[onFrameRead]]
      * @category Open and Close
      */
-    show(): Promise<import("dynamsoft-camera-enhancer/dist/types/interface/playcallbackinfo").PlayCallbackInfo>;
+    show(): Promise<import("dynamsoft-camera-enhancer").PlayCallbackInfo>;
     /**
      * Bind UI, open the camera, but not decode, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
@@ -518,7 +530,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @fires [[onPlayed]],[[onUniqueRead]],[[onFrameRead]]
      * @category Open and Close
      */
-    showVideo(): Promise<import("dynamsoft-camera-enhancer/dist/types/interface/playcallbackinfo").PlayCallbackInfo>;
+    showVideo(): Promise<import("dynamsoft-camera-enhancer").PlayCallbackInfo>;
     /**
      * Stop decoding, release camera, unbind UI, and set the Element as `display:none;`.
      * ```js

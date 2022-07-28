@@ -32,5 +32,10 @@ import { EnumTextFilterMode } from "./enum/enumtextfiltermode";
 import { EnumTextResultOrderMode } from "./enum/enumtextresultordermode";
 import { EnumTextureDetectionMode } from "./enum/enumtexturedetectionmode";
 import { TextResult } from "./interface/textresult";
-export { BarcodeReader, BarcodeScanner, EnumBarcodeColourMode, EnumBarcodeComplementMode, EnumBarcodeFormat, EnumBarcodeFormat_2, EnumBinarizationMode, EnumClarityCalculationMethod, EnumClarityFilterMode, EnumColourClusteringMode, EnumColourConversionMode, EnumConflictMode, EnumDeblurMode, EnumDeformationResistingMode, EnumDPMCodeReadingMode, EnumErrorCode, EnumGrayscaleTransformationMode, EnumImagePixelFormat, EnumImagePreprocessingMode, EnumIMResultDataType, EnumIntermediateResultSavingMode, EnumIntermediateResultType, EnumLocalizationMode, EnumPDFReadingMode, EnumQRCodeErrorCorrectionLevel, EnumRegionPredetectionMode, EnumResultCoordinateType, EnumResultType, EnumScaleUpMode, EnumTerminatePhase, EnumTextFilterMode, EnumTextResultOrderMode, EnumTextureDetectionMode, TextResult, };
+import { RuntimeSettings } from "./interface/runtimesettings";
+import { ScanSettings } from "./interface/scanSettings";
+import { Region } from "./interface/region";
+import { ImageSource } from "./interface/imagesource";
+import { DSImage } from "./interface/dsimage";
+export { BarcodeReader, BarcodeScanner, EnumBarcodeColourMode, EnumBarcodeComplementMode, EnumBarcodeFormat, EnumBarcodeFormat_2, EnumBinarizationMode, EnumClarityCalculationMethod, EnumClarityFilterMode, EnumColourClusteringMode, EnumColourConversionMode, EnumConflictMode, EnumDeblurMode, EnumDeformationResistingMode, EnumDPMCodeReadingMode, EnumErrorCode, EnumGrayscaleTransformationMode, EnumImagePixelFormat, EnumImagePreprocessingMode, EnumIMResultDataType, EnumIntermediateResultSavingMode, EnumIntermediateResultType, EnumLocalizationMode, EnumPDFReadingMode, EnumQRCodeErrorCorrectionLevel, EnumRegionPredetectionMode, EnumResultCoordinateType, EnumResultType, EnumScaleUpMode, EnumTerminatePhase, EnumTextFilterMode, EnumTextResultOrderMode, EnumTextureDetectionMode, TextResult, RuntimeSettings, ScanSettings, Region, ImageSource, DSImage };
 //# sourceMappingURL=dbr.d.ts.map
