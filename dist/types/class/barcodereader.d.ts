@@ -28,7 +28,7 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.12/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.13/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
     static set license(license: string);
@@ -83,7 +83,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.12/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.13/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
@@ -229,7 +229,7 @@ export default class BarcodeReader {
      * The url of the default scanner UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.12/dist/dbr.ui.html";
+     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.13/dist/dbr.ui.html";
      * let pScanner = null;
      * (async()=>{
      *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -252,6 +252,7 @@ export default class BarcodeReader {
     /** @ignore */
     protected _indexCurrentDecodingFrame: number;
     protected _dbrDrawingLayer: any;
+    protected _arrPolygons: any;
     protected _bPauseScan: boolean;
     protected _intervalDetectVideoPause: number;
     /** @ignore */
@@ -328,21 +329,6 @@ export default class BarcodeReader {
      */
     private set whenToVibrateforSuccessfulRead(value);
     protected captureAndDecodeInParallel: boolean;
-    /**
-     * Set the style used when filling in located barcode.
-     * @category UI
-     */
-    barcodeFillStyle: string;
-    /**
-     * Set the style of the located barcode border.
-     * @category UI
-     */
-    barcodeStrokeStyle: string;
-    /**
-     * Set the width of the located barcode border.
-     * @category UI
-     */
-    barcodeLineWidth: number;
     private _dce;
     protected set dce(value: CameraEnhancer);
     protected get dce(): CameraEnhancer;

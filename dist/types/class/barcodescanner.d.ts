@@ -96,6 +96,27 @@ export default class BarcodeScanner extends BarcodeReader {
     set videoSrc(source: string | MediaStream | MediaSource | Blob);
     get videoSrc(): string | MediaStream | MediaSource | Blob;
     private _assertOpen;
+    private _barcodeFillStyle;
+    /**
+     * Set the style used when filling in located barcode.
+     * @category UI
+     */
+    set barcodeFillStyle(style: string);
+    get barcodeFillStyle(): string;
+    private _barcodeStrokeStyle;
+    /**
+     * Set the style of the located barcode border.
+     * @category UI
+     */
+    set barcodeStrokeStyle(style: string);
+    get barcodeStrokeStyle(): string;
+    private _barcodeLineWidth;
+    /**
+     * Set the width of the located barcode border.
+     * @category UI
+     */
+    set barcodeLineWidth(width: number);
+    get barcodeLineWidth(): number;
     /**
      * Set the style used when filling the mask beyond the region.
      * @category UI
@@ -153,7 +174,6 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Decode
      */
     decodeCurrentFrame(config?: any): Promise<TextResult[]>;
-    private static isRegionNormalPreset;
     /**
      * Update runtime settings with a given struct, or a string of `speed`, `balance`, `coverage` or `single` to use preset settings for BarcodeScanner.
      * We recommend using the speed-optimized `single` preset if scanning only one barcode at a time. The `single` is only available in `BarcodeScanner`.
@@ -511,7 +531,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.12/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.13/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
