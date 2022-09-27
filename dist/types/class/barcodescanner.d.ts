@@ -117,6 +117,27 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     set barcodeLineWidth(width: number);
     get barcodeLineWidth(): number;
+    private _barcodeFillStyleBeforeVerification;
+    /**
+     * Set the style used when filling in located barcode.
+     * @category UI
+     */
+    set barcodeFillStyleBeforeVerification(style: string);
+    get barcodeFillStyleBeforeVerification(): string;
+    private _barcodeStrokeStyleBeforeVerification;
+    /**
+     * Set the style of the located barcode border.
+     * @category UI
+     */
+    set barcodeStrokeStyleBeforeVerification(style: string);
+    get barcodeStrokeStyleBeforeVerification(): string;
+    private _barcodeLineWidthBeforeVerification;
+    /**
+     * Set the width of the located barcode border.
+     * @category UI
+     */
+    set barcodeLineWidthBeforeVerification(width: number);
+    get barcodeLineWidthBeforeVerification(): number;
     /**
      * Set the style used when filling the mask beyond the region.
      * @category UI
@@ -531,7 +552,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.2.13/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.3.0/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
