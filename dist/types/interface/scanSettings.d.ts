@@ -50,5 +50,8 @@ export interface ScanSettings {
      */
     vibrateDuration?: number;
     captureAndDecodeInParallel?: boolean;
+    autoZoom?: boolean;
+    autoFocus?: boolean;
+    autoSuggestTip?: boolean;
 }
 //# sourceMappingURL=scanSettings.d.ts.map
