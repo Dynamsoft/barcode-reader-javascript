@@ -10,6 +10,7 @@ export declare enum EnumBarcodeFormat_2 {
     BF2_DOTCODE = 2,
     BF2_PHARMACODE_ONE_TRACK = 4,
     BF2_PHARMACODE_TWO_TRACK = 8,
-    BF2_PHARMACODE = 12
+    BF2_PHARMACODE = 12,
+    BF2_ALL = 4294967295
 }
 //# sourceMappingURL=enumbarcodeformat_2.d.ts.map

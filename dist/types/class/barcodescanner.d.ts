@@ -95,6 +95,8 @@ export default class BarcodeScanner extends BarcodeReader {
     get video(): HTMLVideoElement;
     set videoSrc(source: string | MediaStream | MediaSource | Blob);
     get videoSrc(): string | MediaStream | MediaSource | Blob;
+    set onTipSuggested(value: (occasion: string, message: string) => void);
+    get onTipSuggested(): (occasion: string, message: string) => void;
     private _assertOpen;
     private _barcodeFillStyle;
     /**
@@ -442,6 +444,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Camera Settings
      */
     setColorTemperature(value: number): Promise<void>;
+    getColorTemperature(): number;
     /**
      * Adjusts the exposure level. Only available in Chrome and Edge.
      * Only available when the scanner is open.
@@ -453,6 +456,7 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Camera Settings
      */
     setExposureCompensation(value: number): Promise<void>;
+    getExposureCompensation(): number;
     /**
      * Adjusts the zoom ratio. Only available in Chrome and Edge.
      * Only available when the scanner is open.
@@ -463,7 +467,17 @@ export default class BarcodeScanner extends BarcodeReader {
      * @see [[getCapabilities]]
      * @category Camera Settings
      */
-    setZoom(value: number): Promise<void>;
+    setZoom(settings: number | {
+        factor: number;
+        centerPoint?: {
+            x: string;
+            y: string;
+        };
+    }): Promise<void>;
+    getZoomSettings(): {
+        factor: number;
+    };
+    resetZoom(): Promise<void>;
     /**
      * Adjusts the frame rate. Only available in Chrome, Edge and Safari.
      * Only available when the scanner is open.
@@ -495,7 +509,22 @@ export default class BarcodeScanner extends BarcodeReader {
     * @see [[getFocus]],[[getCapabilities]]
     * @category Camera Settings
     */
-    setFocus(mode: string, distance?: number): Promise<void>;
+    setFocus(settings: string | {
+        mode: string;
+    } | {
+        mode: "manual";
+        distance: number;
+    } | {
+        mode: "manual";
+        area: {
+            centerPoint: {
+                x: string;
+                y: string;
+            };
+            width?: string;
+            height?: string;
+        };
+    }, distance?: number): Promise<void>;
     /**
      * Get the focus distance.
      * Only available when the camera is open.
@@ -504,8 +533,10 @@ export default class BarcodeScanner extends BarcodeReader {
      * ```
      * @see [[setFocus]],[[getCapabilities]]
      * @category Camera Settings
+     * @deprecated
      */
     getFocus(): Object;
+    getFocusSettings(): Object;
     protected _loopReadVideo(): Promise<void>;
     /**
      * start dce fetching frame loop, and get frame from frame queue
@@ -552,7 +583,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.3.1/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.0/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
@@ -585,6 +616,9 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Open and Close
      */
     hide(): void;
+    showTip(x: number, y: number, width: number, initialMessage?: string, duration?: number, autoShowSuggestedTip?: boolean): void;
+    hideTip(): void;
+    updateTipMessage(message: string): void;
     /**
      * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
      * @category Initialize and Destroy

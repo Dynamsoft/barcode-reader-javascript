@@ -21,6 +21,7 @@ yarn-error.log*
 *.sln
 *.sw?
 *.map
+.npmrc
 
 __pycache__
 ~~*
