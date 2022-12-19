@@ -583,7 +583,7 @@ export default class BarcodeScanner extends BarcodeReader {
     /**
      * Bind UI, open the camera, start decoding, and remove the UIElement `display` style if the original style is `display:none;`.
      * ```js
-     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.0/dist/dbr.ui.html");
+     * await scanner.setUIElement("https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.1/dist/dbr.ui.html");
      * scanner.onUniqueRead = (txt, result) => { alert(txt); console.log(result); };
      * await scanner.show();
      * // await scanner.hide();
