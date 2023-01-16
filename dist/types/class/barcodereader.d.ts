@@ -28,7 +28,7 @@ export default class BarcodeReader {
      * ```
      * For convenience, you can set `license` in `script` tag instead.
      * ```html
-     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.1/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
+     * <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.js" data-license="PRODUCT-KEYS"></script>
      * ```
      */
     static set license(license: string);
@@ -83,7 +83,7 @@ export default class BarcodeReader {
      * If the auto-explored engine location is incorrect, you can manually specify the engine location.
      * The property needs to be set before [[loadWasm]].
      * ```js
-     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.1/dist/";
+     * Dynamsoft.DBR.BarcodeReader.engineResourcePath = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/";
      * await Dynamsoft.DBR.BarcodeReader.loadWasm();
      * ```
     */
@@ -230,7 +230,7 @@ export default class BarcodeReader {
      * The url of the default scanner UI.
      * Can only be changed before `createInstance`.
      * ```js
-     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@9.6.1/dist/dbr.ui.html";
+     * Dynamsoft.DBR.BarcodeScanner.defaultUIElementURL = "https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode/dist/dbr.ui.html";
      * let pScanner = null;
      * (async()=>{
      *     let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
@@ -362,6 +362,8 @@ export default class BarcodeReader {
     protected autoZoomDetectionArea: number;
     protected autoZoom: boolean;
     protected autoFocus: boolean;
+    protected _clearResultsCanvasTimeoutId: any;
+    _resultHighlightingDuration: number;
     private _dce;
     protected set dce(value: CameraEnhancer);
     protected get dce(): CameraEnhancer;
@@ -537,6 +539,7 @@ export default class BarcodeReader {
      * @category Runtime Settings
      */
     resetRuntimeSettings(): Promise<void>;
+    _resetRuntimeSettingsToCppDefault(): Promise<void>;
     /**
      * Output runtime settings to a string.
      * ```js
