@@ -1,3 +1,4 @@
+import { EnumResultCoordinateType } from "../enum/enumresultcoordinatetype";
 export interface LocalizationResult {
     /**
      * The angle of a barcode. Values range from 0 to 360.
@@ -35,5 +36,7 @@ export interface LocalizationResult {
      * The Y coordinate of the fourth point in a clockwise direction.
      */
     y4: number;
+    resultCoordinateType: EnumResultCoordinateType;
+    transformationMatrix: Array<number>;
 }
 //# sourceMappingURL=localizationresult.d.ts.map
