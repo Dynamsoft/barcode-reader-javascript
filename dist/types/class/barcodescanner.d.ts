@@ -24,6 +24,10 @@ export default class BarcodeScanner extends BarcodeReader {
     static get version(): string;
     static onWarning: (warning: Warning) => void;
     protected static _fireHTTPSWarnning(): void;
+    static testCameraAccess(): Promise<{
+        ok: boolean;
+        message: string;
+    }>;
     onWarning: (warning: Warning) => void;
     private _fireResolutionWarning;
     /** @ignore */
@@ -211,7 +215,6 @@ export default class BarcodeScanner extends BarcodeReader {
      * @category Runtime Settings
      */
     updateRuntimeSettings(settings: RuntimeSettings | string): Promise<void>;
-    _resetRuntimeSettingsToCppDefault(): Promise<void>;
     /** @ignore */
     _onCameraSelChange: () => void;
     /** @ignore */
@@ -620,6 +623,9 @@ export default class BarcodeScanner extends BarcodeReader {
     showTip(x: number, y: number, width: number, initialMessage?: string, duration?: number, autoShowSuggestedTip?: boolean): void;
     hideTip(): void;
     updateTipMessage(message: string): void;
+    enableTapToFocus(): Promise<void>;
+    disableTapToFocus(): void;
+    isTapToFocusEnabled(): boolean;
     /**
      * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
      * @category Initialize and Destroy

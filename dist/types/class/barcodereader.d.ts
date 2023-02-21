@@ -100,7 +100,6 @@ export default class BarcodeReader {
     static get deviceFriendlyName(): string;
     /** @ignore */
     static set deviceFriendlyName(value: string);
-    protected static _bIntermediateResultsSupported: boolean;
     /** @ignore */
     static _isShowRelDecodeTimeInResults: boolean;
     /** @ignore */
@@ -482,7 +481,7 @@ export default class BarcodeReader {
      * Decodes barcodes from the memory buffer containing image pixels in defined format.
      * @ignore
      */
-    _decodeBuffer_Uint8Array(buffer: Uint8Array | Uint8ClampedArray, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<TextResult[]>;
+    _decodeBuffer_Uint8Array(buffer: Uint8Array | Uint8ClampedArray, width: number, height: number, stride: number, format: EnumImagePixelFormat, orientation?: number, config?: any): Promise<TextResult[]>;
     /**
      *
      * @param buffer
@@ -493,7 +492,7 @@ export default class BarcodeReader {
      * @param config
      * @ignore
      */
-    _decodeBuffer_Blob(buffer: Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<any>;
+    _decodeBuffer_Blob(buffer: Blob, width: number, height: number, stride: number, format: EnumImagePixelFormat, orientation?: number, config?: any): Promise<any>;
     /**
      * Decode barcodes from raw image data.
      * @param buffer
@@ -504,7 +503,7 @@ export default class BarcodeReader {
      * @param config
      * @category Decode
      */
-    decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob | Buffer, width: number, height: number, stride: number, format: EnumImagePixelFormat, config?: any): Promise<TextResult[]>;
+    decodeBuffer(buffer: Uint8Array | Uint8ClampedArray | ArrayBuffer | Blob | Buffer, width: number, height: number, stride: number, format: EnumImagePixelFormat, orientation?: number, config?: any): Promise<TextResult[]>;
     /** @ignore */
     _decodeFileInMemory_Uint8Array(bytes: Uint8Array): Promise<any>;
     /**
