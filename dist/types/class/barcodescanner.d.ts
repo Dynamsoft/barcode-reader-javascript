@@ -314,6 +314,7 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     isOpen(): boolean;
     setVideoFit(value: string): void;
+    getVideoFit(): string;
     /**
      * Whether to show scan region mask.
      */
@@ -626,6 +627,27 @@ export default class BarcodeScanner extends BarcodeReader {
     enableTapToFocus(): Promise<void>;
     disableTapToFocus(): void;
     isTapToFocusEnabled(): boolean;
+    /**
+     * Transform the coordinates from related to the video to related to the viewport and document.
+     * @param coord
+     * @returns
+     * @private
+     */
+    private transformCoord;
+    convertToPageCoordinates(point: {
+        x: number;
+        y: number;
+    }): {
+        x: number;
+        y: number;
+    };
+    convertToClientCoordinates(point: {
+        x: number;
+        y: number;
+    }): {
+        x: number;
+        y: number;
+    };
     /**
      * Destroy the `BarcodeScanner` instance. If your page needs to create new instances from time to time, don't forget to destroy unused old instances, otherwise it will cause memory leaks.
      * @category Initialize and Destroy

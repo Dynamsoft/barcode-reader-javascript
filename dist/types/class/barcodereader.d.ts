@@ -100,6 +100,7 @@ export default class BarcodeReader {
     static get deviceFriendlyName(): string;
     /** @ignore */
     static set deviceFriendlyName(value: string);
+    static authCacheVersion: string;
     /** @ignore */
     static _isShowRelDecodeTimeInResults: boolean;
     /** @ignore */
