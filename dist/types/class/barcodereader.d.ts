@@ -257,8 +257,8 @@ export default class BarcodeReader {
     protected _bPauseScan: boolean;
     protected _intervalDetectVideoPause: number;
     /** @ignore */
-    private _soundSource;
     beepSound: Howl;
+    private _soundSource;
     private get soundSource();
     private set soundSource(value);
     /**
@@ -597,7 +597,10 @@ export default class BarcodeReader {
     private _decode_Base64;
     private _decode_Url;
     private _decode_FilePath;
-    /** @ignore */
+    /**
+     * The coordinates of results are related to the cropping image gotten from DCE JS. Transform it to the coordinates related to the whole video/image.
+     * @ignore
+     */
     static recalculateResultLocation(results: Array<{
         localizationResult: any;
     }>, sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
