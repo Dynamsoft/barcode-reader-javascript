@@ -1,5 +1,5 @@
 export declare enum EnumBarcodeFormat {
-    BF_ALL = 4265607167,
+    BF_ALL = -29360129,
     BF_ONED = 3147775,
     BF_GS1_DATABAR = 260096,
     BF_CODE_39 = 1,
@@ -28,7 +28,7 @@ export declare enum EnumBarcodeFormat {
     BF_MAXICODE = 536870912,
     BF_MICRO_QR = 1073741824,
     BF_MICRO_PDF417 = 524288,
-    BF_GS1_COMPOSITE = 2147483648,
+    BF_GS1_COMPOSITE = -2147483648,
     BF_MSI_CODE = 1048576,
     BF_CODE_11 = 2097152,
     BF_NULL = 0
