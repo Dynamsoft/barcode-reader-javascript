@@ -106,8 +106,8 @@ export default class BarcodeScanner extends BarcodeReader {
      * })();
      * ```
      */
-    get singleFrameMode(): boolean;
-    set singleFrameMode(value: boolean);
+    get singleFrameMode(): boolean | "image" | "camera";
+    set singleFrameMode(value: boolean | "image" | "camera");
     /**
      * Specifies an event handler which fires after the library finishes scanning a frame.
      * @event onFrameRead
