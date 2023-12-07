@@ -21,6 +21,10 @@ import { Warning } from '../interface/warning';
  * @extends BarcodeReader
  */
 export default class BarcodeScanner extends BarcodeReader {
+    #private;
+    /** @ignore */
+    static set _onLog(value: (message: any) => void);
+    static get _onLog(): (message: any) => void;
     /**
      * Returns the version of the library including the detailed version numbers of the engine and the main JavaScript code.
      *
