@@ -29,7 +29,7 @@
   "sideEffects": false,
   "types": "./dist/types/dbr.d.ts",
   "publishConfig": {
-    "registry": "http://npm.scannerproxy.com/",
+    "registry": "https://registry.npmjs.org/",
     "tag": "latest"
   },
   "author": {
