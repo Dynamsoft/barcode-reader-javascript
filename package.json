@@ -1,52 +1,51 @@
 {
-  "name": "dynamsoft-javascript-barcode",
-  "version": "9.6.31",
+  "name": "dynamsoft-barcode-reader",
+  "version": "10.0.20",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
-  "private": false,
   "files": [
     "/dist/*.js",
     "/dist/*.mjs",
     "/dist/*.html",
     "/dist/*.wasm",
     "/dist/**/*.d.ts",
-    "/Api Reference.url",
-    "/legal.txt",
-    "/samples.url"
+    "/dist/**/*.json",
+    "LEGAL.txt",
+    "API Reference.url",
+    "samples.url"
   ],
-  "homepage": "https://www.dynamsoft.com/barcode-reader/sdk-javascript",
-  "main": "./dist/dbr.pure.js",
-  "module": "./dist/dbr.pure.esm.js",
+  "homepage": "https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/index.html",
+  "main": "./dist/dbr.js",
+  "module": "./dist/dbr.esm.js",
   "exports": {
-    "import": {
-      "types": "./dist/types/dbr.d.ts",
-      "default": "./dist/dbr.pure.esm.js"
-    },
-    "require": {
-      "types": "./dist/types/dbr.d.ts",
-      "default": "./dist/dbr.pure.js"
+    ".": {
+      "types": {
+        "require": "./dist/types/dbr.d.cts",
+        "import": "./dist/types/dbr.d.ts"
+      },
+      "import": "./dist/dbr.esm.js",
+      "require": "./dist/dbr.js"
     }
   },
-  "sideEffects": false,
   "types": "./dist/types/dbr.d.ts",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "tag": "latest"
+  "sideEffects": true,
+  "scripts": {
+    "build": "rollup -c --environment BUILD:production",
+    "update:readme": "updateReadme --package=dynamsoft-barcode-reader --version=latest --html",
+    "update:prod": "updatePackage --package=dynamsoft-barcode-reader --version=auto --env=production --tag=latest",
+    "update:beta": "updatePackage --package=dynamsoft-barcode-reader --version=auto --env=beta --tag=beta",
+    "update:iv": "updatePackage --package=dynamsoft-barcode-reader --version=auto --env=internalVersion --tag=iv",
+    "update:dev": "updatePackage --package=dynamsoft-barcode-reader --version=auto --env=development --tag=latest",
+    "updateLink:npm": "updateLink --source=npm",
+    "updateLink:zip": "updateLink --source=zip",
+    "updateLink:github": "updateLink --source=github",
+    "updateCore:prod": "updateImportedPkg --package=dynamsoft-core --no-dev",
+    "updateCore:dev": "updateImportedPkg --package=dynamsoft-core --dev",
+    "updateCvr:prod": "updateImportedPkg --package=dynamsoft-capture-vision-router --no-dev",
+    "makeZip": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=dynamsoft-capture-vision-std dynamsoft-image-processing dynamsoft-core dynamsoft-license dynamsoft-capture-vision-router dynamsoft-utility",
+    "makeZip_dev": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=@dynamsoft/dynamsoft-capture-vision-std @dynamsoft/dynamsoft-image-processing @dynamsoft/dynamsoft-core @dynamsoft/dynamsoft-license @dynamsoft/dynamsoft-capture-vision-router @dynamsoft/dynamsoft-utility",
+    "easyPublish": "npm run update:dev && npm i @dynamsoft/dynamsoft-core@latest && npm run build && npm publish",
+    "ep-no-core": "npm run update:dev && npm run build && npm publish"
   },
-  "author": {
-    "name": "Dynamsoft",
-    "url": "https://www.dynamsoft.com"
-  },
-  "license": "SEE LICENSE IN LICENSE",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dynamsoft/barcode-reader-javascript.git"
-  },
-  "maintainers": [
-    {
-      "name": "Dynamsoft",
-      "email": "support@dynamsoft.com"
-    }
-  ],
   "keywords": [
     "HTML5 barcode",
     "JavaScript barcode",
@@ -60,53 +59,39 @@
     "Linear barcode",
     "1D barcode"
   ],
-  "scripts": {
-    "build:doc": "typedoc",
-    "build-dev": "rollup -c --environment BUILD:development",
-    "build": "rollup -c --environment BUILD:production",
-    "update:readme": "updateReadme --package=dynamsoft-barcode-reader --version=auto --branch=v9.6.21 --path=programming/javascript/user-guide/index.md",
-    "update:prod": "updatePackage --package=dynamsoft-javascript-barcode --version=auto --env=production --tag=latest",
-    "update:beta": "updatePackage --package=dynamsoft-javascript-barcode --version=auto --env=beta --tag=beta",
-    "update:iv": "updatePackage --package=dynamsoft-javascript-barcode --version=auto --env=internalVersion --tag=iv",
-    "update:dev": "updatePackage --package=dynamsoft-javascript-barcode --version=auto --env=development --tag=latest"
+  "author": {
+    "name": "Dynamsoft",
+    "url": "https://www.dynamsoft.com"
   },
-  "devDependencies": {
-    "@dynamsoft/rd2-scripts": "^0.0.32",
-    "@rollup/plugin-node-resolve": "13.0.5",
-    "@rollup/plugin-replace": "3.0.0",
-    "@rollup/plugin-typescript": "8.3.0",
-    "@scannerproxy/browser-info": "^1.0.7",
-    "@scannerproxy/curscript-path": "^1.0.3",
-    "@scannerproxy/dlsjs": "^2.0.9",
-    "@types/node": "16.11.2",
-    "@types/node-fetch": "2.6.1",
-    "@types/node-localstorage": "1.3.0",
-    "detect-browser-node-ssr": "^2.0.0",
-    "fs-extra": "8.1.0",
-    "highlight.js": "^9.15.6",
-    "mutable-promise": "^1.1.13",
-    "rollup": "2.58.0",
-    "rollup-plugin-terser": "7.0.2",
-    "showdown": "^1.9.0",
-    "tslib": "2.3.1",
-    "typedoc": "0.22.6",
-    "typedoc-plugin-missing-exports": "0.22.3",
-    "typescript": "4.3.5"
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
   },
-  "peerDependencies": {
-    "node-fetch": "^2.6.5",
-    "node-localstorage": "^2.2.1"
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dynamsoft/barcode-reader-javascript.git"
   },
-  "peerDependenciesMeta": {
-    "node-fetch": {
-      "optional": true
-    },
-    "node-localstorage": {
-      "optional": true
+  "maintainers": [
+    {
+      "name": "Dynamsoft",
+      "email": "support@dynamsoft.com"
     }
+  ],
+  "devDependencies": {
+    "@dynamsoft/rd2-scripts": "^0.1.8",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@scannerproxy/curscript-path": "^2.0.1",
+    "@types/node": "^20.7.1",
+    "dynamsoft-capture-vision-router": "^2.0.30",
+    "rollup": "^2.79.1",
+    "tslib": "^2.6.2",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
-    "dm-howler": "^2.2.4",
-    "dynamsoft-camera-enhancer": "^3.3.8"
+    "dynamsoft-core": "^3.0.30"
   }
 }
