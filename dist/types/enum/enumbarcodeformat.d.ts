@@ -33,4 +33,3 @@ export declare enum EnumBarcodeFormat {
     BF_CODE_11 = 2097152,
     BF_NULL = 0
 }
-//# sourceMappingURL=enumbarcodeformat.d.ts.map

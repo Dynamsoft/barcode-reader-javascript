@@ -8,4 +8,3 @@ export declare enum EnumImagePreprocessingMode {
     IPM_SKIP = 0,
     IPM_REV = 2147483648
 }
-//# sourceMappingURL=enumimagepreprocessingmode.d.ts.map

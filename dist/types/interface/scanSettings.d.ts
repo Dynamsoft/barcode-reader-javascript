@@ -54,4 +54,3 @@ export interface ScanSettings {
     autoFocus?: boolean;
     autoSuggestTip?: boolean;
 }
-//# sourceMappingURL=scanSettings.d.ts.map

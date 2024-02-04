@@ -5,4 +5,3 @@ export interface Region {
     regionTop: number;
     regionMeasuredByPercentage: number | boolean;
 }
-//# sourceMappingURL=region.d.ts.map

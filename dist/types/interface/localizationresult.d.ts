@@ -39,4 +39,3 @@ export interface LocalizationResult {
     resultCoordinateType: EnumResultCoordinateType;
     transformationMatrix: Array<number>;
 }
-//# sourceMappingURL=localizationresult.d.ts.map

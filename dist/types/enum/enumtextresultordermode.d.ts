@@ -5,4 +5,3 @@ export declare enum EnumTextResultOrderMode {
     TROM_SKIP = 0,
     TROM_REV = 2147483648
 }
-//# sourceMappingURL=enumtextresultordermode.d.ts.map

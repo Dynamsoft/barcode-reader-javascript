@@ -11,4 +11,3 @@ export declare enum EnumLocalizationMode {
     LM_ONED_FAST_SCAN = 256,
     LM_REV = 2147483648
 }
-//# sourceMappingURL=enumlocalizationmode.d.ts.map

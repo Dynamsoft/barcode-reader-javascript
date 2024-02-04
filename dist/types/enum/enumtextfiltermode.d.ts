@@ -4,4 +4,3 @@ export declare enum EnumTextFilterMode {
     TFM_SKIP = 0,
     TFM_REV = 2147483648
 }
-//# sourceMappingURL=enumtextfiltermode.d.ts.map

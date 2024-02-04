@@ -4,4 +4,3 @@ export interface VideoDeviceInfo {
     /** @ignore */
     _checked: boolean;
 }
-//# sourceMappingURL=videodeviceinfo.d.ts.map

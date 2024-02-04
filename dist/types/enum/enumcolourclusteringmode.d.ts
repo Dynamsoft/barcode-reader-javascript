@@ -4,4 +4,3 @@ export declare enum EnumColourClusteringMode {
     CCM_SKIP = 0,
     CCM_REV = 2147483648
 }
-//# sourceMappingURL=enumcolourclusteringmode.d.ts.map

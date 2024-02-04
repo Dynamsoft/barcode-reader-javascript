@@ -6,4 +6,3 @@ export declare enum EnumIMResultDataType {
     IMRDT_REGIONOFINTEREST = 16,
     IMRDT_QUADRILATERAL = 32
 }
-//# sourceMappingURL=enumimresultdatatype.d.ts.map

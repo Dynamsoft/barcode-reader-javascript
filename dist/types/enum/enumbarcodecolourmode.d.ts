@@ -8,4 +8,3 @@ export declare enum EnumBarcodeColourMode {
     BICM_SKIP = 0,
     BICM_REV = 2147483648
 }
-//# sourceMappingURL=enumbarcodecolourmode.d.ts.map

@@ -3,4 +3,3 @@ export interface ScannerPlayCallbackInfo {
     width: number;
     deviceId: string;
 }
-//# sourceMappingURL=scannerplaycallbackinfo.d.ts.map

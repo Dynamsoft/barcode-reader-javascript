@@ -4,4 +4,3 @@ export declare enum EnumTextureDetectionMode {
     TDM_SKIP = 0,
     TDM_REV = 2147483648
 }
-//# sourceMappingURL=enumtexturedetectionmode.d.ts.map

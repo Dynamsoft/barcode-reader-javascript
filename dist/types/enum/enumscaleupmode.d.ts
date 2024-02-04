@@ -5,4 +5,3 @@ export declare enum EnumScaleUpMode {
     SUM_SKIP = 0,
     SUM_REV = 2147483648
 }
-//# sourceMappingURL=enumscaleupmode.d.ts.map

@@ -925,4 +925,3 @@ export default class BarcodeReader {
      */
     destroyContext(): void;
 }
-//# sourceMappingURL=barcodereader.d.ts.map

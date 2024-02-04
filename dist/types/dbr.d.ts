@@ -21,7 +21,6 @@ import { EnumIMResultDataType } from "./enum/enumimresultdatatype";
 import { EnumIntermediateResultSavingMode } from "./enum/enumintermediateresultsavingmode";
 import { EnumIntermediateResultType } from "./enum/enumintermediateresulttype";
 import { EnumLocalizationMode } from "./enum/enumlocalizationmode";
-import { EnumPDFReadingMode } from "./enum/enumpdfreadingmode";
 import { EnumQRCodeErrorCorrectionLevel } from "./enum/enumqrcodeerrorcorrectionlevel";
 import { EnumRegionPredetectionMode } from "./enum/enumregionpredetectionmode";
 import { EnumResultCoordinateType } from "./enum/enumresultcoordinatetype";
@@ -37,5 +36,4 @@ import { ScanSettings } from "./interface/scanSettings";
 import { Region } from "./interface/region";
 import { ImageSource } from "./interface/imagesource";
 import { DSImage } from "./interface/dsimage";
-export { BarcodeReader, BarcodeScanner, EnumBarcodeColourMode, EnumBarcodeComplementMode, EnumBarcodeFormat, EnumBarcodeFormat_2, EnumBinarizationMode, EnumClarityCalculationMethod, EnumClarityFilterMode, EnumColourClusteringMode, EnumColourConversionMode, EnumConflictMode, EnumDeblurMode, EnumDeformationResistingMode, EnumDPMCodeReadingMode, EnumErrorCode, EnumGrayscaleTransformationMode, EnumImagePixelFormat, EnumImagePreprocessingMode, EnumIMResultDataType, EnumIntermediateResultSavingMode, EnumIntermediateResultType, EnumLocalizationMode, EnumPDFReadingMode, EnumQRCodeErrorCorrectionLevel, EnumRegionPredetectionMode, EnumResultCoordinateType, EnumResultType, EnumScaleUpMode, EnumTerminatePhase, EnumTextFilterMode, EnumTextResultOrderMode, EnumTextureDetectionMode, TextResult, RuntimeSettings, ScanSettings, Region, ImageSource, DSImage };
-//# sourceMappingURL=dbr.d.ts.map
+export { BarcodeReader, BarcodeScanner, EnumBarcodeColourMode, EnumBarcodeComplementMode, EnumBarcodeFormat, EnumBarcodeFormat_2, EnumBinarizationMode, EnumClarityCalculationMethod, EnumClarityFilterMode, EnumColourClusteringMode, EnumColourConversionMode, EnumConflictMode, EnumDeblurMode, EnumDeformationResistingMode, EnumDPMCodeReadingMode, EnumErrorCode, EnumGrayscaleTransformationMode, EnumImagePixelFormat, EnumImagePreprocessingMode, EnumIMResultDataType, EnumIntermediateResultSavingMode, EnumIntermediateResultType, EnumLocalizationMode, EnumQRCodeErrorCorrectionLevel, EnumRegionPredetectionMode, EnumResultCoordinateType, EnumResultType, EnumScaleUpMode, EnumTerminatePhase, EnumTextFilterMode, EnumTextResultOrderMode, EnumTextureDetectionMode, TextResult, RuntimeSettings, ScanSettings, Region, ImageSource, DSImage };

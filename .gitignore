@@ -21,7 +21,7 @@ yarn-error.log*
 *.sln
 *.sw?
 *.map
-.npmrc
+*.properties
 
 __pycache__
 ~~*
@@ -30,6 +30,7 @@ __pycache__
 package-lock.json
 yarn.lock
 .git
+.npmrc
 /*.zip
 /*.py
 /*.exe

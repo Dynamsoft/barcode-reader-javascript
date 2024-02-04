@@ -25,4 +25,3 @@ export interface TextResult {
      */
     localizationResult: LocalizationResult;
 }
-//# sourceMappingURL=textresult.d.ts.map

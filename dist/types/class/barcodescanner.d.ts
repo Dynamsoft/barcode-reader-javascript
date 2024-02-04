@@ -147,6 +147,12 @@ export default class BarcodeScanner extends BarcodeReader {
     set videoSrc(source: string | MediaStream | MediaSource | Blob);
     get videoSrc(): string | MediaStream | MediaSource | Blob;
     /**
+     * Sets or returns the the maximum time allowed for opening a selected camera.
+     * @defaultValue `4000`
+     */
+    set cameraOpenTimeout(value: number);
+    get cameraOpenTimeout(): number;
+    /**
      * An event that gets triggered whenever a 'Tip' is suggested.
      * @event onTipSuggested
      * @defaultValue `undefined`
@@ -950,4 +956,3 @@ export default class BarcodeScanner extends BarcodeReader {
      */
     destroyContext(): void;
 }
-//# sourceMappingURL=barcodescanner.d.ts.map

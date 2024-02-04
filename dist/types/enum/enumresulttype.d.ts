@@ -4,4 +4,3 @@ export declare enum EnumResultType {
     RT_CANDIDATE_TEXT = 2,
     RT_PARTIAL_TEXT = 3
 }
-//# sourceMappingURL=enumresulttype.d.ts.map

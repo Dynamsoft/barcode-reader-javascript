@@ -5,4 +5,3 @@ export declare enum EnumBinarizationMode {
     BM_THRESHOLD = 4,
     BM_REV = 2147483648
 }
-//# sourceMappingURL=enumbinarizationmode.d.ts.map

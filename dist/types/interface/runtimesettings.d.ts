@@ -3,7 +3,6 @@ import { EnumIntermediateResultType } from "../enum/enumintermediateresulttype";
 import { EnumTerminatePhase } from "../enum/enumterminatephase";
 import { EnumTextResultOrderMode } from "../enum/enumtextresultordermode";
 import { EnumBinarizationMode } from "../enum/enumbinarizationmode";
-import { EnumPDFReadingMode } from "../enum/enumpdfreadingmode";
 import { EnumScaleUpMode } from "../enum/enumscaleupmode";
 import { EnumLocalizationMode } from "../enum/enumlocalizationmode";
 import { EnumBarcodeFormat } from "../enum/enumbarcodeformat";
@@ -59,10 +58,6 @@ export interface RuntimeSettings {
      */
     minResultConfidence: number;
     /**
-     * Not available in JS. Sets the way to detect barcodes from a PDF file when using the DecodeFile method.
-     */
-    PDFReadingMode: EnumPDFReadingMode;
-    /**
      * Sets the region definition including the regionTop, regionLeft, regionRight, regionBottom and regionMeasuredByPercentage.
      *
      * Experimental feature:
@@ -100,4 +95,3 @@ export interface RuntimeSettings {
      */
     timeout: number;
 }
-//# sourceMappingURL=runtimesettings.d.ts.map

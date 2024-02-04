@@ -6,4 +6,3 @@ export declare enum EnumTerminatePhase {
     TP_BARCODE_TYPE_DETERMINED = 16,
     TP_BARCODE_RECOGNIZED = 32
 }
-//# sourceMappingURL=enumterminatephase.d.ts.map

@@ -7,4 +7,3 @@ export declare enum EnumRegionPredetectionMode {
     RPM_SKIP = 0,
     RPM_REV = 2147483648
 }
-//# sourceMappingURL=enumregionpredetectionmode.d.ts.map

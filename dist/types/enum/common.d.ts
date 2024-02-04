@@ -46,4 +46,3 @@ export declare enum EnumChargeWay {
     /**Charges by the count of concurrent instances.*/
     DM_CW_CONCURRENT_INSTANCE_COUNT = "ConcurrentInstanceCount"
 }
-//# sourceMappingURL=common.d.ts.map

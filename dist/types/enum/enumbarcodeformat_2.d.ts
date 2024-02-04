@@ -13,4 +13,3 @@ export declare enum EnumBarcodeFormat_2 {
     BF2_PHARMACODE = 12,
     BF2_ALL = -1
 }
-//# sourceMappingURL=enumbarcodeformat_2.d.ts.map

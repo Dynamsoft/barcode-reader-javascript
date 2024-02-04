@@ -15,4 +15,3 @@ export declare enum EnumIntermediateResultType {
     IRT_TYPED_BARCODE_ZONE = 4096,
     IRT_PREDETECTED_QUADRILATERAL = 8192
 }
-//# sourceMappingURL=enumintermediateresulttype.d.ts.map

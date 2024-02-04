@@ -4,4 +4,3 @@ export interface DSImage {
     height: number;
     pixelFormat: string;
 }
-//# sourceMappingURL=dsimage.d.ts.map
