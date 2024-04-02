@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-barcode-reader",
-  "version": "10.0.21",
+  "version": "10.2.10",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "files": [
     "/dist/*.js",
@@ -38,13 +38,12 @@
     "updateLink:npm": "updateLink --source=npm",
     "updateLink:zip": "updateLink --source=zip",
     "updateLink:github": "updateLink --source=github",
-    "updateCore:prod": "updateImportedPkg --package=dynamsoft-core --no-dev",
-    "updateCore:dev": "updateImportedPkg --package=dynamsoft-core --dev",
-    "updateCvr:prod": "updateImportedPkg --package=dynamsoft-capture-vision-router --no-dev",
-    "makeZip": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=dynamsoft-capture-vision-std dynamsoft-image-processing dynamsoft-core dynamsoft-license dynamsoft-capture-vision-router dynamsoft-utility",
-    "makeZip_dev": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=@dynamsoft/dynamsoft-capture-vision-std @dynamsoft/dynamsoft-image-processing @dynamsoft/dynamsoft-core @dynamsoft/dynamsoft-license @dynamsoft/dynamsoft-capture-vision-router @dynamsoft/dynamsoft-utility",
-    "easyPublish": "npm run update:dev && npm i @dynamsoft/dynamsoft-core@latest && npm run build && npm publish",
-    "ep-no-core": "npm run update:dev && npm run build && npm publish"
+    "makeZip": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=dynamsoft-capture-vision-std dynamsoft-image-processing dynamsoft-core dynamsoft-license dynamsoft-capture-vision-router dynamsoft-utility dynamsoft-camera-enhancer",
+    "makeZip_dev": "makeZip --package=dynamsoft-barcode-reader --version=auto --sampleBranch=_dev --structure=new --otherPkgs=@dynamsoft/dynamsoft-capture-vision-std @dynamsoft/dynamsoft-image-processing @dynamsoft/dynamsoft-core @dynamsoft/dynamsoft-license @dynamsoft/dynamsoft-capture-vision-router @dynamsoft/dynamsoft-utility @dynamsoft/dynamsoft-camera-enhancer",
+    "easyPublish": "npm run update:dev && npm i dynamsoft-core@npm:@dynamsoft/dynamsoft-core@latest && npm run build && npm publish",
+    "ep-no-core": "npm run update:dev && npm run build && npm publish",
+    "overridesCore:prod": "npm pkg delete overrides && npm pkg set dependencies.dynamsoft-core=\"^3.2.10\" && npm pkg set devDependencies.dynamsoft-camera-enhancer=\"^4.0.2\" && npm pkg set devDependencies.dynamsoft-capture-vision-router=\"^2.2.10\" && npm pkg set devDependencies.dynamsoft-license=\"^3.2.10\" && npm pkg set devDependencies.dynamsoft-utility=\"^1.2.10\"",
+    "overridesCore:dev": "npm pkg set overrides.dynamsoft-core=$dynamsoft-core && npm pkg set overrides.dynamsoft-camera-enhancer=$dynamsoft-camera-enhancer && npm pkg set overrides.dynamsoft-capture-vision-router=$dynamsoft-capture-vision-router && npm pkg set overrides.dynamsoft-license=$dynamsoft-license && npm pkg set overrides.dynamsoft-utility=$dynamsoft-utility && npm pkg set dependencies.dynamsoft-core=npm:@dynamsoft/dynamsoft-core@latest && npm pkg set devDependencies.dynamsoft-camera-enhancer=npm:@dynamsoft/dynamsoft-camera-enhancer@latest && npm pkg set devDependencies.dynamsoft-capture-vision-router=npm:@dynamsoft/dynamsoft-capture-vision-router@latest && npm pkg set devDependencies.dynamsoft-license=npm:@dynamsoft/dynamsoft-license@latest && npm pkg set devDependencies.dynamsoft-utility=npm:@dynamsoft/dynamsoft-utility@latest && npm update dynamsoft-core --no-package-lock && npm update dynamsoft-camera-enhancer --no-package-lock && npm update dynamsoft-capture-vision-router --no-package-lock && npm update dynamsoft-license --no-package-lock && npm update dynamsoft-utility --no-package-lock"
   },
   "keywords": [
     "HTML5 barcode",
@@ -79,22 +78,22 @@
     }
   ],
   "devDependencies": {
-    "@dynamsoft/rd2-scripts": "^0.1.15",
+    "@dynamsoft/rd2-scripts": "^0.1.17",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.2",
     "@rollup/plugin-terser": "^0.4.3",
     "@rollup/plugin-typescript": "^11.0.0",
     "@scannerproxy/curscript-path": "^2.0.1",
     "@types/node": "^20.7.1",
-    "dynamsoft-camera-enhancer": "^4.0.1",
-    "dynamsoft-capture-vision-router": "^2.0.32",
-    "dynamsoft-license": "^3.0.40",
-    "dynamsoft-utility": "^1.0.21",
+    "dynamsoft-camera-enhancer": "^4.0.2",
+    "dynamsoft-capture-vision-router": "^2.2.10",
+    "dynamsoft-license": "^3.2.10",
+    "dynamsoft-utility": "^1.2.10",
     "rollup": "^2.79.1",
     "tslib": "^2.6.2",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "dynamsoft-core": "^3.0.30"
+    "dynamsoft-core": "^3.2.10"
   }
 }

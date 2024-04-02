@@ -4,6 +4,8 @@ export interface DecodedBarcodesResult {
     readonly originalImageHashId: string;
     readonly originalImageTag: ImageTag;
     readonly barcodeResultItems: Array<BarcodeResultItem>;
+    readonly errorCode: number;
+    readonly errorString: string;
 }
 declare module "dynamsoft-capture-vision-router" {
     interface CapturedResultReceiver {
