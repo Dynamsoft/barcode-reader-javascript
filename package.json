@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-javascript-barcode",
-  "version": "9.6.40",
+  "version": "9.6.42",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "private": false,
   "files": [
@@ -18,16 +18,17 @@
   "module": "./dist/dbr.pure.esm.js",
   "exports": {
     "import": {
-      "types": "./dist/types/dbr.d.ts",
+      "types": "./dist/dbr.d.ts",
       "default": "./dist/dbr.pure.esm.js"
     },
     "require": {
-      "types": "./dist/types/dbr.d.ts",
+      "types": "./dist/dbr.d.ts",
       "default": "./dist/dbr.pure.js"
     }
   },
   "sideEffects": false,
-  "types": "./dist/types/dbr.d.ts",
+  "type": "module",
+  "types": "./dist/dbr.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
@@ -78,38 +79,24 @@
     "easyPublish": "npm run update:dev && npm run build-dev && npm publish"
   },
   "devDependencies": {
-    "@dynamsoft/rd2-scripts": "^0.1.15",
-    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@dynamsoft/rd2-scripts": "0.1.17",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@scannerproxy/browser-info": "^1.0.7",
-    "@scannerproxy/curscript-path": "^1.0.3",
-    "@scannerproxy/dlsjs": "^2.0.9",
-    "@types/node": "^20.11.10",
-    "@types/node-fetch": "^2.6.1",
-    "@types/node-localstorage": "^1.3.0",
-    "detect-browser-node-ssr": "^2.0.0",
+    "@scannerproxy/browser-info": "^2.0.8",
+    "@scannerproxy/curscript-path": "^2.0.4",
+    "@scannerproxy/dlsjs": "^3.0.20",
+    "detect-browser-node-ssr": "^3.0.2",
     "fs-extra": "^8.1.0",
     "mutable-promise": "^1.1.13",
-    "rollup": "^2.58.0",
+    "rollup": "^3.29.4",
+    "rollup-plugin-dts": "^6.1.0",
     "tslib": "^2.6.2",
     "typescript": "^4.9.5"
   },
-  "peerDependencies": {
-    "node-fetch": "^2.6.5",
-    "node-localstorage": "^2.2.1"
-  },
-  "peerDependenciesMeta": {
-    "node-fetch": {
-      "optional": true
-    },
-    "node-localstorage": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "dm-howler": "^2.2.4",
-    "dynamsoft-camera-enhancer": "^3.3.10"
+    "dynamsoft-camera-enhancer": "3.3.10-beta-202404222209"
   }
 }
