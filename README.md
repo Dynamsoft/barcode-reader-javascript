@@ -172,16 +172,16 @@ Options to download the SDK:
 
   <a target="_blank" href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=9.6.42&utm_source=github" title="Download the JavaScript Package">Download the JavaScript Package</a>
 
-- yarn
-
-  ```cmd
-  yarn add dynamsoft-javascript-barcode
-  ```
-
 - npm
 
   ```cmd
-  npm install dynamsoft-javascript-barcode --save
+  npm i dynamsoft-javascript-barcode -E
+  ```
+
+- yarn
+
+  ```cmd
+  yarn add dynamsoft-javascript-barcode -E
   ```
 
 Depending on how you downloaded the SDK and how you intend to use it, you can typically include it like this:
