@@ -55,7 +55,7 @@ In this guide, you will learn step by step on how to integrate the DBR-JS SDK in
 **Popular Examples**
 
 - Hello World - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/hello-world.html) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/hello-world.html?ver=10.2.10&utm_source=github)
-- Angular App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/angular) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/angular/dist/hello-world/?ver=10.2.10&utm_source=github)
+- Angular App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/angular) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/angular/dist/angular/?ver=10.2.10&utm_source=github)
 - React App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/react) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/react/build/?ver=10.2.10&utm_source=github)
 - Vue App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/vue) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/vue/dist/?ver=10.2.10&utm_source=github)
 - PWA App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/pwa) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/pwa/helloworld-pwa.html?ver=10.2.10&utm_source=github)
@@ -89,20 +89,20 @@ The complete code of the "Hello World" example is shown below
 <body>
 <div id="cameraViewContainer" style="width: 100%; height: 60vh"></div>
 <textarea id="results" style="width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto" disabled></textarea>
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader@10.2.10/dist/dbr.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
 <script>
   Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
   Dynamsoft.Core.CoreModule.loadWasm(["dbr"]);
   (async () => {
-    let router = await Dynamsoft.CVR.CaptureVisionRouter.createInstance();
+    let cvRouter = await Dynamsoft.CVR.CaptureVisionRouter.createInstance();
 
     let view = await Dynamsoft.DCE.CameraView.createInstance();
     let cameraEnhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance(view);
     document.querySelector("#cameraViewContainer").append(view.getUIElement());
-    router.setInput(cameraEnhancer);
+    cvRouter.setInput(cameraEnhancer);
 
     const resultsContainer = document.querySelector("#results");
-    router.addResultReceiver({ onDecodedBarcodesReceived: (result) => {
+    cvRouter.addResultReceiver({ onDecodedBarcodesReceived: (result) => {
       if (result.barcodeResultItems.length > 0) {
         resultsContainer.textContent = '';
         for (let item of result.barcodeResultItems) {
@@ -114,10 +114,10 @@ The complete code of the "Hello World" example is shown below
     let filter = new Dynamsoft.Utility.MultiFrameResultCrossFilter();
     filter.enableResultCrossVerification("barcode", true);
     filter.enableResultDeduplication("barcode", true);
-    await router.addResultFilter(filter);
+    await cvRouter.addResultFilter(filter);
 
     await cameraEnhancer.open();
-    await router.startCapturing("ReadSingleBarcode");
+    await cvRouter.startCapturing("ReadSingleBarcode");
   })();
 </script>
 </body>
@@ -148,26 +148,26 @@ The complete code of the "Hello World" example is shown below
 
 - `Dynamsoft.Core.CoreModule.loadWasm(["dbr"])`: This is an optional code. Used to load wasm resources in advance, reducing latency between video playing and barcode decoding.
 
-- `Dynamsoft.CVR.CaptureVisionRouter.createInstance()`: This method creates a `CaptureVisionRouter` object `router` which controls the entire process in three steps:
+- `Dynamsoft.CVR.CaptureVisionRouter.createInstance()`: This method creates a `CaptureVisionRouter` object `cvRouter` which controls the entire process in three steps:
   - **Retrieve Images from the Image Source**
-    - `router` connects to the image source through the [ImageSourceAdapter](https://www.dynamsoft.com/capture-vision/docs/core/architecture/input.html#image-source-adapter?lang=js) interface with the method `setInput()`.
+    - `cvRouter` connects to the image source through the [ImageSourceAdapter](https://www.dynamsoft.com/capture-vision/docs/core/architecture/input.html#image-source-adapter?lang=js) interface with the method `setInput()`.
       ```js
-      router.setInput(cameraEnhancer);
+      cvRouter.setInput(cameraEnhancer);
       ```
     > The image source in our case is a [CameraEnhancer](https://www.dynamsoft.com/camera-enhancer/docs/web/programming/javascript/user-guide/index.html) object created with `Dynamsoft.DCE.CameraEnhancer.createInstance(view)`
   - **Coordinate Image-Processing Tasks**
-    - The coordination happens behind the scenes. `router` starts the process by specifying a preset template "ReadSingleBarcode" in the method `startCapturing()`.
+    - The coordination happens behind the scenes. `cvRouter` starts the process by specifying a preset template "ReadSingleBarcode" in the method `startCapturing()`.
       ```js
-      router.startCapturing("ReadSingleBarcode");
+      cvRouter.startCapturing("ReadSingleBarcode");
       ```
   - **Dispatch Results to Listening Objects**
-    - The processing results are returned through the [CapturedResultReceiver](https://www.dynamsoft.com/capture-vision/docs/core/architecture/output.html#captured-result-receiver?lang=js) interface. The `CapturedResultReceiver` object is registered to `router` via the method `addResultReceiver()`. For more information, please check out [Register a result receiver](#register-a-result-receiver).
+    - The processing results are returned through the [CapturedResultReceiver](https://www.dynamsoft.com/capture-vision/docs/core/architecture/output.html#captured-result-receiver?lang=js) interface. The `CapturedResultReceiver` object is registered to `cvRouter` via the method `addResultReceiver()`. For more information, please check out [Register a result receiver](#register-a-result-receiver).
       ```js
-      router.addResultReceiver({/*The-CapturedResultReceiver-Object"*/});
+      cvRouter.addResultReceiver({/*The-CapturedResultReceiver-Object"*/});
       ```
-    - Also note that reading from video is extremely fast and there could be many duplicate results. We can use a [filter](#filter-the-results-important) with result deduplication enabled to filter out the duplicate results. The object is registered to `router` via the method `addResultFilter()`.
+    - Also note that reading from video is extremely fast and there could be many duplicate results. We can use a [filter](#filter-the-results-important) with result deduplication enabled to filter out the duplicate results. The object is registered to `cvRouter` via the method `addResultFilter()`.
       ```js
-      router.addResultFilter(filter);
+      cvRouter.addResultFilter(filter);
       ```
 
 > Read more on [Capture Vision Router](https://www.dynamsoft.com/capture-vision/docs/core/architecture/#capture-vision-router).
@@ -208,7 +208,19 @@ To utilize the SDK, the initial step involves including the corresponding resour
 * `cvr.js` introduces the `CaptureVisionRouter` class, which governs the entire image processing workflow.
 * `dce.js` comprises classes that offer camera support and basic user interface functionalities.
 
-For simplification, starting from version 10.2.10, we introduced `dbr.bundle.js`. Including this file is equivalent to incorporating all six packages.
+For simplification, starting from version 10.0.21, we introduced `dbr.bundle.js`. Including this file is equivalent to incorporating all six packages.
+
+* dynamsoft-core@3.2.30/dist/core.js
+* dynamsoft-license@3.2.21/dist/license.js
+* dynamsoft-utility@1.2.20/dist/utility.js
+* dynamsoft-barcode-reader@10.2.10/dist/dbr.js
+* dynamsoft-capture-vision-router@2.2.30/dist/cvr.js
+* dynamsoft-camera-enhancer@4.0.3/dist/dce.js
+
+Equivalent to
+* dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js
+
+In the following chapters, we will use `dbr.bundle.js`.
 
 #### Use a public CDN
 
@@ -217,48 +229,22 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-core@3.2.10/dist/core.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-license@3.2.10/dist/license.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-utility@1.2.10/dist/utility.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader@10.2.10/dist/dbr.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-router@2.2.10/dist/cvr.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@4.0.2/dist/dce.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
-  Or just
+- UNPKG
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader@10.2.10/dist/dbr.bundle.js"></script>
+  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
-- UNPKG  
+- In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-core@3.2.10/dist/core.js"></script>
-  <script src="https://unpkg.com/dynamsoft-license@3.2.10/dist/license.js"></script>
-  <script src="https://unpkg.com/dynamsoft-utility@1.2.10/dist/utility.js"></script>
-  <script src="https://unpkg.com/dynamsoft-barcode-reader@10.2.10/dist/dbr.js"></script>
-  <script src="https://unpkg.com/dynamsoft-capture-vision-router@2.2.10/dist/cvr.js"></script>
-  <script src="https://unpkg.com/dynamsoft-camera-enhancer@4.0.2/dist/dce.js"></script>
+  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
-  Or just
-
-  ```html
-  <script src="https://unpkg.com/dynamsoft-barcode-reader@10.2.10/dist/dbr.bundle.js"></script>
-  ```
-
-In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
-
-- https://download2.dynamsoft.com/packages/dynamsoft-core@3.2.10/dist/core.js
-- https://download2.dynamsoft.com/packages/dynamsoft-license@3.2.10/dist/license.js
-- https://download2.dynamsoft.com/packages/dynamsoft-utility@1.2.10/dist/utility.js
-- https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader@10.2.10/dist/dbr.js
-- https://download2.dynamsoft.com/packages/dynamsoft-capture-vision-router@2.2.10/dist/cvr.js
-- https://download2.dynamsoft.com/packages/dynamsoft-camera-enhancer@4.0.2/dist/dce.js
-- or bundle: https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader@10.2.10/dist/dbr.bundle.js
-
-However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself.
+  However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself.
 
 #### Host the SDK yourself (optional)
 
@@ -270,30 +256,20 @@ Options to download the SDK:
 
   [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=10.2.10&utm_source=github&product=dbr&package=js)
 
-- yarn
-
-  ```cmd
-  yarn add dynamsoft-core@3.2.10 --save
-  yarn add dynamsoft-license@3.2.10 --save
-  yarn add dynamsoft-utility@1.2.10 --save
-  yarn add dynamsoft-barcode-reader@10.2.10 --save
-  yarn add dynamsoft-capture-vision-router@2.2.10 --save
-  yarn add dynamsoft-camera-enhancer@4.0.2 --save
-  yarn add dynamsoft-capture-vision-std@1.2.0 --save
-  yarn add dynamsoft-image-processing@2.2.10 --save
-  ```
-
 - npm
 
   ```cmd
-  npm install dynamsoft-core@3.2.10 --save
-  npm install dynamsoft-license@3.2.10 --save
-  npm install dynamsoft-utility@1.2.10 --save
-  npm install dynamsoft-barcode-reader@10.2.10 --save
-  npm install dynamsoft-capture-vision-router@2.2.10 --save
-  npm install dynamsoft-camera-enhancer@4.0.2 --save
-  npm install dynamsoft-capture-vision-std@1.2.0 --save
-  npm install dynamsoft-image-processing@2.2.10 --save
+  npm i dynamsoft-barcode-reader-bundle@10.2.1000 -E
+  npm i dynamsoft-capture-vision-std@1.2.0 -E
+  npm i dynamsoft-image-processing@2.2.10 -E
+  ```
+
+- yarn
+
+  ```cmd
+  yarn add dynamsoft-barcode-reader-bundle@10.2.1000 -E
+  yarn add dynamsoft-capture-vision-std@1.2.0 -E
+  yarn add dynamsoft-image-processing@2.2.10 -E
   ```
 
 Depending on how you downloaded the SDK and how you intend to use it, you can typically include it like this
@@ -301,35 +277,13 @@ Depending on how you downloaded the SDK and how you intend to use it, you can ty
 - From the website
 
   ```html
-  <script src="./dynamsoft/distributables/dynamsoft-core@3.2.10/dist/core.js"></script>
-  <script src="./dynamsoft/distributables/dynamsoft-license@3.2.10/dist/license.js"></script>
-  <script src="./dynamsoft/distributables/dynamsoft-utility@1.2.10/dist/utility.js"></script>
-  <script src="./dynamsoft/distributables/dynamsoft-barcode-reader@10.2.10/dist/dbr.js"></script>
-  <script src="./dynamsoft/distributables/dynamsoft-capture-vision-router@2.2.10/dist/cvr.js"></script>
-  <script src="./dynamsoft/distributables/dynamsoft-camera-enhancer@4.0.2/dist/dce.js"></script>
-  ```
-
-  Or just
-
-  ```html
-  <script src="./dynamsoft/distributables/dynamsoft-barcode-reader@10.2.10/dist/dbr.bundle.js"></script>
+  <script src="./dynamsoft/distributables/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
 - yarn or npm
 
   ```html
-  <script src="/node_modules/dynamsoft-core/dist/core.js"></script>
-  <script src="/node_modules/dynamsoft-license/dist/license.js"></script>
-  <script src="/node_modules/dynamsoft-utility/dist/utility.js"></script>
-  <script src="/node_modules/dynamsoft-barcode-reader/dist/dbr.js"></script>
-  <script src="/node_modules/dynamsoft-capture-vision-router/dist/cvr.js"></script>
-  <script src="/node_modules/dynamsoft-camera-enhancer/dist/dce.js"></script>
-  ```
-
-  Or just
-
-  ```html
-  <script src="/node_modules/dynamsoft-barcode-reader/dist/dbr.bundle.js"></script>
+  <script src="/node_modules/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
 *Note*:
@@ -402,9 +356,9 @@ To use the SDK, we first create a `CaptureVisionRouter` object.
 ```javascript
 Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
 
-let router = null;
+let cvRouter = null;
 try {
-    router = await Dynamsoft.CVR.CaptureVisionRouter.createInstance();
+    cvRouter = await Dynamsoft.CVR.CaptureVisionRouter.createInstance();
 } catch (ex) {
     console.error(ex);
 }
@@ -417,12 +371,12 @@ When creating a `CaptureVisionRouter` object within a function which may be call
 ```javascript
 Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
 
-let pRouter = null; // promise of router
-let router = null;
+let pCvRouter = null; // promise of cvRouter
+let cvRouter = null;
 
 document.getElementById('btn-scan').addEventListener('click', async () => {
     try {
-        router = await (pRouter = pRouter || Dynamsoft.CVR.CaptureVisionRouter.createInstance());
+        cvRouter = await (pCvRouter = pCvRouter || Dynamsoft.CVR.CaptureVisionRouter.createInstance());
     } catch (ex) {
         console.error(ex);
     }
@@ -431,7 +385,7 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
 
 #### Connect an image source
 
-The `CaptureVisionRouter` object, denoted as `router`, is responsible for handling images provided by an image source. In our scenario, we aim to detect barcodes directly from a live video stream. To facilitate this, we initialize a `CameraEnhancer` object, identified as `cameraEnhancer`, which is specifically designed to capture image frames from the video feed and subsequently forward them to `router`.
+The `CaptureVisionRouter` object, denoted as `cvRouter`, is responsible for handling images provided by an image source. In our scenario, we aim to detect barcodes directly from a live video stream. To facilitate this, we initialize a `CameraEnhancer` object, identified as `cameraEnhancer`, which is specifically designed to capture image frames from the video feed and subsequently forward them to `cvRouter`.
 
 To enable video streaming on the webpage, we create a `CameraView` object referred to as `view`, which is then passed to `cameraEnhancer`, and its content is displayed on the webpage.
 
@@ -443,7 +397,7 @@ To enable video streaming on the webpage, we create a `CameraView` object referr
 let view = await Dynamsoft.DCE.CameraView.createInstance();
 let cameraEnhancer = await Dynamsoft.DCE.CameraEnhancer.createInstance(view);
 document.querySelector("#cameraViewContainer").append(view.getUIElement());
-router.setInput(cameraEnhancer);
+cvRouter.setInput(cameraEnhancer);
 ```
 
 #### Register a result receiver
@@ -457,23 +411,23 @@ resultReceiver.onDecodedBarcodesReceived = (result) => {
   if (result.barcodeResultItems.length > 0) {
     resultsContainer.textContent = '';
     for (let item of result.barcodeResultItems) {
-      // In this example, the barcode result is shown on the page beneath the video
+      // In this example, the barcode results are displayed on the page below the video.
       resultsContainer.textContent += `${item.formatString}: ${item.text}\n\n`;
     }
   }
 };
-router.addResultReceiver(resultReceiver);
+cvRouter.addResultReceiver(resultReceiver);
 ```
 
 You can also write code like this. It is the same.
 
 ```javascript
 const resultsContainer = document.querySelector("#results");
-router.addResultReceiver({ onDecodedBarcodesReceived: (result) => {
+cvRouter.addResultReceiver({ onDecodedBarcodesReceived: (result) => {
   if (result.barcodeResultItems.length > 0) {
     resultsContainer.textContent = '';
     for (let item of result.barcodeResultItems) {
-      // In this example, the barcode result is shown on the page beneath the video
+      // In this example, the barcode results are displayed on the page below the video.
       resultsContainer.textContent += `${item.formatString}: ${item.text}\n\n`;
     }
   }
@@ -486,17 +440,17 @@ Check out [CapturedResultReceiver](https://www.dynamsoft.com/capture-vision/docs
 
 With the setup now complete, we can proceed to process the images in two straightforward steps:
 
-1. Initiate the image source to commence image acquisition. In our scenario, we invoke the `open()` method on `cameraEnhancer` to initiate video streaming and simultaneously initiate the collection of images. These collected images will be dispatched to `router` as per its request.
+1. Initiate the image source to commence image acquisition. In our scenario, we invoke the `open()` method on `cameraEnhancer` to initiate video streaming and simultaneously initiate the collection of images. These collected images will be dispatched to `cvRouter` as per its request.
 2. Define a preset template to commence image processing. In our case, we utilize the "ReadSingleBarcode" template, specifically tailored for processing images containing a single barcode.
 
 ```javascript
 await cameraEnhancer.open();
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 *Note*:
 
-* `router` is engineered to consistently request images from the image source.
+* `cvRouter` is engineered to consistently request images from the image source.
 * Various preset templates are at your disposal for barcode reading:
 
 | Template Name                  | Function Description                                           |
@@ -522,11 +476,11 @@ When making adjustments to some basic tasks, we often only need to modify [Simpl
 The preset templates can be updated to meet different requirements. For example, the following code limits the barcode format to QR code.
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.barcodeSettings.barcodeFormatIds =
   Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 For a list of adjustable barcode settings, check out [SimplifiedBarcodeReaderSettings](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/interfaces/simplified-barcode-reader-settings.html).
@@ -536,36 +490,33 @@ For a list of adjustable barcode settings, check out [SimplifiedBarcodeReaderSet
 Additionally, we have the option to modify the template to retrieve the original image containing the barcode.
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.capturedResultItemTypes |= 
   Dynamsoft.Core.EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE;
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 Limit the barcode format to QR code, and retrieve the original image containing the barcode, at the same time.
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.capturedResultItemTypes = 
   Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE |
   Dynamsoft.Core.EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE;
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 Please be aware that it is necessary to update the `CapturedResultReceiver` object to obtain the original image. For instance:
 
 ```javascript
+const EnumCRIT = Dynamsoft.Core.EnumCapturedResultItemType;
 resultReceiver.onCapturedResultReceived = (result) => {
-  let barcodes = result.items.filter((item) =>
-      item.type === Dynamsoft.Core.EnumCapturedResultItemType.CRIT_BARCODE
-  );
+  let barcodes = result.items.filter(item => item.type === EnumCRIT.CRIT_BARCODE);
   if (barcodes.length > 0) {
     let image = result.items.filter(
-      (item) =>
-        item.type ===
-        Dynamsoft.Core.EnumCapturedResultItemType.CRIT_ORIGINAL_IMAGE
+      item => item.type === EnumCRIT.CRIT_ORIGINAL_IMAGE
     )[0].imageData;
     // The image that we found the barcode(s) on.
   }
@@ -579,10 +530,10 @@ The SDK is initially configured to process images sequentially without any break
 > Please bear in mind that in the following code, if an image's processing time is shorter than 500 milliseconds, the SDK will wait for the full 500 milliseconds before proceeding to process the next image. Conversely, if an image's processing time exceeds 500 milliseconds, the subsequent image will be processed immediately upon completion.
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.minImageCaptureInterval = 500;
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 ##### Specify a scan region
@@ -590,7 +541,7 @@ await router.startCapturing("ReadSingleBarcode");
 You can use the parameter `roi` (region of interest) together with the parameter `roiMeasuredInPercentage` to configure the SDK to only read a specific region on the image frames. For example, the following code limits the reading in the center 25%( = 50% * 50%) of the image frames:
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.roiMeasuredInPercentage = true;
 settings.roi.points = [
   { x: 25, y: 25 },
@@ -598,8 +549,8 @@ settings.roi.points = [
   { x: 75, y: 75 },
   { x: 25, y: 75 },
 ];
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 
 While the code above accomplishes the task, a more effective approach is to restrict the scan region directly at the image source, as demonstrated in the following code snippet.
@@ -627,10 +578,10 @@ You can set the maximum time allowed for processing a single image with the prop
 > Please be aware that the SDK will cease processing an image if its processing time exceeds the duration specified by the `timeout` parameter. It should not be confused with the previously discussed parameter, `minImageCaptureInterval`.
 
 ```javascript
-let settings = await router.getSimplifiedSettings("ReadSingleBarcode");
+let settings = await cvRouter.getSimplifiedSettings("ReadSingleBarcode");
 settings.timeout = 500;
-await router.updateSettings("ReadSingleBarcode", settings);
-await router.startCapturing("ReadSingleBarcode");
+await cvRouter.updateSettings("ReadSingleBarcode", settings);
+await cvRouter.startCapturing("ReadSingleBarcode");
 ```
 -->
 
@@ -643,8 +594,8 @@ The preset templates have a lot more settings that can be customized to best sui
 Upon completing the template editing, you can invoke the `initSettings` method and provide it with the template path as an argument.
 
 ```javascript
-await router.initSettings("PATH-TO-THE-FILE"); //e.g. "https://your-website/ReadSingleBarcode.json")
-await router.startCapturing("ReadSingleBarcode"); // Make sure the name matches one of the CaptureVisionTemplates in the
+await cvRouter.initSettings("PATH-TO-THE-FILE"); //e.g. "https://your-website/ReadSingleBarcode.json")
+await cvRouter.startCapturing("ReadSingleBarcode"); // Make sure the name matches one of the CaptureVisionTemplates in the json file.
 ```
 
 #### Filter the results (Important)
@@ -656,7 +607,7 @@ While processing video frames, it's common for the same barcode to be detected m
 ```js
 let filter = new Dynamsoft.Utility.MultiFrameResultCrossFilter();
 filter.enableResultCrossVerification("barcode", true);
-await router.addResultFilter(filter);
+await cvRouter.addResultFilter(filter);
 ```
 
 *Note*:
@@ -668,7 +619,7 @@ await router.addResultFilter(filter);
 ```js
 let filter = new Dynamsoft.Utility.MultiFrameResultCrossFilter();
 filter.enableResultDeduplication("barcode", true);
-await router.addResultFilter(filter);
+await cvRouter.addResultFilter(filter);
 ```
 
 *Note*:
@@ -684,7 +635,7 @@ Under certain circumstances, this duration can be extended with the method `setD
 ```js
 let filter = new Dynamsoft.Utility.MultiFrameResultCrossFilter();
 filter.setDuplicateForgetTime(5000); // Extend the duration to 5 seconds.
-await router.addResultFilter(filter);
+await cvRouter.addResultFilter(filter);
 ```
 
 You can also enable both options at the same time:
@@ -694,7 +645,7 @@ let filter = new Dynamsoft.Utility.MultiFrameResultCrossFilter();
 filter.enableResultCrossVerification("barcode", true);
 filter.enableResultDeduplication("barcode", true);
 filter.setDuplicateForgetTime(5000);
-await router.addResultFilter(filter);
+await cvRouter.addResultFilter(filter);
 ```
 
 #### Add feedback
@@ -710,7 +661,7 @@ resultReceiver.onDecodedBarcodesReceived = (result) => {
     Dynamsoft.DCE.Feedback.beep();
   }
 };
-router.addResultReceiver(resultReceiver);
+cvRouter.addResultReceiver(resultReceiver);
 ```
 
 ### Customize the UI
