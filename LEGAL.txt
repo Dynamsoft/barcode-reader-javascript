@@ -9,7 +9,7 @@ This SDK contains parts of following softwares which are used under license.
 ===================================================================================
 Zlib.
 
-Copyright (C) 1995-2010 Jean-loup Gailly and Mark Adler
+ (C) 1995-2022 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -27,8 +27,8 @@ Copyright (C) 1995-2010 Jean-loup Gailly and Mark Adler
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 
-  Jean-loup Gailly
-  Mark Adler
+  Jean-loup Gailly        Mark Adler
+  jloup@gzip.org          madler@alumni.caltech.edu
 ===================================================================================
 
 

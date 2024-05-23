@@ -1,0 +1,12 @@
+import * as dynamsoftCore from 'dynamsoft-core';
+export { dynamsoftCore as Core };
+import * as dynamsoftLicense from 'dynamsoft-license';
+export { dynamsoftLicense as License };
+import * as dynamsoftCaptureVisionRouter from 'dynamsoft-capture-vision-router';
+export { dynamsoftCaptureVisionRouter as CVR };
+import * as dynamsoftCameraEnhancer from 'dynamsoft-camera-enhancer';
+export { dynamsoftCameraEnhancer as DCE };
+import * as dynamsoftBarcodeReader from 'dynamsoft-barcode-reader';
+export { dynamsoftBarcodeReader as DBR };
+import * as dynamsoftUtility from 'dynamsoft-utility';
+export { dynamsoftUtility as Utility };
