@@ -1,15 +1,3 @@
----
-layout: default-layout
-title: v10.2.10 User Guide - Dynamsoft Barcode Reader JavaScript Edition
-description: This is the user guide of Dynamsoft Barcode Reader JavaScript SDK.
-keywords: user guide, javascript, js
-breadcrumbText: User Guide
-noTitleIndex: true
-needGenerateH3Content: true
-needAutoGenerateSidebar: true
-schema: schemas/dynamsoft-facilitates-mit-research-schema.json
----
-
 <!--The original doc is hosted here => https://github.com/dynamsoft-docs/barcode-reader-docs-js/blob/main/programming/javascript/user-guide/index.md -->
 
 # Barcode Reader for Your Website - User Guide
