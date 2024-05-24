@@ -1,3 +1,17 @@
+---
+layout: default-layout
+title: v10.2.10 User Guide - Dynamsoft Barcode Reader JavaScript Edition
+description: This is the user guide of Dynamsoft Barcode Reader JavaScript SDK.
+keywords: user guide, javascript, js
+breadcrumbText: User Guide
+noTitleIndex: true
+needGenerateH3Content: true
+needAutoGenerateSidebar: true
+schema: schemas/dynamsoft-facilitates-mit-research-schema.json
+---
+
+<!--The original doc is hosted here => https://github.com/dynamsoft-docs/barcode-reader-docs-js/blob/main/programming/javascript/user-guide/index.md -->
+
 # Barcode Reader for Your Website - User Guide
 
 [Dynamsoft Barcode Reader JavaScript Edition](https://www.dynamsoft.com/barcode-reader/sdk-javascript/) (DBR-JS) is equipped with industry-leading algorithms for exceptional speed, accuracy and read rates in barcode reading. Using its well-designed API, you can turn your web page into a barcode scanner with just a few lines of code.
@@ -55,12 +69,12 @@ In this guide, you will learn step by step on how to integrate the DBR-JS SDK in
 **Popular Examples**
 
 - Hello World - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/hello-world.html) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/hello-world.html?ver=10.2.10&utm_source=github)
-- Angular App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/angular) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/angular/dist/angular/?ver=10.2.10&utm_source=github)
+- Angular App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/angular) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/angular/dist/dbrjs-sample-angular/browser/?ver=10.2.10&utm_source=github)
 - React App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/react) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/react/build/?ver=10.2.10&utm_source=github)
 - Vue App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/vue) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/vue/dist/?ver=10.2.10&utm_source=github)
 - PWA App - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/hello-world/pwa) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/hello-world/pwa/helloworld-pwa.html?ver=10.2.10&utm_source=github)
 - WebView in Android and iOS - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/v10.2.10/hello-world/webview)
-- Read Driver Licenses - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/use-case/read-a-drivers-license.html) \| [Run](https://demo.dynamsoft.com/samples/dbr/js/use-case/read-a-drivers-license.html?ver=10.2.10&utm_source=github)
+- Read Driver Licenses - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/use-case/read-a-drivers-license/index.html) \| [Run](https://demo.dynamsoft.com/samples/dbr/js/use-case/read-a-drivers-license/index.html?ver=10.2.10&utm_source=github)
 - Fill A Form - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/use-case/fill-a-form-with-barcode-reading.html) \| [Run](https://demo.dynamsoft.com/samples/dbr/js/use-case/fill-a-form-with-barcode-reading.html?ver=10.2.10&utm_source=github)
 - Show result information on the video - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/use-case/show-result-texts-on-the-video.html) \| [Run](https://demo.dynamsoft.com/Samples/DBR/JS/use-case/show-result-texts-on-the-video.html?ver=10.2.10&utm_source=github)
 - Debug Camera and Collect Video Frame - [Github](https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.2.10/others/debug)
@@ -246,6 +260,16 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself.
 
+- In frameworks like React and Vue, you may want to add the package as a dependency.
+
+  ```sh
+  npm i dynamsoft-barcode-reader-bundle@10.2.1000 -E
+  # or
+  yarn add dynamsoft-barcode-reader-bundle@10.2.1000 -E
+  ```
+
+  In frameworks you need to [specify the engineResourcePaths](#specify-the-location-of-the-engine-files-optional).
+
 #### Host the SDK yourself (optional)
 
 Besides using the public CDN, you can also download the SDK and host its files on your own server or a commercial CDN before including it in your application.
@@ -256,35 +280,32 @@ Options to download the SDK:
 
   [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=10.2.10&utm_source=github&product=dbr&package=js)
 
+  The resources are located at path `dynamsoft/distributables/<pkg>@<version>`.
+
 - npm
 
-  ```cmd
+  ```sh
   npm i dynamsoft-barcode-reader-bundle@10.2.1000 -E
+  # Compared with using CDN, you need to set up more resources.
   npm i dynamsoft-capture-vision-std@1.2.0 -E
   npm i dynamsoft-image-processing@2.2.10 -E
   ```
-
-- yarn
-
-  ```cmd
-  yarn add dynamsoft-barcode-reader-bundle@10.2.1000 -E
-  yarn add dynamsoft-capture-vision-std@1.2.0 -E
-  yarn add dynamsoft-image-processing@2.2.10 -E
-  ```
+  The resources are located at path `node_modules/<pkg>`, without `@<version>`.
 
 Depending on how you downloaded the SDK and how you intend to use it, you can typically include it like this
 
 - From the website
 
   ```html
-  <script src="./dynamsoft/distributables/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
+  <script src="dynamsoft/distributables/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
   ```
 
-- yarn or npm
+- From node_modules
 
   ```html
-  <script src="/node_modules/dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js"></script>
+  <script src="node_modules/dynamsoft-barcode-reader-bundle/dist/dbr.bundle.js"></script>
   ```
+  Since `@<version>` are missing, you need to [specify the engineResourcePaths](#specify-the-location-of-the-engine-files-optional).
 
 *Note*:
 
@@ -328,13 +349,13 @@ The purpose is to tell the SDK where to find the engine files (\*.worker.js, \*.
 ```javascript
 //The following code uses the jsDelivr CDN, feel free to change it to your own location of these files
 Object.assign(Dynamsoft.Core.CoreModule.engineResourcePaths, {
-  std: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-std@1.2.0/dist/",
-  dip: "https://cdn.jsdelivr.net/npm/dynamsoft-image-processing@2.2.10/dist/",
-  core: "https://cdn.jsdelivr.net/npm/dynamsoft-core@3.2.10/dist/",
-  license: "https://cdn.jsdelivr.net/npm/dynamsoft-license@3.2.10/dist/",
-  cvr: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-router@2.2.10/dist/",
+  std: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-std@1.2.10/dist/",
+  dip: "https://cdn.jsdelivr.net/npm/dynamsoft-image-processing@2.2.30/dist/",
+  core: "https://cdn.jsdelivr.net/npm/dynamsoft-core@3.2.30/dist/",
+  license: "https://cdn.jsdelivr.net/npm/dynamsoft-license@3.2.21/dist/",
+  cvr: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-router@2.2.30/dist/",
   dbr: "https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader@10.2.10/dist/",
-  dce: "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@4.0.2/dist/"
+  dce: "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@4.0.3/dist/"
 });
 ```
 
@@ -366,7 +387,7 @@ try {
 
 *Tip*:
 
-When creating a `CaptureVisionRouter` object within a function which may be called more than once, it's best to use a "helper" variable to avoid double creation such as `pRouter` in the following code:
+When creating a `CaptureVisionRouter` object within a function which may be called more than once, it's best to use a "helper" variable to avoid double creation such as `pCvRouter` in the following code:
 
 ```javascript
 Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
