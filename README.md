@@ -203,26 +203,14 @@ If the test doesn't go as expected, you can [contact us](https://www.dynamsoft.c
 
 To utilize the SDK, the initial step involves including the corresponding resource files:
 
-* `core.js` encompasses common classes, interfaces, and enumerations that are shared across all Dynamsoft SDKs.
+* `core.js` encompasses common classes, interfaces, and enumerations shared across all Dynamsoft SDKs.
 * `license.js` introduces the `LicenseManager` class, which manages the licensing for all Dynamsoft SDKs.
-* `utility.js` encompasses auxiliary classes that are shared among all Dynamsoft SDKs.
-* `dbr.js` defines interfaces and enumerations specifically tailored to the barcode reader module.
+* `utility.js` encompasses auxiliary classes shared among all Dynamsoft SDKs.
+* `dbr.js` defines interfaces and enumerations tailored to the barcode reader module.
 * `cvr.js` introduces the `CaptureVisionRouter` class, which governs the entire image processing workflow.
 * `dce.js` comprises classes that offer camera support and basic user interface functionalities.
 
-For simplification, starting from version 10.0.21, we introduced `dbr.bundle.js`. Including this file is equivalent to incorporating all six packages.
-
-* dynamsoft-core@3.2.30/dist/core.js
-* dynamsoft-license@3.2.21/dist/license.js
-* dynamsoft-utility@1.2.20/dist/utility.js
-* dynamsoft-barcode-reader@10.2.10/dist/dbr.js
-* dynamsoft-capture-vision-router@2.2.30/dist/cvr.js
-* dynamsoft-camera-enhancer@4.0.3/dist/dce.js
-
-Equivalent to
-* dynamsoft-barcode-reader-bundle@10.2.1000/dist/dbr.bundle.js
-
-In the following chapters, we will use `dbr.bundle.js`.
+To simplify things, starting from version 10.0.21, we introduced `dbr.bundle.js`, which combines all six of the above files. In the following chapters, we will use `dbr.bundle.js`.
 
 #### Use a public CDN
 
