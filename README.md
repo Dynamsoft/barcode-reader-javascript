@@ -89,7 +89,7 @@ The complete code of the "Hello World" example is shown below
 <body>
 <div id="camera-view-container" style="width: 100%; height: 60vh"></div>
 <textarea id="results" style="width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto" disabled></textarea>
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.4.2000/dist/dbr.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.4.2001/dist/dbr.bundle.js"></script>
 <script>
   Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
   Dynamsoft.Core.CoreModule.loadWasm(["dbr"]);
@@ -225,19 +225,19 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.4.2001/dist/dbr.bundle.js"></script>
   ```
 
 - UNPKG
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@10.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@10.4.2001/dist/dbr.bundle.js"></script>
   ```
 
 - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 
   ```html
-  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@10.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@10.4.2001/dist/dbr.bundle.js"></script>
   ```
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself.
@@ -245,9 +245,9 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - In frameworks like React and Vue, you may want to add the package as a dependency.
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@10.4.2000 -E
+  npm i dynamsoft-barcode-reader-bundle@10.4.2001 -E
   # or
-  yarn add dynamsoft-barcode-reader-bundle@10.4.2000 -E
+  yarn add dynamsoft-barcode-reader-bundle@10.4.2001 -E
   ```
 
   NOTE that in frameworks, you need to [specify the engineResourcePaths](#specify-the-location-of-the-engine-files-optional).
@@ -265,13 +265,13 @@ There are two options for downloading the SDK, and the usage for each is slightl
   The resources are located at path `dynamsoft/distributables/<pkg>@<version>`, you can typically include it like this:
 
   ```html
-  <script src="dynamsoft/distributables/dynamsoft-barcode-reader-bundle@10.4.2000/dist/dbr.bundle.js"></script>
+  <script src="dynamsoft/distributables/dynamsoft-barcode-reader-bundle@10.4.2001/dist/dbr.bundle.js"></script>
   ```
 
 - npm
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@10.4.2000 -E
+  npm i dynamsoft-barcode-reader-bundle@10.4.2001 -E
   # Compared with using CDN, you need to set up more resources.
   npm i dynamsoft-capture-vision-std@1.4.10 -E
   npm i dynamsoft-image-processing@2.4.20 -E
@@ -327,16 +327,8 @@ This is usually only required with frameworks like Angular or React, etc. where 
 The purpose is to tell the SDK where to find the engine files (\*.worker.js, \*.wasm.js and \*.wasm, etc.). The API is called `Dynamsoft.Core.CoreModule.engineResourcePaths`:
 
 ```javascript
-//The following code uses the jsDelivr CDN, feel free to change it to your own location of these files
-Object.assign(Dynamsoft.Core.CoreModule.engineResourcePaths, {
-  std: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-std@1.4.10/dist/",
-  dip: "https://cdn.jsdelivr.net/npm/dynamsoft-image-processing@2.4.20/dist/",
-  core: "https://cdn.jsdelivr.net/npm/dynamsoft-core@3.4.20/dist/",
-  license: "https://cdn.jsdelivr.net/npm/dynamsoft-license@3.4.20/dist/",
-  cvr: "https://cdn.jsdelivr.net/npm/dynamsoft-capture-vision-router@2.4.20/dist/",
-  dbr: "https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader@10.4.20/dist/",
-  dce: "https://cdn.jsdelivr.net/npm/dynamsoft-camera-enhancer@4.1.0/dist/"
-});
+//The following code uses the jsDelivr CDN as an example, feel free to change it to your own location of these files
+CoreModule.engineResourcePaths.rootDirectory = "https://cdn.jsdelivr.net/npm/";
 ```
 
 ### Set up and start image processing
@@ -600,7 +592,7 @@ await cvRouter.startCapturing("ReadSingleBarcode");
 
 The preset templates have many more settings that can be customized to suit your use case best. If you [download the SDK from Dynamsoft website](https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/), you can find the templates under
 
-* "/dynamsoft-barcode-reader-js-10.4.2000/dynamsoft/templates/"
+* "/dynamsoft-barcode-reader-js-10.4.2001/dynamsoft/templates/"
 
 Upon completing the template editing, you can invoke the `initSettings` method and provide it with the template path as an argument.
 
@@ -677,12 +669,12 @@ cvRouter.addResultReceiver(resultReceiver);
 
 ### Customize the UI
 
-The UI is part of the auxiliary SDK "Dynamsoft Camera Enhancer", read more on how to [customize the UI](https://www.dynamsoft.com/camera-enhancer/docs/web/programming/javascript/user-guide/index.html#customize-the-ui).
+The UI is part of the auxiliary SDK "Dynamsoft Camera Enhancer", read more on how to [customize the UI](https://www.dynamsoft.com/barcode-reader/docs/core/programming/features/ui-customization-js.html?lang=js).
 
 ## API Documentation
 
 You can check out the detailed documentation about the APIs of the SDK at
-[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=10.4.2000](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=10.4.2000).
+[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=10.4.2001](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=10.4.2001).
 
 ## System Requirements
 
@@ -724,7 +716,7 @@ Apart from the browsers, the operating systems may impose some limitations of th
 
 ## How to Upgrade
 
-If you want to upgrade the SDK from an old version to a newer one, please see [how to upgrade](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/upgrade-guide/index.html?ver=10.4.2000&utm_source=github).
+If you want to upgrade the SDK from an old version to a newer one, please see [how to upgrade](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/upgrade-guide/index.html?ver=10.4.2001&utm_source=github).
 
 ## Release Notes
 
@@ -736,4 +728,4 @@ Now that you have got the SDK integrated, you can choose to move forward in the 
 
 1. Learn how to [Use in Framework](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/use-in-framework.html)
 2. Check out the [Official Samples and Demo](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html?ver=10.4.20)
-3. Learn about the [APIs of the SDK](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/index.html?ver=10.4.2000)
+3. Learn about the [APIs of the SDK](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/index.html?ver=10.4.2001)
