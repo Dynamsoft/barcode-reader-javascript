@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-barcode-reader-bundle",
-  "version": "10.4.2002",
+  "version": "10.4.3100",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "main": "dist/dbr.bundle.js",
   "module": "dist/dbr.no-content-bundle.esm.js",
@@ -20,7 +20,9 @@
   "files": [
     "/dist",
     "LEGAL.txt",
-    "LICENSE"
+    "LICENSE",
+    "samples.url",
+    "API Reference.url"
   ],
   "scripts": {
     "build": "rollup -c --environment BUILD:production",
@@ -64,7 +66,7 @@
     "tag": "latest"
   },
   "devDependencies": {
-    "@dynamsoft/rd2-scripts": "^0.1.27",
+    "@dynamsoft/rd2-scripts": "^0.1.36",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
@@ -76,11 +78,11 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "dynamsoft-barcode-reader": "10.4.20",
-    "dynamsoft-camera-enhancer": "4.1.0",
-    "dynamsoft-capture-vision-router": "2.4.22",
-    "dynamsoft-core": "3.4.21",
-    "dynamsoft-license": "3.4.21",
-    "dynamsoft-utility": "1.4.21"
+    "dynamsoft-barcode-reader": "10.4.31",
+    "dynamsoft-camera-enhancer": "4.1.1",
+    "dynamsoft-capture-vision-router": "2.4.33",
+    "dynamsoft-core": "3.4.31",
+    "dynamsoft-license": "3.4.31",
+    "dynamsoft-utility": "1.4.32"
   }
 }
