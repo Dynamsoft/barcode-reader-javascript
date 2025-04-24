@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-barcode-reader-bundle",
-  "version": "10.4.3100",
+  "version": "10.5.3000",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "main": "dist/dbr.bundle.js",
   "module": "dist/dbr.no-content-bundle.esm.js",
@@ -22,12 +22,14 @@
     "LEGAL.txt",
     "LICENSE",
     "samples.url",
-    "API Reference.url"
+    "API_Reference_BarcodeScanner.url",
+    "API_Reference_Foundational.url"
   ],
   "scripts": {
     "build": "rollup -c --environment BUILD:production",
+    "build-dev": "rollup -c --environment BUILD:development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "update:readme": "updateReadme --package=dynamsoft-barcode-reader-bundle --version=latest --branch=preview --html",
+    "update:readme": "updateReadme --package=dynamsoft-barcode-reader-bundle --version=latest --branch=preview --html --rtu",
     "updateLink:npm": "updateLink --source=npm",
     "updateLink:zip": "updateLink --source=zip",
     "updateLink:github": "updateLink --source=github",
@@ -66,12 +68,13 @@
     "tag": "latest"
   },
   "devDependencies": {
-    "@dynamsoft/rd2-scripts": "^0.1.36",
+    "@dynamsoft/rd2-scripts": "^0.1.38",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@scannerproxy/curscript-path": "^2.0.1",
+    "@scannerproxy/curscript-path": "^2.0.6",
+    "mutable-promise": "^1.1.15",
     "rollup": "^3.29.3",
     "rollup-plugin-dts": "^6.1.0",
     "tslib": "^2.6.2",

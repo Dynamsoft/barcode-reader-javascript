@@ -1,0 +1,420 @@
+<html>
+  <head>
+    <title>Dynamsoft Barcode Reader for Your Website - User Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <style type='text/css'>
+      body {
+        font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #111;
+        background-color: #fbfbfb;
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-feature-settings: "kern" 1;
+        -moz-font-feature-settings: "kern" 1;
+        -o-font-feature-settings: "kern" 1;
+        font-feature-settings: "kern" 1;
+        font-kerning: normal;
+        padding: 30px;
+      }
+      
+      @media only screen and (max-width: 600px) {
+        body {
+            padding: 5px;
+        }
+        body>#content {
+            padding: 0px 20px 20px 20px !important;
+        }
+      }
+      
+      body>#content {
+        margin: 0px;
+        max-width: 900px;
+        border: 1px solid #e1e4e8;
+        padding: 10px 40px;
+        padding-bottom: 20px;
+        border-radius: 2px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      hr {
+        color: #bbb;
+        background-color: #bbb;
+        height: 1px;
+        flex: 0 1 auto;
+        margin: 1em 0;
+        padding: 0;
+        border: none;
+      }
+      
+      
+      /**
+      * Links
+      */
+      
+      a {
+        color: #0366d6;
+        text-decoration: none;
+      }
+      
+      a:visited {
+        color: #0366d6;
+      }
+      
+      a:hover {
+        color: #0366d6;
+        text-decoration: underline;
+      }
+      
+      pre {
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        font-size: 85%;
+        line-height: 1.45;
+        overflow: auto;
+        padding: 16px;
+      }
+      
+      
+      /**
+      * Code blocks
+      */
+      
+      code {
+        background-color: rgba(27, 31, 35, .05);
+        border-radius: 3px;
+        font-size: 85%;
+        margin: 0;
+        word-wrap: break-word;
+        padding: .2em .4em;
+        font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+      }
+      
+      pre>code {
+        background-color: transparent;
+        border: 0;
+        display: inline;
+        line-height: inherit;
+        margin: 0;
+        overflow: visible;
+        padding: 0;
+        word-wrap: normal;
+        font-size: 100%;
+      }
+      
+      
+      /**
+      * Blockquotes
+      */
+      
+      blockquote {
+        margin-left: 30px;
+        margin-top: 0px;
+        margin-bottom: 16px;
+        border-left-width: 3px;
+        padding: 0 1em;
+        color: #828282;
+        border-left: 4px solid #e8e8e8;
+        padding-left: 15px;
+        font-size: 18px;
+        letter-spacing: -1px;
+        font-style: italic;
+      }
+      
+      blockquote * {
+        font-style: normal !important;
+        letter-spacing: 0;
+        color: #6a737d !important;
+      }
+      
+      
+      /**
+      * Tables
+      */
+      
+      table {
+        border-spacing: 2px;
+        display: block;
+        font-size: 14px;
+        overflow: auto;
+        width: 100%;
+        margin-bottom: 16px;
+        border-spacing: 0;
+        border-collapse: collapse;
+      }
+      
+      td {
+        padding: 6px 13px;
+        border: 1px solid #dfe2e5;
+      }
+      
+      th {
+        font-weight: 600;
+        padding: 6px 13px;
+        border: 1px solid #dfe2e5;
+      }
+      
+      tr {
+        background-color: #fff;
+        border-top: 1px solid #c6cbd1;
+      }
+      
+      table tr:nth-child(2n) {
+        background-color: #f6f8fa;
+      }
+      
+      
+      /**
+      * Others
+      */
+      
+      img {
+        max-width: 100%;
+      }
+      
+      p {
+        line-height: 24px;
+        font-weight: 400;
+        font-size: 16px;
+        color: #24292e;
+      }
+      
+      ul {
+        margin-top: 0;
+      }
+      
+      li {
+        color: #24292e;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+      
+      li+li {
+        margin-top: 0.25em;
+      }
+      
+      * {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: #24292e;
+      }
+      
+      a:visited {
+        color: #0366d6;
+      }
+      
+      h1,
+      h2,
+      h3 {
+        border-bottom: 1px solid #eaecef;
+        color: #111;
+        /* Darker */
+      }
+      
+      code>* {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+      }
+    </style>
+    <style type='text/css'>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#383a42;background:#fafafa}.hljs-comment,.hljs-quote{color:#a0a1a7;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e45649}.hljs-literal{color:#0184bb}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#50a14f}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#4078f2}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#c18401}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}</style>
+  </head>
+  <body>
+    <div id='content'>
+<h1 id="barcode-scanner-javascript-edition---user-guide">Barcode Scanner JavaScript Edition - User Guide</h1>
+<ul>
+<li><a href="#barcode-scanner-javascript-edition---user-guide">Barcode Scanner JavaScript Edition - User Guide</a></li>
+<li><a href="#license">License</a><ul>
+<li><a href="#trial-license">Trial License</a></li>
+<li><a href="#full-license">Full License</a></li></ul></li>
+<li><a href="#quick-start-hello-world-example">Quick Start: Hello World Example</a><ul>
+<li><a href="#step-1-setting-up-the-html-and-including-the-barcode-scanner">Step 1: Setting up the HTML and Including the Barcode Scanner</a></li>
+<li><a href="#step-2-initializing-the-barcode-scanner">Step 2: Initializing the Barcode Scanner</a></li>
+<li><a href="#step-3-launching-the-barcode-scanner">Step 3: Launching the Barcode Scanner</a></li></ul></li>
+<li><a href="#next-steps">Next Steps</a></li>
+</ul>
+<p>This user guide provides a step-by-step walkthrough of a "Hello World" web application using the <code>BarcodeScanner</code> JavaScript Edition.</p>
+<p>The <code>BarcodeScanner</code> class offers the following features:</p>
+<ul>
+<li><p>High-level APIs that deliver core functionality with a single line of code.</p></li>
+<li><p>Pre-built UI components for fast and easy integration.</p></li>
+<li><p>Intuitive configuration objects that streamline both algorithm and UI setup.</p></li>
+</ul>
+<p>We recommend using this guide as a reference when creating your own application. If you are looking for a fully customizable barcode decoding library, you are welcome to use the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/index.html">Foundational APIs</a>. Before starting, ensure the <strong>basic requirements</strong> are met.</p>
+<!-- 
+Thanks to its simplified APIs and built-in UI for video streaming, you can implement basic scanning functionality with just one line of code:
+<pre><code class="hljs js language-js"><span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner().launch().then(<span class="hljs-function"><span class="hljs-params">result</span>=&gt;</span>alert(result.barcodeResults[<span class="hljs-number">0</span>].text));
+</code></pre>
+
+<p align="center" style="text-align:center; white-space: normal; ">
+  <a target="_blank" href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/" title="Run via JSFiddle" style="text-decoration:none;">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
+  </a>
+</p> 
+-->
+<ul>
+<li>Internet connection</li>
+<li>A supported browser</li>
+<li>Camera access</li>
+</ul>
+<blockquote>
+  <p>[!TIP]<br />
+  Please refer to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/faq/system-requirement.html">system requirements</a> for more details.</p>
+</blockquote>
+<h2 id="license">License</h2>
+<h3 id="trial-license">Trial License</h3>
+<!-- When getting started with Barcode Scanner, we recommend getting your own 30-day trial license through the [customer portal](https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js). The trial license can be renewed via the same customer portal twice, each time for another 15 days, giving you a total of 60 days to develop your own application using the solution. Please contact the [Dynamsoft Support Team](https://www.dynamsoft.com/company/contact/) if you need more time for a full evaluation.
+
+> [!NOTE]
+> The **Barcode Scanner** license contains a license for the **Dynamsoft Barcode Reader**, and the **Dynamsoft Camera Enhancer** since the Barcode Scanner builds on top of those two products. 
+-->
+<p>When getting started with Barcode Scanner, we recommend <a href="https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js">getting your own 30-day trial license</a></p>
+<!-- {% include trialLicense.html %} -->
+<blockquote>
+  <p>[!IMPORTANT]<br />
+  The trial license can be renewed via the <a href="https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js">customer portal</a> twice, each time for another 15 days, giving you a total of 60 days to develop your own application using the solution. Please contact the <a href="https://www.dynamsoft.com/company/contact/">Dynamsoft Support Team</a> if you need more time for a full evaluation.</p>
+</blockquote>
+<h3 id="full-license">Full License</h3>
+<p>If you are fully satisfied with the solution and would like to move forward with a full license, please contact the <a href="https://www.dynamsoft.com/company/contact/">Dynamsoft Sales Team</a>.</p>
+<h2 id="quick-start-hello-world-example">Quick Start: Hello World Example</h2>
+<pre><code class="hljs html language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Dynamsoft Barcode Scanner - Hello World<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.5.3000/dist/dbr.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"font-size: large"</span>&gt;</span>Dynamsoft Barcode Scanner<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+      <span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner</span>
+      <span class="hljs-keyword">const</span> barcodeScanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
+        <span class="hljs-comment">// Please don't forget to replace YOUR_LICENSE_KEY_HERE</span>
+        <span class="hljs-attr">license</span>: <span class="hljs-string">"YOUR_LICENSE_KEY_HERE"</span>,
+      });
+      <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">async</span> (</span>) =&gt;</span> {
+        <span class="hljs-comment">// Launch the scanner and wait for the result</span>
+        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> barcodeScanner.launch();
+        alert(result.barcodeResults[<span class="hljs-number">0</span>].text);
+      })();
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p align="center" style="text-align:center; white-space: normal; ">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v10.5.30/scan-single-barcode/hello-world/hello-world.html" title="Code in Github" style="text-decoration:none;">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
+  </a>
+  &nbsp;
+  <a target="_blank" href="https://jsfiddle.net/DynamsoftTeam/gcqjf5r7/" title="Run via JSFiddle" style="text-decoration:none;">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
+  </a>
+  &nbsp;
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/barcode-scanner-api-samples/scan-single-barcode/hello-world.html?ver=10.5.30&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
+    <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
+  </a>
+</p>
+<h3 id="step-1-setting-up-the-html-and-including-the-barcode-scanner">Step 1: Setting up the HTML and Including the Barcode Scanner</h3>
+<p>As outlined earlier, this guide will help you create a simple Hello World barcode scanning application using vanilla JavaScript. The full sample code is also available in the <a href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/v10.5.30">GitHub repository</a>.</p>
+<p>The first step before writing the code is to include the SDK in your application. You can simply include the SDK by using the precompiled script.</p>
+<pre><code class="hljs html language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Dynamsoft Barcode Scanner - Hello World<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.5.3000/dist/dbr.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"font-size: large"</span>&gt;</span>Dynamsoft Barcode Scanner<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>In this example, we include the precompiled Barcode Scanner SDK script via public CDN in the header.</p>
+<div class="multi-panel-switching-prefix"></div>
+<div class="multi-panel-start"></div>
+<div class="multi-panel-title">Use a public CDN</div>
+<p>The simplest way to include the SDK is to use either the <a href="https://jsdelivr.com/"><strong>jsDelivr</strong></a> or <a href="https://unpkg.com/"><strong>UNPKG</strong></a> CDN.</p>
+<ul>
+<li>jsDelivr</li>
+</ul>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@10.5.3000/dist/dbr.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<ul>
+<li>UNPKG</li>
+</ul>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/dynamsoft-barcode-reader-bundle@10.5.3000/dist/dbr.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<p>When using a framework such as <strong>React</strong>, <strong>Vue</strong> or <strong>Angular</strong>, we recommend adding the package as a dependency using a package manager such as <strong>npm</strong> or <strong>yarn</strong>:</p>
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@10.5.3000
+  <span class="hljs-comment"># or</span>
+  yarn add dynamsoft-barcode-reader-bundle@10.5.3000
+</code></pre>
+<p>As for package managers like <strong>npm</strong> or <strong>yarn</strong>, you likely need to specify the location of the engine files as a link to a CDN. Please see the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig">BarcodeScannerConfig API</a> for a code snippet on how to set the <code>engineResourcePaths</code>.</p>
+<div class="multi-panel-end"></div>
+<div class="multi-panel-start"></div>
+<div class="multi-panel-title">Host the SDK yourself</div>
+<p>Alternatively, you may choose to download the SDK and host the files on your own server or preferred CDN. This approach provides better control over versioning and availability.</p>
+<ul>
+<li><p>From the website</p>
+<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=10.5.30&utm_source=github&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
+<p>The resources are located at path <code>dynamsoft/distributables/</code>.</p></li>
+<li><p>From npm</p></li>
+</ul>
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@10.5.3000
+</code></pre>
+<p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You can copy it elsewhere and add <code>@&lt;version&gt;</code> tag. One more thing to do is to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig">specify the engineResourcePaths</a> so that the SDK can correctly locate the resources.</p>
+<blockquote>
+  <p>[!IMPORTANT]<br />
+  Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
+</blockquote>
+<p>You can typically include SDK like this:</p>
+<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"path/to/dynamsoft-barcode-reader-bundle@10.5.3000/dist/dbr.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<div class="multi-panel-end"></div>
+<div class="multi-panel-switching-end"></div>
+<p>Barcode Scanner comes with a <strong>Ready-to-Use UI</strong>. When the Barcode Scanner launches, it creates a container which it populates with the <strong>Ready-to-Use UI</strong>.</p>
+<h3 id="step-2-initializing-the-barcode-scanner">Step 2: Initializing the Barcode Scanner</h3>
+<pre><code class="hljs js language-js"><span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner</span>
+<span class="hljs-keyword">const</span> Barcodescanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
+  <span class="hljs-comment">// Please don't forget to replace YOUR_LICENSE_KEY_HERE</span>
+  <span class="hljs-attr">license</span>: <span class="hljs-string">"YOUR_LICENSE_KEY_HERE"</span>, 
+});
+</code></pre>
+<p>This is the <strong>simplest</strong> way to initialize the Barcode Scanner. The configuration object must include a valid <strong>license</strong> key. Without it, the scanner will fail to launch and display an error. For help obtaining a license, see the <a href="#license">licensing</a> section.</p>
+<blockquote>
+  <p>[!TIP]<br />
+  By default, the <code>BarcodeScanner</code> scans a single barcode at a time. However, it also supports a <code>MULTI_UNIQUE</code> scanning mode, which continuously scans and accumulates unique results in real time. You can enable this mode by modifying the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig"><code>BarcodeScannerConfig</code></a> as follows:</p>
+</blockquote>
+<pre><code class="hljs js language-js"><span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner in MULTI_UNIQUE mode</span>
+<span class="hljs-keyword">const</span> barcodescanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
+  <span class="hljs-attr">license</span>: <span class="hljs-string">"YOUR_LICENSE_KEY_HERE"</span>,
+  <span class="hljs-attr">scanMode</span>: Dynamsoft.EnumScanMode.SM_MULTI_UNIQUE,
+  <span class="hljs-attr">showResultView</span>: <span class="hljs-literal">true</span>,
+});
+</code></pre>
+<h3 id="step-3-launching-the-barcode-scanner">Step 3: Launching the Barcode Scanner</h3>
+<pre><code class="hljs js language-js">(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-comment">// Launch the scanner and wait for the result</span>
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> barcodescanner.launch();
+  alert(result.barcodeResults[<span class="hljs-number">0</span>].text);
+})();
+</code></pre>
+<p>Now that the Barcode Scanner has been initialized and configured, it is ready to be launched! Upon launch, the Barcode Scanner presents the main <strong><code>BarcodeScannerView</code></strong> UI in its container on the page, and is ready to start scanning. By default, we use the <code>SINGLE</code> scanning mode, which means only one decoding result will be included in the final result. In the code above, we directly alerted the successfully decoded barcode text on the page.</p>
+<blockquote>
+  <p>[!NOTE]<br />
+  In the Hello World sample, after a successfully decoding process, the scanner closes and the user is met with an empty page. In order to open the scanner again, the user must refresh the page. You may choose to implement a more user-friendly behavior in a production environment, such as presenting the user with an option to re-open the Barcode Scanner upon closing it.</p>
+</blockquote>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you've implemented the basic functionality, here are some recommended next steps to further explore the capabilities of the Barcode Scanner</p>
+<ol>
+<li>Learn how to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/barcode-scanner-customization.html">Customize the Barcode Scanner</a></li>
+<li>Check out the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html?ver=10.5.30">Official Samples and Demo</a></li>
+<li>Learn about the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html?ver=10.5.3000">APIs of BarcodeScanner</a></li>
+</ol>
+    </div>
+  </body>
+</html>
