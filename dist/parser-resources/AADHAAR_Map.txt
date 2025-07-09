@@ -1,0 +1,3 @@
+MapTableName: GenderCode
+M male
+F female

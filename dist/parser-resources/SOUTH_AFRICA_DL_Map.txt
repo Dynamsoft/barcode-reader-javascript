@@ -1,0 +1,3 @@
+MapTableName: GenderCode
+01 male
+02 female

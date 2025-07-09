@@ -1,0 +1,150 @@
+MapTableName: RegionCode
+AA-AH South Africa
+AJ-AK Ivory Coast
+AL-AM Lesotho
+AN-AP Botswana
+AR-AS Namibia
+AT-AU Madagascar
+AV-AW Mauritius
+AX-AY Tunisia
+AZ,A1 Cyprus
+A2,A3 Zimbabwe
+A4,A5 Mozambique
+A6-A9,A0 unassigned
+BA-BB Angola
+BC-BE unassigned
+BF-BG Kenya
+BH-BK unassigned
+BL Nigeria
+BM-BP unassigned
+BR Algeria
+BS-BT unassigned
+BU Uganda
+BV-BZ unassigned
+B1-B2 unassigned
+B3-B4 Libya
+B5-B9,B0 unassigned
+CA-CE Benin
+CF-CK Madagascar
+CL-CR Tunisia
+CS-CZ,C0-C9 unassigned
+DA-DE Egypt
+DF-DK Morocco
+DL-DR Zambia
+DS-DZ,D0-D9 unassigned
+EA-EE Ethiopia
+EF-EK Mozambique
+EL-EZ,E0-E9 unassigned
+FA-FE Ghana
+FF-FK Nigeria
+FL-FZ,F0-F9 unassigned
+GA-GZ,G0-G9 unassigned
+HA-HZ,H0-H9 China (Mainland)
+J0-J9,JA-JZ Japan
+KA-KE Sri Lanka
+KF-KK Israel
+KL-KR Korea (South)
+KS-KT Jordan
+KU-KZ,K0-K9 unassigned
+L0-L9,LA-LZ China (Mainland)
+MA-ME India 
+MF-MK Indonesia
+ML-MR Thailand
+MS Myanmar
+MT unassigned
+MU Mongolia
+MV-MW unassigned
+MX Kazakhstan
+MY-MZ,M0-M9 unassigned
+NA-NE Iran
+NF-NK Pakistan
+NL-NR Turkey
+NS-NT Uzbekistan
+NU unassigned
+NV Azerbaijan
+NW,NX unassigned
+NY Armenia
+NZ,N0-N9 unassigned
+PA-PE Philippines
+PF-PK Singapore
+PL-PR Malaysia
+PS-PT Bangladesh
+PU-PZ,P0-P9 unassigned
+RA-RE United Arab Emirates
+RF-RK Taiwan
+RL-RR Vietnam
+RS-RT Saudi Arabia
+RU-RZ unassigned
+R1-R7 Hongkong
+R8-R9,R0 unassigned
+SA-SM United Kingdom
+SN-ST Germany (formerly East Germany)
+SU-SZ Poland
+S1-S2 Latvia
+S3 Georgia
+S4 Iceland
+S0,S5-S9 unassigned
+TA-TH Switzerland
+TJ-TP Czech Republic
+TR-TV Hungary
+TW-TZ,T1,T2 Portugal
+T3,T4 Serbia & Montenegro
+T0,T5-T9 unassigned
+UA-UC Spain
+UD-UG unassigned
+UH-UM Denmark
+UN-UT Ireland
+UU-UZ Romania
+U1-U4 Macedonia
+U5-U7 Slovakia
+U0,U8,U9 Bosnia and Herzegovina
+VA-VE Austria
+VF-VR France
+VS-VW Spain
+VX-VZ,V1,V2 Serbia
+V3-V5 Croatia
+V0,V6-V9 Estonia
+W0-W9,WA-WZ Germany (formerly West Germany)
+XA-XE Bulgaria
+XF-XK Greece
+XL-XR Netherlands
+XS-XW Russia (former USSR)
+XX-XZ,X1-X2 Luxembourg
+X0,X3-X9 Russia
+YA-YE Belgium
+YF-YK Finland
+YL-YR Malta
+YS-YW Sweden
+YX-YZ,Y1,Y2 Norway
+Y3-Y5 Belarus
+Y0,Y6-Y9 Ukraine
+ZA-ZU Italy
+ZV-ZW unassigned
+ZX-ZZ,Z1-Z2 Slovenia
+Z3-Z5 Lithuania
+Z0,Z6-Z9 unassigned
+10-19,1A-1Z United States
+20-29,2A-2Z Canada
+3A-3X Mexico
+3Y,3Z,31-37 Costa Rica
+38-39 Cayman Islands
+30 unassigned
+40-49,4A-4Z,50-59,5A-5Z United States
+60-69,6A-6Z Australia
+7A-7E New Zealand
+7F-7Z,70-79 United States
+8A-8E Argentina
+8F-8K Chile
+8L-8R Ecuador
+8S-8W Peru
+8X-8Z,81 Venezuela
+82 Bolivia
+80,83-89 unassigned
+9A-9E Brazil
+9F-9K Colombia
+9L-9R Paraguay
+9S-9W Uruguay
+9X-9Z,91,92 Trinidad & Tobago
+93-99 Brazil
+90 unassigned
+0A-0Z,00-09 unassigned
