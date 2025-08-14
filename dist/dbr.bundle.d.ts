@@ -134,6 +134,7 @@ declare enum EnumErrorCode {
     EC_PDF_LICENSE_NOT_FOUND = -10079,
     /**The rectangle is invalid.*/
     EC_RECT_INVALID = -10080,
+    EC_TEMPLATE_VERSION_INCOMPATIBLE = -10081,
     /** Indicates no license is available or the license is not set. */
     EC_NO_LICENSE = -20000,
     /** Encountered failures while attempting to read or write to the license buffer. */
@@ -148,6 +149,13 @@ declare enum EnumErrorCode {
     EC_INSTANCE_COUNT_OVER_LIMIT = -20008,
     /** Indicates the license in use is a trial version with limited functionality or usage time. */
     EC_TRIAL_LICENSE = -20010,
+    /**The license is not valid for current version*/
+    EC_LICENSE_VERSION_NOT_MATCH = -20011,
+    /**Online license validation failed due to network issues.Using cached license information for validation.*/
+    EC_LICENSE_CACHE_USED = -20012,
+    EC_LICENSE_AUTH_QUOTA_EXCEEDED = -20013,
+    /**License restriction: the number of results has exceeded the allowed limit.*/
+    EC_LICENSE_RESULTS_LIMIT_EXCEEDED = -20014,
     /** The specified barcode format is invalid or unsupported. */
     EC_BARCODE_FORMAT_INVALID = -30009,
     /** The specified custom module size for barcode generation is invalid or outside acceptable limits. */
@@ -987,6 +995,11 @@ interface CapturedResultBase {
     readonly originalImageTag: ImageTag;
 }
 
+interface ErrorInfo {
+    errorCode: EnumErrorCode;
+    errorString: string;
+}
+
 declare abstract class ImageSourceAdapter {
     #private;
     /**
@@ -1215,7 +1228,9 @@ declare const productNameMap: {
     readonly dcvBundle: "dynamsoft-capture-vision-bundle";
 };
 
-export { Arc, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumTransformMatrixType, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmVersions, WorkerAutoResources, _getNorImageData, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, checkIsLink, compareVersion, doOrWaitAsyncDependency, getNextTaskID, handleEngineResourcePaths, innerVersions, isArc, isContour, isDSImageData, isDSRect, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+export { Arc, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumTransformMatrixType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmVersions, WorkerAutoResources, _getNorImageData, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, checkIsLink, compareVersion, doOrWaitAsyncDependency, getNextTaskID, handleEngineResourcePaths, innerVersions, isArc, isContour, isDSImageData, isDSRect, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+
+
 
 
 
@@ -1226,7 +1241,9 @@ interface CapturedResult extends CapturedResultBase {
     /** The decoded barcode results within the original image. */
     decodedBarcodesResult?: DecodedBarcodesResult;
     /** The recognized textLine results within the original image. */
+    // recognizedTextLinesResult?: RecognizedTextLinesResult;
     /** The processed document results within the original image. */
+    // processedDocumentResult?: ProcessedDocumentResult;
     /** The parsed results within the original image. */
     parsedResult?: ParsedResult;
 }
@@ -1245,6 +1262,26 @@ declare class CapturedResultReceiver {
      */
     onOriginalImageResultReceived?: (result: OriginalImageResultItem) => void;
     [key: string]: any;
+}
+
+declare class BufferedItemsManager {
+    private _cvr;
+    constructor(cvr: any);
+    /**
+     * Gets the maximum number of buffered items.
+     * @returns Returns the maximum number of buffered items.
+     */
+    getMaxBufferedItems(): Promise<number>;
+    /**
+     * Sets the maximum number of buffered items.
+     * @param count the maximum number of buffered items
+     */
+    setMaxBufferedItems(count: number): Promise<void>;
+    /**
+     * Gets the buffered character items.
+     * @return the buffered character items
+     */
+    getBufferedCharacterItemSet(): Promise<Array<any>>;
 }
 
 declare class IntermediateResultReceiver {
@@ -1401,7 +1438,7 @@ declare class CaptureVisionRouter {
       *
       * @returns A promise that resolves once the recognition data file is successfully loaded. It does not provide any value upon resolution.
       */
-    static appendModelBuffer(modelName: string, dataPath?: string): Promise<unknown>;
+    static appendModelBuffer(modelName: string, dataPath?: string): Promise<ErrorInfo>;
     /**
      * An event that fires during the loading of a recognition data file (.data).
      * @param filePath The path of the recognition data file.
@@ -1496,7 +1533,7 @@ declare class CaptureVisionRouter {
      *
      * @returns A promise that resolves when the operation has completed. It provides an object that describes the result.
      */
-    initSettings(settings: string | object): Promise<any>;
+    initSettings(settings: string | object): Promise<ErrorInfo>;
     /**
      * Returns an object that contains settings for the specified `CaptureVisionTemplate`.
      * @param templateName Specifies a `CaptureVisionTemplate` by its name. If passed "*", the returned object will contain all templates.
@@ -1533,17 +1570,18 @@ declare class CaptureVisionRouter {
      *
      * @returns A promise that resolves when the operation has completed. It provides an object that describes the result.
      */
-    updateSettings(templateName: string, settings: SimplifiedCaptureVisionSettings): Promise<any>;
+    updateSettings(templateName: string, settings: SimplifiedCaptureVisionSettings): Promise<ErrorInfo>;
     /**
      * Restores all runtime settings to their original default values.
      *
      * @returns A promise that resolves when the operation has completed. It provides an object that describes the result.
      */
-    resetSettings(): Promise<any>;
+    resetSettings(): Promise<ErrorInfo>;
     /**
      * Returns an object, of type `BufferedItemsManager`, that manages buffered items.
      * @returns The `BufferedItemsManager` object.
      */
+    getBufferedItemsManager(): BufferedItemsManager;
     /**
      * Returns an object, of type `IntermediateResultManager`, that manages intermediate results.
      *
@@ -3149,6 +3187,357 @@ declare class EventHandler {
     dispose(): void;
 }
 
+declare class ImageDataGetter {
+    #private;
+    static _onLog: (message: any) => void;
+    static get version(): string;
+    static _webGLSupported: boolean;
+    static get webGLSupported(): boolean;
+    useWebGLByDefault: boolean;
+    _reusedCvs: HTMLCanvasElement;
+    _reusedWebGLCvs?: HTMLCanvasElement;
+    get disposed(): boolean;
+    constructor();
+    private sourceIsReady;
+    /**
+     * Draw a image to canvas.
+     * TODO: fix image is flipped when drawing in 'WebGL'.
+     * @param canvas
+     * @param source
+     * @param sourceWidth
+     * @param sourceHeight
+     * @param position
+     * @param options
+     * @param options.bufferContainer if it is set and WebGL is used, the image data will be put into this variable.
+     * @returns
+     */
+    drawImage(canvas: HTMLCanvasElement, source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, sourceWidth: number, sourceHeight: number, position?: {
+        sx?: number;
+        sy?: number;
+        sWidth?: number;
+        sHeight?: number;
+        dx?: number;
+        dy?: number;
+        dWidth?: number;
+        dHeight?: number;
+    }, options?: {
+        pixelFormat?: EnumPixelFormat;
+        bUseWebGL?: boolean;
+        bufferContainer?: Uint8Array;
+        isEnableMirroring?: boolean;
+    }): {
+        context: CanvasRenderingContext2D | WebGLRenderingContext;
+        pixelFormat: EnumPixelFormat;
+        bUseWebGL: boolean;
+    };
+    /**
+     * Read 'Unit8Array' from context of canvas.
+     * @param context
+     * @param position
+     * @param bufferContainer If set, the data will be put into this variable, which will be useful when you want to reuse container.
+     * @returns
+     */
+    readCvsData(context: CanvasRenderingContext2D | WebGLRenderingContext, position?: {
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+    }, bufferContainer?: Uint8Array): Uint8Array;
+    /**
+     * Transform pixel format.
+     * @param data
+     * @param originalFormat
+     * @param targetFormat
+     * @param copy
+     * @returns
+     */
+    transformPixelFormat(data: Uint8Array, originalFormat: EnumPixelFormat, targetFormat: EnumPixelFormat, copy?: boolean): Uint8Array;
+    /**
+     * Get image data from image.
+     * @param source
+     * @param sourceWidth
+     * @param sourceHeight
+     * @param position
+     * @param options
+     * @returns
+     */
+    getImageData(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, position: {
+        sx: number;
+        sy: number;
+        sWidth: number;
+        sHeight: number;
+        dWidth: number;
+        dHeight: number;
+    }, options?: {
+        pixelFormat?: EnumPixelFormat.RGBA | EnumPixelFormat.GREY;
+        bufferContainer?: Uint8Array;
+        isEnableMirroring?: boolean;
+    }): {
+        data: Uint8Array;
+        pixelFormat: EnumPixelFormat;
+        width: number;
+        height: number;
+        bUseWebGL: boolean;
+    };
+    /**
+     * Draw image data to a canvas.
+     * @param data
+     * @param width
+     * @param height
+     * @param pixelFormat
+     * @returns
+     */
+    convertDataToCvs(data: Uint8Array | Uint8ClampedArray, width: number, height: number, pixelFormat: EnumPixelFormat): HTMLCanvasElement;
+    /**
+     * Force lose webgl context.
+     * @private
+     */
+    forceLoseContext(): void;
+    dispose(): void;
+}
+
+interface CameraInfo {
+    deviceId: string;
+    label: string;
+    /** @ignore */
+    _checked: boolean;
+}
+
+type CameraEvent = "before:open" | "opened" | "before:close" | "closed" | "before:camera:change" | "camera:changed" | "before:resolution:change" | "resolution:changed" | "played" | "paused" | "resumed" | "tapfocus";
+declare class CameraManager {
+    #private;
+    static _onLog: (message: any) => void;
+    static get version(): string;
+    static browserInfo: {
+        browser: string;
+        version: number;
+        OS: string;
+    };
+    static onWarning: (message: string) => void;
+    /**
+     * Check if storage is available.
+     * @ignore
+     */
+    static isStorageAvailable(type: string): boolean;
+    static findBestRearCameraInIOS(cameraList: Array<{
+        label: string;
+        deviceId: string;
+    }>, options?: {
+        getMainCamera?: boolean;
+    }): string;
+    static findBestRearCamera(cameraList: Array<{
+        label: string;
+        deviceId: string;
+    }>, options?: {
+        getMainCameraInIOS?: boolean;
+    }): string;
+    static findBestCamera(cameraList: Array<{
+        label: string;
+        deviceId: string;
+    }>, facingMode: "environment" | "user" | null, options?: {
+        getMainCameraInIOS?: boolean;
+    }): string;
+    static playVideo(videoEl: HTMLVideoElement, source: string | MediaStream | MediaSource | Blob, timeout?: number): Promise<HTMLVideoElement>;
+    static testCameraAccess(constraints?: MediaStreamConstraints): Promise<{
+        ok: boolean;
+        errorName?: string;
+        errorMessage?: string;
+    }>;
+    /**
+     * Camera/video state.
+     */
+    get state(): "closed" | "opening" | "opened";
+    _zoomPreSetting: {
+        factor: number;
+        centerPoint?: {
+            x: string;
+            y: string;
+        };
+    };
+    videoSrc: string;
+    _mediaStream: MediaStream;
+    defaultConstraints: MediaStreamConstraints;
+    cameraOpenTimeout: number;
+    /**
+     * @ignore
+     */
+    _arrCameras: Array<CameraInfo>;
+    /**
+     * Whether to record camera you selected after reload the page.
+     */
+    set ifSaveLastUsedCamera(value: boolean);
+    get ifSaveLastUsedCamera(): boolean;
+    /**
+     * Whether to skip the process of picking a proper rear camera when opening camera the first time.
+     */
+    ifSkipCameraInspection: boolean;
+    selectIOSRearMainCameraAsDefault: boolean;
+    get isVideoPlaying(): boolean;
+    _focusParameters: any;
+    _focusSupported: boolean;
+    calculateCoordInVideo: (clientX: number, clientY: number) => {
+        x: number;
+        y: number;
+    };
+    set tapFocusEventBoundEl(element: HTMLElement);
+    get tapFocusEventBoundEl(): HTMLElement;
+    updateVideoElWhenSoftwareScaled: () => void;
+    imageDataGetter: ImageDataGetter;
+    detectedResolutions: {
+        width: number;
+        height: number;
+    }[];
+    get disposed(): boolean;
+    constructor(videoEl?: HTMLVideoElement);
+    setVideoEl(videoEl: HTMLVideoElement): void;
+    getVideoEl(): HTMLVideoElement;
+    releaseVideoEl(): void;
+    isVideoLoaded(): boolean;
+    /**
+     * Open camera and play video.
+     * @returns
+     */
+    open(): Promise<void>;
+    close(): Promise<void>;
+    pause(): void;
+    resume(): Promise<void>;
+    setCamera(deviceId: string): Promise<CameraInfo>;
+    switchToFrontCamera(options?: {
+        resolution: {
+            width: number;
+            height: number;
+        };
+    }): Promise<CameraInfo>;
+    getCamera(): CameraInfo;
+    _getCameras(force?: boolean): Promise<Array<CameraInfo>>;
+    getCameras(): Promise<Array<CameraInfo>>;
+    getAllCameras(): Promise<CameraInfo[]>;
+    setResolution(width: number, height: number, exact?: boolean): Promise<{
+        width: number;
+        height: number;
+    }>;
+    getResolution(): {
+        width: number;
+        height: number;
+    };
+    getResolutions(reGet?: boolean): Promise<Array<{
+        width: number;
+        height: number;
+    }>>;
+    setMediaStreamConstraints(mediaStreamConstraints: MediaStreamConstraints, reOpen?: boolean): Promise<void>;
+    getMediaStreamConstraints(): MediaStreamConstraints;
+    resetMediaStreamConstraints(): void;
+    getCameraCapabilities(): MediaTrackCapabilities;
+    getCameraSettings(): MediaTrackSettings;
+    turnOnTorch(): Promise<void>;
+    turnOffTorch(): Promise<void>;
+    setColorTemperature(value: number, autoCorrect?: boolean): Promise<number>;
+    getColorTemperature(): number;
+    setExposureCompensation(value: number, autoCorrect?: boolean): Promise<number>;
+    getExposureCompensation(): number;
+    setFrameRate(value: number, autoCorrect?: boolean): Promise<number>;
+    getFrameRate(): number;
+    setFocus(settings: {
+        mode: string;
+    } | {
+        mode: "manual";
+        distance: number;
+    } | {
+        mode: "manual";
+        area: {
+            centerPoint: {
+                x: string;
+                y: string;
+            };
+            width?: string;
+            height?: string;
+        };
+    }, autoCorrect?: boolean): Promise<void>;
+    getFocus(): Object;
+    /**
+     * Attention: tap focus is a feature that requires payment in DCE JS 4.x. Please consult relevant members if you want to export it to customers.
+     */
+    enableTapToFocus(): void;
+    disableTapToFocus(): void;
+    isTapToFocusEnabled(): boolean;
+    /**
+     *
+     * @param settings factor: scale value; centerPoint: experimental argument, set the scale center. Video center by default.
+     */
+    setZoom(settings: {
+        factor: number;
+        centerPoint?: {
+            x: string;
+            y: string;
+        };
+    }): Promise<void>;
+    getZoom(): {
+        factor: number;
+    };
+    resetZoom(): Promise<void>;
+    setHardwareScale(value: number, autoCorrect?: boolean): Promise<number>;
+    getHardwareScale(): number;
+    /**
+     *
+     * @param value scale value
+     * @param center experimental argument, set the scale center. Video center by default.
+     */
+    setSoftwareScale(value: number, center?: {
+        x: string;
+        y: string;
+    }): void;
+    getSoftwareScale(): number;
+    /**
+     * Reset scale center to video center.
+     * @experimental
+     */
+    resetScaleCenter(): void;
+    resetSoftwareScale(): void;
+    getFrameData(options?: {
+        position?: {
+            sx: number;
+            sy: number;
+            sWidth: number;
+            sHeight: number;
+            dWidth: number;
+            dHeight: number;
+        };
+        pixelFormat?: EnumPixelFormat.GREY | EnumPixelFormat.RGBA;
+        scale?: number;
+        scaleCenter?: {
+            x: string;
+            y: string;
+        };
+        bufferContainer?: Uint8Array;
+        isEnableMirroring?: boolean;
+    }): {
+        data: Uint8Array;
+        width: number;
+        height: number;
+        pixelFormat: EnumPixelFormat;
+        timeSpent: number;
+        timeStamp: number;
+        toCanvas: () => HTMLCanvasElement;
+    };
+    /**
+     *
+     * @param event {@link CameraEvent}
+     * @param listener
+     * @see {@link CameraEvent}
+     * @see {@link off}
+     */
+    on(event: CameraEvent, listener: Function): void;
+    /**
+     *
+     * @param event
+     * @param listener
+     * @see {@link CameraEvent}
+     * @see {@link on}
+     */
+    off(event: CameraEvent, listener: Function): void;
+    dispose(): Promise<void>;
+}
+
 declare class CameraEnhancer extends ImageSourceAdapter {
     #private;
     /** @ignore */
@@ -3197,7 +3586,7 @@ declare class CameraEnhancer extends ImageSourceAdapter {
      * @returns A promise that resolves with the initialized `CameraEnhancer` instance.
      */
     static createInstance(view?: CameraView): Promise<CameraEnhancer>;
-    private cameraManager;
+    cameraManager: CameraManager;
     private cameraView;
     /**
      * @ignore
@@ -4169,356 +4558,6 @@ declare class ImageEditorView extends View {
     dispose(): void;
 }
 
-declare class ImageDataGetter {
-    #private;
-    static _onLog: (message: any) => void;
-    static get version(): string;
-    static _webGLSupported: boolean;
-    static get webGLSupported(): boolean;
-    useWebGLByDefault: boolean;
-    _reusedCvs: HTMLCanvasElement;
-    _reusedWebGLCvs?: HTMLCanvasElement;
-    get disposed(): boolean;
-    constructor();
-    /**
-     * Draw a image to canvas.
-     * TODO: fix image is flipped when drawing in 'WebGL'.
-     * @param canvas
-     * @param source
-     * @param sourceWidth
-     * @param sourceHeight
-     * @param position
-     * @param options
-     * @param options.bufferContainer if it is set and WebGL is used, the image data will be put into this variable.
-     * @returns
-     */
-    drawImage(canvas: HTMLCanvasElement, source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, sourceWidth: number, sourceHeight: number, position?: {
-        sx?: number;
-        sy?: number;
-        sWidth?: number;
-        sHeight?: number;
-        dx?: number;
-        dy?: number;
-        dWidth?: number;
-        dHeight?: number;
-    }, options?: {
-        pixelFormat?: EnumPixelFormat;
-        bUseWebGL?: boolean;
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        context: CanvasRenderingContext2D | WebGLRenderingContext;
-        pixelFormat: EnumPixelFormat;
-        bUseWebGL: boolean;
-    };
-    /**
-     * Read 'Unit8Array' from context of canvas.
-     * @param context
-     * @param position
-     * @param bufferContainer If set, the data will be put into this variable, which will be useful when you want to reuse container.
-     * @returns
-     */
-    readCvsData(context: CanvasRenderingContext2D | WebGLRenderingContext, position?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-    }, bufferContainer?: Uint8Array): Uint8Array;
-    /**
-     * Transform pixel format.
-     * @param data
-     * @param originalFormat
-     * @param targetFormat
-     * @param copy
-     * @returns
-     */
-    transformPixelFormat(data: Uint8Array, originalFormat: EnumPixelFormat, targetFormat: EnumPixelFormat, copy?: boolean): Uint8Array;
-    /**
-     * Get image data from image.
-     * @param source
-     * @param sourceWidth
-     * @param sourceHeight
-     * @param position
-     * @param options
-     * @returns
-     */
-    getImageData(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, position: {
-        sx: number;
-        sy: number;
-        sWidth: number;
-        sHeight: number;
-        dWidth: number;
-        dHeight: number;
-    }, options?: {
-        pixelFormat?: EnumPixelFormat.RGBA | EnumPixelFormat.GREY;
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        data: Uint8Array;
-        pixelFormat: EnumPixelFormat;
-        width: number;
-        height: number;
-        bUseWebGL: boolean;
-    };
-    /**
-     * Draw image data to a canvas.
-     * @param data
-     * @param width
-     * @param height
-     * @param pixelFormat
-     * @returns
-     */
-    convertDataToCvs(data: Uint8Array | Uint8ClampedArray, width: number, height: number, pixelFormat: EnumPixelFormat): HTMLCanvasElement;
-    /**
-     * Force lose webgl context.
-     * @private
-     */
-    forceLoseContext(): void;
-    dispose(): void;
-}
-
-interface CameraInfo {
-    deviceId: string;
-    label: string;
-    /** @ignore */
-    _checked: boolean;
-}
-
-type CameraEvent = "before:open" | "opened" | "before:close" | "closed" | "before:camera:change" | "camera:changed" | "before:resolution:change" | "resolution:changed" | "played" | "paused" | "resumed" | "tapfocus";
-declare class CameraManager {
-    #private;
-    static _onLog: (message: any) => void;
-    static get version(): string;
-    static browserInfo: {
-        browser: string;
-        version: number;
-        OS: string;
-    };
-    static onWarning: (message: string) => void;
-    /**
-     * Check if storage is available.
-     * @ignore
-     */
-    static isStorageAvailable(type: string): boolean;
-    static findBestRearCameraInIOS(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, options?: {
-        getMainCamera?: boolean;
-    }): string;
-    static findBestRearCamera(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, options?: {
-        getMainCameraInIOS?: boolean;
-    }): string;
-    static findBestCamera(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, facingMode: "environment" | "user" | null, options?: {
-        getMainCameraInIOS?: boolean;
-    }): string;
-    static playVideo(videoEl: HTMLVideoElement, source: string | MediaStream | MediaSource | Blob, timeout?: number): Promise<HTMLVideoElement>;
-    static testCameraAccess(constraints?: MediaStreamConstraints): Promise<{
-        ok: boolean;
-        errorName?: string;
-        errorMessage?: string;
-    }>;
-    /**
-     * Camera/video state.
-     */
-    get state(): "closed" | "opening" | "opened";
-    _zoomPreSetting: {
-        factor: number;
-        centerPoint?: {
-            x: string;
-            y: string;
-        };
-    };
-    videoSrc: string;
-    _mediaStream: MediaStream;
-    defaultConstraints: MediaStreamConstraints;
-    cameraOpenTimeout: number;
-    /**
-     * @ignore
-     */
-    _arrCameras: Array<CameraInfo>;
-    /**
-     * Whether to record camera you selected after reload the page.
-     */
-    set ifSaveLastUsedCamera(value: boolean);
-    get ifSaveLastUsedCamera(): boolean;
-    /**
-     * Whether to skip the process of picking a proper rear camera when opening camera the first time.
-     */
-    ifSkipCameraInspection: boolean;
-    selectIOSRearMainCameraAsDefault: boolean;
-    get isVideoPlaying(): boolean;
-    _focusParameters: any;
-    _focusSupported: boolean;
-    calculateCoordInVideo: (clientX: number, clientY: number) => {
-        x: number;
-        y: number;
-    };
-    set tapFocusEventBoundEl(element: HTMLElement);
-    get tapFocusEventBoundEl(): HTMLElement;
-    updateVideoElWhenSoftwareScaled: () => void;
-    imageDataGetter: ImageDataGetter;
-    detectedResolutions: {
-        width: number;
-        height: number;
-    }[];
-    get disposed(): boolean;
-    constructor(videoEl?: HTMLVideoElement);
-    setVideoEl(videoEl: HTMLVideoElement): void;
-    getVideoEl(): HTMLVideoElement;
-    releaseVideoEl(): void;
-    isVideoLoaded(): boolean;
-    /**
-     * Open camera and play video.
-     * @returns
-     */
-    open(): Promise<void>;
-    close(): Promise<void>;
-    pause(): void;
-    resume(): Promise<void>;
-    setCamera(deviceId: string): Promise<CameraInfo>;
-    switchToFrontCamera(options?: {
-        resolution: {
-            width: number;
-            height: number;
-        };
-    }): Promise<CameraInfo>;
-    getCamera(): CameraInfo;
-    _getCameras(force?: boolean): Promise<Array<CameraInfo>>;
-    getCameras(): Promise<Array<CameraInfo>>;
-    getAllCameras(): Promise<CameraInfo[]>;
-    setResolution(width: number, height: number, exact?: boolean): Promise<{
-        width: number;
-        height: number;
-    }>;
-    getResolution(): {
-        width: number;
-        height: number;
-    };
-    getResolutions(reGet?: boolean): Promise<Array<{
-        width: number;
-        height: number;
-    }>>;
-    setMediaStreamConstraints(mediaStreamConstraints: MediaStreamConstraints, reOpen?: boolean): Promise<void>;
-    getMediaStreamConstraints(): MediaStreamConstraints;
-    resetMediaStreamConstraints(): void;
-    getCameraCapabilities(): MediaTrackCapabilities;
-    getCameraSettings(): MediaTrackSettings;
-    turnOnTorch(): Promise<void>;
-    turnOffTorch(): Promise<void>;
-    setColorTemperature(value: number, autoCorrect?: boolean): Promise<number>;
-    getColorTemperature(): number;
-    setExposureCompensation(value: number, autoCorrect?: boolean): Promise<number>;
-    getExposureCompensation(): number;
-    setFrameRate(value: number, autoCorrect?: boolean): Promise<number>;
-    getFrameRate(): number;
-    setFocus(settings: {
-        mode: string;
-    } | {
-        mode: "manual";
-        distance: number;
-    } | {
-        mode: "manual";
-        area: {
-            centerPoint: {
-                x: string;
-                y: string;
-            };
-            width?: string;
-            height?: string;
-        };
-    }, autoCorrect?: boolean): Promise<void>;
-    getFocus(): Object;
-    /**
-     * Attention: tap focus is a feature that requires payment in DCE JS 4.x. Please consult relevant members if you want to export it to customers.
-     */
-    enableTapToFocus(): void;
-    disableTapToFocus(): void;
-    isTapToFocusEnabled(): boolean;
-    /**
-     *
-     * @param settings factor: scale value; centerPoint: experimental argument, set the scale center. Video center by default.
-     */
-    setZoom(settings: {
-        factor: number;
-        centerPoint?: {
-            x: string;
-            y: string;
-        };
-    }): Promise<void>;
-    getZoom(): {
-        factor: number;
-    };
-    resetZoom(): Promise<void>;
-    setHardwareScale(value: number, autoCorrect?: boolean): Promise<number>;
-    getHardwareScale(): number;
-    /**
-     *
-     * @param value scale value
-     * @param center experimental argument, set the scale center. Video center by default.
-     */
-    setSoftwareScale(value: number, center?: {
-        x: string;
-        y: string;
-    }): void;
-    getSoftwareScale(): number;
-    /**
-     * Reset scale center to video center.
-     * @experimental
-     */
-    resetScaleCenter(): void;
-    resetSoftwareScale(): void;
-    getFrameData(options?: {
-        position?: {
-            sx: number;
-            sy: number;
-            sWidth: number;
-            sHeight: number;
-            dWidth: number;
-            dHeight: number;
-        };
-        pixelFormat?: EnumPixelFormat.GREY | EnumPixelFormat.RGBA;
-        scale?: number;
-        scaleCenter?: {
-            x: string;
-            y: string;
-        };
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        data: Uint8Array;
-        width: number;
-        height: number;
-        pixelFormat: EnumPixelFormat;
-        timeSpent: number;
-        timeStamp: number;
-        toCanvas: () => HTMLCanvasElement;
-    };
-    /**
-     *
-     * @param event {@link CameraEvent}
-     * @param listener
-     * @see {@link CameraEvent}
-     * @see {@link off}
-     */
-    on(event: CameraEvent, listener: Function): void;
-    /**
-     *
-     * @param event
-     * @param listener
-     * @see {@link CameraEvent}
-     * @see {@link on}
-     */
-    off(event: CameraEvent, listener: Function): void;
-    dispose(): Promise<void>;
-}
-
 declare class Feedback {
     #private;
     static allowBeep: boolean;
@@ -4591,10 +4630,6 @@ interface ParsedResultItem extends CapturedResultItem {
      * The parsed result represented as a JSON-formatted string.
      */
     jsonString: string;
-    parsedFields: Array<{
-        FieldName: string;
-        Value: string;
-    }>;
     /**
      * Retrieves the value of a specified field.
      * @param fieldName The name of the field whose value is being requested.
@@ -4652,7 +4687,7 @@ declare class CodeParser {
      *
      * @returns A promise that resolves when the operation has completed. It does not provide any value upon resolution.
      */
-    initSettings(settings: string): Promise<void>;
+    initSettings(settings: string): Promise<ErrorInfo>;
     /**
      * Restores all runtime settings to their original default values.
      *
@@ -4786,7 +4821,7 @@ declare class UtilityModule {
     static getVersion(): string;
 }
 
-type resultItemTypesString = "barcode" | "text_line" | "detected_quad" | "normalized_image";
+type resultItemTypesString = "barcode" | "text_line" | "detected_quad" | "deskewed_image";
 
 declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
     #private;
@@ -4872,7 +4907,156 @@ declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
     latestOverlappingFilter(result: any): void;
 }
 
-export { MultiFrameResultCrossFilter, UtilityModule };
+declare class ImageIO {
+    #private;
+    /**
+     * This method reads an image from a file. The file format is automatically detected based on the file extensioor content.
+     *
+     * @param file The file to read, as a File object.
+     *
+     * @returns A promise that resolves with the loaded image of type `DSImageData`.
+     */
+    readFromFile(file: File): Promise<DSImageData>;
+    /**
+     * This method saves an image in either PNG or JPG format. The desired file format is inferred from the filextension provided in the 'name' parameter. Should the specified file format be omitted or unsupported, thdata will default to being exported in PNG format.
+     *
+     * @param image The image to be saved, of type `DSImageData`.
+     * @param name The name of the file, as a string, under which the image will be saved.
+     * @param download An optional boolean flag that, when set to true, triggers the download of the file.
+     *
+     * @returns A promise that resolves with the saved File object.
+     */
+    saveToFile(image: DSImageData, name: string, download?: boolean): Promise<File>;
+    /**
+     * Reads image data from memory using the specified ID.
+     *
+     * @param id - The memory ID referencing a previously stored image.
+     *
+     * @returns A Promise that resolves to the `DSImageData` object.
+     */
+    readFromMemory(id: number): Promise<DSImageData>;
+    /**
+     * This method saves an image to memory. The desired file format is inferred from the 'format' parameter. Should the specified file format be omitted or unsupported, the data will default to being exported in PNG format.
+     *
+     * @param image A `Blob` representing the image to be saved.
+     * @param fileFormat The desired image format.
+     *
+     * @returns A Promise that resolves to a memory ID which can later be used to retrieve the image via readFromMemory.
+     */
+    saveToMemory(image: Blob, fileFormat: EnumImageFileFormat): Promise<number>;
+    /**
+     * This method reads an image from a Base64-encoded string. The image format is automatically detected based on the content of the string.
+     *
+     * @param base64String The Base64-encoded string representing the image.
+     *
+     * @returns A promise that resolves with the loaded image of type `DSImageData`.
+     */
+    readFromBase64String(base64String: string): Promise<DSImageData>;
+    /**
+     * This method saves an image to a Base64-encoded string. The desired file format is inferred from the 'format' parameter. Should the specified file format be omitted or unsupported, the data will default to being exported in PNG format.
+     *
+     * @param image The image to be saved, of type `Blob`.
+     * @param format The desired image format.
+     *
+     * @returns A promise that resolves with a Base64-encoded string representing the image.
+     */
+    saveToBase64String(image: Blob, fileFormat: EnumImageFileFormat): Promise<string>;
+}
+
+declare class ImageDrawer {
+    /**
+     * This method draws various shapes on an image, and save it in PNG format.
+     *
+     * @param image The image to be saved.
+     * @param drawingItem An array of different shapes to draw on the image.
+     * @param type The type of drawing shapes.
+     * @param color The color to use for drawing. Defaults to 0xFFFF0000 (red).
+     * @param thickness The thickness of the lines to draw. Defaults to 1.
+     * @param download An optional boolean flag that, when set to true, triggers the download of the file.
+     *
+     * @returns A promise that resolves with the saved File object.
+     */
+    drawOnImage(image: Blob | string | DSImageData, drawingItem: Array<Quadrilateral> | Quadrilateral | Array<LineSegment> | LineSegment | Array<Contour> | Contour | Array<Corner> | Corner | Array<Edge> | Edge, type: "quads" | "lines" | "contours" | "corners" | "edges", color?: number, thickness?: number, name?: string, download?: boolean): Promise<DSImageData>;
+}
+
+declare enum EnumFilterType {
+    /**High-pass filter: Enhances edges and fine details by attenuating low-frequency components.*/
+    FT_HIGH_PASS = 0,
+    /**Sharpen filter: Increases contrast along edges to make the image appear more defined.*/
+    FT_SHARPEN = 1,
+    /**Smooth (blur) filter: Reduces noise and detail by averaging pixel values, creating a softening effect.*/
+    FT_SMOOTH = 2
+}
+
+declare class ImageProcessor {
+    /**
+     * Crops an image using a rectangle or quadrilateral.
+     * @param image The image data to be cropped.
+     * @param roi The rectangle or quadrilateral to be cropped.
+     *
+     * @returns A promise that resolves with the cropped image data.
+     */
+    cropImage(image: Blob, roi: DSRect): Promise<DSImageData>;
+    /**
+     * Adjusts the brightness of the image.
+     * @param image The image data to be adjusted.
+     * @param brightness Brightness adjustment value (range: [-100, 100]).
+     *
+     * @returns A promise that resolves with the adjusted image data.
+     */
+    adjustBrightness(image: Blob, brightness: number): Promise<DSImageData>;
+    /**
+     * Adjusts the contrast of the image.
+     * @param image The image data to be adjusted.
+     * @param contrast Contrast adjustment value (range: [-100, 100]).
+     *
+     * @returns A promise that resolves with the adjusted image data.
+     */
+    adjustContrast(image: Blob, contrast: number): Promise<DSImageData>;
+    /**
+     * Applies a specified image filter to an input image.
+     * @param image The image data to be filtered.
+     * @param filterType The type of filter to apply.
+     * @returns A promise that resolves with the filtered image data.
+     */
+    filterImage(image: Blob, filterType: EnumFilterType): Promise<DSImageData>;
+    /**
+     * Converts a colour image to grayscale.
+     * @param image The image data to be converted.
+     * @param R [R=0.3] - Weight for the red channel.
+     * @param G [G=0.59] - Weight for the green channel.
+     * @param B [B=0.11] - Weight for the blue channel.
+     * @returns A promise that resolves with the grayscale image data.
+     */
+    convertToGray(image: Blob, R?: number, G?: number, B?: number): Promise<DSImageData>;
+    /**
+     * Converts a grayscale image to a binary image using a global threshold.
+     * @param image The grayscale image data.
+     * @param threshold [threshold=-1] Global threshold for binarization (-1 for automatic calculation).
+     * @param invert [invert=false] Whether to invert the binary image.
+     * @returns A promise that resolves with the binary image data.
+     */
+    convertToBinaryGlobal(image: Blob, threshold?: number, invert?: boolean): Promise<DSImageData>;
+    /**
+     * Converts a grayscale image to a binary image using local (adaptive) binarization.
+     * @param image The grayscale image data.
+     * @param blockSize [blockSize=0] Size of the block for local binarization.
+     * @param compensation [compensation=0] Adjustment value to modify the threshold.
+     * @param invert [invert=false] Whether to invert the binary image.
+     * @returns A promise that resolves with the binary image data.
+     */
+    convertToBinaryLocal(image: Blob, blockSize?: number, compensation?: number, invert?: boolean): Promise<DSImageData>;
+    /**
+     * Crops and deskews an image using a quadrilateral.
+     * @param image The image data to be cropped and deskewed.
+     * @param roi The quadrilateral defining the region of interest to be cropped and deskewed.
+     *
+     * @returns A promise that resolves with the cropped and deskewed image data.
+     */
+    cropAndDeskewImage(image: Blob, roi: Quadrilateral): Promise<DSImageData>;
+}
+
+export { EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule };
 
 
 
@@ -4923,6 +5107,7 @@ interface BarcodeScannerConfig {
     showResultView?: boolean;
     showUploadImageButton?: boolean;
     showPoweredByDynamsoft?: boolean;
+    autoStartCapturing?: boolean;
     scannerViewConfig?: ScannerViewConfig;
     resultViewConfig?: ResultViewConfig;
     uiPath?: string;
@@ -4934,6 +5119,11 @@ interface BarcodeScannerConfig {
         cvRouter: CaptureVisionRouter;
     }) => void;
     onCameraOpen?: (components: {
+        cameraView: CameraView;
+        cameraEnhancer: CameraEnhancer;
+        cvRouter: CaptureVisionRouter;
+    }) => void;
+    onCaptureStart?: (components: {
         cameraView: CameraView;
         cameraEnhancer: CameraEnhancer;
         cvRouter: CaptureVisionRouter;
@@ -4984,6 +5174,7 @@ declare class BarcodeScanner {
     private _cvRouter;
     config: BarcodeScannerConfig;
     constructor(config?: BarcodeScannerConfig);
+    get disposed(): boolean;
     launch(): Promise<BarcodeScanResult>;
     decode(imageOrFile: Blob | string | DSImageData | HTMLImageElement | HTMLVideoElement | HTMLCanvasElement, templateName?: string): Promise<CapturedResult>;
     dispose(): void;
