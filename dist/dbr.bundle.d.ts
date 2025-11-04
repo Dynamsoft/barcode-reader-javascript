@@ -532,9 +532,8 @@ interface PostMessageBody {
     engineResourcePaths?: EngineResourcePaths;
     autoResources?: WorkerAutoResources;
     names?: string[];
+    wasmLoadOptions: WasmLoadOptions;
     _bundleEnv?: "DCV" | "DBR";
-    _useSimd?: boolean;
-    _useMLBackend?: boolean;
 }
 type PathInfo = {
     version: string;
@@ -586,6 +585,11 @@ interface WasmVersions {
 interface MapController {
     [key: string]: ((body: any, taskID: number, instanceID?: number) => void);
 }
+type WasmType = "baseline" | "ml" | "ml-simd" | "ml-simd-pthread" | "auto";
+interface WasmLoadOptions {
+    wasmType?: WasmType;
+    pthreadPoolSize?: number;
+}
 type MimeType = "image/png" | "image/jpeg";
 
 declare const mapAsyncDependency: {
@@ -621,9 +625,11 @@ declare class CoreModule {
     static get _bDebug(): boolean;
     static set _bDebug(value: boolean);
     static _bundleEnv: "DCV" | "DBR";
-    static _useMLBackend: boolean;
     static get _workerName(): string;
-    static _useSimd: boolean;
+    private static _wasmLoadOptions;
+    static get wasmLoadOptions(): WasmLoadOptions;
+    static set wasmLoadOptions(options: WasmLoadOptions);
+    static loadedWasmType: Exclude<WasmType, "auto">;
     /**
      * Initiates the loading process for the .wasm file(s) corresponding to the specified module(s).
      * If a module relies on other modules, the other modules will be loaded as well.
@@ -632,6 +638,17 @@ declare class CoreModule {
      */
     static isModuleLoaded(name?: string): boolean;
     static loadWasm(): Promise<void>;
+    /**
+     * An event that fires during the loading of a WebAssembly module (.wasm).
+     *
+     * @param filePath The path of the wasm file.
+     * @param tag Indicates the ongoing status of the file download ("starting", "in progress", "completed").
+     * @param progress An object indicating the progress of the download, with `loaded` and `total` bytes.
+     */
+    static onWasmLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
+        loaded: number;
+        total: number;
+    }) => void;
     /**
      * Detect environment and get a report.
      */
@@ -683,7 +700,13 @@ interface CapturedResultItem {
 
 interface OriginalImageResultItem extends CapturedResultItem {
     /** The image data associated with this result item. */
-    readonly imageData: DSImageData;
+    imageData: DSImageData;
+    /** Converts the image data into an HTMLCanvasElement for display or further manipulation in web applications. */
+    toCanvas: () => HTMLCanvasElement;
+    /** Converts the image data into an HTMLImageElement of a specified MIME type ('image/png' or 'image/jpeg'). */
+    toImage: (MIMEType: "image/png" | "image/jpeg") => HTMLImageElement;
+    /** Converts the image data into a Blob object of a specified MIME type ('image/png' or 'image/jpeg'). */
+    toBlob: (MIMEType: "image/png" | "image/jpeg") => Promise<Blob>;
 }
 
 interface Point {
@@ -1198,7 +1221,11 @@ declare const isQuad: (value: any) => value is Quadrilateral;
  */
 declare const isRect: (value: any) => value is Rect;
 
-declare const requestResource: (url: string, type: "text" | "blob" | "arraybuffer") => Promise<any>;
+declare const requestResource: (url: string, type: "text" | "blob" | "arraybuffer", callbacks?: {
+    loadstartCallback?: () => any;
+    progressCallback?: (pe: any) => any;
+    loadendCallback?: () => any;
+}) => Promise<any>;
 declare const checkIsLink: (str: string) => boolean;
 declare const compareVersion: (strV1: string, strV2: string) => number;
 declare const handleEngineResourcePaths: (engineResourcePaths: EngineResourcePaths) => EngineResourcePaths;
@@ -1228,7 +1255,7 @@ declare const productNameMap: {
     readonly dcvBundle: "dynamsoft-capture-vision-bundle";
 };
 
-export { Arc, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumTransformMatrixType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmVersions, WorkerAutoResources, _getNorImageData, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, checkIsLink, compareVersion, doOrWaitAsyncDependency, getNextTaskID, handleEngineResourcePaths, innerVersions, isArc, isContour, isDSImageData, isDSRect, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+export { Arc, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumTransformMatrixType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources, _getNorImageData, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, checkIsLink, compareVersion, doOrWaitAsyncDependency, getNextTaskID, handleEngineResourcePaths, innerVersions, isArc, isContour, isDSImageData, isDSRect, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
 
 
 
@@ -1241,9 +1268,9 @@ interface CapturedResult extends CapturedResultBase {
     /** The decoded barcode results within the original image. */
     decodedBarcodesResult?: DecodedBarcodesResult;
     /** The recognized textLine results within the original image. */
-    // recognizedTextLinesResult?: RecognizedTextLinesResult;
+    recognizedTextLinesResult?: RecognizedTextLinesResult;
     /** The processed document results within the original image. */
-    // processedDocumentResult?: ProcessedDocumentResult;
+    processedDocumentResult?: ProcessedDocumentResult;
     /** The parsed results within the original image. */
     parsedResult?: ParsedResult;
 }
@@ -1261,7 +1288,10 @@ declare class CapturedResultReceiver {
      * @param result The original image result, an instance of `OriginalImageResultItem`.
      */
     onOriginalImageResultReceived?: (result: OriginalImageResultItem) => void;
-    [key: string]: any;
+    onDecodedBarcodesReceived?: (result: DecodedBarcodesResult) => void;
+    onRecognizedTextLinesReceived?: (result: RecognizedTextLinesResult) => void;
+    onProcessedDocumentResultReceived?: (result: ProcessedDocumentResult) => void;
+    onParsedResultsReceived?: (result: ParsedResult) => void;
 }
 
 declare class BufferedItemsManager {
@@ -1281,7 +1311,7 @@ declare class BufferedItemsManager {
      * Gets the buffered character items.
      * @return the buffered character items
      */
-    getBufferedCharacterItemSet(): Promise<Array<any>>;
+    getBufferedCharacterItemSet(): Promise<Array<BufferedCharacterItemSet>>;
 }
 
 declare class IntermediateResultReceiver {
@@ -1310,6 +1340,22 @@ declare class IntermediateResultReceiver {
     onTextZonesUnitReceived?: (result: TextZonesUnit, info: IntermediateResultExtraInfo) => void;
     onTextRemovedBinaryImageUnitReceived?: (result: TextRemovedBinaryImageUnit, info: IntermediateResultExtraInfo) => void;
     onShortLinesUnitReceived?: (result: ShortLinesUnit, info: IntermediateResultExtraInfo) => void;
+    onCandidateBarcodeZonesUnitReceived?: (result: CandidateBarcodeZonesUnit, info: IntermediateResultExtraInfo) => void;
+    onComplementedBarcodeImageUnitReceived?: (result: ComplementedBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
+    onDecodedBarcodesReceived?: (result: DecodedBarcodesUnit, info: IntermediateResultExtraInfo) => void;
+    onDeformationResistedBarcodeImageUnitReceived?: (result: DeformationResistedBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
+    onLocalizedBarcodesReceived?: (result: LocalizedBarcodesUnit, info: IntermediateResultExtraInfo) => void;
+    onScaledBarcodeImageUnitReceived?: (result: ScaledBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
+    onLocalizedTextLinesReceived?: (result: LocalizedTextLinesUnit, info: IntermediateResultExtraInfo) => void;
+    onRawTextLinesUnitReceived?: (result: RawTextLinesUnit, info: IntermediateResultExtraInfo) => void;
+    onRecognizedTextLinesReceived?: (result: RecognizedTextLinesUnit, info: IntermediateResultExtraInfo) => void;
+    onCandidateQuadEdgesUnitReceived?: (result: CandidateQuadEdgesUnit, info: IntermediateResultExtraInfo) => void;
+    onCornersUnitReceived?: (result: CornersUnit, info: IntermediateResultExtraInfo) => void;
+    onDeskewedImageReceived?: (result: DeskewedImageUnit, info: IntermediateResultExtraInfo) => void;
+    onDetectedQuadsReceived?: (result: DetectedQuadsUnit, info: IntermediateResultExtraInfo) => void;
+    onEnhancedImageReceived?: (result: EnhancedImageUnit, info: IntermediateResultExtraInfo) => void;
+    onLogicLinesUnitReceived?: (result: LogicLinesUnit, info: IntermediateResultExtraInfo) => void;
+    onLongLinesUnitReceived?: (result: LongLinesUnit, info: IntermediateResultExtraInfo) => void;
 }
 
 declare class IntermediateResultManager {
@@ -1383,21 +1429,44 @@ interface SimplifiedCaptureVisionSettings {
      * Specifies the basic settings for the barcode reader module. It is of type `SimplifiedBarcodeReaderSettings`.
      */
     barcodeSettings: SimplifiedBarcodeReaderSettings;
+    /**
+     * Specifies the basic settings for the document normalizer module. It is of type `SimplifiedDocumentNormalizerSettings`.
+     */
+    documentSettings: SimplifiedDocumentNormalizerSettings;
+    /**
+     * Specifies the basic settings for the label recognizer module. It is of type `SimplifiedLabelRecognizerSettings`.
+     */
+    labelSettings: SimplifiedLabelRecognizerSettings;
 }
 
 interface CapturedResultFilter {
     onOriginalImageResultReceived?: (result: OriginalImageResultItem) => void;
-    [key: string]: any;
+    onDecodedBarcodesReceived?: (result: DecodedBarcodesResult) => void;
+    onRecognizedTextLinesReceived?: (result: RecognizedTextLinesResult) => void;
+    onProcessedDocumentResultReceived?: (result: ProcessedDocumentResult) => void;
+    onParsedResultsReceived?: (result: ParsedResult) => void;
+    getFilteredResultItemTypes(): number;
 }
 
 declare class CaptureVisionRouter {
     #private;
     static _onLog: (message: string) => void;
     static _defaultTemplate: string;
+    private static _isNoOnnx;
     /**
      * The maximum length of the longer side of the image to be processed. The default value is 2048 pixels in mobile devices and 4096 pixels in desktop browser.
      */
     maxImageSideLength: number;
+    /**
+    * An event that fires during the loading of a recognition data file (.data).
+    * @param filePath The path of the recognition data file.
+    * @param tag Indicates the ongoing status of the file download ("starting", "in progress", "completed").
+    * @param progress An object indicating the progress of the download, with `loaded` and `total` bytes.
+    */
+    static onDataLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
+        loaded: number;
+        total: number;
+    }) => void;
     /**
      * An event that fires when an error occurs from the start of capturing process.
      * @param error The error object that contains the error code and error string.
@@ -1432,23 +1501,17 @@ declare class CaptureVisionRouter {
      */
     static createInstance(loadPresetTemplates?: boolean): Promise<CaptureVisionRouter>;
     /**
-      * Loads a specific data file containing recognition information. This file typically comprises a Convolutional Neural Networks (CNN) model.
-      * @param dataName Specifies the name of the data.
-      * @param dataPath [Optional] Specifies the path to find the data file. If not specified, the default path points to the package "dynamsoft-capture-vision-data" which has the same root path as the packag"dynamsoft-capture-vision-router".
-      *
-      * @returns A promise that resolves once the recognition data file is successfully loaded. It does not provide any value upon resolution.
-      */
-    static appendModelBuffer(modelName: string, dataPath?: string): Promise<ErrorInfo>;
-    /**
-     * An event that fires during the loading of a recognition data file (.data).
-     * @param filePath The path of the recognition data file.
-     * @param tag Indicates the ongoing status of the file download ("starting", "in progress", "completed").
-     * @param progress An object indicating the progress of the download, with `loaded` and `total` bytes.
+     * Appends a deep learning model to the memory buffer.
+     * @param dataName Specifies the name of the model.
+     * @param dataPath [Optional] Specifies the path to find the model file. If not specified, the default path points to the package "dynamsoft-capture-vision-data".
+     *
+     * @returns A promise that resolves once the model file is successfully loaded. It does not provide any value upon resolution.
      */
-    static onDataLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
-        loaded: number;
-        total: number;
-    }) => void;
+    static appendDLModelBuffer(modelName: string, dataPath?: string): Promise<ErrorInfo>;
+    /**
+     * Clears all deep learning models from buffer to free up memory
+     */
+    static clearDLModelBuffers(): Promise<void>;
     private _singleFrameModeCallback;
     private _singleFrameModeCallbackBind;
     /**
@@ -1507,10 +1570,20 @@ declare class CaptureVisionRouter {
     stopCapturing(): void;
     containsTask(templateName: string): Promise<any>;
     /**
+     * Switches the currently active capturing template during the image processing workflow. This allows dynamic reconfiguration of the capture process without restarting or reinitializing the system, enabling different settings or rules to be applied on the fly.
+     *
+     * @param templateName The name of the new capturing template to apply.
+     *
+     * @return A promise with an ErrorInfo object that resolves when the operation has completed, containing the result of the operation.
+     *
+     */
+    switchCapturingTemplate(templateName: string): Promise<void>;
+    /**
      * Video stream capture, recursive call, loop frame capture
      */
     private _loopReadVideo;
     private _reRunCurrnetFunc;
+    getClarity(dsimage: DSImageData, bitcount: number, wr: number, hr: number, grayThreshold: number): Promise<number>;
     /**
      * Processes a single image or a file containing a single image to derive important information.
      * @param imageOrFile Specifies the image or file to be processed. The following data types are accepted: `Blob`, `HTMLImageElement`, `HTMLCanvasElement`, `HTMLVideoElement`, `DSImageData`, `string`.
@@ -1588,6 +1661,11 @@ declare class CaptureVisionRouter {
      * @returns The `IntermediateResultManager` object.
      */
     getIntermediateResultManager(): IntermediateResultManager;
+    /**
+     * Sets the global number of threads used internally for model execution.
+     * @param intraOpNumThreads Number of threads used internally for model execution.
+     */
+    static setGlobalIntraOpNumThreads(intraOpNumThreads?: number): Promise<void>;
     parseRequiredResources(templateName: string): Promise<{
         models: string[];
         specss: string[];
@@ -1865,6 +1943,8 @@ declare enum EnumLocalizationMode {
     LM_CENTRE = 128,
     /** Specialized for quick localization of 1D barcodes, enhancing performance in fast-scan scenarios. */
     LM_ONED_FAST_SCAN = 256,
+    /**Localizes barcodes by utilizing a neural network model. */
+    LM_NEURAL_NETWORK = 512,
     /** Reserved for future use in localization mode settings. */
     LM_REV = -2147483648,
     /** Omits the localization process entirely. */
@@ -1959,15 +2039,7 @@ interface DecodedBarcodesResult extends CapturedResultBase {
     /**
      * An array of `BarcodeResultItem` objects, each representing a decoded barcode within the original image.
      */
-    readonly barcodeResultItems: Array<BarcodeResultItem>;
-}
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface CapturedResultReceiver {
-        onDecodedBarcodesReceived?: (result: DecodedBarcodesResult) => void;
-    }
-    interface CapturedResultFilter {
-        onDecodedBarcodesReceived?: (result: DecodedBarcodesResult) => void;
-    }
+    barcodeResultItems: Array<BarcodeResultItem>;
 }
 
 interface DecodedBarcodeElement extends RegionObjectElement {
@@ -2101,29 +2173,14 @@ interface CandidateBarcodeZonesUnit extends IntermediateResultUnit {
     /** Array of candidate barcode zones represented as quadrilaterals. */
     candidateBarcodeZones: Array<CandidateBarcodeZone>;
 }
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onCandidateBarcodeZonesUnitReceived?: (result: CandidateBarcodeZonesUnit, info: IntermediateResultExtraInfo) => void;
-    }
-}
 
 interface ComplementedBarcodeImageUnit extends IntermediateResultUnit {
     imageData: DSImageData;
     location: Quadrilateral;
 }
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onComplementedBarcodeImageUnitReceived?: (result: ComplementedBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
-    }
-}
 
 interface DecodedBarcodesUnit extends IntermediateResultUnit {
     decodedBarcodes: Array<DecodedBarcodeElement>;
-}
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onDecodedBarcodesReceived?: (result: DecodedBarcodesUnit, info: IntermediateResultExtraInfo) => void;
-    }
 }
 
 /**
@@ -2145,11 +2202,6 @@ interface DeformationResistedBarcodeImageUnit extends IntermediateResultUnit {
     /** The deformation-resisted barcode. */
     deformationResistedBarcode: DeformationResistedBarcode;
 }
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onDeformationResistedBarcodeImageUnitReceived?: (result: DeformationResistedBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
-    }
-}
 
 interface LocalizedBarcodeElement extends RegionObjectElement {
     /** Possible formats of the localized barcode. */
@@ -2168,20 +2220,10 @@ interface LocalizedBarcodesUnit extends IntermediateResultUnit {
     /** An array of `LocalizedBarcodeElement` objects, each representing a localized barcode. */
     localizedBarcodes: Array<LocalizedBarcodeElement>;
 }
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onLocalizedBarcodesReceived?: (result: LocalizedBarcodesUnit, info: IntermediateResultExtraInfo) => void;
-    }
-}
 
 interface ScaledBarcodeImageUnit extends IntermediateResultUnit {
     /** Image data of the scaled barcode. */
     imageData: DSImageData;
-}
-declare module "dynamsoft-barcode-reader-bundle" {
-    interface IntermediateResultReceiver {
-        onScaledBarcodeImageUnitReceived?: (result: ScaledBarcodeImageUnit, info: IntermediateResultExtraInfo) => void;
-    }
 }
 
 export { BarcodeReaderModule, EnumBarcodeFormat, EnumDeblurMode, EnumExtendedBarcodeResultType, EnumLocalizationMode, EnumQRCodeErrorCorrectionLevel };
@@ -3313,6 +3355,7 @@ declare class CameraManager {
         version: number;
         OS: string;
     };
+    private static _tryToReopenTime;
     static onWarning: (message: string) => void;
     /**
      * Check if storage is available.
@@ -4162,6 +4205,17 @@ declare class CameraEnhancer extends ImageSourceAdapter {
      */
     convertToScanRegionCoordinates(point: Point): Point;
     /**
+     * Converts coordinates from the video's coordinate system under `fit: cover` mode
+     * back to coordinates under `fit: contain` mode.
+     * This is useful when you need to map points detected in a cropped/resized video (cover)
+     * back to the original video dimensions (contain).
+     *
+     * @param point A `Point` object representing the x and y coordinates within the video's `cover` coordinate system.
+     *
+     * @returns A `Point` object representing the converted x and y coordinates under `contain` mode.
+     */
+    convertToContainCoordinates(point: Point): Point;
+    /**
      * Releases all resources used by the `CameraEnhancer` instance.
      */
     dispose(): void;
@@ -4717,6 +4771,16 @@ declare class CodeParserModule {
      * @returns A promise that resolves when the specification is loaded. It does not provide any value upon resolution.
      */
     static loadSpec(specificationName: string | Array<string>, specificationPath?: string): Promise<void>;
+    /**
+    * An event that repeatedly fires during the loading of specification files.
+    * @param filePath Returns the path of the specification file.
+    * @param tag Indicates the ongoing status of the file download. Available values are "starting", "in progress", "completed".
+    * @param progress Shows the numerical progress of the download.
+    */
+    static onSpecLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
+        loaded: number;
+        total: number;
+    }) => void;
 }
 
 declare enum EnumMappingStatus {
@@ -4755,13 +4819,360 @@ interface ParsedResult extends CapturedResultBase {
      */
     parsedResultItems: Array<ParsedResultItem>;
 }
-declare module "dynamsoft-capture-vision-bundle" {
-    interface CapturedResultReceiver {
-        onParsedResultsReceived?: (result: ParsedResult) => void;
-    }
-}
 
 export { CodeParser, CodeParserModule, EnumMappingStatus, EnumValidationStatus, ParsedResult, ParsedResultItem };
+
+
+declare class DocumentNormalizerModule {
+    /**
+     * Returns the version of the DocumentNormalizer module.
+     */
+    static getVersion(): string;
+}
+
+/**
+ * `EnumImageColourMode` determines the output colour mode of the normalized image.
+ */
+declare enum EnumImageColourMode {
+    /** Output image in color mode. */
+    ICM_COLOUR = 0,
+    /** Output image in grayscale mode. */
+    ICM_GRAYSCALE = 1,
+    /** Output image in binary mode. */
+    ICM_BINARY = 2
+}
+
+interface DetectedQuadResultItem extends CapturedResultItem {
+    /** The location of the detected quadrilateral within the original image, represented as a quadrilateral shape. */
+    location: Quadrilateral;
+    /** A confidence score related to the detected quadrilateral's accuracy as a document boundary. */
+    confidenceAsDocumentBoundary: number;
+    /** Indicates whether the DetectedQuadResultItem has passed corss verification. */
+    CrossVerificationStatus: EnumCrossVerificationStatus;
+}
+
+interface DeskewedImageResultItem extends CapturedResultItem {
+    /** The image data for the deskewed image result. */
+    imageData: DSImageData;
+    /** The location where the deskewed image was extracted from within the input image image of the deskew section, represented as a quadrilateral. */
+    sourceLocation: Quadrilateral;
+    toCanvas: () => HTMLCanvasElement;
+    toImage: (MIMEType: "image/png" | "image/jpeg") => HTMLImageElement;
+    toBlob: (MIMEType: "image/png" | "image/jpeg") => Promise<Blob>;
+}
+
+interface EnhancedImageElement extends RegionObjectElement {
+    /** The image data for the enhanced image. */
+    imageData: DSImageData;
+}
+
+interface EnhancedImageResultItem extends CapturedResultItem {
+    /** The image data for the enhanced image result. */
+    imageData: DSImageData;
+    /** Converts the enhanced image data into an HTMLCanvasElement for display or further manipulation in web applications. */
+    toCanvas: () => HTMLCanvasElement;
+    /** Converts the enhanced image data into an HTMLImageElement of a specified MIME type ('image/png' or 'image/jpeg'). */
+    toImage: (MIMEType: "image/png" | "image/jpeg") => HTMLImageElement;
+    /** Converts the enhanced image data into a Blob object of a specified MIME type ('image/png' or 'image/jpeg'). */
+    toBlob: (MIMEType: "image/png" | "image/jpeg") => Promise<Blob>;
+}
+
+interface EnhancedImageUnit extends IntermediateResultUnit {
+    /** An array of `EnhancedImageElement` objects, each representing a piece of the original image after enhancement. */
+    enhancedImage: EnhancedImageElement;
+}
+
+interface CandidateQuadEdgesUnit extends IntermediateResultUnit {
+    /** An array of candidate edges that may form quadrilaterals, identified during image processing. */
+    candidateQuadEdges: Array<Edge>;
+}
+
+interface CornersUnit extends IntermediateResultUnit {
+    /** An array of detected corners within the image, identified during image processing. */
+    corners: Array<Corner>;
+}
+
+interface DetectedQuadElement extends RegionObjectElement {
+    /** A confidence score measuring the certainty that the detected quadrilateral represents the boundary of a document. */
+    confidenceAsDocumentBoundary: number;
+}
+
+interface DetectedQuadsUnit extends IntermediateResultUnit {
+    /** An array of `DetectedQuadElement` objects, each representing a potential document or area of interest within the image. */
+    detectedQuads: Array<DetectedQuadElement>;
+}
+
+interface LongLinesUnit extends IntermediateResultUnit {
+    /** An array of long line segments detected within the image. */
+    longLines: Array<LineSegment>;
+}
+
+interface LogicLinesUnit extends IntermediateResultUnit {
+    /** An array of logic line segments detected within the image. */
+    logicLines: Array<LineSegment>;
+}
+
+interface DeskewedImageElement extends RegionObjectElement {
+    /** The image data for the deskewed image. */
+    imageData: DSImageData;
+    /** A reference to another `RegionObjectElement`. */
+    referencedElement: RegionObjectElement;
+}
+
+interface DeskewedImageUnit extends IntermediateResultUnit {
+    /** The `DeskewedImageElement` objects representing a piece of the original image after deskewing. */
+    deskewedImage: DeskewedImageElement;
+}
+
+interface ProcessedDocumentResult extends CapturedResultBase {
+    /** An array of `DetectedQuadResultItem` objects, each representing a quadrilateral after document detection. */
+    detectedQuadResultItems: Array<DetectedQuadResultItem>;
+    /** An array of `DeskewedImageResultItem` objects, each representing a piece of the original image after deskewing. */
+    deskewedImageResultItems: Array<DeskewedImageResultItem>;
+    /** An array of `EnhancedImageResultItem` objects, each representing a piece of the original image after enhancement. */
+    enhancedImageResultItems: Array<EnhancedImageResultItem>;
+}
+
+/**
+ * The `SimplifiedDocumentNormalizerSettings` interface defines simplified settings for document detection and normalization.
+ */
+interface SimplifiedDocumentNormalizerSettings {
+    /** Grayscale enhancement modes to apply for improving detection in challenging conditions. */
+    grayscaleEnhancementModes: Array<EnumGrayscaleEnhancementMode>;
+    /** Grayscale transformation modes to apply, enhancing detection capability. */
+    grayscaleTransformationModes: Array<EnumGrayscaleTransformationMode>;
+    /** Color mode of the anticipated normalized page */
+    colourMode: EnumImageColourMode;
+    /** Width and height of the anticipated normalized page. */
+    pageSize: [number, number];
+    /** Anticipated brightness level of the normalized image. */
+    brightness: number;
+    /** Anticipated contrast level of the normalized image. */
+    contrast: number;
+    /**
+     * Threshold for reducing the size of large images to speed up processing.
+     * If the size of the image's shorter edge exceeds this threshold, the image may be downscaled to decrease processing time. The standard setting is 2300.
+     */
+    scaleDownThreshold: number;
+    /** The minimum ratio between the target document area and the total image area. Only those exceedingthis value will be output (measured in percentages).*/
+    minQuadrilateralAreaRatio: number;
+    /** The number of documents expected to be detected.*/
+    expectedDocumentsCount: number;
+}
+
+export { CandidateQuadEdgesUnit, CornersUnit, DeskewedImageElement, DeskewedImageResultItem, DeskewedImageUnit, DetectedQuadElement, DetectedQuadResultItem, DetectedQuadsUnit, DocumentNormalizerModule, EnhancedImageElement, EnhancedImageResultItem, EnhancedImageUnit, EnumImageColourMode, LogicLinesUnit, LongLinesUnit, ProcessedDocumentResult, SimplifiedDocumentNormalizerSettings };
+
+
+declare class LabelRecognizerModule {
+    #private;
+    /**
+     * An event that repeatedly fires during the loading of a recognition data file (.data).
+     * @param filePath Returns the path of the recognition data file.
+     * @param tag Indicates the ongoing status of the file download. Available values are "starting", "in progress", "completed".
+     * @param progress Shows the numerical progress of the download.
+     */
+    static onDataLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
+        loaded: number;
+        total: number;
+    }) => void;
+    /**
+     * Returns the version of the LabelRecognizer module.
+     */
+    static getVersion(): string;
+    /**
+     * Loads a specific data file containing confusable characters information.
+     * @param dataName The name of the recognition data to load.
+     * @param dataPath specifies the path to find the data file. If not specified, the default path points to the package “dynamsoft-capture-vision-data”.
+     */
+    static loadConfusableCharsData(dataName: string, dataPath?: string): Promise<ErrorInfo>;
+    /**
+     * Loads a specific data file containing overlapping characters information.
+     * @param dataName The name of the recognition data to load.
+     * @param dataPath specifies the path to find the data file. If not specified, the default path points to the package “dynamsoft-capture-vision-data”.
+     */
+    static loadOverlappingCharsData(dataName: string, dataPath?: string): Promise<ErrorInfo>;
+}
+
+interface CharacterResult {
+    /** The highest confidence character recognized. */
+    characterH: string;
+    /** The medium confidence character recognized. */
+    characterM: string;
+    /** The lowest confidence character recognized. */
+    characterL: string;
+    /** Confidence score for the highest confidence character. */
+    characterHConfidence: number;
+    /** Confidence score for the medium confidence character. */
+    characterMConfidence: number;
+    /** Confidence score for the lowest confidence character. */
+    characterLConfidence: number;
+    /** The location of the recognized character within the image. */
+    location: Quadrilateral;
+}
+
+interface TextLineResultItem extends CapturedResultItem {
+    /** The recognized text of the line. */
+    text: string;
+    /** The location of the text line within the image. */
+    location: Quadrilateral;
+    /** Confidence score for the recognized text line. */
+    confidence: number;
+    /** Results for individual characters within the text line. */
+    characterResults: Array<CharacterResult>;
+    /** The name of the TextLineSpecification object that generated this TextLineResultItem. */
+    specificationName: string;
+    /** The recognized raw text of the line. */
+    rawText: string;
+}
+
+declare function filterVINResult(vinItem: TextLineResultItem): string;
+/**
+ * check if the vin code is valid
+ * @ignore
+ */
+declare function checkValidVIN(code: string): boolean;
+/**
+ * check if the second row of passport mrz code is valid.
+ * check digit only exits in second row in passport mrz.
+ * @ignore
+ */
+declare function checkValidMRP(code: string): boolean;
+/**
+ * check if the second row of visa mrz code is valid.
+ * check digit only exits in second row in visa mrz.
+ * @ignore
+ */
+declare function checkValidMRV(code: string): boolean;
+/**
+ * check if the two row or third row of id card mrz code is valid.
+ * check digit only exits in two row or third row in id card mrz.
+ * @ignore
+ */
+declare function checkValidIDCard(code: string, codeUpperLine?: string): boolean;
+declare const utilsFuncs: {
+    filterVINResult: typeof filterVINResult;
+    checkValidVIN: typeof checkValidVIN;
+    checkValidMRP: typeof checkValidMRP;
+    checkValidMRV: typeof checkValidMRV;
+    checkValidIDCard: typeof checkValidIDCard;
+};
+
+/**
+ * Enumerates the status of a raw text line.
+ */
+declare enum EnumRawTextLineStatus {
+    /** Localized but recognition not performed. */
+    RTLS_LOCALIZED = 0,
+    /** Recognition failed. */
+    RTLS_RECOGNITION_FAILED = 1,
+    /** Successfully recognized. */
+    RTLS_RECOGNITION_SUCCEEDED = 2
+}
+
+interface LocalizedTextLineElement extends RegionObjectElement {
+    /** Quadrilaterals for each character in the text line. */
+    characterQuads: Array<Quadrilateral>;
+    /** The row number of the text line, starting from 1. */
+    rowNumber: number;
+}
+
+interface LocalizedTextLinesUnit extends IntermediateResultUnit {
+    /** An array of `LocalizedTextLineElement` objects, each representing a localized text line. */
+    localizedTextLines: Array<LocalizedTextLineElement>;
+}
+
+interface RecognizedTextLineElement extends RegionObjectElement {
+    /** The recognized text of the line. */
+    text: string;
+    /** Confidence score for the recognized text line. */
+    confidence: number;
+    /** Results for individual characters within the text line. */
+    characterResults: Array<CharacterResult>;
+    /** The row number of the text line, starting from 1. */
+    rowNumber: number;
+    /** The name of the TextLineSpecification object that generated this RecognizedTextLineElement. */
+    specificationName: string;
+    /** The recognized raw text of the line. */
+    rawText: string;
+}
+
+interface RecognizedTextLinesResult extends CapturedResultBase {
+    /**
+     * An array of `TextLineResultItem` objects, each representing a recognized text line within the original image.
+     */
+    textLineResultItems: Array<TextLineResultItem>;
+}
+
+interface SimplifiedLabelRecognizerSettings {
+    /** Name of the character model used for recognition. */
+    characterModelName: string;
+    /** Regular expression pattern for validating recognized line strings. */
+    lineStringRegExPattern: string;
+    /** Grayscale transformation modes to apply, enhancing detection capability. */
+    grayscaleTransformationModes: Array<EnumGrayscaleTransformationMode>;
+    /** Grayscale enhancement modes to apply for improving detection in challenging conditions. */
+    grayscaleEnhancementModes: Array<EnumGrayscaleEnhancementMode>;
+    /**
+     * Threshold for reducing the size of large images to speed up processing. If the size of the image's shorter edge exceeds this threshold, the image may be downscaled to decrease processing time. The standard setting is 2300. */
+    scaleDownThreshold: number;
+}
+
+interface BufferedCharacterItem {
+    /** The buffered character value. */
+    character: string;
+    /** The image data of the buffered character. */
+    image: DSImageData;
+    /**  An array of features, each feature object contains feature id and value of the buffered character.*/
+    features: Map<number, number>;
+}
+
+interface CharacterCluster {
+    /** The character value of the cluster. */
+    character: string;
+    /** The mean of the cluster. */
+    mean: BufferedCharacterItem;
+}
+
+interface BufferedCharacterItemSet {
+    /** An array of BufferedCharacterItem. */
+    items: Array<BufferedCharacterItem>;
+    /** An array of CharacterCluster. */
+    characterClusters: Array<CharacterCluster>;
+}
+
+/**
+ * The `RawTextLine` represents a text line in an image. It can be in one of the following states:
+ * - `TLS_LOCALIZED`: Localized but recognition not performed.
+ * - `TLS_RECOGNITION_FAILED`: Recognition failed.
+ * - `TLS_RECOGNIZED_SUCCESSFULLY`: Successfully recognized.
+ */
+interface RawTextLine extends RegionObjectElement {
+    /** The recognized text of the line. */
+    text: string;
+    /** Confidence score for the recognized text line. */
+    confidence: number;
+    /** Results for individual characters within the text line. */
+    characterResults: Array<CharacterResult>;
+    /** The row number of the text line, starting from 1. */
+    rowNumber: number;
+    /** The predefined specification name of this text line*/
+    specificationName: string;
+    /** The location of the text line */
+    location: Quadrilateral;
+    /** The status of a raw text line.*/
+    status: EnumRawTextLineStatus;
+}
+
+interface RawTextLinesUnit extends IntermediateResultUnit {
+    /** An array of RawTextLine. */
+    rawTextlines: Array<RawTextLine>;
+}
+
+interface RecognizedTextLinesUnit extends IntermediateResultUnit {
+    recognizedTextLines: Array<RecognizedTextLineElement>;
+}
+
+export { BufferedCharacterItem, BufferedCharacterItemSet, CharacterCluster, CharacterResult, EnumRawTextLineStatus, LabelRecognizerModule, LocalizedTextLineElement, LocalizedTextLinesUnit, RawTextLine, RawTextLinesUnit, RecognizedTextLineElement, RecognizedTextLinesResult, RecognizedTextLinesUnit, SimplifiedLabelRecognizerSettings, TextLineResultItem, utilsFuncs };
 
 declare class LicenseModule {
     /**
@@ -4821,26 +5232,18 @@ declare class UtilityModule {
     static getVersion(): string;
 }
 
-type resultItemTypesString = "barcode" | "text_line" | "detected_quad" | "deskewed_image";
+type resultItemTypesString = "barcode" | "text_line" | "detected_quad" | "deskewed_image" | "enhanced_image";
+type CapturedResultMap<T> = {
+    [K in EnumCapturedResultItemType]?: T;
+};
 
 declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
     #private;
     constructor();
-    verificationEnabled: {
-        [key: number]: boolean;
-    };
-    duplicateFilterEnabled: {
-        [key: number]: boolean;
-    };
-    duplicateForgetTime: {
-        [key: number]: number;
-    };
-    private latestOverlappingEnabled;
-    private maxOverlappingFrames;
-    private overlapSet;
-    private stabilityCount;
-    private crossVerificationFrames;
-    _dynamsoft(): void;
+    verificationEnabled: CapturedResultMap<boolean>;
+    duplicateFilterEnabled: CapturedResultMap<boolean>;
+    duplicateForgetTime: CapturedResultMap<number>;
+    private _dynamsoft;
     /**
      * Enables or disables the verification of one or multiple specific result item types.
      * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
@@ -4877,19 +5280,12 @@ declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
      * @returns The set interval for the specified item type.
      */
     getDuplicateForgetTime(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString): number;
-    /**
-     * Set the max referencing frames count for the to-the-latest overlapping feature.
-     *
-     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
-     * @param maxOverlappingFrames The max referencing frames count for the to-the-latest overlapping feature.
-     */
-    setMaxOverlappingFrames(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, maxOverlappingFrames: number): void;
-    /**
-     * Get the max referencing frames count for the to-the-latest overlapping feature.
-     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
-     * @return Returns the max referencing frames count for the to-the-latest overlapping feature.
-     */
-    getMaxOverlappingFrames(resultItemType: EnumCapturedResultItemType): number;
+    getFilteredResultItemTypes(): number;
+    private overlapSet;
+    private stabilityCount;
+    private crossVerificationFrames;
+    private latestOverlappingEnabled;
+    private maxOverlappingFrames;
     /**
      * Enables or disables the deduplication process for one or multiple specific result item types.
      * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
@@ -4903,7 +5299,19 @@ declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
      * @returns Boolean indicating the deduplication status for the specified type.
      */
     isLatestOverlappingEnabled(resultItemType: EnumCapturedResultItemType | resultItemTypesString): boolean;
-    getFilteredResultItemTypes(): number;
+    /**
+     * Set the max referencing frames count for the to-the-latest overlapping feature.
+     *
+     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param maxOverlappingFrames The max referencing frames count for the to-the-latest overlapping feature.
+     */
+    setMaxOverlappingFrames(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, maxOverlappingFrames: number): void;
+    /**
+     * Get the max referencing frames count for the to-the-latest overlapping feature.
+     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @return Returns the max referencing frames count for the to-the-latest overlapping feature.
+     */
+    getMaxOverlappingFrames(resultItemType: EnumCapturedResultItemType): number;
     latestOverlappingFilter(result: any): void;
 }
 
