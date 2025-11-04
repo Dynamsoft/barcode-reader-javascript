@@ -23,6 +23,7 @@
           <div class="camera-list" style="position:absolute;color:#ffffff;width: 220px;max-height:249px;overflow-y:auto;display: none;"></div>
         </div>
       </div>
+      <svg t="1756970971971" class="resume" style="position:absolute;top:20px;left:20px;z-index:2;display:none;cursor: pointer;" viewBox="0 0 1445 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1469" width="25" height="25"><path d="M1350.649885 471.551065H183.240025l340.356908-340.294583A54.160438 54.160438 0 0 0 447.061814 54.721363L14.526209 487.630919a56.092514 56.092514 0 0 0-11.779428 17.637979 54.659038 54.659038 0 0 0 0 41.321485 56.092514 56.092514 0 0 0 11.779428 17.63798l432.535605 432.660255a54.160438 54.160438 0 1 0 76.597444-76.597443L183.240025 579.684967h1167.40986a54.098113 54.098113 0 1 0 0-108.133902" p-id="1470" fill="#ffffff"></path></svg>
       <svg class="btn-close" style="position: absolute;top:20px;right:20px;z-index:2;display:none;cursor: pointer;" id="closed" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 24 24">
         <g id="Group_2681" data-name="Group 2681">
           <path id="Path_8292" data-name="Path 8292" d="M12,0h0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0m0,1.914A10.086,10.086,0,1,1,1.914,12,10.1,10.1,0,0,1,12,1.914" fill="#fff" />

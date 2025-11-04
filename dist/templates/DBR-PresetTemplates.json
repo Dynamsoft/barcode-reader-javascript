@@ -1,4 +1,7 @@
 {
+  "GlobalParameter": {
+    "IntraOpNumThreads": 2
+  },
   "BarcodeFormatSpecificationOptions": [
     {
       "BarcodeFormatIds": [
@@ -72,16 +75,8 @@
         "bfs2"
       ],
       "Name": "task-read-barcodes",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -92,13 +87,10 @@
                   "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_LINES"
+                  "Mode": "LM_SCAN_DIRECTLY"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
-            },
-            {
-              "Stage": "SST_LOCALIZE_BARCODES"
             }
           ]
         },
@@ -107,21 +99,26 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
-            {
               "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
                 },
                 {
                   "Mode": "DM_THRESHOLD_BINARIZATION"
+                },
+                {
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": [
+                    "Code128Decoder",
+                    "EAN13Decoder"
+                  ]
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS",
+                  "Methods": [
+                    "OneDGeneral",
+                    "TwoDGeneral"
+                  ]
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -136,16 +133,8 @@
         "bfs2-speed-first"
       ],
       "Name": "task-read-barcodes-speed-first",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-speed-first",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-speed-first",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -153,17 +142,13 @@
             {
               "LocalizationModes": [
                 {
-                  "Mode": "LM_SCAN_DIRECTLY",
-                  "ScanDirection": 2
+                  "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_CONNECTED_BLOCKS"
+                  "Mode": "LM_SCAN_DIRECTLY"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
-            },
-            {
-              "Stage": "SST_LOCALIZE_BARCODES"
             }
           ]
         },
@@ -171,15 +156,6 @@
           "ImageParameterName": "ip-read-barcodes-speed-first",
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
-            {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
             {
               "DeblurModes": [
                 {
@@ -189,7 +165,18 @@
                   "Mode": "DM_THRESHOLD_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_DEEP_ANALYSIS"
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": [
+                    "Code128Decoder",
+                    "EAN13Decoder"
+                  ]
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS",
+                  "Methods": [
+                    "OneDGeneral",
+                    "TwoDGeneral"
+                  ]
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -205,16 +192,8 @@
       ],
       "ExpectedBarcodesCount": 999,
       "Name": "task-read-barcodes-read-rate",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-read-rate",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-read-rate",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -225,16 +204,10 @@
                   "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_LINES"
-                },
-                {
-                  "Mode": "LM_STATISTICS"
+                  "Mode": "LM_NEURAL_NETWORK"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
-            },
-            {
-              "Stage": "SST_LOCALIZE_BARCODES"
             }
           ]
         },
@@ -242,15 +215,6 @@
           "ImageParameterName": "ip-read-barcodes-read-rate",
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
-            {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
             {
               "DeblurModes": [
                 {
@@ -263,7 +227,10 @@
                   "Mode": "DM_DIRECT_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_SMOOTHING"
+                  "Mode": "DM_NEURAL_NETWORK"
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS"
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -279,16 +246,8 @@
       ],
       "ExpectedBarcodesCount": 1,
       "Name": "task-read-single-barcode",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-single-barcode",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-single-barcode",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -296,11 +255,10 @@
             {
               "LocalizationModes": [
                 {
-                  "Mode": "LM_SCAN_DIRECTLY",
-                  "ScanDirection": 2
+                  "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_CONNECTED_BLOCKS"
+                  "Mode": "LM_SCAN_DIRECTLY"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
@@ -315,15 +273,6 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
-            {
               "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
@@ -332,7 +281,18 @@
                   "Mode": "DM_THRESHOLD_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_DEEP_ANALYSIS"
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": [
+                    "Code128Decoder",
+                    "EAN13Decoder"
+                  ]
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS",
+                  "Methods": [
+                    "OneDGeneral",
+                    "TwoDGeneral"
+                  ]
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -348,16 +308,8 @@
       ],
       "ExpectedBarcodesCount": 999,
       "Name": "task-read-barcodes-balance",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-balance",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-balance",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -383,15 +335,6 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
-            {
               "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
@@ -415,16 +358,8 @@
         "bfs2-dense"
       ],
       "Name": "task-read-barcodes-dense",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-dense",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-dense",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -435,7 +370,7 @@
                   "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_LINES"
+                  "Mode": "LM_SCAN_DIRECTLY"
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
@@ -450,15 +385,6 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
-              "Stage": "SST_SCALE_BARCODE_IMAGE"
-            },
-            {
               "DeblurModes": [
                 {
                   "Mode": "DM_BASED_ON_LOC_BIN"
@@ -467,13 +393,18 @@
                   "Mode": "DM_THRESHOLD_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_DIRECT_BINARIZATION"
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": [
+                    "Code128Decoder",
+                    "EAN13Decoder"
+                  ]
                 },
                 {
-                  "Mode": "DM_SMOOTHING"
-                },
-                {
-                  "Mode": "DM_GRAY_EQUALIZATION"
+                  "Mode": "DM_DEEP_ANALYSIS",
+                  "Methods": [
+                    "OneDGeneral",
+                    "TwoDGeneral"
+                  ]
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -488,16 +419,8 @@
         "bfs2-distant"
       ],
       "Name": "task-read-barcodes-distant",
+      "MaxThreadsInOneTask": 1,
       "SectionArray": [
-        {
-          "ImageParameterName": "ip-read-barcodes-distant",
-          "Section": "ST_REGION_PREDETECTION",
-          "StageArray": [
-            {
-              "Stage": "SST_PREDETECT_REGIONS"
-            }
-          ]
-        },
         {
           "ImageParameterName": "ip-read-barcodes-distant",
           "Section": "ST_BARCODE_LOCALIZATION",
@@ -523,12 +446,13 @@
           "Section": "ST_BARCODE_DECODING",
           "StageArray": [
             {
-              "Stage": "SST_RESIST_DEFORMATION"
-            },
-            {
-              "Stage": "SST_COMPLEMENT_BARCODE"
-            },
-            {
+              "BarcodeScaleModes": [
+                {
+                  "Mode": "BSM_LINEAR_INTERPOLATION",
+                  "ModuleSizeThreshold": 4,
+                  "TargetModuleSize": 6
+                }
+              ],
               "Stage": "SST_SCALE_BARCODE_IMAGE"
             },
             {
@@ -540,7 +464,18 @@
                   "Mode": "DM_THRESHOLD_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_DIRECT_BINARIZATION"
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": [
+                    "Code128Decoder",
+                    "EAN13Decoder"
+                  ]
+                },
+                {
+                  "Mode": "DM_DEEP_ANALYSIS",
+                  "Methods": [
+                    "OneDGeneral",
+                    "TwoDGeneral"
+                  ]
                 }
               ],
               "Stage": "SST_DECODE_BARCODES"
@@ -561,7 +496,8 @@
       "ImageROIProcessingNameArray": [
         "roi-read-barcodes-speed-first"
       ],
-      "Name": "ReadBarcodes_SpeedFirst"
+      "Name": "ReadBarcodes_SpeedFirst",
+      "Timeout": 500
     },
     {
       "ImageROIProcessingNameArray": [
@@ -574,7 +510,8 @@
       "ImageROIProcessingNameArray": [
         "roi-read-single-barcode"
       ],
-      "Name": "ReadSingleBarcode"
+      "Name": "ReadSingleBarcode",
+      "Timeout": 500
     },
     {
       "ImageROIProcessingNameArray": [
@@ -587,13 +524,15 @@
       "ImageROIProcessingNameArray": [
         "roi-read-barcodes-dense"
       ],
-      "Name": "ReadDenseBarcodes"
+      "Name": "ReadDenseBarcodes",
+      "Timeout": 100000
     },
     {
       "ImageROIProcessingNameArray": [
         "roi-read-barcodes-distant"
       ],
-      "Name": "ReadDistantBarcodes"
+      "Name": "ReadDistantBarcodes",
+      "Timeout": 100000
     }
   ],
   "ImageParameterOptions": [
@@ -615,14 +554,6 @@
           "Stage": "SST_ENHANCE_GRAYSCALE"
         },
         {
-          "BinarizationModes": [
-            {
-              "BlockSizeX": 71,
-              "BlockSizeY": 71,
-              "EnableFillBinaryVacancy": 0,
-              "Mode": "BM_LOCAL_BLOCK"
-            }
-          ],
           "Stage": "SST_BINARIZE_IMAGE"
         },
         {
@@ -916,6 +847,10 @@
           "Stage": "SST_INPUT_COLOR_IMAGE"
         },
         {
+          "ImageScaleSetting": {
+            "EdgeLengthThreshold": 10000,
+            "ScaleType": "ST_SCALE_DOWN"
+          },
           "Stage": "SST_SCALE_IMAGE"
         },
         {
