@@ -56,7 +56,7 @@ When getting started with Barcode Scanner, we recommend [getting your own 30-day
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.2000/dist/dbr.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js"></script>
     <script>
       // Initialize the Dynamsoft Barcode Scanner
       const barcodeScanner = new Dynamsoft.BarcodeScanner({
@@ -77,7 +77,7 @@ When getting started with Barcode Scanner, we recommend [getting your own 30-day
 ```
 
 <p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.2.20/barcode-scanner-api-samples/scan-single-barcode/hello-world.html" title="Code in Github" style="text-decoration:none;">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.2.40/barcode-scanner-api-samples/scan-single-barcode/hello-world.html" title="Code in Github" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
   </a>
   &nbsp;
@@ -85,14 +85,14 @@ When getting started with Barcode Scanner, we recommend [getting your own 30-day
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
   </a>
   &nbsp;
-  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/barcode-scanner-api-samples/scan-single-barcode/hello-world.html?ver=11.2.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/barcode-scanner-api-samples/scan-single-barcode/hello-world.html?ver=11.2.40&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
   </a>
 </p>
 
 ### Step 1: Setting up the HTML and Including the Barcode Scanner
 
-As outlined earlier, this guide will help you create a simple Hello World barcode scanning application using vanilla JavaScript. The full sample code is also available in the [GitHub repository](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/v11.2.20).
+As outlined earlier, this guide will help you create a simple Hello World barcode scanning application using vanilla JavaScript. The full sample code is also available in the [GitHub repository](https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/v11.2.40).
 
 The first step before writing the code is to include the SDK in your application. You can simply include the SDK by using the precompiled script.
 
@@ -100,7 +100,7 @@ The first step before writing the code is to include the SDK in your application
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.2000/dist/dbr.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js"></script>
   </body>
 </html>
 ```
@@ -117,21 +117,21 @@ The simplest way to include the SDK is to use either the [**jsDelivr**](https://
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.2000/dist/dbr.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js"></script>
   ```
 
 - UNPKG
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.2.2000/dist/dbr.bundle.js"></script>
+  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js"></script>
   ```
 
 When using a framework such as **React**, **Vue** or **Angular**, we recommend adding the package as a dependency using a package manager such as **npm** or **yarn**:
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.2.2000
+  npm i dynamsoft-barcode-reader-bundle@11.2.4000
   # or
-  yarn add dynamsoft-barcode-reader-bundle@11.2.2000
+  yarn add dynamsoft-barcode-reader-bundle@11.2.4000
   ```
 
 When using package managers like **npm** or **yarn**, you likely need to specify the location of the engine files as a link to a CDN. Please see the [BarcodeScannerConfig API](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig) for a code snippet on how to set the `engineResourcePaths`.
@@ -144,14 +144,14 @@ Alternatively, you may choose to download the SDK and host the files on your own
 
 - From the website
 
-  [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.2.20&utm_source=github&product=dbr&package=js)
+  [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.2.40&utm_source=github&product=dbr&package=js)
 
   The resources are located in the `./dist/` directory.
 
 - From npm
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.2.2000
+  npm i dynamsoft-barcode-reader-bundle@11.2.4000
   ```
 
   The resources are located at the path `node_modules/<pkg>`, without `@<version>`. You can copy it elsewhere and add `@<version>` tag.
@@ -162,7 +162,7 @@ Alternatively, you may choose to download the SDK and host the files on your own
 You can typically include the SDK like this:
 
 ```html
-<script src="path/to/dynamsoft-barcode-reader-bundle@11.2.2000/dist/dbr.bundle.js"></script>
+<script src="path/to/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js"></script>
 ```
 <div class="multi-panel-end"></div>
 
@@ -218,5 +218,5 @@ Now that the Barcode Scanner has been initialized and configured, it is ready to
 Now that you've implemented the basic functionality, here are some recommended next steps to further explore the capabilities of the Barcode Scanner:
 
 1. Learn how to [Customize the Barcode Scanner](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/barcode-scanner-customization.html)
-2. Check out the [Official Samples and Demo](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html?ver=11.2.2000)
-3. Learn about the [APIs of BarcodeScanner](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html?ver=11.2.2000)
+2. Check out the [Official Samples and Demo](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html?ver=11.2.4000)
+3. Learn about the [APIs of BarcodeScanner](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html?ver=11.2.4000)
