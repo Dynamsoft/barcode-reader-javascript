@@ -114,7 +114,7 @@ declare enum EnumErrorCode {
     /** The specified file path does not exist and could not be created. This error could be due to insufficient permissions, a read-only filesystem, or other environmental constraints preventing file creation. */
     EC_CREATE_FILE_FAILED = -10068,
     /** The input ImageData object contains invalid parameters. This could be due to incorrect data types, out-of-range values, or improperly formatted data being passed to a function expecting ImageData. */
-    EC_IMGAE_DATA_INVALID = -10069,
+    EC_IMAGE_DATA_INVALID = -10069,
     /** The size of the input image does not meet the requirements. */
     EC_IMAGE_SIZE_NOT_MATCH = -10070,
     /** The pixel format of the input image does not meet the requirements. */
@@ -135,6 +135,8 @@ declare enum EnumErrorCode {
     /**The rectangle is invalid.*/
     EC_RECT_INVALID = -10080,
     EC_TEMPLATE_VERSION_INCOMPATIBLE = -10081,
+    /** The portrait zone could not be located on the identity document.*/
+    EC_PORTRAIT_ZONE_NOT_FOUND = -10082,
     /** Indicates no license is available or the license is not set. */
     EC_NO_LICENSE = -20000,
     /** Encountered failures while attempting to read or write to the license buffer. */
@@ -448,7 +450,9 @@ declare enum EnumRegionObjectElementType {
     /** Corresponds to the `TargetROIElement` subclass. */
     ROET_TARGET_ROI = 8,
     /** Corresponds to the `EnhancedImageElement` subclass, indicating images that have undergone enhancement for better clarity or detail, specifically in the context of enhanced image processing. */
-    ROET_ENHANCED_IMAGE = 9
+    ROET_ENHANCED_IMAGE = 9,
+    /** Corresponds to the `AuxiliaryRegionElement` subclass, representing auxiliary regions detected within the image. */
+    ROET_AUXILIARY_REGION = 10
 }
 
 declare enum EnumSectionType {
@@ -504,17 +508,6 @@ declare enum EnumModuleName {
     MN_DYNAMSOFT_CAPTURE_VISION_STD = "std"
 }
 
-declare enum EnumTransformMatrixType {
-    /**Represents a transformation matrix that converts coordinates from the local image to the original image.*/
-    TMT_LOCAL_TO_ORIGINAL_IMAGE = 0,
-    /**Represents a transformation matrix that converts coordinates from the original image to the local image.*/
-    TMT_ORIGINAL_TO_LOCAL_IMAGE = 1,
-    /**Represents a transformation matrix that converts coordinates from the local image to the section image.*/
-    TMT_LOCAL_TO_SECTION_IMAGE = 2,
-    /**Represents a transformation matrix that converts coordinates from the section image to the local image.*/
-    TMT_SECTION_TO_LOCAL_IMAGE = 3
-}
-
 type WorkerAutoResources = {
     [key in EnumModuleName]?: {
         js?: boolean;
@@ -559,6 +552,7 @@ interface EngineResourcePaths {
     "dcp"?: string | PathInfo;
     "dce"?: string | PathInfo;
     "dcvData"?: string | PathInfo;
+    "identityutility"?: string | PathInfo;
     "ddv"?: string | PathInfo;
     "dwt"?: string | DwtInfo;
     "dbrBundle"?: string | PathInfo;
@@ -590,79 +584,17 @@ interface WasmLoadOptions {
     wasmType?: WasmType;
     pthreadPoolSize?: number;
 }
-type MimeType = "image/png" | "image/jpeg";
+type MimeType = "image/png" | "image/jpeg" | "image/bmp";
 
-declare const mapAsyncDependency: {
-    [key: string]: any;
-};
-declare const waitAsyncDependency: (depName: string | string[]) => Promise<void>;
-declare const doOrWaitAsyncDependency: (depName: string | string[], asyncFunc: () => Promise<void>) => Promise<void>;
-declare let worker: Worker;
-declare const getNextTaskID: () => number;
-declare const mapTaskCallBack: {
-    [key: string]: Function;
-};
-declare let onLog: (message: string) => void | undefined;
-declare const setOnLog: (value: typeof onLog) => void;
-declare let bDebug: boolean;
-declare const setBDebug: (value: boolean) => void;
-declare const innerVersions: InnerVersions;
-declare const mapPackageRegister: {
-    [key: string]: any;
-};
-declare const workerAutoResources: WorkerAutoResources;
-declare class CoreModule {
-    static get engineResourcePaths(): EngineResourcePaths;
-    static set engineResourcePaths(value: EngineResourcePaths);
-    private static _bSupportDce4Module;
-    static get bSupportDce4Module(): number;
-    private static _bSupportIRTModule;
-    static get bSupportIRTModule(): number;
-    private static _versions;
-    static get versions(): any;
-    static get _onLog(): (message: string) => void;
-    static set _onLog(value: (message: string) => void);
-    static get _bDebug(): boolean;
-    static set _bDebug(value: boolean);
-    static _bundleEnv: "DCV" | "DBR";
-    static get _workerName(): string;
-    private static _wasmLoadOptions;
-    static get wasmLoadOptions(): WasmLoadOptions;
-    static set wasmLoadOptions(options: WasmLoadOptions);
-    static loadedWasmType: Exclude<WasmType, "auto">;
-    /**
-     * Initiates the loading process for the .wasm file(s) corresponding to the specified module(s).
-     * If a module relies on other modules, the other modules will be loaded as well.
-     *
-     * @returns A promise that resolves when the resources have been successfully released. It does not provide any value upon resolution.
-     */
-    static isModuleLoaded(name?: string): boolean;
-    static loadWasm(): Promise<void>;
-    /**
-     * An event that fires during the loading of a WebAssembly module (.wasm).
-     *
-     * @param filePath The path of the wasm file.
-     * @param tag Indicates the ongoing status of the file download ("starting", "in progress", "completed").
-     * @param progress An object indicating the progress of the download, with `loaded` and `total` bytes.
-     */
-    static onWasmLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
-        loaded: number;
-        total: number;
-    }) => void;
-    /**
-     * Detect environment and get a report.
-     */
-    static detectEnvironment(): Promise<any>;
-    /**
-     * modify from https://gist.github.com/2107/5529665
-     * @ignore
-     */
-    static browserInfo: any;
-    static getModuleVersion(): Promise<WasmVersions>;
-    static getVersion(): string;
-    static enableLogging(): void;
-    static disableLogging(): void;
-    static cfd(count: number): Promise<void>;
+interface CapturedResultItem {
+    /** The type of the captured result item, indicating what kind of data it represents. */
+    readonly type: EnumCapturedResultItemType;
+    /** A property of type `CapturedResultItem` that represents a reference to another captured result item. */
+    readonly referenceItem: CapturedResultItem | null;
+    /** The name of the target ROI definition which includes a task that generated the result. */
+    readonly targetROIDefName: string;
+    /** The name of the task that generated the result. */
+    readonly taskName: string;
 }
 
 interface ImageTag {
@@ -684,18 +616,7 @@ interface DSImageData {
     /** The pixel format of the image. */
     format: EnumImagePixelFormat;
     /** An optional tag associated with the image data. */
-    tag?: ImageTag;
-}
-
-interface CapturedResultItem {
-    /** The type of the captured result item, indicating what kind of data it represents. */
-    readonly type: EnumCapturedResultItemType;
-    /** A property of type `CapturedResultItem` that represents a reference to another captured result item. */
-    readonly referenceItem: CapturedResultItem | null;
-    /** The name of the target ROI definition which includes a task that generated the result. */
-    readonly targetROIDefName: string;
-    /** The name of the task that generated the result. */
-    readonly taskName: string;
+    imageTag?: ImageTag;
 }
 
 interface OriginalImageResultItem extends CapturedResultItem {
@@ -898,8 +819,6 @@ interface RegionObjectElement {
     referencedElement: RegionObjectElement;
     /** The type of the region object element, defined by the enumeration EnumRegionObjectElementType. */
     elementType: EnumRegionObjectElementType;
-    /**The image data for the `RegionObjectElement`. */
-    imageData: DSImageData;
 }
 
 interface PredetectedRegionElement extends RegionObjectElement {
@@ -1021,6 +940,91 @@ interface CapturedResultBase {
 interface ErrorInfo {
     errorCode: EnumErrorCode;
     errorString: string;
+}
+
+interface AuxiliaryRegionElement extends RegionObjectElement {
+    /** The name of this auxiliary region(e.g., "PortraitZone", "SignatureArea"). */
+    name: string;
+    /** The confidence level of this auxiliary region detection, typically in the range [0, 100] */
+    confidence: number;
+}
+
+declare const mapAsyncDependency: {
+    [key: string]: any;
+};
+declare const waitAsyncDependency: (depName: string | string[]) => Promise<void>;
+declare const doOrWaitAsyncDependency: (depName: string | string[], asyncFunc: () => Promise<void>) => Promise<void>;
+declare const imagePtrToUint8Array: (data: {
+    ptr: number;
+    length: number;
+}) => Promise<Uint8Array>;
+declare const resolveDsImageData: (point: number) => Promise<DSImageData>;
+declare let worker: Worker;
+declare const getNextTaskID: () => number;
+declare const mapTaskCallBack: {
+    [key: string]: (body: any) => void;
+};
+declare let onLog: (message: string) => void | undefined;
+declare const setOnLog: (value: typeof onLog) => void;
+declare let bDebug: boolean;
+declare const setBDebug: (value: boolean) => void;
+declare const innerVersions: InnerVersions;
+declare const mapPackageRegister: {
+    [key: string]: any;
+};
+declare const workerAutoResources: WorkerAutoResources;
+declare class CoreModule {
+    static get engineResourcePaths(): EngineResourcePaths;
+    static set engineResourcePaths(value: EngineResourcePaths);
+    private static _bSupportDce4Module;
+    static get bSupportDce4Module(): number;
+    private static _bSupportIRTModule;
+    static get bSupportIRTModule(): number;
+    private static _versions;
+    static get versions(): any;
+    static get _onLog(): (message: string) => void;
+    static set _onLog(value: (message: string) => void);
+    static get _bDebug(): boolean;
+    static set _bDebug(value: boolean);
+    static _bundleEnv: "DCV" | "DBR";
+    static get _workerName(): string;
+    private static _wasmLoadOptions;
+    static get wasmLoadOptions(): WasmLoadOptions;
+    static set wasmLoadOptions(options: WasmLoadOptions);
+    static loadedWasmType: Exclude<WasmType, "auto">;
+    /**
+     * Initiates the loading process for the .wasm file(s) corresponding to the specified module(s).
+     * If a module relies on other modules, the other modules will be loaded as well.
+     *
+     * @returns A promise that resolves when the resources have been successfully released. It does not provide any value upon resolution.
+     */
+    static isModuleLoaded(name?: string): boolean;
+    static loadWasm(): Promise<void>;
+    /**
+     * An event that fires during the loading of a WebAssembly module (.wasm).
+     *
+     * @param filePath The path of the wasm file.
+     * @param tag Indicates the ongoing status of the file download ("starting", "in progress", "completed").
+     * @param progress An object indicating the progress of the download, with `loaded` and `total` bytes.
+     */
+    static onWasmLoadProgressChanged: (filePath: string, tag: "starting" | "in progress" | "completed", progress: {
+        loaded: number;
+        total: number;
+    }) => void;
+    /**
+     * Detect environment and get a report.
+     */
+    static detectEnvironment(): Promise<any>;
+    /**
+     * modify from https://gist.github.com/2107/5529665
+     * @ignore
+     */
+    static browserInfo: any;
+    static getModuleVersion(): Promise<WasmVersions>;
+    static getVersion(): string;
+    static enableLogging(): void;
+    static disableLogging(): void;
+    static cfd(count: number): Promise<void>;
 }
 
 declare abstract class ImageSourceAdapter {
@@ -1163,6 +1167,7 @@ declare const isArc: (value: any) => value is Arc;
  * @ignore
  */
 declare const isContour: (value: any) => value is Contour;
+declare const isDsImageKeyValue: (k: any, v: any) => boolean;
 declare const isOriginalDsImageData: (value: any) => boolean;
 /**
  * Judge is the input is a {@link DSImageData} object.
@@ -1233,8 +1238,12 @@ declare const _saveToFile: (imageData: ImageData, name: string, download?: boole
 declare const _toCanvas: (imageData: ImageData | DSImageData) => HTMLCanvasElement;
 declare const _toImage: (MIMEType: MimeType, imageData: ImageData | DSImageData) => HTMLImageElement;
 declare const _toBlob: (MIMEType: MimeType, imageData: ImageData | DSImageData) => Promise<Blob>;
-declare const _getNorImageData: (dsImageData: DSImageData) => ImageData;
-declare const isSimdSupported: () => Promise<boolean>;
+declare const encodeBMP: (imageData: ImageData) => ArrayBuffer;
+declare const createImageData: (dsImageData: DSImageData) => ImageData;
+declare const isSimdSupported: () => boolean;
+declare const blobToDsImage: (blob: Blob) => Promise<DSImageData>;
+declare const e: (d: any, s: any) => Promise<string>;
+declare const d: (d: any, s: any) => Promise<string>;
 declare const productNameMap: {
     readonly std: "dynamsoft-capture-vision-std";
     readonly dip: "dynamsoft-image-processing";
@@ -1249,13 +1258,14 @@ declare const productNameMap: {
     readonly dcp: "dynamsoft-code-parser";
     readonly dcvData: "dynamsoft-capture-vision-data";
     readonly dce: "dynamsoft-camera-enhancer";
+    readonly identityutility: "dynamsoft-identity-utility";
     readonly ddv: "dynamsoft-document-viewer";
     readonly dwt: "dwt";
     readonly dbrBundle: "dynamsoft-barcode-reader-bundle";
     readonly dcvBundle: "dynamsoft-capture-vision-bundle";
 };
 
-export { Arc, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumTransformMatrixType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources, _getNorImageData, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, checkIsLink, compareVersion, doOrWaitAsyncDependency, getNextTaskID, handleEngineResourcePaths, innerVersions, isArc, isContour, isDSImageData, isDSRect, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+export { Arc, AuxiliaryRegionElement, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, blobToDsImage, checkIsLink, compareVersion, createImageData, d, doOrWaitAsyncDependency, e, encodeBMP, getNextTaskID, handleEngineResourcePaths, imagePtrToUint8Array, innerVersions, isArc, isContour, isDSImageData, isDSRect, isDsImageKeyValue, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, resolveDsImageData, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
 
 
 
@@ -1311,7 +1321,7 @@ declare class BufferedItemsManager {
      * Gets the buffered character items.
      * @return the buffered character items
      */
-    getBufferedCharacterItemSet(): Promise<Array<BufferedCharacterItemSet>>;
+    getBufferedCharacterItemSet(): Promise<BufferedCharacterItemSet>;
 }
 
 declare class IntermediateResultReceiver {
@@ -1373,6 +1383,7 @@ declare class IntermediateResultManager {
      * @param receiver The receiver object, of type `IntermediateResultReceiver`.
      */
     removeResultReceiver(receiver: IntermediateResultReceiver): Promise<void>;
+    removeAllResultReceivers(): Promise<void>;
     /**
      * Retrieves the original image data.
      *
@@ -1421,8 +1432,7 @@ interface SimplifiedCaptureVisionSettings {
     /**
      * Specifies the shortest time span, in milliseconds, that must elapse between two successive image captures. Opting for a higher interval decreases capture frequency, which can lower the system's processing load and conserve energy. On the other hand, a smaller interval value increases the frequency of image captures, enhancing the system's responsiveness.
      * @remarks Handling of Special Values:
-     *   -1: This value ensures the image source waits until processing of the current image is complete before starting to acquire the next one. This approach ensures there is a deliberate pause between processing consecutive images.
-     *   0 (The default setting): Adopting this value means the image source queues up the next image for immediate availability once processing of the current image is finished, facilitating continuous, uninterrupted image processing.
+     * 0 (The default setting): Adopting this value means the image source queues up the next image for immediate availability once processing of the current image is finished, facilitating continuous, uninterrupted image processing.
      */
     minImageCaptureInterval: number;
     /**
@@ -1472,12 +1482,10 @@ declare class CaptureVisionRouter {
      * @param error The error object that contains the error code and error string.
      */
     onCaptureError: (error: Error) => void;
+    provideDsImage: DSImageData;
     _instanceID: number;
-    private _dsImage;
     private _loopReadVideoTimeoutId;
-    private _isPauseScan;
     private _isOutputOriginalImage;
-    private _templateName;
     private _isOpenDetectVerify;
     private _isOpenNormalizeVerify;
     private _isOpenBarcodeVerify;
@@ -1488,12 +1496,17 @@ declare class CaptureVisionRouter {
     private _currentSettings;
     private _averageTime;
     private _dynamsoft;
+    private _enhancedFeaturesIrr;
+    private _templateName;
+    private _isCapturing;
+    private _s;
     /**
      * Returns whether the `CaptureVisionRouter` instance has been disposed of.
      *
      * @returns Boolean indicating whether the `CaptureVisionRouter` instance has been disposed of.
      */
     get disposed(): boolean;
+    get isCapturing(): boolean;
     /**
      * Initializes a new instance of the `CaptureVisionRouter` class.
      *
@@ -1507,7 +1520,7 @@ declare class CaptureVisionRouter {
      *
      * @returns A promise that resolves once the model file is successfully loaded. It does not provide any value upon resolution.
      */
-    static appendDLModelBuffer(modelName: string, dataPath?: string): Promise<ErrorInfo>;
+    static appendDLModelBuffer(modelName: string | Array<string>, dataPath?: string): Promise<ErrorInfo>;
     /**
      * Clears all deep learning models from buffer to free up memory
      */
@@ -1518,7 +1531,7 @@ declare class CaptureVisionRouter {
      * Sets up an image source to provide images for continuous processing.
      * @param imageSource The image source which is compliant with the `ImageSourceAdapter` interface.
      */
-    setInput(imageSource: ImageSourceAdapter): void;
+    setInput(imageSource: ImageSourceAdapter | any): void;
     /**
      * Returns the image source object.
      */
@@ -1535,12 +1548,13 @@ declare class CaptureVisionRouter {
      * Adds a `CapturedResultReceiver` object as the receiver of captured results.
      * @param receiver The receiver object, of type `CapturedResultReceiver`.
      */
-    addResultReceiver(receiver: CapturedResultReceiver): void;
+    addResultReceiver(receiver: CapturedResultReceiver): Promise<void>;
     /**
      * Removes the specified `CapturedResultReceiver` object.
      * @param receiver The receiver object, of type `CapturedResultReceiver`.
      */
-    removeResultReceiver(receiver: CapturedResultReceiver): void;
+    removeResultReceiver(receiver: CapturedResultReceiver): Promise<void>;
+    removeAllResultReceivers(): Promise<void>;
     private _setCrrRegistry;
     /**
      * Adds a `MultiFrameResultCrossFilter` object to filter non-essential results.
@@ -1556,6 +1570,7 @@ declare class CaptureVisionRouter {
      * @returns A promise that resolves when the operation has successfully completed. It does not provide any value upon resolution.
      */
     removeResultFilter(filter: CapturedResultFilter): Promise<void>;
+    removeAllResultFilters(): Promise<void>;
     private _handleFilterUpdate;
     /**
      * Initiates a capturing process based on a specified template. This process is repeated for each image fetched from the source.
@@ -1581,8 +1596,8 @@ declare class CaptureVisionRouter {
     /**
      * Video stream capture, recursive call, loop frame capture
      */
-    private _loopReadVideo;
-    private _reRunCurrnetFunc;
+    private barcodeScanLoop;
+    private continueLoop;
     getClarity(dsimage: DSImageData, bitcount: number, wr: number, hr: number, grayThreshold: number): Promise<number>;
     /**
      * Processes a single image or a file containing a single image to derive important information.
@@ -1613,7 +1628,7 @@ declare class CaptureVisionRouter {
      *
      * @returns A promise that resolves with the object that contains settings for the specified template or all templates.
      */
-    outputSettings(templateName?: string, includeDefaultValues?: boolean): Promise<any>;
+    outputSettings(templateName: string, includeDefaultValues?: boolean): Promise<any>;
     /**
      * Generates a Blob object or initiates a JSON file download containing the settings for the specified `CaptureVisionTemplate`.
      * @param templateName Specifies a `CaptureVisionTemplate` by its name. If passed "*", the returned object will contain all templates.
@@ -1666,6 +1681,7 @@ declare class CaptureVisionRouter {
      * @param intraOpNumThreads Number of threads used internally for model execution.
      */
     static setGlobalIntraOpNumThreads(intraOpNumThreads?: number): Promise<void>;
+    checkTemplateNameValidity(templateName: string): Promise<boolean>;
     parseRequiredResources(templateName: string): Promise<{
         models: string[];
         specss: string[];
@@ -1675,7 +1691,7 @@ declare class CaptureVisionRouter {
      *
      * @returns A promise that resolves when the resources have been successfully released. It does not provide any value upon resolution.
      */
-    dispose(): Promise<void>;
+    dispose(): void;
     /**
     * For Debug
     */
@@ -1692,7 +1708,7 @@ declare class CaptureVisionRouterModule {
 }
 
 interface RawImageResultItem extends CapturedResultItem {
-    readonly imageData: DSImageData;
+    imageData: DSImageData;
 }
 
 declare enum EnumPresetTemplate {
@@ -1849,7 +1865,7 @@ declare const EnumBarcodeFormat: {
     BF_GS1_DATABAR_LIMITED: bigint;
     /**Patch code. */
     BF_PATCHCODE: bigint;
-    /**PDF417 */
+    /**Code 32 */
     BF_CODE_32: bigint;
     /**PDF417 */
     BF_PDF417: bigint;
@@ -1997,6 +2013,23 @@ interface AztecDetails extends BarcodeDetails {
     layerNumber: number;
 }
 
+/**
+ * Represents the Extended Channel Interpretation (ECI) information within a barcode.
+ *
+ * Each ECI segment specifies the character encoding used for a portion of the decoded bytes.
+ * The charset names follow the IANA character set registry (e.g. "UTF-8", "ISO-8859-1").
+ */
+interface ECISegment {
+    /** The ECI assignment number as defined by ISO/IEC 15424. */
+    eciValue: number;
+    /** The charset encoding name defined by IANA (e.g. "UTF-8", "ISO-8859-1"). */
+    charsetEncoding: string;
+    /** The start index of this ECI segment in the decoded barcode bytes. */
+    startIndex: number;
+    /** The length (in bytes) of this segment within the decoded barcode bytes. */
+    length: number;
+}
+
 interface BarcodeResultItem extends CapturedResultItem {
     /** The format of the decoded barcode, as defined by `EnumBarcodeFormat`. */
     format: EnumBarcodeFormat;
@@ -2020,6 +2053,8 @@ interface BarcodeResultItem extends CapturedResultItem {
     isMirrored: boolean;
     /** Indicates if the barcode is detected using Direct Part Marking (DPM) method. */
     isDPM: boolean;
+    /** An array of ECI segments present in the barcode, if any. Each segment is represented by a `ECISegment` object. */
+    eciSegments: Array<ECISegment>;
 }
 
 interface DataMatrixDetails extends BarcodeDetails {
@@ -2065,6 +2100,8 @@ interface DecodedBarcodeElement extends RegionObjectElement {
     confidence: number;
     /** Array of extended barcode results if available. */
     extendedBarcodeResults: Array<ExtendedBarcodeResult>;
+    /** An array of ECI segments present in the barcode, if any. Each segment is represented by a `ECISegment` object. */
+    eciSegments: Array<ECISegment>;
 }
 
 interface ExtendedBarcodeResult extends DecodedBarcodeElement {
@@ -2187,10 +2224,10 @@ interface DecodedBarcodesUnit extends IntermediateResultUnit {
  * The `DeformationResistedBarcode` interface represents a deformation-resisted barcode image.
  */
 interface DeformationResistedBarcode {
-    /** Format of the barcode, as defined by `EnumBarcodeFormat`. */
-    format: EnumBarcodeFormat;
     /** Image data of the deformation-resisted barcode image. */
     imageData: DSImageData;
+    /** Format of the barcode, as defined by `EnumBarcodeFormat`. */
+    format: EnumBarcodeFormat;
     /** Location of the deformation-resisted barcode within the image. */
     location: Quadrilateral;
 }
@@ -2230,2451 +2267,6 @@ export { BarcodeReaderModule, EnumBarcodeFormat, EnumDeblurMode, EnumExtendedBar
 export type { AztecDetails, BarcodeDetails, BarcodeResultItem, CandidateBarcodeZone, CandidateBarcodeZonesUnit, ComplementedBarcodeImageUnit, DataMatrixDetails, DecodedBarcodeElement, DecodedBarcodesResult, DecodedBarcodesUnit, DeformationResistedBarcode, DeformationResistedBarcodeImageUnit, ExtendedBarcodeResult, LocalizedBarcodeElement, LocalizedBarcodesUnit, OneDCodeDetails, PDF417Details, QRCodeDetails, ScaledBarcodeImageUnit, SimplifiedBarcodeReaderSettings };
 
 
-declare class CameraEnhancerModule {
-    /**
-     * Returns the version of the CameraEnhancer module.
-     */
-    static getVersion(): string;
-}
-
-interface VideoFrameTag extends ImageTag {
-    /** Indicates whether the video frame is cropped. */
-    isCropped: boolean;
-    /** The region based on which the original frame was cropped. If `isCropped` is false, the region covers the entire original image. */
-    cropRegion: DSRect;
-    /** The original width of the video frame before any cropping. */
-    originalWidth: number;
-    /** The original height of the video frame before any cropping. */
-    originalHeight: number;
-    /** The current width of the video frame after cropping. */
-    currentWidth: number;
-    /** The current height of the video frame after cropping. */
-    currentHeight: number;
-    /** The time spent acquiring the frame, in milliseconds. */
-    timeSpent: number;
-    /** The timestamp marking the completion of the frame acquisition. */
-    timeStamp: number;
-}
-
-interface DCEFrame extends DSImageData {
-    /** Converts the image data into an HTMLCanvasElement for display or further manipulation in web applications. */
-    toCanvas: () => HTMLCanvasElement;
-    /** Flag indicating whether the frame is a `DCEFrame`. */
-    isDCEFrame: boolean;
-    /** Holds extra information about the image data which is extracted from video streams. */
-    tag?: VideoFrameTag;
-}
-
-interface DrawingItemEvent extends Event {
-    /** The drawing item that is the target of the event. */
-    targetItem: DrawingItem;
-    /** The X coordinate of the item relative to the viewpoint of the browser window. */
-    itemClientX: number;
-    /** The Y coordinate of the item relative to the viewpoint of the browser window. */
-    itemClientY: number;
-    /** The X coordinate of the item relative to the entire document (the webpage content). */
-    itemPageX: number;
-    /** The Y coordinate of the item relative to the entire document (the webpage content). */
-    itemPageY: number;
-}
-
-interface DrawingStyle {
-    /**
-     * ID for the drawing style.
-     * The `id` property is immutable and is exclusively assigned at the creation of a new drawing style.
-     */
-    id?: number;
-    /**
-     * The width of lines.
-     * If not specified, the default is 2.
-     */
-    lineWidth?: number;
-    /**
-     * The fill color and opacity in rgba format.
-     * If not specified, the default is "rgba(245, 236, 73, 0.5)".
-     */
-    fillStyle?: string;
-    /**
-     * The stroke color and opacity in rgba format.
-     * If not specified, the default is "rgba(245, 236, 73, 1)".
-     */
-    strokeStyle?: string;
-    /**
-     * The mode of painting.
-     * If not specified, the default is "stroke".
-     */
-    paintMode?: "fill" | "stroke" | "strokeAndFill";
-    /**
-     * The font family for text elements.
-     * If not specified, the default is "consolas".
-     */
-    fontFamily?: string;
-    /**
-     * The font size for text elements.
-     * If not specified, the default is 40.
-     */
-    fontSize?: number;
-}
-
-interface Note {
-    /** The name of the note. */
-    name: string;
-    /** The content of the note, can be of any type. */
-    content: any;
-}
-
-interface PlayCallbackInfo {
-    /** The height of the video frame. */
-    height: number;
-    /** The width of the video frame. */
-    width: number;
-    /** The unique identifier of the camera. */
-    deviceId: string;
-}
-
-interface Resolution {
-    /** The width of the video frame. */
-    width: number;
-    /** The height of the video frame. */
-    height: number;
-}
-
-interface TipConfig {
-    /** The top left point of the tip message box. */
-    topLeftPoint: Point;
-    /** The width of the tip message box. */
-    width: number;
-    /** The display duration of the tip in milliseconds. */
-    duration: number;
-    /** The base coordinate system used (e.g., "view" or "image"). */
-    coordinateBase?: "view" | "image";
-}
-
-interface VideoDeviceInfo {
-    /** The unique identifier for the camera. */
-    deviceId: string;
-    /** The label or name of the camera. */
-    label: string;
-    /** @ignore */
-    _checked: boolean;
-}
-
-declare enum EnumDrawingItemMediaType {
-    /**
-     * Represents a rectangle, a basic geometric shape with four sides where opposite sides are equal in length and it has four right angles.
-     */
-    DIMT_RECTANGLE = 1,
-    /**
-     * Represents any four-sided figure. This includes squares, rectangles, rhombuses, and more general forms that do not necessarily have right angles or equal sides.
-     */
-    DIMT_QUADRILATERAL = 2,
-    /**
-     * Represents a text element. This allows for the inclusion of textual content as a distinct drawing item within the graphic representation.
-     */
-    DIMT_TEXT = 4,
-    /**
-     * Represents an arc, which is a portion of the circumference of a circle or an ellipse. Arcs are used to create curved shapes and segments.
-     */
-    DIMT_ARC = 8,
-    /**
-     * Represents an image. This enables embedding bitmap images within the drawing context.
-     */
-    DIMT_IMAGE = 16,
-    /**
-     * Represents a polygon, which is a plane figure that is described by a finite number of straight line segments connected to form a closed polygonal chain or circuit.
-     */
-    DIMT_POLYGON = 32,
-    /**
-     * Represents a line segment. This is the simplest form of a drawing item, defined by two endpoints and the straight path connecting them.
-     */
-    DIMT_LINE = 64,
-    /**
-     * Represents a group of drawing items. This allows for the logical grouping of multiple items, treating them as a single entity for manipulation or transformation purposes.
-     */
-    DIMT_GROUP = 128
-}
-
-declare enum EnumDrawingItemState {
-    /**
-     * DIS_DEFAULT: The default state of a drawing item. This state indicates that the drawing item is in its normal, unselected state.
-     */
-    DIS_DEFAULT = 1,
-    /**
-     * DIS_SELECTED: Indicates that the drawing item is currently selected. This state can trigger different behaviors or visual styles, such as highlighting the item to show it is active or the focus of user interaction.
-     */
-    DIS_SELECTED = 2
-}
-
-declare enum EnumEnhancedFeatures {
-    /**
-     * Enables auto-focus on areas likely to contain barcodes, assisting in their identification and interpretation.
-     */
-    EF_ENHANCED_FOCUS = 4,
-    /**
-     * Facilitates automatic zooming in on areas likely to contain barcodes, aiding in their detection and decoding.
-     */
-    EF_AUTO_ZOOM = 16,
-    /**
-     * Allows users to tap on a specific item or area in the video feed to focus on, simplifying the interaction for selecting or highlighting important elements.
-     */
-    EF_TAP_TO_FOCUS = 64
-}
-
-declare enum EnumPixelFormat {
-    GREY = "grey",
-    GREY32 = "grey32",
-    RGBA = "rgba",
-    RBGA = "rbga",
-    GRBA = "grba",
-    GBRA = "gbra",
-    BRGA = "brga",
-    BGRA = "bgra"
-}
-
-declare enum EnumItemType {
-    ARC = 0,
-    IMAGE = 1,
-    LINE = 2,
-    POLYGON = 3,
-    QUAD = 4,
-    RECT = 5,
-    TEXT = 6,
-    GROUP = 7
-}
-declare enum EnumItemState {
-    DEFAULT = 0,
-    SELECTED = 1
-}
-declare abstract class DrawingItem {
-    #private;
-    /**
-     * TODO: replace with enum
-     * @ignore
-     */
-    static arrMediaTypes: string[];
-    /**
-     * @ignore
-     */
-    static mapItemType: Map<EnumItemType, string>;
-    /**
-     * TOOD: replace with enum
-     * @ignore
-     */
-    static arrStyleSelectors: string[];
-    /**
-     * @ignore
-     */
-    static mapItemState: Map<EnumItemState, string>;
-    protected _fabricObject: any;
-    /**
-     * TODO: make it private and replace it with 'mediaType'
-     * @ignore
-     */
-    _mediaType: string;
-    /**
-     * @ignore
-     */
-    get mediaType(): EnumDrawingItemMediaType;
-    /**
-     * TODO: rename it to 'state' and return enum
-     */
-    get styleSelector(): string;
-    /**
-     * @ignore
-     */
-    styleId?: number;
-    /**
-     * Returns or sets the numeric ID for the `DrawingStyle` that applies to this `DrawingItem`.
-     * Invoke `renderAll()` for the new `DrawingStyle` to take effect.
-     */
-    set drawingStyleId(id: number);
-    get drawingStyleId(): number;
-    /**
-     * Returns or sets the coordinate system base with a string:
-     * - "view" for viewport-based coordinates or
-     * - "image" for image-based coordinates.
-     */
-    set coordinateBase(base: "view" | "image");
-    get coordinateBase(): "view" | "image";
-    /**
-     * @ignore
-     */
-    _zIndex?: number;
-    /**
-     * @ignore
-     */
-    _drawingLayer: any;
-    /**
-     * @ignore
-     */
-    _drawingLayerId: number;
-    /**
-     * Returns the numeric ID for the `DrawingLayer` this `DrawingItem` belongs to.
-     */
-    get drawingLayerId(): number;
-    /**
-     * record the item's styles
-     * TODO: use enum
-     * @ignore
-     */
-    _mapState_StyleId: Map<string, number>;
-    protected mapEvent_Callbacks: Map<string, Map<Function, Function>>;
-    protected mapNoteName_Content: Map<string, Array<any>>;
-    /**
-     * @ignore
-     */
-    readonly isDrawingItem: boolean;
-    /**
-     *
-     * @param fabricObject
-     * @param drawingStyleId
-     * @ignore
-     */
-    constructor(fabricObject?: any, drawingStyleId?: number);
-    protected _setFabricObject(fabricObject: any): void;
-    /**
-     *
-     * @returns
-     * @ignore
-     */
-    _getFabricObject(): any;
-    /**
-     *
-     * @param state Specifies the state of the `DrawingItem` as a string.
-     * @ignore
-     */
-    setState(state: EnumDrawingItemState): void;
-    /**
-     * Returns the current state of the `DrawingItem`.
-     *
-     * @returns The current state of the `DrawingItem`, of type `EnumDrawingItemState`.
-     */
-    getState(): EnumDrawingItemState;
-    /**
-     * @ignore
-     */
-    _on(eventName: string, listener: (event: DrawingItemEvent) => void): void;
-    /**
-     * Binds a listener for a specific event.
-     * The event name is limited to "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout".
-     * @param eventName Specifies the event by its name.
-     * @param listener The event listener.
-     */
-    on(eventName: "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout", listener: (event: DrawingItemEvent) => void): void;
-    /**
-     * @ignore
-     */
-    _off(eventName: string, listener: (event: DrawingItemEvent) => void): void;
-    /**
-     * Unbinds a listener for a specific event.
-     * The event name is limited to "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout".
-     * @param eventName Specifies the event by its name.
-     * @param listener The event listener.
-     */
-    off(eventName: "mousedown" | "mouseup" | "dblclick" | "mouseover" | "mouseout", listener: (event: DrawingItemEvent) => void): void;
-    /**
-     * Set if this item can be edited.
-     * @param editable
-     * @ignore
-     */
-    _setEditable(editable: boolean): void;
-    /**
-     * Checks if a `Note` object with the specified name exists.
-     * @param name Specifies the name of the `Note` object.
-     *
-     * @returns Boolean indicating whether the `Note` object exists.
-     */
-    hasNote(name: string): boolean;
-    /**
-     * Adds a `Note` object to this `DrawingItem`.
-     * @param note Specifies the `Note` object.
-     * @param replace [Optional] Whether to replace an existing note if the notes share the same name.
-     */
-    addNote(note: Note, replace?: boolean): void;
-    /**
-     * Returns a `Note` object specified by its name, if it exists.
-     * @param name Specifies the name of the `Note` object.
-     *
-     * @returns The corresponding `Note` object specified by its name, if it exists.
-     */
-    getNote(name: string): Note;
-    /**
-     * Returns a collection of all existing `Note` objects on this `DrawingItem`.
-     *
-     * @returns All existing `Note` objects on this `DrawingItem`.
-     */
-    getNotes(): Array<Note>;
-    /**
-     * Updates the content of a specified `Note` object.
-     * @param name Specifies the name of the `Note` object.
-     * @param content Specifies the new content, can be of any type.
-     * @param mergeContent [Optional] Whether to merge the new content with the existing one.
-     */
-    updateNote(name: string, content: any, mergeContent?: boolean): void;
-    /**
-     * Deletes a `Note` object specified by its name.
-     * @param name Specifies the name of the `Note` object.
-     */
-    deleteNote(name: string): void;
-    /**
-     * Deletes all `Note` objects on this `DrawingItem`.
-     */
-    clearNotes(): void;
-    protected abstract extendSet(property: string, value: any): boolean;
-    protected abstract extendGet(property: string): any;
-    /**
-     *
-     * @param property
-     * @returns
-     * @ignore
-     */
-    set(property: string, value: any): void;
-    /**
-     *
-     * @param property
-     * @returns
-     * @ignore
-     */
-    get(property: string): any;
-    /**
-     * Remove this item from drawing layer.
-     * @ignore
-     */
-    remove(): void;
-    /**
-     * Convert item's property(width, height, x, y, etc.) from related to image/video to related to view/page.
-     * @param value
-     * @returns
-     */
-    protected convertPropFromImageToView(value: number): number;
-    /**
-     * Convert item's property(width, height, x, y, etc.) from related to view/page to related to image/video.
-     * @param value
-     * @returns
-     */
-    protected convertPropFromViewToImage(value: number): number;
-    protected abstract updateCoordinateBaseFromImageToView(): void;
-    protected abstract updateCoordinateBaseFromViewToImage(): void;
-    /**
-     * @ignore
-     */
-    _setLineWidth(value: number): void;
-    /**
-     * @ignore
-     */
-    _getLineWidth(): number;
-    /**
-     * @ignore
-     */
-    _setFontSize(value: number): void;
-    /**
-     * @ignore
-     */
-    _getFontSize(): number;
-    /**
-     * @ignore
-     */
-    abstract setPosition(position: any): void;
-    /**
-     * @ignore
-     */
-    abstract getPosition(): any;
-    /**
-     * Update item's propertys(width, height, x, y, etc.).
-     * It is called when item is added to layer.
-     * @ignore
-     */
-    abstract updatePosition(): void;
-}
-
-declare class DT_Rect extends DrawingItem {
-    #private;
-    constructor(rect: Rect, drawingStyleId?: number);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): void;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    setRect(rect: Rect): void;
-    getRect(): Rect;
-}
-
-declare class DT_Polygon extends DrawingItem {
-    #private;
-    constructor(polygon: Polygon, drawingStyleId?: number);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): any;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    setPolygon(polygon: Polygon): void;
-    getPolygon(): Polygon;
-}
-
-declare class DT_Image extends DrawingItem {
-    #private;
-    private image;
-    set maintainAspectRatio(value: boolean);
-    get maintainAspectRatio(): boolean;
-    constructor(image: DSImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, rect: Rect, maintainAspectRatio: boolean, drawingStyleId?: number);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): any;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    setImage(image: DSImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
-    getImage(): DSImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
-    setImageRect(rect: Rect): void;
-    getImageRect(): Rect;
-}
-
-declare class DT_Text extends DrawingItem {
-    #private;
-    private _text;
-    constructor(text: string, rect: Rect, drawingStyleId?: number);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): any;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    setText(text: string): void;
-    getText(): string;
-    setTextRect(rect: Rect): void;
-    getTextRect(): Rect;
-}
-
-declare class DT_Line extends DT_Polygon {
-    #private;
-    constructor(line: LineSegment, drawingStyleId?: number);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): any;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    /**
-     * @ignore
-     */
-    setPolygon(): void;
-    /**
-     * @ignore
-     */
-    getPolygon(): Polygon;
-    setLine(line: LineSegment): void;
-    getLine(): LineSegment;
-}
-
-declare class DT_Quad extends DT_Polygon {
-    #private;
-    constructor(quad: Quadrilateral, drawingStyleId?: number);
-    setPosition(position: any): void;
-    getPosition(): any;
-    updatePosition(): void;
-    /**
-     * @ignore
-     */
-    setPolygon(): void;
-    /**
-     * @ignore
-     */
-    getPolygon(): Polygon;
-    setQuad(quad: Quadrilateral): void;
-    getQuad(): Quadrilateral;
-}
-
-declare class DT_Group extends DrawingItem {
-    constructor(childItems: Array<DrawingItem>);
-    protected extendSet(property: string, value: any): boolean;
-    protected extendGet(property: string): void;
-    protected updateCoordinateBaseFromImageToView(): void;
-    protected updateCoordinateBaseFromViewToImage(): void;
-    setPosition(): void;
-    getPosition(): any;
-    updatePosition(): void;
-    getChildDrawingItems(): Array<DrawingItem>;
-    setChildDrawingItems(item: DrawingItem): void;
-    removeChildItem(item: DrawingItem): void;
-}
-
-declare class DrawingLayer {
-    /**
-     * Predefined ID for the default layer meant to be used by Dynamsoft Document Normalizer.
-     */
-    static DDN_LAYER_ID: number;
-    /**
-     * Predefined ID for the default layer meant to be used by Dynamsoft Barcode Reader.
-     */
-    static DBR_LAYER_ID: number;
-    /**
-     * Predefined ID for the default layer meant to be used by Dynamsoft Label Recognizer.
-     */
-    static DLR_LAYER_ID: number;
-    /**
-     * The starting ID for user-defined layers, distinguishing them from default system layers.
-     */
-    static USER_DEFINED_LAYER_BASE_ID: number;
-    /**
-     * @ignore
-     */
-    static TIP_LAYER_ID: number;
-    /**
-     * returns the 'fabric.Canvas' object
-     * @ignore
-     */
-    fabricCanvas: any;
-    private id;
-    /**
-     * @ignore
-     */
-    get width(): number;
-    /**
-     * @ignore
-     */
-    get height(): number;
-    private mapType_StateAndStyleId;
-    private mode;
-    /**
-     * Event triggered whenever there is a change in which `DrawingItem` objects are selected or deselected.
-     * @param selectedDrawingItems An array of `DrawingItem` objects that have been selected as a result of the latest selection change.
-     * @param deselectedDrawingItems An array of `DrawingItem` objects that have been deselected as a result of the latest selection change.
-     * [NOTE]: This event is only functional when the `DrawingLayer` in which it is defined belongs to an `ImageEditorView` instance.
-     */
-    onSelectionChanged: (selectedDrawingItems: Array<DrawingItem>, deselectedDrawingItems: Array<DrawingItem>) => void;
-    private _arrDrwaingItem;
-    private _arrFabricObject;
-    private _visible;
-    /**
-     * @ignore
-     */
-    _manager: any;
-    /**
-     * @ignore
-     */
-    set _allowMultiSelect(value: boolean);
-    get _allowMultiSelect(): boolean;
-    /**
-     * @ignore
-     */
-    constructor(canvas: HTMLCanvasElement, id: number, options?: Object);
-    /**
-     * Retrieves the unique identifier of the layer.
-     */
-    getId(): number;
-    /**
-     * Sets the visibility of the layer.
-     * @param visible Whether to show or hide the layer.
-     */
-    setVisible(visible: boolean): void;
-    /**
-     * Retrieves the visibility status of the layer.
-     *
-     * @returns Boolean indicating whether the layer is visible.
-     */
-    isVisible(): boolean;
-    private _getItemCurrentStyle;
-    /**
-     * Change style of drawingItems of specific media type in specific style selector.
-     * DrawingItems that have 'styleId' won't be changed.
-     * @param mediaType the mediaType of drawingItems that attend to change
-     * @param styleSelector
-     * @param drawingStyle
-     * @private
-     */
-    private _changeMediaTypeCurStyleInStyleSelector;
-    /**
-     * Change the style of specific drawingItem.
-     * DrawingItem that has 'styleId' won't be changed.
-     * @param drawingItem
-     * @param drawingStyle
-     * @private
-     */
-    private _changeItemStyle;
-    /**
-     *
-     * @param targetGroup
-     * @param item
-     * @param addOrRemove
-     * @returns
-     * @ignore
-     */
-    _updateGroupItem(targetGroup: DrawingItem, item: DrawingItem, addOrRemove: string): void;
-    private _addDrawingItem;
-    /**
-     * Add a drawing item to the drawing layer.
-     * Drawing items in drawing layer with higher id are always above those in drawing layer with lower id.
-     * In a same drawing layer, the later added is above the previous added.
-     * @param drawingItem
-     * @ignore
-     */
-    private addDrawingItem;
-    /**
-     * Adds an array of `DrawingItem` objects to the layer.
-     * @param drawingItems An array of `DrawingItem` objects.
-     */
-    addDrawingItems(drawingItems: Array<DrawingItem>): void;
-    /**
-     *
-     * @param drawingItem
-     * @returns
-     * @ignore
-     */
-    private removeDrawingItem;
-    /**
-     * Removes specified `DrawingItem` objects from the layer.
-     * @param drawingItems An array of `DrawingItem` objects.
-     */
-    removeDrawingItems(drawingItems: Array<DrawingItem>): void;
-    /**
-     * Sets the layer's `DrawingItem` objects, replacing any existing items.
-     * @param drawingItems An array of `DrawingItem` objects.
-     */
-    setDrawingItems(drawingItems: Array<DrawingItem>): void;
-    /**
-     * Retrieves `DrawingItem` objects from the layer, optionally filtered by a custom function.
-     * @param filter [Optional] A predicate function used to select a subset of `DrawingItem` objects based on specific criteria. Only items for which this function returns `true` are included in the result.
-     *
-     */
-    getDrawingItems(filter?: (item: DrawingItem) => boolean): Array<DrawingItem>;
-    /**
-     * Returns an array of all selected DrawingItem instances.
-     *
-     * @returns  An array of `DrawingItem` objects.
-     */
-    getSelectedDrawingItems(): Array<DrawingItem>;
-    /**
-     * Checks if a specific `DrawingItem` exists within the layer.
-     * @param drawingItem Specifies the `DrawingItem`.
-     *
-     * @returns Boolean indicating whether the specific `DrawingItem` exists.
-     */
-    hasDrawingItem(drawingItem: DrawingItem): boolean;
-    /**
-     * Clears all `DrawingItem` objects from the layer.
-     */
-    clearDrawingItems(): void;
-    private _setDefaultStyle;
-    /**
-     * Establishes the baseline styling preferences for `DrawingItem` objects on the layer.
-     * This method offers flexible styling options tailored to the diverse requirements of `DrawingItem` objects based on their state and type:
-     * - Universal Application: By default, without specifying `state` or `mediaType`, the designated style is universally applied to all `DrawingItem` objects on the layer, ensuring a cohesive look and feel.
-     * - State-Specific Styling: Specifying only the state parameter allows the method to target `DrawingItem` objects matching that particular state, enabling differentiated styling that reflects their current status or condition.
-     * - Refined Targeting with State and MediaType: Providing both `state` and `mediaType` parameters focuses the style application even further, affecting only those `DrawingItem` objects that align with the specified type while in the given state.
-     *
-     * This precision is particularly useful for creating visually distinct interactions or highlighting specific elements based on their content and interaction state.
-     * @param drawingStyleId The unique ID of the `DrawingStyle` to be applied.
-     * @param state [Optional] Allows the styling to be conditional based on the `DrawingItem`'s current state.
-     * @param mediaType [Optional] Further refines the application of the style based on the the `DrawingItem`'s type.
-     */
-    setDefaultStyle(drawingStyleId: number, state?: EnumDrawingItemState, mediaType?: EnumDrawingItemMediaType): void;
-    /**
-     * Change drawing layer mode, "viewer" or "editor".
-     * @param newMode
-     * @ignore
-     */
-    setMode(newMode: string): void;
-    /**
-     *
-     * @returns
-     * @ignore
-     */
-    getMode(): string;
-    /**
-     * Update the dimensions of drawing layer.
-     * @param dimensions
-     * @param options
-     * @ignore
-     */
-    _setDimensions(dimensions: {
-        width: number | string;
-        height: number | string;
-    }, options?: {
-        backstoreOnly?: boolean;
-        cssOnly?: boolean;
-    }): void;
-    /**
-     * Update the object-fit of drawing layer.
-     * @param value
-     * @ignore
-     */
-    _setObjectFit(value: string): void;
-    /**
-     *
-     * @returns
-     * @ignore
-     */
-    _getObjectFit(): string;
-    /**
-     * Forces a re-render of all `DrawingItem` objects on the layer.
-     * Invoke this method to ensure any modifications made to existing `DrawingItem` objects are visually reflected on the layer.
-     */
-    renderAll(): void;
-    /**
-     * @ignore
-     */
-    dispose(): void;
-}
-
-declare class DrawingLayerManager {
-    _arrDrawingLayer: DrawingLayer[];
-    /**
-     * Creates a new `DrawingLayer` object and returns it.
-     * @param baseCvs An `HTMLCanvasElement` used as the base for creating the `DrawingLayer` object.
-     * @param drawingLayerId Assign a unique number as an identifier for the `DrawingLayer` object.
-     *
-     * @returns The created `DrawingLayer` object.
-     */
-    createDrawingLayer(baseCvs: HTMLCanvasElement, drawingLayerId: number): DrawingLayer;
-    /**
-     * Deletes a user-defined `DrawingLayer` object specified by its unique identifier (ID).
-     * [NOTE] The name for the same method on `CameraView` or `ImageEditorView` is deleteUserDefinedDrawingLayer().
-     * @param drawingLayerId The unique identifier (ID) of the `DrawingLayer` object.
-     */
-    deleteDrawingLayer(drawingLayerId: number): void;
-    /**
-     * Clears all user-defined `DrawingLayer` objects, resetting the drawing space without affecting default built-in `DrawingLayer` objects.
-     * [NOTE] The name for the same method on `CameraView` or `ImageEditorView` is clearUserDefinedDrawingLayers().
-     */
-    clearDrawingLayers(): void;
-    /**
-     * Retrieves a `DrawingLayer` object by its unique identifier (ID).
-     * @param id The unique identifier (ID) of the `DrawingLayer` object.
-     *
-     * @returns The `DrawingLayer` object specified by its unique identifier (ID) or `null`.
-     */
-    getDrawingLayer(drawingLayerId: number): DrawingLayer;
-    /**
-     * Returns an array of all `DrawingLayer` objects managed by this `DrawingLayerManager`.
-     *
-     * @returns An array of all `DrawingLayer` objects.
-     */
-    getAllDrawingLayers(): Array<DrawingLayer>;
-    /**
-     * Returns an array of all selected DrawingItem instances across different layers, supporting complex selection scenarios.
-     *
-     * @returns  An array of `DrawingItem` objects.
-     */
-    getSelectedDrawingItems(): Array<DrawingItem>;
-    setDimensions(dimensions: {
-        width: number | string;
-        height: number | string;
-    }, options?: {
-        backstoreOnly?: boolean;
-        cssOnly?: boolean;
-    }): void;
-    setObjectFit(value: string): void;
-    getObjectFit(): string;
-    setVisible(visible: boolean): void;
-    _getFabricCanvas(): any;
-    _switchPointerEvent(): void;
-}
-
-declare class InnerComponent extends HTMLElement {
-    #private;
-    constructor();
-    getWrapper(): HTMLDivElement;
-    setElement(slot: "content" | "single-frame-input-container" | "drawing-layer", el: HTMLElement): void;
-    getElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): HTMLElement;
-    removeElement(slot: "content" | "single-frame-input-container" | "drawing-layer"): void;
-}
-
-declare class DT_Tip extends DT_Text {
-    #private;
-    constructor(text: string, x: number, y: number, width: number, styleId?: number);
-    /**
-     * Make the tip hidden after a period of time.
-     * @param duration if less then 0, it clears the timer.
-     */
-    setDuration(duration: number): void;
-    getDuration(): number;
-}
-declare abstract class View {
-    #private;
-    /**
-     * @ignore
-     */
-    _innerComponent: InnerComponent;
-    /** @ignore */
-    _drawingLayerManager: DrawingLayerManager;
-    /** @ignore */
-    _layerBaseCvs: HTMLCanvasElement;
-    /** @ignore */
-    _drawingLayerOfTip: DrawingLayer;
-    private _tipStyleId;
-    /** @ignore */
-    _tip: DT_Tip;
-    constructor();
-    /**
-     * get the dimensions of content which the view shows. In 'CameraView', the 'content' usually means the video; in 'ImageEditorView', the 'content' usually means the image.
-     */
-    protected abstract getContentDimensions(): {
-        width: number;
-        height: number;
-        objectFit: string;
-    };
-    /**
-     * Create a native 'canvas' element, which will be passed to 'fabric' to create a 'fabric.Canvas'.
-     * In fact, all drawing layers are in one canvas.
-     * @ignore
-     */
-    protected createDrawingLayerBaseCvs(width: number, height: number, objectFit?: string): HTMLCanvasElement;
-    /**
-     * Create drawing layer with specified id and size.
-     * Differ from 'createDrawingLayer()', the drawing layers created'createDrawingLayer()' can not Specified id, and their size is the same as video.
-     * @ignore
-     */
-    _createDrawingLayer(drawingLayerId: number, width?: number, height?: number, objectFit?: string): DrawingLayer;
-    /**
-     * Creates a new `DrawingLayer` object and returns it.
-     *
-     * @returns The created `DrawingLayer` object.
-     */
-    createDrawingLayer(): DrawingLayer;
-    /**
-     * Differ from 'deleteUserDefinedDrawingLayer()', 'deleteDrawingLayer()' can delete any layer, while 'deleteUserDefinedDrawingLayer()' can only delete user defined layer.
-     */
-    protected deleteDrawingLayer(drawingLayerId: number): void;
-    /**
-     * Deletes a user-defined `DrawingLayer` object specified by its unique identifier (ID).
-     * @param id The unique identifier (ID) of the `DrawingLayer` object.
-     */
-    deleteUserDefinedDrawingLayer(id: number): void;
-    /**
-     * Not used yet.
-     * @ignore
-     */
-    _clearDrawingLayers(): void;
-    /**
-     * Clears all user-defined `DrawingLayer` objects, resetting the drawing space without affecting default built-in `DrawingLayer` objects.
-     */
-    clearUserDefinedDrawingLayers(): void;
-    /**
-     * Retrieves a `DrawingLayer` object by its unique identifier (ID).
-     * @param id The unique identifier (ID) of the `DrawingLayer` object.
-     *
-     * @returns The `DrawingLayer` object specified by its unique identifier (ID) or `null`.
-     */
-    getDrawingLayer(drawingLayerId: number): DrawingLayer;
-    /**
-     * Returns an array of all `DrawingLayer` objects .
-     *
-     * @returns An array of all `DrawingLayer` objects.
-     */
-    getAllDrawingLayers(): Array<DrawingLayer>;
-    /**
-     * update drawing layers according to content(video/image) dimensions.
-     */
-    protected updateDrawingLayers(contentDimensions: {
-        width: number;
-        height: number;
-        objectFit: string;
-    }): void;
-    /**
-     * Returns an array of all selected DrawingItem instances across different layers, supporting complex selection scenarios.
-     *
-     * @returns An array of `DrawingItem` objects.
-     */
-    getSelectedDrawingItems(): Array<DrawingItem>;
-    /**
-     * Applies configuration settings to the tip message box.
-     * This includes its position, size, display duration, and the coordinate system basis.
-     * @param tipConfig Configuration object for the tip message box, including top-left position, width, display duration, and coordinate system basis.
-     */
-    setTipConfig(tipConfig: TipConfig): void;
-    /**
-     * Retrieves the current configuration of the tip message box, reflecting its position, size, display duration, and the coordinate system basis.
-     *
-     * @returns The current configuration settings of the tip message box.
-     */
-    getTipConfig(): TipConfig;
-    /**
-     * Controls the visibility of the tip message box on the screen.
-     * This can be used to show or hide the tip based on user interaction or other criteria.
-     * @param visible Boolean flag indicating whether the tip message box should be visible (`true`) or hidden (`false`).
-     */
-    setTipVisible(visible: boolean): void;
-    /**
-     * Checks whether the tip message box is currently visible to the user.
-     *
-     * @returns Boolean indicating the visibility of the tip message box (`true` for visible, `false` for hidden).
-     */
-    isTipVisible(): boolean;
-    /**
-     * Updates the message displayed in the tip message box.
-     * This can be used to provide dynamic feedback or information to the user.
-     * @param message The new message to be displayed in the tip message box.
-     */
-    updateTipMessage(message: string): void;
-}
-
-declare class EventHandler {
-    #private;
-    get disposed(): boolean;
-    on(event: string, listener: Function): void;
-    off(event: string, listener: Function): void;
-    offAll(event: string): void;
-    fire(event: string, params?: Array<any>, options?: {
-        target?: object;
-        async?: boolean;
-        copy?: boolean;
-    }): void;
-    dispose(): void;
-}
-
-declare class ImageDataGetter {
-    #private;
-    static _onLog: (message: any) => void;
-    static get version(): string;
-    static _webGLSupported: boolean;
-    static get webGLSupported(): boolean;
-    useWebGLByDefault: boolean;
-    _reusedCvs: HTMLCanvasElement;
-    _reusedWebGLCvs?: HTMLCanvasElement;
-    get disposed(): boolean;
-    constructor();
-    private sourceIsReady;
-    /**
-     * Draw a image to canvas.
-     * TODO: fix image is flipped when drawing in 'WebGL'.
-     * @param canvas
-     * @param source
-     * @param sourceWidth
-     * @param sourceHeight
-     * @param position
-     * @param options
-     * @param options.bufferContainer if it is set and WebGL is used, the image data will be put into this variable.
-     * @returns
-     */
-    drawImage(canvas: HTMLCanvasElement, source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, sourceWidth: number, sourceHeight: number, position?: {
-        sx?: number;
-        sy?: number;
-        sWidth?: number;
-        sHeight?: number;
-        dx?: number;
-        dy?: number;
-        dWidth?: number;
-        dHeight?: number;
-    }, options?: {
-        pixelFormat?: EnumPixelFormat;
-        bUseWebGL?: boolean;
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        context: CanvasRenderingContext2D | WebGLRenderingContext;
-        pixelFormat: EnumPixelFormat;
-        bUseWebGL: boolean;
-    };
-    /**
-     * Read 'Unit8Array' from context of canvas.
-     * @param context
-     * @param position
-     * @param bufferContainer If set, the data will be put into this variable, which will be useful when you want to reuse container.
-     * @returns
-     */
-    readCvsData(context: CanvasRenderingContext2D | WebGLRenderingContext, position?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-    }, bufferContainer?: Uint8Array): Uint8Array;
-    /**
-     * Transform pixel format.
-     * @param data
-     * @param originalFormat
-     * @param targetFormat
-     * @param copy
-     * @returns
-     */
-    transformPixelFormat(data: Uint8Array, originalFormat: EnumPixelFormat, targetFormat: EnumPixelFormat, copy?: boolean): Uint8Array;
-    /**
-     * Get image data from image.
-     * @param source
-     * @param sourceWidth
-     * @param sourceHeight
-     * @param position
-     * @param options
-     * @returns
-     */
-    getImageData(source: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | ImageBitmap, position: {
-        sx: number;
-        sy: number;
-        sWidth: number;
-        sHeight: number;
-        dWidth: number;
-        dHeight: number;
-    }, options?: {
-        pixelFormat?: EnumPixelFormat.RGBA | EnumPixelFormat.GREY;
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        data: Uint8Array;
-        pixelFormat: EnumPixelFormat;
-        width: number;
-        height: number;
-        bUseWebGL: boolean;
-    };
-    /**
-     * Draw image data to a canvas.
-     * @param data
-     * @param width
-     * @param height
-     * @param pixelFormat
-     * @returns
-     */
-    convertDataToCvs(data: Uint8Array | Uint8ClampedArray, width: number, height: number, pixelFormat: EnumPixelFormat): HTMLCanvasElement;
-    /**
-     * Force lose webgl context.
-     * @private
-     */
-    forceLoseContext(): void;
-    dispose(): void;
-}
-
-interface CameraInfo {
-    deviceId: string;
-    label: string;
-    /** @ignore */
-    _checked: boolean;
-}
-
-type CameraEvent = "before:open" | "opened" | "before:close" | "closed" | "before:camera:change" | "camera:changed" | "before:resolution:change" | "resolution:changed" | "played" | "paused" | "resumed" | "tapfocus";
-declare class CameraManager {
-    #private;
-    static _onLog: (message: any) => void;
-    static get version(): string;
-    static browserInfo: {
-        browser: string;
-        version: number;
-        OS: string;
-    };
-    private static _tryToReopenTime;
-    static onWarning: (message: string) => void;
-    /**
-     * Check if storage is available.
-     * @ignore
-     */
-    static isStorageAvailable(type: string): boolean;
-    static findBestRearCameraInIOS(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, options?: {
-        getMainCamera?: boolean;
-    }): string;
-    static findBestRearCamera(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, options?: {
-        getMainCameraInIOS?: boolean;
-    }): string;
-    static findBestCamera(cameraList: Array<{
-        label: string;
-        deviceId: string;
-    }>, facingMode: "environment" | "user" | null, options?: {
-        getMainCameraInIOS?: boolean;
-    }): string;
-    static playVideo(videoEl: HTMLVideoElement, source: string | MediaStream | MediaSource | Blob, timeout?: number): Promise<HTMLVideoElement>;
-    static testCameraAccess(constraints?: MediaStreamConstraints): Promise<{
-        ok: boolean;
-        errorName?: string;
-        errorMessage?: string;
-    }>;
-    /**
-     * Camera/video state.
-     */
-    get state(): "closed" | "opening" | "opened";
-    _zoomPreSetting: {
-        factor: number;
-        centerPoint?: {
-            x: string;
-            y: string;
-        };
-    };
-    videoSrc: string;
-    _mediaStream: MediaStream;
-    defaultConstraints: MediaStreamConstraints;
-    cameraOpenTimeout: number;
-    /**
-     * @ignore
-     */
-    _arrCameras: Array<CameraInfo>;
-    /**
-     * Whether to record camera you selected after reload the page.
-     */
-    set ifSaveLastUsedCamera(value: boolean);
-    get ifSaveLastUsedCamera(): boolean;
-    /**
-     * Whether to skip the process of picking a proper rear camera when opening camera the first time.
-     */
-    ifSkipCameraInspection: boolean;
-    selectIOSRearMainCameraAsDefault: boolean;
-    get isVideoPlaying(): boolean;
-    _focusParameters: any;
-    _focusSupported: boolean;
-    calculateCoordInVideo: (clientX: number, clientY: number) => {
-        x: number;
-        y: number;
-    };
-    set tapFocusEventBoundEl(element: HTMLElement);
-    get tapFocusEventBoundEl(): HTMLElement;
-    updateVideoElWhenSoftwareScaled: () => void;
-    imageDataGetter: ImageDataGetter;
-    detectedResolutions: {
-        width: number;
-        height: number;
-    }[];
-    get disposed(): boolean;
-    constructor(videoEl?: HTMLVideoElement);
-    setVideoEl(videoEl: HTMLVideoElement): void;
-    getVideoEl(): HTMLVideoElement;
-    releaseVideoEl(): void;
-    isVideoLoaded(): boolean;
-    /**
-     * Open camera and play video.
-     * @returns
-     */
-    open(): Promise<void>;
-    close(): Promise<void>;
-    pause(): void;
-    resume(): Promise<void>;
-    setCamera(deviceId: string): Promise<CameraInfo>;
-    switchToFrontCamera(options?: {
-        resolution: {
-            width: number;
-            height: number;
-        };
-    }): Promise<CameraInfo>;
-    getCamera(): CameraInfo;
-    _getCameras(force?: boolean): Promise<Array<CameraInfo>>;
-    getCameras(): Promise<Array<CameraInfo>>;
-    getAllCameras(): Promise<CameraInfo[]>;
-    setResolution(width: number, height: number, exact?: boolean): Promise<{
-        width: number;
-        height: number;
-    }>;
-    getResolution(): {
-        width: number;
-        height: number;
-    };
-    getResolutions(reGet?: boolean): Promise<Array<{
-        width: number;
-        height: number;
-    }>>;
-    setMediaStreamConstraints(mediaStreamConstraints: MediaStreamConstraints, reOpen?: boolean): Promise<void>;
-    getMediaStreamConstraints(): MediaStreamConstraints;
-    resetMediaStreamConstraints(): void;
-    getCameraCapabilities(): MediaTrackCapabilities;
-    getCameraSettings(): MediaTrackSettings;
-    turnOnTorch(): Promise<void>;
-    turnOffTorch(): Promise<void>;
-    setColorTemperature(value: number, autoCorrect?: boolean): Promise<number>;
-    getColorTemperature(): number;
-    setExposureCompensation(value: number, autoCorrect?: boolean): Promise<number>;
-    getExposureCompensation(): number;
-    setFrameRate(value: number, autoCorrect?: boolean): Promise<number>;
-    getFrameRate(): number;
-    setFocus(settings: {
-        mode: string;
-    } | {
-        mode: "manual";
-        distance: number;
-    } | {
-        mode: "manual";
-        area: {
-            centerPoint: {
-                x: string;
-                y: string;
-            };
-            width?: string;
-            height?: string;
-        };
-    }, autoCorrect?: boolean): Promise<void>;
-    getFocus(): Object;
-    /**
-     * Attention: tap focus is a feature that requires payment in DCE JS 4.x. Please consult relevant members if you want to export it to customers.
-     */
-    enableTapToFocus(): void;
-    disableTapToFocus(): void;
-    isTapToFocusEnabled(): boolean;
-    /**
-     *
-     * @param settings factor: scale value; centerPoint: experimental argument, set the scale center. Video center by default.
-     */
-    setZoom(settings: {
-        factor: number;
-        centerPoint?: {
-            x: string;
-            y: string;
-        };
-    }): Promise<void>;
-    getZoom(): {
-        factor: number;
-    };
-    resetZoom(): Promise<void>;
-    setHardwareScale(value: number, autoCorrect?: boolean): Promise<number>;
-    getHardwareScale(): number;
-    /**
-     *
-     * @param value scale value
-     * @param center experimental argument, set the scale center. Video center by default.
-     */
-    setSoftwareScale(value: number, center?: {
-        x: string;
-        y: string;
-    }): void;
-    getSoftwareScale(): number;
-    /**
-     * Reset scale center to video center.
-     * @experimental
-     */
-    resetScaleCenter(): void;
-    resetSoftwareScale(): void;
-    getFrameData(options?: {
-        position?: {
-            sx: number;
-            sy: number;
-            sWidth: number;
-            sHeight: number;
-            dWidth: number;
-            dHeight: number;
-        };
-        pixelFormat?: EnumPixelFormat.GREY | EnumPixelFormat.RGBA;
-        scale?: number;
-        scaleCenter?: {
-            x: string;
-            y: string;
-        };
-        bufferContainer?: Uint8Array;
-        isEnableMirroring?: boolean;
-    }): {
-        data: Uint8Array;
-        width: number;
-        height: number;
-        pixelFormat: EnumPixelFormat;
-        timeSpent: number;
-        timeStamp: number;
-        toCanvas: () => HTMLCanvasElement;
-    };
-    /**
-     *
-     * @param event {@link CameraEvent}
-     * @param listener
-     * @see {@link CameraEvent}
-     * @see {@link off}
-     */
-    on(event: CameraEvent, listener: Function): void;
-    /**
-     *
-     * @param event
-     * @param listener
-     * @see {@link CameraEvent}
-     * @see {@link on}
-     */
-    off(event: CameraEvent, listener: Function): void;
-    dispose(): Promise<void>;
-}
-
-declare class CameraEnhancer extends ImageSourceAdapter {
-    #private;
-    /** @ignore */
-    static _debug: boolean;
-    private static _isRTU;
-    static set _onLog(value: (message: any) => void);
-    static get _onLog(): (message: any) => void;
-    /**
-     * @ignore
-     */
-    static browserInfo: {
-        browser: string;
-        version: number;
-        OS: string;
-    };
-    /**
-     * Event triggered when the running environment is not ideal.
-     * @param warning The warning message.
-     */
-    static onWarning: (warning: Warning) => void;
-    /**
-     * Detect environment and get a report.
-     * ```js
-     * console.log(Dynamsoft.DCE.CameraEnhancer.detectEnvironment());
-     * // {"wasm":true, "worker":true, "getUserMedia":true, "camera":true, "browser":"Chrome", "version":90, "OS":"Windows"}
-     * ```
-     */
-    static detectEnvironment(): Promise<any>;
-    /**
-     * Tests whether the application has access to the camera.
-     * This static method can be used before initializing a `CameraEnhancer` instance to ensure that the device's camera can be accessed, providing a way to handle permissions or other access issues preemptively.
-     * This method offers the additional advantage of accelerating the camera opening process for the first time.
-     *
-     * @returns A promise that resolves with an object containing:
-     * - `ok`: Boolean indicating whether camera access is available.
-     * - `message`: A string providing additional information or the reason why camera access is not available, if applicable.
-     */
-    static testCameraAccess(): Promise<{
-        ok: boolean;
-        message: string;
-    }>;
-    /**
-     * Initializes a new instance of the `CameraEnhancer` class.
-     * @param view [Optional] Specifies a `CameraView` instance to provide the user interface element to display the live feed from the camera.
-     *
-     * @returns A promise that resolves with the initialized `CameraEnhancer` instance.
-     */
-    static createInstance(view?: CameraView): Promise<CameraEnhancer>;
-    cameraManager: CameraManager;
-    private cameraView;
-    /**
-     * @ignore
-    */
-    private _imageDataGetter;
-    private _isEnableMirroring;
-    get isEnableMirroring(): boolean;
-    /**
-     * @ignore
-     */
-    get video(): HTMLVideoElement;
-    /**
-     * Sets or returns the source URL for the video stream to be used by the `CameraEnhancer`.
-     * 1. You can use this property to specify an existing video as the source to play which will be processed the same way as the video feed from a live camera.
-     * 2. When playing an existing video, the camera selection and video selection boxes will be hidden.
-     *
-     * It is particularly useful for applications that need to process or display video from a specific source rather than the device's default camera.
-     */
-    set videoSrc(src: string);
-    get videoSrc(): string;
-    /**
-     * Determines whether the last used camera settings should be saved and reused the next time the `CameraEnhancer` is initialized.
-     *
-     * The default is `false`.
-     *
-     * When set to `true`, the enhancer attempts to restore the previously used camera settings, offering a more seamless user experience across sessions.
-     *
-     * - This feature makes use of the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) of the browser.
-     * - This feature only works on mainstream browsers like Chrome, Firefox, and Safari. Other browsers may change the device IDs dynamically thus making it impossible to track the camera.
-     */
-    set ifSaveLastUsedCamera(value: boolean);
-    get ifSaveLastUsedCamera(): boolean;
-    /**
-     * Determines whether to skip the initial camera inspection process.
-     *
-     * The default is `false`, which means to opt for an optimal rear camera at the first `open()`.
-     *
-     * Setting this property to `true` bypasses the automatic inspection and configuration that typically occurs when a camera connection is established.
-     * This can be useful for scenarios where the default inspection process may not be desirable or necessary.
-     *
-     * Note that if a previously used camera is already available in the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), the inspection is skipped automatically. Read more on `ifSaveLastUsedCamera`.
-     */
-    set ifSkipCameraInspection(value: boolean);
-    get ifSkipCameraInspection(): boolean;
-    /**
-     * Specifies the timeout in milliseconds for opening the camera. The default value is 15000 ms.
-     *
-     * Setting 0 means canceling the timeout or waiting indefinitely.
-     *
-     * This property sets a limit on how long the `CameraEnhancer` will attempt to open the camera before timing out.
-     * It can be adjusted to accommodate different devices and scenarios, ensuring that the application does not hang indefinitely while trying to access the camera.
-     */
-    set cameraOpenTimeout(value: number);
-    get cameraOpenTimeout(): number;
-    isTorchOn: undefined | boolean;
-    set singleFrameMode(value: "disabled" | "camera" | "image");
-    get singleFrameMode(): "disabled" | "camera" | "image";
-    /**
-     * Event handler in camera selection in default UI.
-     * @ignore
-     */
-    private _onCameraSelChange;
-    /**
-     * Event handler in resolution selection in default UI.
-     * @ignore
-     */
-    private _onResolutionSelChange;
-    /**
-     * Event handler in close button in default UI.
-     *
-     * Now the close button is removed, so it is useless.
-     * @ignore
-     */
-    private _onCloseBtnClick;
-    /**
-     * Event handler for single frame mode.
-     * @ignore
-     */
-    private _onSingleFrameAcquired;
-    _intermediateResultReceiver: any;
-    /**
-     * @ignore
-     */
-    get _isFetchingStarted(): boolean;
-    /**
-     * Set the size limit of the gotten images.
-     *
-     * By default, there is no limit.
-     * @ignore
-     */
-    canvasSizeLimit: number;
-    /**
-     * It is used in `DCEFrame.tag.imageId`.
-     * @ignore
-     */
-    _imageId: number;
-    private fetchInterval;
-    /**
-     * Returns whether the `CameraEnhancer` instance has been disposed of.
-     *
-     * @returns Boolean indicating whether the `CameraEnhancer` instance has been disposed of.
-     */
-    get disposed(): boolean;
-    readonly isCameraEnhancer = true;
-    private constructor();
-    /**
-     * Sets the `CameraView` instance to be used with the `CameraEnhancer`.
-     * This method allows for specifying a custom camera view, which can be used to display the camera feed and interface elements.
-     *
-     * @param view A `CameraView` instance that will be used to display the camera's video feed and any associated UI components.
-     */
-    setCameraView(view: CameraView): void;
-    /**
-     * Retrieves the current `CameraView` instance associated with the `CameraEnhancer`.
-     * This method allows for accessing the camera view, which can be useful for manipulating the view or accessing its properties and methods.
-     *
-     * @returns The current `CameraView` instance used by the `CameraEnhancer`.
-     */
-    getCameraView(): CameraView;
-    /**
-     *
-     * @returns
-     * @ignore
-     */
-    private releaseCameraView;
-    /**
-     * Add some event listeners to UI element in camera view.
-     * @returns
-     * @ignore
-     */
-    private addListenerToView;
-    /**
-     * Remove event listeners from UI element in camera view.
-     * @returns
-     */
-    private removeListenerFromView;
-    /**
-     * Retrieves the current state of the camera.
-     *
-     * @returns A string indicating the camera's current state, which can be "opening", "open", or "closed".
-     */
-    getCameraState(): string;
-    /**
-     * Checks if the camera is currently open and streaming video.
-     *
-     * @returns Boolean indicating whether the camera is open (`true`) or not (`false`).
-     */
-    isOpen(): boolean;
-    /**
-     * Retrieves the HTMLVideoElement used by the `CameraEnhancer` for displaying the camera feed.
-     * This method provides direct access to the video element, enabling further customization or interaction with the video stream.
-     *
-     * @returns The `HTMLVideoElement` that is being used to display the camera's video feed.
-     */
-    getVideoEl(): HTMLVideoElement;
-    /**
-     * Opens the currently selected camera and starts the video stream.
-     *
-     * @returns A promise that resolves with a `PlayCallbackInfo` object with details about the operation's outcome.
-     */
-    open(): Promise<PlayCallbackInfo>;
-    /**
-     * Closes the currently active camera and stops the video stream.
-     */
-    close(): void;
-    /**
-     * Pauses the video stream without closing the camera.
-     * This can be useful for temporarily halting video processing while keeping the camera ready.
-     */
-    pause(): void;
-    /**
-     * Checks if the video stream is currently paused.
-     *
-     * @returns Boolean indicating whether the video stream is paused (`true`) or active (`false`).
-     */
-    isPaused(): boolean;
-    /**
-     * Resumes the video stream from a paused state.
-     *
-     * @returns A promise that resolves when the video stream resumes. It does not provide any value upon resolution.
-     */
-    resume(): Promise<void>;
-    /**
-     * Selects a specific camera for use by the `CameraEnhancer`. The camera can be specified by a `VideoDeviceInfo` object or by its device ID.
-     * If called before `open()` or `show()`, the selected camera will be used. Otherwise, the system will decide which one to use.
-     * @param cameraObjectOrDeviceID The `VideoDeviceInfo` object or device ID string of the camera to select.
-     *
-     * @returns A promise that resolves with a `PlayCallbackInfo` object indicating the outcome of the camera selection operation.
-     */
-    selectCamera(videoDeviceInfoOrDeviceId: VideoDeviceInfo | string): Promise<PlayCallbackInfo>;
-    /**
-     * Returns the currently selected camera device.
-     *
-     * @returns The `VideoDeviceInfo` object representing the currently active camera.
-     */
-    getSelectedCamera(): VideoDeviceInfo;
-    /**
-     * Retrieves a list of all available video input devices (cameras) on the current device.
-     *
-     * @returns A promise that resolves with an array of `VideoDeviceInfo` objects representing each available camera.
-     */
-    getAllCameras(): Promise<Array<VideoDeviceInfo>>;
-    /**
-     * Sets the resolution of the video stream to a specified value.
-     * If the specified resolution is not exactly supported, the closest resolution will be applied.
-     * If called before `open()` or `show()`, the camera will use the set resolution when it opens. Otherwise, the default resolution used is 1920x1080 on desktop and 1280x720 on mobile devices.
-     * @param resolution The `Resolution` to which the video stream should be set.
-     *
-     * @returns A promise that resolves with a `PlayCallbackInfo` object with details about the operation's outcome.
-     */
-    setResolution(resolution: Resolution): Promise<PlayCallbackInfo>;
-    /**
-     * Gets the current resolution of the video stream.
-     *
-     * @returns The current `Resolution` of the video stream.
-     */
-    getResolution(): Resolution;
-    /**
-     * Retrieves a list of available resolutions supported by the currently selected camera.
-     *
-     * - The returned resolutions are limited to these values "160 by 120", "320 by 240", "480 by 360", "640 by 480", "800 by 600", "960 by 720", "1280 by 720", "1920 by 1080", "2560 by 1440", "3840 by 2160".
-     * - The SDK tests all these resolutions to find out which ones are supported. As a result, the method may be time-consuming.
-     *
-     * @returns A promise that resolves with an array of `Resolution` objects representing each supported resolution.
-     */
-    getAvailableResolutions(): Promise<Array<Resolution>>;
-    /**
-     * 'on()' is the wrapper of '_on()'.
-     * @param event includes
-     * @param listener
-     * @ignore
-     */
-    private _on;
-    /**
-     * 'off()' is the wrapper of '_off()'.
-     * @param event
-     * @param listener
-     * @ignore
-     */
-    private _off;
-    /**
-     * Registers an event listener for specific camera-related events.
-     * This method allows you to respond to various changes and states in the camera lifecycle.
-     * @param eventName The name of the event to listen for. Possible values include "cameraOpen", "cameraClose", "cameraChange", "resolutionChange", "played", "singleFrameAcquired", and "frameAddedToBuffer".
-     * @param listener The callback function to be invoked when the event occurs.
-     */
-    on(eventName: "cameraOpen" | "cameraClose" | "cameraChange" | "resolutionChange" | "played" | "singleFrameAcquired" | "frameAddedToBuffer", listener: Function): void;
-    /**
-     * Removes an event listener previously registered with the `on` method.
-     * @param eventName The name of the event for which to remove the listener.
-     * @param listener The callback function that was originally registered for the event.
-     */
-    off(eventName: "cameraOpen" | "cameraClose" | "cameraChange" | "resolutionChange" | "played" | "singleFrameAcquired" | "frameAddedToBuffer", listener: Function): void;
-    /**
-     * Retrieves the current video settings applied to the camera stream.
-     *
-     * @returns The current `MediaStreamConstraints` object representing the video stream's settings.
-     */
-    getVideoSettings(): MediaStreamConstraints;
-    /**
-     * Updates the video settings for the camera stream with new constraints.
-     * @param constraints The new `MediaStreamConstraints` to apply to the video stream.
-     *
-     * @returns A promise that resolves when the new `MediaStreamConstraints` is applied. It does not provide any value upon resolution.
-     */
-    updateVideoSettings(mediaStreamConstraints: MediaStreamConstraints): Promise<void>;
-    /**
-     * Gets the capabilities of the current camera.
-     *
-     * At present, this method only works in Edge, Safari, Chrome and other Chromium-based browsers (Firefox is not supported). Also, it should be called when a camera is open.
-     * @returns A `MediaTrackCapabilities` object representing the capabilities of the camera's video track.
-     */
-    getCapabilities(): MediaTrackCapabilities;
-    /**
-     * Retrieves the current settings of the camera.
-     *
-     * @returns The `MediaTrackSettings` object representing the current settings of the camera's video track.
-     */
-    getCameraSettings(): MediaTrackSettings;
-    /**
-     * Turns on the camera's torch (flashlight) mode, if supported.
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     * @returns A promise that resolves when the torch has been successfully turned on. It does not provide any value upon resolution.
-     */
-    turnOnTorch(): Promise<void>;
-    /**
-     * Turns off the camera's torch (flashlight) mode.
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     *
-     * @returns A promise that resolves when the torch has been successfully turned off. It does not provide any value upon resolution.
-     */
-    turnOffTorch(): Promise<void>;
-    _taskid4AutoTorch: any;
-    _delay4AutoTorch: number;
-    grayThreshold4AutoTorch: number;
-    maxDarkCount4AutoTroch: number;
-    turnAutoTorch(delay?: number): Promise<void>;
-    /**
-     * Sets the color temperature of the camera's video feed.
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     * @param colorTemperature The desired color temperature in Kelvin.
-     *
-     * @returns A promise that resolves when the color temperature has been successfully set. It does not provide any value upon resolution.
-     */
-    setColorTemperature(value: number): Promise<void>;
-    /**
-     * Retrieves the current color temperature setting of the camera's video feed.
-     *
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     *
-     * @returns The current color temperature in Kelvin.
-     */
-    getColorTemperature(): number;
-    /**
-     * Sets the exposure compensation of the camera's video feed.
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     * @param exposureCompensation The desired exposure compensation value.
-     *
-     * @returns A promise that resolves when the exposure compensation has been successfully set. It does not provide any value upon resolution.
-     */
-    setExposureCompensation(value: number): Promise<void>;
-    /**
-     * Retrieves the current exposure compensation setting of the camera's video feed.
-     * This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     *
-     * @returns The current exposure compensation value.
-     */
-    getExposureCompensation(): number;
-    /**
-     * 'setZoom()' is the wrapper of '_setZoom()'. '_setZoom()' can set the zoom center, which is not tested and there are no plans to make it open to clients.
-     * @ignore
-     */
-    private _setZoom;
-    /**
-     * Sets the zoom level of the camera.
-     *
-     * - How it works:
-     * 1. If the camera supports zooming and the zoom factor is within its supported range, zooming is done directly by the camera.
-     * 2. If the camera does not support zooming, software-based magnification is used instead.
-     * 3. If the camera supports zooming but the zoom factor is beyond what it supports, the camera's maximum zoom is used, and software-based magnification is used to do the rest. (In this case, you may see a brief video flicker between the two zooming processes).
-     * @param settings An object containing the zoom settings.
-     * @param settings.factor: A number specifying the zoom level. At present, it is the only available setting.
-     *
-     * @returns A promise that resolves when the zoom level has been successfully set. It does not provide any value upon resolution.
-     */
-    setZoom(settings: {
-        factor: number;
-    }): Promise<void>;
-    /**
-     * Retrieves the current zoom settings of the camera.
-     *
-     * @returns An object containing the current zoom settings. As present, it contains only the zoom factor.
-     */
-    getZoomSettings(): {
-        factor: number;
-    };
-    /**
-     * Resets the zoom level of the camera to its default value.
-     *
-     * @returns A promise that resolves when the zoom level has been successfully reset. It does not provide any value upon resolution.
-     */
-    resetZoom(): Promise<void>;
-    /**
-     * Sets the frame rate of the camera's video stream.
-     * - At present, this method only works in Edge, Safari, Chrome and other Chromium-based browsers (Firefox is not supported). Also, it should be called when a camera is open.
-     * - If you provide a value that exceeds the camera's capabilities, we will automatically adjust it to the maximum value that can be applied.
-     *
-     * @param rate The desired frame rate in frames per second (fps).
-     *
-     * @returns A promise that resolves when the frame rate has been successfully set. It does not provide any value upon resolution.
-     */
-    setFrameRate(value: number): Promise<void>;
-    /**
-     * Retrieves the current frame rate of the camera's video stream.
-     *
-     * @returns The current frame rate in frames per second (fps).
-     */
-    getFrameRate(): number;
-    /**
-     * Sets the focus mode of the camera. This method allows for both manual and continuous focus configurations, as well as specifying a focus area.
-     * - This method should be called when the camera is turned on. Note that it only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     * - Typically, `continuous` mode works best. `manual` mode based on a specific area helps the camera focus on that particular area which may seem blurry under `continuous` mode. `manual` mode with specified distances is for those rare cases where the camera distance must be fine-tuned to get the best results.
-     * @param settings An object describing the focus settings. The structure of this object varies depending on the mode specified (`continuous`, `manual` with fixed `distance`, or `manual` with specific `area`).
-     *
-     * @returns A promise that resolves when the focus settings have been successfully applied. It does not provide any value upon resolution.
-     */
-    setFocus(settings: {
-        mode: string;
-    } | {
-        mode: "manual";
-        distance: number;
-    } | {
-        mode: "manual";
-        area: {
-            centerPoint: {
-                x: string;
-                y: string;
-            };
-            width?: string;
-            height?: string;
-        };
-    }): Promise<void>;
-    /**
-     * Retrieves the current focus settings of the camera.
-     *
-     * @returns An object representing the current focus settings or null.
-     */
-    getFocusSettings(): Object;
-    /**
-     * Sets the auto zoom range for the camera.
-     * `EF_AUTO_ZOOM` is one of the enhanced features that require a license, and is only effective when used in conjunction with other functional products of Dynamsoft.
-     * This method allows for specifying the minimum and maximum zoom levels that the camera can automatically adjust to.
-     *
-     * @param range An object specifying the minimum and maximum zoom levels. Both `min` and `max` should be positive numbers, with `min` less than or equal to `max`. The default is `{min: 1, max: 999}`.
-     */
-    setAutoZoomRange(range: {
-        min: number;
-        max: number;
-    }): void;
-    /**
-     * Retrieves the current auto zoom range settings for the camera.
-     * `EF_AUTO_ZOOM` is one of the enhanced features that require a license, and is only effective when used in conjunction with other functional products of Dynamsoft.
-     *
-     * @returns An object representing the current auto zoom range, including the minimum and maximum zoom levels.
-     */
-    getAutoZoomRange(): {
-        min: number;
-        max: number;
-    };
-    /**
-     * Enables one or more enhanced features.
-     * This method allows for activating specific advanced capabilities that may be available.
-     *
-     * - The enhanced features require a license, and only take effect when used in conjunction with other functional products under the Dynamsoft Capture Vision（DCV）architecture.
-     * - `EF_ENHANCED_FOCUS` and `EF_TAP_TO_FOCUS` only works with Chromium-based browsers such as Edge and Chrome on Windows or Android. Other browsers such as Firefox or Safari are not supported. Note that all browsers on iOS (including Chrome) use WebKit as the rendering engine and are not supported.
-     * @param enhancedFeatures An enum value or a bitwise combination of `EnumEnhancedFeatures` indicating the features to be enabled.
-     */
-    enableEnhancedFeatures(enhancedFeatures: EnumEnhancedFeatures): void;
-    /**
-     * Disables one or more previously enabled enhanced features.
-     * This method can be used to deactivate specific features that are no longer needed or to revert to default behavior.
-     *
-     * @param enhancedFeatures An enum value or a bitwise combination of `EnumEnhancedFeatures` indicating the features to be disabled.
-     */
-    disableEnhancedFeatures(enhancedFeatures: EnumEnhancedFeatures): void;
-    /**
-     * Differ from 'setScanRegion()', 'setScanRegion()' will update the UI in camera view, while '_setScanRegion()' not.
-     * @param region
-     * @ignore
-     */
-    private _setScanRegion;
-    /**
-     * Sets the scan region within the camera's view which limits the frame acquisition to a specific area of the video feed.
-     *
-     * Note: The region is always specified relative to the original video size, regardless of any transformations or zoom applied to the video display.
-     *
-     * @param region Specifies the scan region.
-     */
-    setScanRegion(region: DSRect | Rect): void;
-    /**
-     * Retrieves the current scan region set within the camera's view.
-     *
-     * Note: If no scan region has been explicitly set before calling this method, an error may be thrown, indicating the necessity to define a scan region beforehand.
-     *
-     * @returns A `DSRect` or `Rect` object representing the current scan region.
-     *
-     * @throws Error indicating that no scan region has been set, if applicable.
-     */
-    getScanRegion(): DSRect | Rect;
-    /**
-     * Sets an error listener to receive notifications about errors that occur during image source operations.
-     *
-     * @param listener An instance of `ImageSourceErrorListener` or its derived class to handle error notifications.
-     */
-    setErrorListener(listener: ImageSourceErrorListener): void;
-    /**
-     * Determines whether there are more images available to fetch.
-     *
-     * @returns Boolean indicating whether more images can be fetched. `false` means the image source is closed or exhausted.
-     */
-    hasNextImageToFetch(): boolean;
-    /**
-     * Starts the process of fetching images.
-     */
-    startFetching(): void;
-    /**
-     * Stops the process of fetching images.
-     * to false, indicating that image fetching has been halted.
-     */
-    stopFetching(): void;
-    /**
-    * Toggles the mirroring of the camera's video stream.
-    * This method flips the video stream horizontally when enabled, creating a mirror effect.
-    * It is useful for applications using the front-facing camera where a mirrored view is more intuitive for users.
-    *
-    * @param enable - If true, enables the mirroring; if false, disables the mirroring.
-    */
-    toggleMirroring(enable: boolean): void;
-    /**
-     * Fetches the current frame from the camera's video feed.
-     * This method is used to obtain the latest image captured by the camera.
-     *
-     * @returns A `DCEFrame` object representing the current frame.
-     * The structure and content of this object will depend on the pixel format set by `setPixelFormat()` and other settings.
-     */
-    fetchImage(isUserCall?: boolean): DCEFrame;
-    /**
-     * Sets the interval at which images are continuously fetched from the camera's video feed.
-     * This method allows for controlling how frequently new frames are obtained when `startFetching()` is invoked,
-     * which can be useful for reducing computational load or for pacing the frame processing rate.
-     *
-     * @param interval The desired interval between fetches, specified in milliseconds.
-     */
-    setImageFetchInterval(interval: number): void;
-    /**
-     * Retrieves the current interval at which images are continuously fetched from the camera's video feed.
-     *
-     * @returns The current fetch interval, specified in milliseconds.
-     */
-    getImageFetchInterval(): number;
-    /**
-     * Sets the pixel format for the images fetched from the camera, which determines the format of the images added to the buffer when the `fetchImage()` or `startFetching()` method is called.
-     * It can affect both the performance of image processing tasks and the compatibility with certain analysis algorithms.
-     *
-     * @param pixelFormat The desired pixel format for the images. Supported formats include `IPF_GRAYSCALED`, `IPF_ABGR_8888`.
-     */
-    setPixelFormat(format: EnumImagePixelFormat.IPF_GRAYSCALED | EnumImagePixelFormat.IPF_ABGR_8888): void;
-    /**
-     * Retrieves the current pixel format used for images fetched from the camera.
-     *
-     * @returns The current pixel format, which could be one of the following: `IPF_GRAYSCALED`, `IPF_ABGR_8888`, and `IPF_ARGB_8888`.
-     */
-    getPixelFormat(): EnumImagePixelFormat;
-    /**
-     * Initiates a sequence to capture a single frame from the camera, only valid when the camera was open. halting the video stream temporarily.
-     * This method prompts the user to either select a local image or capture a new one using the system camera, similar to the behavior in `singleFrameMode` but without changing the mode.
-     *
-     * Note: This method is intended for use cases where capturing a single, user-obtained image is necessary while the application is otherwise utilizing a live video stream.
-     *
-     * Steps performed by `takePhoto`:
-     * 1. Stops the video stream and releases the camera, if it was in use.
-     * 2. Prompts the user to take a new image with the system camera (on desktop, it prompts the user to select an image from the disk). This behavior mirrors that of `singleFrameMode[=="camera"]`
-     * 3. Returns the obtained image in a callback function, this differs from `singleFrameMode` which would display the image in the view.
-     * NOTE: user should resume the video stream after the image has been obtained to keep the video stream going.
-     * @param listener A callback function that is invoked with a `DCEFrame` object containing the obtained image.
-     */
-    takePhoto(listener: (dceFrame: DCEFrame) => void): void;
-    /**
-     * Converts coordinates from the video's coordinate system to coordinates relative to the whole page.
-     * This is useful for overlaying HTML elements on top of specific points in the video, aligning with the page's layout.
-     *
-     * @param point A `Point` object representing the x and y coordinates within the video's coordinate system.
-     *
-     * @returns A `Point` object representing the converted x and y coordinates relative to the page.
-     */
-    convertToPageCoordinates(point: Point): Point;
-    /**
-     * Converts coordinates from the video's coordinate system to coordinates relative to the viewport.
-     * This is useful for positioning HTML elements in relation to the video element on the screen, regardless of page scrolling.
-     *
-     * @param point A `Point` object representing the x and y coordinates within the video's coordinate system.
-     *
-     * @returns A `Point` object representing the converted x and y coordinates relative to the viewport.
-     */
-    convertToClientCoordinates(point: Point): Point;
-    /**
-     * Converts coordinates from the video's coordinate system to coordinates relative to the viewport.
-     * This is useful for positioning HTML elements in relation to the video element on the screen, regardless of page scrolling.
-     *
-     * @param point A `Point` object representing the x and y coordinates within the video's coordinate system.
-     *
-     * @returns A `Point` object representing the converted x and y coordinates relative to the viewport.
-     */
-    convertToScanRegionCoordinates(point: Point): Point;
-    /**
-     * Converts coordinates from the video's coordinate system under `fit: cover` mode
-     * back to coordinates under `fit: contain` mode.
-     * This is useful when you need to map points detected in a cropped/resized video (cover)
-     * back to the original video dimensions (contain).
-     *
-     * @param point A `Point` object representing the x and y coordinates within the video's `cover` coordinate system.
-     *
-     * @returns A `Point` object representing the converted x and y coordinates under `contain` mode.
-     */
-    convertToContainCoordinates(point: Point): Point;
-    /**
-     * Releases all resources used by the `CameraEnhancer` instance.
-     */
-    dispose(): void;
-}
-
-declare class CameraView extends View {
-    #private;
-    /**
-     * @ignore
-     */
-    static _onLog: (message: any) => void;
-    private static get engineResourcePath();
-    private static _defaultUIElementURL;
-    /**
-     * Specifies the URL to a default UI definition file.
-     * This URL is used as a fallback source for the UI of the `CameraView` class when the `createInstance()` method is invoked without specifying a `HTMLDivElement`.
-     * This ensures that `CameraView` has a user interface even when no custom UI is provided.
-     */
-    static set defaultUIElementURL(value: string);
-    static get defaultUIElementURL(): string;
-    /**
-     * Initializes a new instance of the `CameraView` class.
-     * This method allows for optional customization of the user interface (UI) through a specified HTML element or an HTML file.
-     */
-    static createInstance(elementOrUrl?: HTMLElement | string): Promise<CameraView>;
-    /**
-     * Transform the coordinates from related to scan region to related to the whole video/image.
-     * @param coord The coordinates related to scan region.
-     * @param sx The x coordinate of scan region related to the whole video/image.
-     * @param sy The y coordinate of scan region related to the whole video/image.
-     * @param sWidth The width of scan region.
-     * @param sHeight The height of scan region.
-     * @param dWidth The width of cropped image. Its value is different from `sWidth` when the image is compressed.
-     * @param dHeight The height of cropped image. Its value is different from `sHeight` when the image is compressed.
-     * @ignore
-     */
-    static _transformCoordinates(coord: {
-        x: number;
-        y: number;
-    }, sx: number, sy: number, sWidth: number, sHeight: number, dWidth: number, dHeight: number): void;
-    cameraEnhancer: CameraEnhancer;
-    /**
-     * @ignore
-     */
-    eventHandler: EventHandler;
-    private UIElement;
-    private _poweredByVisible;
-    /**
-     * @ignore
-     */
-    containerClassName: string;
-    _videoContainer: HTMLDivElement;
-    private videoFit;
-    /** @ignore */
-    _hideDefaultSelection: boolean;
-    /** @ignore */
-    _divScanArea: any;
-    /** @ignore */
-    _divScanLight: any;
-    /** @ignore */
-    _bgLoading: any;
-    /** @ignore */
-    _selCam: any;
-    /** @ignore */
-    _bgCamera: any;
-    /** @ignore */
-    _selRsl: any;
-    /** @ignore */
-    _optGotRsl: any;
-    /** @ignore */
-    _btnClose: any;
-    /** @ignore */
-    _selMinLtr: any;
-    /** @ignore */
-    _optGotMinLtr: any;
-    /** @ignore */
-    _poweredBy: any;
-    /** @ignore */
-    _cvsSingleFrameMode: HTMLCanvasElement;
-    private scanRegion;
-    private _drawingLayerOfMask;
-    private _maskBackRectStyleId;
-    private _maskCenterRectStyleId;
-    private regionMaskFillStyle;
-    private regionMaskStrokeStyle;
-    private regionMaskLineWidth;
-    /**
-     * @ignore
-     */
-    _userSetMaskVisible: boolean;
-    /**
-     * @ignore
-     */
-    _userSetLaserVisible: boolean;
-    private _updateLayersTimeoutId;
-    private _updateLayersTimeout;
-    /**
-     * Trigger when the css dimensions of the container of video element changed, or window changed.
-     */
-    private _videoResizeListener;
-    private _windowResizeListener;
-    private _resizeObserver;
-    /**
-     * @ignore
-     */
-    set _singleFrameMode(value: "disabled" | "camera" | "image");
-    get _singleFrameMode(): "disabled" | "camera" | "image";
-    _onSingleFrameAcquired: (canvas: HTMLCanvasElement) => void;
-    private _singleFrameInputContainer;
-    _clickIptSingleFrameMode: () => void;
-    _capturedResultReceiver: any;
-    /**
-     * Returns whether the `CameraView` instance has been disposed of.
-     *
-     * @returns Boolean indicating whether the `CameraView` instance has been disposed of.
-     */
-    get disposed(): boolean;
-    private constructor();
-    /**
-     * Differ from 'setUIElement()', 'setUIElement()' allow parameter of 'string' type, which means a url, '_setUIElement()' only accept parameter of 'HTMLElement' type.
-     * @param element
-     */
-    private _setUIElement;
-    setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
-    getUIElement(): HTMLElement;
-    private _bindUI;
-    private _unbindUI;
-    /**
-     * Show loading animation.
-     * @ignore
-     */
-    _startLoading(): void;
-    /**
-     * Hide loading animation.
-     * @ignore
-     */
-    _stopLoading(): void;
-    /**
-     * Render cameras info in camera selection in default UI.
-     * @ignore
-     */
-    _renderCamerasInfo(curCamera: {
-        deviceId: string;
-        label: string;
-    }, cameraList: Array<{
-        deviceId: string;
-        label: string;
-    }>): void;
-    /**
-     * Render resolution list in resolution selection in default UI.
-     * @ignore
-     */
-    _renderResolutionInfo(curResolution: {
-        width: number;
-        height: number;
-    }): void;
-    /**
-     * Retrieves the `HTMLVideoElement` that is currently being used for displaying the video in this `CameraView` instance.
-     * This method allows access to the underlying video element, enabling direct interaction or further customization.
-     *
-     * @returns The `HTMLVideoElement` currently used by this `CameraView` instance for video display.
-     */
-    getVideoElement(): HTMLVideoElement;
-    /**
-     * tell if video is loaded.
-     * @ignore
-     */
-    isVideoLoaded(): boolean;
-    /**
-     * Sets the `object-fit` CSS property of the `HTMLVideoElement` used by this `CameraView` instance.
-     * The `object-fit` property specifies how the video content should be resized to fit the container in a way that maintains its aspect ratio.
-     * @param objectFit The value for the `object-fit` property. At present, only "cover" and "contain" are allowed and the default is "contain".
-     * Check out more on [object-fit](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit).
-     */
-    setVideoFit(value: "contain" | "cover"): void;
-    /**
-     * Retrieves the current value of the `object-fit` CSS property from the `HTMLVideoElement` used by this `CameraView` instance.
-     * The `object-fit` property determines how the video content is resized to fit its container.
-     *
-     * @returns The current value of the `object-fit` property applied to the video element. At present, the value is limited to "cover" and "contain".
-     * Check out more on [object-fit](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit).
-     */
-    getVideoFit(): "contain" | "cover";
-    /**
-     * Get dimensions of content(video, or image in single frame mode). It decides what dimensions the layers should be created.
-     * @returns
-     */
-    protected getContentDimensions(): {
-        width: number;
-        height: number;
-        objectFit: string;
-    };
-    /**
-     * Update prop '#convertedRegion' and update related UI.
-     * @param contentDimensions
-     * @ignore
-     */
-    private updateConvertedRegion;
-    /**
-     * @ignore
-     */
-    getConvertedRegion(): {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-    };
-    /**
-     * @ignore
-     */
-    setScanRegion(region: DSRect | Rect): void;
-    /**
-     * @ignore
-     */
-    getScanRegion(): any;
-    /**
-     * Returns the region of the video that is currently visible to the user.
-     * @param options [Optional] Specifies how the visible region should be returned.
-     * @param options.inPixels [Optional] If `true`, the coordinates of the visible region are returned in pixels. If `false` or omitted, the coordinates are returned as a percentage of the video element's size.
-     *
-     * @returns An object representing the visible region of the video.
-     */
-    getVisibleRegionOfVideo(options: {
-        inPixels?: boolean;
-    }): Rect;
-    private setScanRegionMask;
-    private clearScanRegionMask;
-    /**
-     * Not used yet.
-     * @ignore
-     */
-    private deleteScanRegionMask;
-    /**
-     *
-     * @param visible
-     * @ignore
-     */
-    _setScanRegionMaskVisible(visible: boolean): void;
-    /**
-     * Sets the visibility of the scan region mask. This can be used to show or hide the mask.
-     * @param visible Boolean indicating whether the scan region mask should be visible (`true`) or not (`false`).
-     */
-    setScanRegionMaskVisible(visible: boolean): void;
-    /**
-     * Checks if the scan region mask is currently visible.
-     *
-     * @returns Boolean indicating whether the scan region mask is visible (`true`) or not (`false`).
-     */
-    isScanRegionMaskVisible(): boolean;
-    /**
-     * Sets the style of the scan region mask. This style includes the line width, stroke color, and fill color.
-     * @param style An object containing the new style settings for the scan region mask.
-     * @param style.lineWidth The width of the line used to draw the border of the scan region mask.
-     * @param style.strokeStyle The color of the stroke (border) of the scan region mask.
-     * @param style.fillStyle The fill color of the scan region mask.
-     */
-    setScanRegionMaskStyle(style: {
-        lineWidth: number;
-        strokeStyle: string;
-        fillStyle: string;
-    }): void;
-    /**
-     * Retrieves the current style of the scan region mask. This includes the line width, stroke color, and fill color.
-     */
-    getScanRegionMaskStyle(): {
-        fillStyle: string;
-        strokeStyle: string;
-        lineWidth: number;
-    };
-    /**
-     * @ignore
-     */
-    private _setScanLaserVisible;
-    /**
-     * Sets the visibility of the scan laser effect. This can be used to show or hide the scan laser.
-     * @param visible Boolean indicating whether the scan laser should be visible (`true`) or not (`false`).
-     */
-    setScanLaserVisible(visible: boolean): void;
-    /**
-     * Checks if the scan laser effect is currently visible.
-     *
-     * @returns Boolean indicating whether the scan laser is visible (`true`) or not (`false`).
-     */
-    isScanLaserVisible(): boolean;
-    /**
-     * @ignore
-     */
-    _updateVideoContainer(): void;
-    /**
-     * Sets the visibility of the `power by Dynamsoft` message. This can be used to show or hide the message.
-     * @param visible Boolean indicating whether the message should be visible (`true`) or not (`false`).
-     */
-    setPowerByMessageVisible(visible: boolean): void;
-    /**
-     * Checks if the `power by Dynamsoft` message is currently visible.
-     *
-     * @returns Boolean indicating whether the message is visible (`true`) or not (`false`).
-     */
-    isPowerByMessageVisible(): boolean;
-    /**
-     * Update all layers(scan laser, drawing layers, scan region mask). Not used yet.
-     * @ignore
-     */
-    private updateLayers;
-    /**
-     * Clears all system-defined `DrawingItem` objects while keeping user-defined ones.
-     */
-    clearAllInnerDrawingItems(): void;
-    /**
-     * Remove added elements. Remove event listeners.
-     */
-    dispose(): void;
-}
-
-declare class ImageEditorView extends View {
-    #private;
-    static createInstance(elementOrUrl?: HTMLElement | string): Promise<ImageEditorView>;
-    private UIElement;
-    /**
-     * @ignore
-     */
-    containerClassName: string;
-    /**
-     * Control if enable magnifier function.
-     * @ignore
-     */
-    private isUseMagnifier;
-    /**
-     * Returns whether the `ImageEditorView` instance has been disposed of.
-     *
-     * @returns Boolean indicating whether the `ImageEditorView` instance has been disposed of.
-     */
-    get disposed(): boolean;
-    private constructor();
-    /**
-     * Differ from 'setUIElement()', 'setUIElement()' allow parameter of 'string' type, which means a url, '_setUIElement()' only accept parameter of 'HTMLElement' type.
-     * @param element
-     */
-    private _setUIElement;
-    setUIElement(elementOrUrl: HTMLElement | string): Promise<void>;
-    getUIElement(): HTMLElement;
-    private _bindUI;
-    private _unbindUI;
-    /**
-     * Draw image in inner canvas.
-     * @ignore
-     */
-    private setImage;
-    /**
-     * Not used yet.
-     * @ignore
-     */
-    private getImage;
-    /**
-     * Not used yet.
-     * @ignore
-     */
-    private clearImage;
-    /**
-     * Not used yet.
-     * @ignore
-     */
-    private removeImage;
-    /**
-     * Sets the image to be drawn on the `ImageEditorView`.
-     * This method allows for the initialization or updating of the image.
-     * @param image The image to be drawn on the `ImageEditorView`.
-     */
-    setOriginalImage(img: DSImageData | HTMLCanvasElement | HTMLImageElement): void;
-    /**
-     * Returns the current image drawn on the `ImageEditorView`.
-     *
-     * @returns The current image drawn on the `ImageEditorView`. The returned type will match the format of the image originally set via `setOriginalImage()`.
-     */
-    getOriginalImage(): DSImageData | HTMLCanvasElement | HTMLImageElement;
-    /**
-    * Get dimensions of content(that is, the image). It decides what dimensions the layers should be created.
-    * @returns
-    */
-    protected getContentDimensions(): {
-        width: number;
-        height: number;
-        objectFit: string;
-    };
-    /**
-     * Create drawing layer with specified id and size.
-     * Differ from 'createDrawingLayer()', the drawing layers created'createDrawingLayer()' can not Specified id, and their size is the same as video.
-     * @ignore
-     */
-    _createDrawingLayer(drawingLayerId: number, width?: number, height?: number, objectFit?: string): DrawingLayer;
-    /**
-     * Releases all resources used by the `ImageEditorView` instance.
-     */
-    dispose(): void;
-}
-
-declare class Feedback {
-    #private;
-    static allowBeep: boolean;
-    /** Returns or sets the beep's sound source. */
-    static beepSoundSource: string;
-    /** Initiates a beep sound upon invocation. */
-    static beep(): void;
-    static allowVibrate: boolean;
-    /** Determines the vibration's duration in milliseconds. */
-    static vibrateDuration: number;
-    /** Activates device vibration upon invocation. */
-    static vibrate(): void;
-}
-
-declare class DrawingStyleManager {
-    #private;
-    static STYLE_BLUE_STROKE: number;
-    static STYLE_GREEN_STROKE: number;
-    static STYLE_ORANGE_STROKE: number;
-    static STYLE_YELLOW_STROKE: number;
-    static STYLE_BLUE_STROKE_FILL: number;
-    static STYLE_GREEN_STROKE_FILL: number;
-    static STYLE_ORANGE_STROKE_FILL: number;
-    static STYLE_YELLOW_STROKE_FILL: number;
-    static STYLE_BLUE_STROKE_TRANSPARENT: number;
-    static STYLE_GREEN_STROKE_TRANSPARENT: number;
-    static STYLE_ORANGE_STROKE_TRANSPARENT: number;
-    static USER_START_STYLE_ID: number;
-    /**
-     * Generates a new `DrawingStyle` object, providing its unique ID.
-     * The ID starts from 1024 and increases in a sequential order.
-     * @param styleDefinition The properties and values defining the drawing style.
-     *
-     * @returns The unique ID of the newly created DrawingStyle object.
-     */
-    static createDrawingStyle(styleDefinition: DrawingStyle): number;
-    private static _getDrawingStyle;
-    /**
-     * Retrieves a specific `DrawingStyle` object using its ID.
-     * @param styleId The unique ID of the `DrawingStyle` to retrieve.
-     *
-     * @returns The `DrawingStyle` object associated with the given ID.
-     */
-    static getDrawingStyle(styleId: number): DrawingStyle;
-    /**
-     * Fetches a collection of all available `DrawingStyle` objects.
-     *
-     * @returns An array of `DrawingStyle` objects.
-     * [NOTE]: used to be called getDrawingStyles in v4.0.1
-     */
-    static getAllDrawingStyles(): Array<DrawingStyle>;
-    private static _updateDrawingStyle;
-    /**
-     * Modifies an identified `DrawingStyle` object by its ID.
-     * @param styleId The unique ID of the `DrawingStyle` to update.
-     * @param styleDefinition The new properties and values to update the drawing style with.
-     */
-    static updateDrawingStyle(styleId: number, styleDefinition: DrawingStyle): void;
-}
-
-export { CameraEnhancer, CameraEnhancerModule, CameraManager, CameraView, DCEFrame, DrawingItem, DrawingItemEvent, DrawingLayer, DrawingStyle, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, Feedback, DT_Group as GroupDrawingItem, ImageDataGetter, DT_Image as ImageDrawingItem, ImageEditorView, DT_Line as LineDrawingItem, Note, PlayCallbackInfo, DT_Quad as QuadDrawingItem, DT_Rect as RectDrawingItem, Resolution, DT_Text as TextDrawingItem, TipConfig, VideoDeviceInfo, VideoFrameTag };
-
-
 interface ParsedResultItem extends CapturedResultItem {
     /**
      * The code type of the parsed result.
@@ -4684,6 +2276,13 @@ interface ParsedResultItem extends CapturedResultItem {
      * The parsed result represented as a JSON-formatted string.
      */
     jsonString: string;
+    /**
+     * Retrieves a list of all field names present in the parsed result.
+     *  @returns An array of strings, where each string is a field name from the parsed result.
+     * This method allows for dynamic access to the fields in the parsed result, enabling users to iterate through all available fields without needing to know their names in advance.
+     * [NOTE]: If the field is nested, the name includes all parent fields, separated by a dot (.). The format follows this pattern: [.[....]].
+     */
+    getAllFieldNames(): Array<string>;
     /**
      * Retrieves the value of a specified field.
      * @param fieldName The name of the field whose value is being requested.
@@ -4770,7 +2369,7 @@ declare class CodeParserModule {
      *
      * @returns A promise that resolves when the specification is loaded. It does not provide any value upon resolution.
      */
-    static loadSpec(specificationName: string | Array<string>, specificationPath?: string): Promise<void>;
+    static loadSpec(specificationName: string | Array<string>, specificationPath?: string): Promise<ErrorInfo>;
     /**
     * An event that repeatedly fires during the loading of specification files.
     * @param filePath Returns the path of the specification file.
@@ -4813,6 +2412,21 @@ declare enum EnumValidationStatus {
     VS_FAILED = 2
 }
 
+declare enum EnumCodeType {
+    CT_MRTD_TD1_ID = "MRTD_TD1_ID",
+    CT_MRTD_TD2_ID = "MRTD_TD2_ID",
+    CT_MRTD_TD2_VISA = "MRTD_TD2_VISA",
+    CT_MRTD_TD3_PASSPORT = "MRTD_TD3_PASSPORT",
+    CT_MRTD_TD3_VISA = "MRTD_TD3_VISA",
+    CT_MRTD_TD2_FRENCH_ID = "MRTD_TD2_FRENCH_ID",
+    CT_AAMVA_DL_ID = "AAMVA_DL_ID",
+    CT_AAMVA_DL_ID_WITH_MAG_STRIPE = "AAMVA_DL_ID_WITH_MAG_STRIPE",
+    CT_SOUTH_AFRICA_DL = "SOUTH_AFRICA_DL",
+    CT_AADHAAR = "AADHAAR",
+    CT_VIN = "VIN",
+    CT_GS1_AI = "GS1_AI"
+}
+
 interface ParsedResult extends CapturedResultBase {
     /**
      * An array of `ParsedResultItem` objects.
@@ -4820,7 +2434,7 @@ interface ParsedResult extends CapturedResultBase {
     parsedResultItems: Array<ParsedResultItem>;
 }
 
-export { CodeParser, CodeParserModule, EnumMappingStatus, EnumValidationStatus, ParsedResult, ParsedResultItem };
+export { CodeParser, CodeParserModule, EnumCodeType, EnumMappingStatus, EnumValidationStatus, ParsedResult, ParsedResultItem };
 
 
 declare class DocumentNormalizerModule {
@@ -4847,8 +2461,8 @@ interface DetectedQuadResultItem extends CapturedResultItem {
     location: Quadrilateral;
     /** A confidence score related to the detected quadrilateral's accuracy as a document boundary. */
     confidenceAsDocumentBoundary: number;
-    /** Indicates whether the DetectedQuadResultItem has passed corss verification. */
-    CrossVerificationStatus: EnumCrossVerificationStatus;
+    /** Indicates whether the DetectedQuadResultItem has passed cross verification. */
+    crossVerificationStatus: EnumCrossVerificationStatus;
 }
 
 interface DeskewedImageResultItem extends CapturedResultItem {
@@ -4856,13 +2470,14 @@ interface DeskewedImageResultItem extends CapturedResultItem {
     imageData: DSImageData;
     /** The location where the deskewed image was extracted from within the input image image of the deskew section, represented as a quadrilateral. */
     sourceLocation: Quadrilateral;
+    /** Indicates whether the DeskewedImageResultItem has passed cross verification. */
+    crossVerificationStatus: EnumCrossVerificationStatus;
     toCanvas: () => HTMLCanvasElement;
     toImage: (MIMEType: "image/png" | "image/jpeg") => HTMLImageElement;
     toBlob: (MIMEType: "image/png" | "image/jpeg") => Promise<Blob>;
 }
 
 interface EnhancedImageElement extends RegionObjectElement {
-    /** The image data for the enhanced image. */
     imageData: DSImageData;
 }
 
@@ -4913,10 +2528,9 @@ interface LogicLinesUnit extends IntermediateResultUnit {
 }
 
 interface DeskewedImageElement extends RegionObjectElement {
-    /** The image data for the deskewed image. */
+    /** A quadrilateral representing the four corners of the quadrilateral used to deskew the image. */
+    sourceLocation: Quadrilateral;
     imageData: DSImageData;
-    /** A reference to another `RegionObjectElement`. */
-    referencedElement: RegionObjectElement;
 }
 
 interface DeskewedImageUnit extends IntermediateResultUnit {
@@ -5079,6 +2693,8 @@ interface LocalizedTextLineElement extends RegionObjectElement {
 interface LocalizedTextLinesUnit extends IntermediateResultUnit {
     /** An array of `LocalizedTextLineElement` objects, each representing a localized text line. */
     localizedTextLines: Array<LocalizedTextLineElement>;
+    /** An array of `AuxiliaryRegionElement` objects, each representing an auxiliary region. */
+    auxiliaryRegionElements: Array<AuxiliaryRegionElement>;
 }
 
 interface RecognizedTextLineElement extends RegionObjectElement {
@@ -5121,7 +2737,7 @@ interface BufferedCharacterItem {
     /** The buffered character value. */
     character: string;
     /** The image data of the buffered character. */
-    image: DSImageData;
+    imageData: DSImageData;
     /**  An array of features, each feature object contains feature id and value of the buffered character.*/
     features: Map<number, number>;
 }
@@ -5146,7 +2762,7 @@ interface BufferedCharacterItemSet {
  * - `TLS_RECOGNITION_FAILED`: Recognition failed.
  * - `TLS_RECOGNIZED_SUCCESSFULLY`: Successfully recognized.
  */
-interface RawTextLine extends RegionObjectElement {
+interface RawTextLine {
     /** The recognized text of the line. */
     text: string;
     /** Confidence score for the recognized text line. */
@@ -5219,9 +2835,24 @@ declare class LicenseManager {
      * @returns A promise which, upon resolution, yields a string corresponding to the device's UUID.
      */
     static getDeviceUUID(): Promise<string>;
+    static _e: boolean;
 }
 
-export { LicenseManager, LicenseModule };
+interface InitConfig {
+    pk: string;
+    dm: string;
+    bd?: boolean;
+    trial?: boolean;
+    msg?: string;
+    mli?: any;
+    om?: any;
+    ic?: any;
+    mlo?: any;
+    pv?: any;
+}
+
+export { InitConfig, LicenseManager, LicenseModule };
+
 
 
 
@@ -5232,7 +2863,24 @@ declare class UtilityModule {
     static getVersion(): string;
 }
 
-type resultItemTypesString = "barcode" | "text_line" | "detected_quad" | "deskewed_image" | "enhanced_image";
+type CEdge = [Point, Point];
+type CQuadrilateral = Quadrilateral & {
+    area: number;
+};
+type CBarcodeResultItem = BarcodeResultItem & {
+    location: CQuadrilateral;
+};
+interface CDecodedBarcodeElement extends DecodedBarcodeElement {
+    location: CQuadrilateral;
+}
+interface CLocalizedBarcodeElement extends LocalizedBarcodeElement {
+    location: CQuadrilateral;
+}
+type resultItemTypeString = "barcode" | "text_line" | "detected_quad" | "deskewed_image";
+type CrossVerificationCriteria = {
+    frameWindow: number;
+    minConsistentFrames: number;
+};
 type CapturedResultMap<T> = {
     [K in EnumCapturedResultItemType]?: T;
 };
@@ -5243,44 +2891,74 @@ declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
     verificationEnabled: CapturedResultMap<boolean>;
     duplicateFilterEnabled: CapturedResultMap<boolean>;
     duplicateForgetTime: CapturedResultMap<number>;
+    crossVerificationCriteria: CapturedResultMap<CrossVerificationCriteria>;
     private _dynamsoft;
     /**
      * Enables or disables the verification of one or multiple specific result item types.
-     * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @param enabled Boolean to toggle verification on or off.
      */
-    enableResultCrossVerification(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, enabled: boolean): void;
+    enableResultCrossVerification(resultItemType: EnumCapturedResultItemType | resultItemTypeString, enabled?: boolean): void;
     /**
      * Checks if verification is active for a given result item type.
-     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @returns Boolean indicating the status of verification for the specified type.
      */
-    isResultCrossVerificationEnabled(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString): boolean;
+    isResultCrossVerificationEnabled(resultItemType: EnumCapturedResultItemType | resultItemTypeString): boolean;
     /**
      * Enables or disables the deduplication process for one or multiple specific result item types.
-     * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @param enabled Boolean to toggle deduplication on or off.
      */
-    enableResultDeduplication(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, enabled: boolean): void;
+    enableResultDeduplication(resultItemType: EnumCapturedResultItemType | resultItemTypeString, enabled?: boolean): void;
     /**
      * Checks if deduplication is active for a given result item type.
-     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @returns Boolean indicating the deduplication status for the specified type.
      */
-    isResultDeduplicationEnabled(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString): boolean;
+    isResultDeduplicationEnabled(resultItemType: EnumCapturedResultItemType | resultItemTypeString): boolean;
     /**
      * Sets the interval during which duplicates are disregarded for specific result item types.
-     * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @param time Time in milliseconds during which duplicates are disregarded.
      */
-    setDuplicateForgetTime(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, time: number): void;
+    setDuplicateForgetTime(resultItemType: EnumCapturedResultItemType | resultItemTypeString, time: number): void;
     /**
      * Retrieves the interval during which duplicates are disregarded for a given result item type.
-     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @returns The set interval for the specified item type.
      */
-    getDuplicateForgetTime(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString): number;
+    getDuplicateForgetTime(resultItemType: EnumCapturedResultItemType | resultItemTypeString): number;
     getFilteredResultItemTypes(): number;
+    /**
+     * Sets the cross-verification criteria for one or more result item types.
+     * This configuration determines how many frames are considered
+     * and the minimum number of consistent frames required before a result is accepted.
+     *
+     * @param resultItemType Specifies one or multiple specific result item types.
+     * It can be defined using `EnumCapturedResultItemType` or a string.
+     * When using a string, only one type can be specified, and valid values include:
+     * `"barcode"`, `"text_line"`, `"detected_quad"`, and `"deskewed_image"`.
+     *
+     * @param frameWindow The number of consecutive frames considered for verification.
+     * @param minConsistentFrames The minimum number of consistent frames required
+     * for a result to be considered valid.
+     */
+    setResultCrossVerificationCriteria(resultItemType: EnumCapturedResultItemType | resultItemTypeString, frameWindow: number, minConsistentFrames: number): void;
+    /**
+     * Retrieves the cross-verification criteria for a specified result item type.
+     * Returns the configured frame window and consistency requirement.
+     *
+     * @param resultItemType Specifies the result item type,
+     * either with `EnumCapturedResultItemType` or a string.
+     * When using a string, valid values include:
+     * `"barcode"`, `"text_line"`, `"detected_quad"`, and `"deskewed_image"`.
+     *
+     * @returns An object containing:
+     * - `frameWindow`: number — the number of consecutive frames considered.
+     * - `minConsistentFrames`: number — the minimum consistent frames required.
+     */
+    getResultCrossVerificationCriteria(resultItemType: EnumCapturedResultItemType | resultItemTypeString): CrossVerificationCriteria;
     private overlapSet;
     private stabilityCount;
     private crossVerificationFrames;
@@ -5288,27 +2966,27 @@ declare class MultiFrameResultCrossFilter implements CapturedResultFilter {
     private maxOverlappingFrames;
     /**
      * Enables or disables the deduplication process for one or multiple specific result item types.
-     * @param resultItemTypes Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies one or multiple specific result item types, which can be defined using EnumCapturedResultItemType or a string. If using a string, only one type can be specified, and valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @param enabled Boolean to toggle deduplication on or off.
      */
-    enableLatestOverlapping(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, enabled: boolean): void;
+    enableLatestOverlapping(resultItemType: EnumCapturedResultItemType | resultItemTypeString, enabled?: boolean): void;
     /**
      * Checks if deduplication is active for a given result item type.
-     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      *
      * @returns Boolean indicating the deduplication status for the specified type.
      */
-    isLatestOverlappingEnabled(resultItemType: EnumCapturedResultItemType | resultItemTypesString): boolean;
+    isLatestOverlappingEnabled(resultItemType: EnumCapturedResultItemType | resultItemTypeString): boolean;
     /**
      * Set the max referencing frames count for the to-the-latest overlapping feature.
      *
-     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @param maxOverlappingFrames The max referencing frames count for the to-the-latest overlapping feature.
      */
-    setMaxOverlappingFrames(resultItemTypes: EnumCapturedResultItemType | resultItemTypesString, maxOverlappingFrames: number): void;
+    setMaxOverlappingFrames(resultItemType: EnumCapturedResultItemType | resultItemTypeString, maxOverlappingFrames: number): void;
     /**
      * Get the max referencing frames count for the to-the-latest overlapping feature.
-     * @param resultItemTypes Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "normalized_image".
+     * @param resultItemType Specifies the result item type, either with EnumCapturedResultItemType or a string. When using a string, the valid values include "barcode", "text_line", "detected_quad", and "deskewed_image".
      * @return Returns the max referencing frames count for the to-the-latest overlapping feature.
      */
     getMaxOverlappingFrames(resultItemType: EnumCapturedResultItemType): number;
@@ -5320,11 +2998,11 @@ declare class ImageIO {
     /**
      * This method reads an image from a file. The file format is automatically detected based on the file extensioor content.
      *
-     * @param file The file to read, as a File object.
+     * @param file The file to read, as a Blob object.
      *
      * @returns A promise that resolves with the loaded image of type `DSImageData`.
      */
-    readFromFile(file: File): Promise<DSImageData>;
+    static readFromFile(file: Blob | string): Promise<DSImageData>;
     /**
      * This method saves an image in either PNG or JPG format. The desired file format is inferred from the filextension provided in the 'name' parameter. Should the specified file format be omitted or unsupported, thdata will default to being exported in PNG format.
      *
@@ -5334,7 +3012,7 @@ declare class ImageIO {
      *
      * @returns A promise that resolves with the saved File object.
      */
-    saveToFile(image: DSImageData, name: string, download?: boolean): Promise<File>;
+    static saveToFile(image: DSImageData, name: string, download?: boolean): Promise<File>;
     /**
      * Reads image data from memory using the specified ID.
      *
@@ -5342,16 +3020,16 @@ declare class ImageIO {
      *
      * @returns A Promise that resolves to the `DSImageData` object.
      */
-    readFromMemory(id: number): Promise<DSImageData>;
+    static readFromMemory(id: number): Promise<DSImageData>;
     /**
      * This method saves an image to memory. The desired file format is inferred from the 'format' parameter. Should the specified file format be omitted or unsupported, the data will default to being exported in PNG format.
      *
-     * @param image A `Blob` representing the image to be saved.
-     * @param fileFormat The desired image format.
+     * @param image The image to be saved, of type `DSImageData`.
+     * @param format The desired image format.
      *
-     * @returns A Promise that resolves to a memory ID which can later be used to retrieve the image via readFromMemory.
+     * @returns A promise that resolves with an object containing the image data as a Uint8Array and the file format.
      */
-    saveToMemory(image: Blob, fileFormat: EnumImageFileFormat): Promise<number>;
+    static saveToMemory(image: Blob, fileFormat: string): Promise<number>;
     /**
      * This method reads an image from a Base64-encoded string. The image format is automatically detected based on the content of the string.
      *
@@ -5359,7 +3037,7 @@ declare class ImageIO {
      *
      * @returns A promise that resolves with the loaded image of type `DSImageData`.
      */
-    readFromBase64String(base64String: string): Promise<DSImageData>;
+    static readFromBase64String(base64String: string): Promise<DSImageData>;
     /**
      * This method saves an image to a Base64-encoded string. The desired file format is inferred from the 'format' parameter. Should the specified file format be omitted or unsupported, the data will default to being exported in PNG format.
      *
@@ -5368,7 +3046,7 @@ declare class ImageIO {
      *
      * @returns A promise that resolves with a Base64-encoded string representing the image.
      */
-    saveToBase64String(image: Blob, fileFormat: EnumImageFileFormat): Promise<string>;
+    static saveToBase64String(image: Blob | DSImageData, fileFormat: string): Promise<string>;
 }
 
 declare class ImageDrawer {
@@ -5384,7 +3062,7 @@ declare class ImageDrawer {
      *
      * @returns A promise that resolves with the saved File object.
      */
-    drawOnImage(image: Blob | string | DSImageData, drawingItem: Array<Quadrilateral> | Quadrilateral | Array<LineSegment> | LineSegment | Array<Contour> | Contour | Array<Corner> | Corner | Array<Edge> | Edge, type: "quads" | "lines" | "contours" | "corners" | "edges", color?: number, thickness?: number, name?: string, download?: boolean): Promise<DSImageData>;
+    static drawOnImage(image: Blob | string | DSImageData, drawingItem: Array<Quadrilateral> | Quadrilateral | Array<LineSegment> | LineSegment | Array<Contour> | Contour | Array<Corner> | Corner | Array<Edge> | Edge, type: "quads" | "lines" | "contours" | "corners" | "edges", color?: number, thickness?: number, name?: string, download?: boolean): Promise<DSImageData>;
 }
 
 declare enum EnumFilterType {
@@ -5404,7 +3082,7 @@ declare class ImageProcessor {
      *
      * @returns A promise that resolves with the cropped image data.
      */
-    cropImage(image: Blob, roi: DSRect): Promise<DSImageData>;
+    static cropImage(image: Blob | DSImageData, roi: DSRect): Promise<DSImageData>;
     /**
      * Adjusts the brightness of the image.
      * @param image The image data to be adjusted.
@@ -5412,7 +3090,7 @@ declare class ImageProcessor {
      *
      * @returns A promise that resolves with the adjusted image data.
      */
-    adjustBrightness(image: Blob, brightness: number): Promise<DSImageData>;
+    static adjustBrightness(image: Blob | DSImageData, brightness: number): Promise<DSImageData>;
     /**
      * Adjusts the contrast of the image.
      * @param image The image data to be adjusted.
@@ -5420,14 +3098,14 @@ declare class ImageProcessor {
      *
      * @returns A promise that resolves with the adjusted image data.
      */
-    adjustContrast(image: Blob, contrast: number): Promise<DSImageData>;
+    static adjustContrast(image: Blob | DSImageData, contrast: number): Promise<DSImageData>;
     /**
      * Applies a specified image filter to an input image.
      * @param image The image data to be filtered.
      * @param filterType The type of filter to apply.
      * @returns A promise that resolves with the filtered image data.
      */
-    filterImage(image: Blob, filterType: EnumFilterType): Promise<DSImageData>;
+    static filterImage(image: Blob | DSImageData, filterType: EnumFilterType): Promise<DSImageData>;
     /**
      * Converts a colour image to grayscale.
      * @param image The image data to be converted.
@@ -5436,24 +3114,24 @@ declare class ImageProcessor {
      * @param B [B=0.11] - Weight for the blue channel.
      * @returns A promise that resolves with the grayscale image data.
      */
-    convertToGray(image: Blob, R?: number, G?: number, B?: number): Promise<DSImageData>;
+    static convertToGray(image: Blob | DSImageData, R?: number, G?: number, B?: number): Promise<DSImageData>;
     /**
-     * Converts a grayscale image to a binary image using a global threshold.
-     * @param image The grayscale image data.
+     * Converts an image to a binary image using a global threshold.
+     * @param image The image data (grayscale, color, or binary).
      * @param threshold [threshold=-1] Global threshold for binarization (-1 for automatic calculation).
      * @param invert [invert=false] Whether to invert the binary image.
      * @returns A promise that resolves with the binary image data.
      */
-    convertToBinaryGlobal(image: Blob, threshold?: number, invert?: boolean): Promise<DSImageData>;
+    static convertToBinaryGlobal(image: Blob | DSImageData, threshold?: number, invert?: boolean): Promise<DSImageData>;
     /**
      * Converts a grayscale image to a binary image using local (adaptive) binarization.
      * @param image The grayscale image data.
      * @param blockSize [blockSize=0] Size of the block for local binarization.
-     * @param compensation [compensation=0] Adjustment value to modify the threshold.
+     * @param compensation [compensation=10] Adjustment value to modify the threshold.
      * @param invert [invert=false] Whether to invert the binary image.
      * @returns A promise that resolves with the binary image data.
      */
-    convertToBinaryLocal(image: Blob, blockSize?: number, compensation?: number, invert?: boolean): Promise<DSImageData>;
+    static convertToBinaryLocal(image: Blob | DSImageData, blockSize?: number, compensation?: number, invert?: boolean): Promise<DSImageData>;
     /**
      * Crops and deskews an image using a quadrilateral.
      * @param image The image data to be cropped and deskewed.
@@ -5461,10 +3139,10 @@ declare class ImageProcessor {
      *
      * @returns A promise that resolves with the cropped and deskewed image data.
      */
-    cropAndDeskewImage(image: Blob, roi: Quadrilateral): Promise<DSImageData>;
+    static cropAndDeskewImage(image: Blob | DSImageData, roi: Quadrilateral, dstWidth?: number, dstHeight?: number, padding?: number): Promise<DSImageData>;
 }
 
-export { EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule };
+export { CBarcodeResultItem, CDecodedBarcodeElement, CEdge, CLocalizedBarcodeElement, CQuadrilateral, CapturedResultMap, CrossVerificationCriteria, EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule, resultItemTypeString };
 
 
 
@@ -5488,25 +3166,39 @@ declare enum EnumScanMode {
     SM_SINGLE = 0,
     SM_MULTI_UNIQUE = 1
 }
-declare enum EnumOptimizationMode {
-    OM_NONE = 0,
-    OM_SPEED = 1,
-    OM_COVERAGE = 2,
-    OM_BALANCE = 3,
-    OM_DPM = 4,
-    OM_DENSE = 5
-}
 declare enum EnumResultStatus {
     RS_SUCCESS = 0,
     RS_CANCELLED = 1,
     RS_FAILED = 2
 }
 
+type CacheKeys = "dceUI" | "dbsUI" | "presetTemplates" | "templateFile";
 type CameraSwitchControlMode = "hidden" | "listAll" | "toggleFrontBack";
+type PathConfig = {
+    path: string;
+    reloadResource?: boolean;
+};
+declare function isPathConfig(obj: any): obj is PathConfig;
+interface ScannerViewConfig {
+    container?: HTMLElement | string;
+    showCloseButton?: boolean;
+    mirrorFrontCamera?: boolean;
+    cameraSwitchControl?: CameraSwitchControlMode;
+    showFlashButton?: boolean;
+    customHighlightForBarcode?: (result: BarcodeResultItem) => QuadDrawingItem;
+}
+interface BarcodeResultViewToolbarButtonsConfig {
+    clear?: ToolbarButtonConfig;
+    done?: ToolbarButtonConfig;
+}
+interface ResultViewConfig {
+    container?: HTMLElement | string;
+    toolbarButtonsConfig?: BarcodeResultViewToolbarButtonsConfig;
+}
 interface BarcodeScannerConfig {
     license?: string;
     scanMode?: EnumScanMode;
-    templateFilePath?: string;
+    templateFilePath?: string | PathConfig;
     utilizedTemplateNames?: UtilizedTemplateNames;
     engineResourcePaths?: EngineResourcePaths;
     barcodeFormats?: Array<EnumBarcodeFormat> | EnumBarcodeFormat;
@@ -5518,7 +3210,7 @@ interface BarcodeScannerConfig {
     autoStartCapturing?: boolean;
     scannerViewConfig?: ScannerViewConfig;
     resultViewConfig?: ResultViewConfig;
-    uiPath?: string;
+    uiPath?: string | PathConfig;
     onUniqueBarcodeScanned?: (result: BarcodeResultItem) => void | Promise<void>;
     onInitPrepare?: () => void;
     onInitReady?: (components: {
@@ -5536,22 +3228,7 @@ interface BarcodeScannerConfig {
         cameraEnhancer: CameraEnhancer;
         cvRouter: CaptureVisionRouter;
     }) => void;
-}
-interface ScannerViewConfig {
-    container?: HTMLElement | string;
-    showCloseButton?: boolean;
-    mirrorFrontCamera?: boolean;
-    cameraSwitchControl?: CameraSwitchControlMode;
-    showFlashButton?: boolean;
-    customHighlightForBarcode?: (result: BarcodeResultItem) => DrawingItem;
-}
-interface BarcodeResultViewToolbarButtonsConfig {
-    clear?: ToolbarButtonConfig;
-    done?: ToolbarButtonConfig;
-}
-interface ResultViewConfig {
-    container?: HTMLElement | string;
-    toolbarButtonsConfig?: BarcodeResultViewToolbarButtonsConfig;
+    onCameraOpenFailed?: (ex: Error) => void;
 }
 
 type ResultStatus = {
@@ -5588,5 +3265,1251 @@ declare class BarcodeScanner {
     dispose(): void;
 }
 
-export { BarcodeScanner, EnumOptimizationMode, EnumResultStatus, EnumScanMode };
-export type { BarcodeResultViewToolbarButtonsConfig, BarcodeScanResult, BarcodeScannerConfig, ResultStatus, ResultViewConfig, ScannerViewConfig, ToolbarButtonConfig, UtilizedTemplateNames };
+export { BarcodeScanner, EnumResultStatus, EnumScanMode, isPathConfig };
+export type { BarcodeScanResult, BarcodeScannerConfig, CacheKeys, ResultStatus, ToolbarButtonConfig, UtilizedTemplateNames };
+interface CameraInfo extends InputDeviceInfo {
+    trackLabel: string;
+    capabilities: DMMoreMediaTrackCapabilities;
+    isFront: boolean;
+}
+interface DMMoreMediaTrackCapabilities extends MediaTrackCapabilities {
+    focusMode?: ('continuous' | 'single-shot' | 'manual')[];
+    focusDistance?: {
+        max?: number;
+        min: number;
+    };
+    zoom?: {
+        max: number;
+        min: number;
+    };
+    torch?: true;
+}
+type CameraZsFunc = (this: Camera, ...argArray: any[]) => void | any;
+interface Camera {
+    /**
+     * The `opened` event is triggered when the camera `open()` from the `paused`/`closed`
+     * or when call `requestResolution()` and camera is `opened`.
+     */
+    addEventListener(type: 'opened', listener: (this: Camera) => void | any): void;
+    removeEventListener(type: 'opened', listener: (this: Camera) => void | any): void;
+    /** The `closed` event is triggered when camera is `closed`. */
+    addEventListener(type: 'closed', listener: (this: Camera) => void | any): void;
+    removeEventListener(type: 'closed', listener: (this: Camera) => void | any): void;
+}
+declare class Camera {
+    static _cameraNameMatcher: string[][];
+    static _mapDeviceInfo: {
+        [deviceId: string]: CameraInfo;
+    };
+    _coreShell: HTMLElement;
+    _video: HTMLVideoElement;
+    _coreInnerLayer: HTMLElement;
+    _coreOuterLayer: HTMLElement;
+    _regionBoxWrapper: HTMLElement;
+    _regionBoxMask: HTMLElement;
+    _regionBoxBorder: HTMLElement;
+    _objectFit: 'contain' | 'cover' | 'fill';
+    _uiInlineScript2Blob: boolean;
+    _uiInternalCss2Blob: boolean;
+    _uiInternalCss2ExistedSheet: boolean;
+    _ui?: HTMLElement;
+    _pOpen: Promise<void> & {
+        isPending: boolean;
+        resolve: () => void;
+        reject: () => void;
+    };
+    _getUserMediaTimeout: number;
+    _paused: boolean;
+    _shouldClose: boolean;
+    _cameraChangedWhenPaused: boolean;
+    _requestedCamera: CameraPreset | MediaTrackConstraints;
+    _requestedResolution: MediaTrackConstraints;
+    _regionBox: {
+        width?: number;
+        height?: number;
+        unit: 'view-size' | 'view-min';
+        center: {
+            x: number;
+            y: number;
+        };
+        maskStyle?: Partial<CSSStyleDeclaration>;
+        borderStyle?: Partial<CSSStyleDeclaration>;
+        innerUi?: Node | NodeList;
+    };
+    _eventListeners: {
+        [key: string]: Set<Function>;
+    };
+    static _delayBeforeEnumerateDevices: number;
+    static _delayBeforeGetUserMedia: number;
+    static _delayBeforeApplyConstraints: number;
+    static _countEnsureResolution: number;
+    static _videoPlayTimeout: number;
+    static _bReopenWhenChangeResolution: boolean;
+    static _arrConstructors: CameraZsFunc[];
+    static _arrOnOpen: CameraZsFunc[];
+    static _arrBeforeClose: CameraZsFunc[];
+    static _arrOnClose: CameraZsFunc[];
+    constructor();
+    _taskIdIOSResizeProblem: any;
+    _updateObjectFit(): void;
+    get video(): HTMLVideoElement;
+    get track(): MediaStreamTrack;
+    get objectFit(): "contain" | "cover" | "fill";
+    set objectFit(value: "contain" | "cover" | "fill");
+    /**
+     * While `ui` can accept various types during assignment, its value will always be an `HTMLElement` upon retrieval.
+     */
+    get ui(): HTMLElement;
+    /**
+     * Generally, the `value` can be an `HTMLElement`, `DocumentFragment` or a string of serialized html.
+     * This `ui` or one of its descendants, must have class `dm-camera-core-container`.
+     * If the `value` already contains the `coreShell`, `coreShell` does not move.
+     * Otherwise the `coreShell` of `DMCamera` is appended to the first element that has the class `dm-camera-core-container`.
+     *
+     * If `value` is a falsy value, `coreShell` is used as `ui`.
+     **/
+    set ui(value: HTMLElement | DocumentFragment | string | undefined);
+    get status(): CameraStatus;
+    get requestedCamera(): "back" | "front" | "macro-back" | "quick-back" | "customized-video" | MediaTrackConstraints;
+    get requestedResolution(): {
+        width: number;
+        height: number;
+    };
+    get currentCamera(): CameraInfo;
+    get currentResolution(): {
+        width: number;
+        height: number;
+    };
+    /** width 0 ~ 1, height 0 ~ 1, center.x -0.5 ~ 0.5, center.y -0.5 ~ 0.5 */
+    get regionBox(): {
+        width?: number;
+        height?: number;
+        unit: "view-size" | "view-min";
+        center: {
+            x: number;
+            y: number;
+        };
+        maskStyle?: Partial<CSSStyleDeclaration>;
+        borderStyle?: Partial<CSSStyleDeclaration>;
+        innerUi?: Node | NodeList;
+    };
+    onOpened: (camera: Camera) => void | any;
+    static hasCamera(): Promise<boolean>;
+    static hasMacroCamera(): Promise<boolean>;
+    static hasFrontCamera(): Promise<boolean>;
+    /**
+     * tips:
+     * Call getDeviceInfos() will ask for camera permission, then open camera and close internally.
+     * 2nd time open camera will be a lot faster.
+     **/
+    static getDeviceInfos(): Promise<Readonly<CameraInfo>[]>;
+    static _setCapabilities(deviceInfos: CameraInfo[]): Promise<void>;
+    /** `pause()` is an idempotent operation, you can call it repeatedly without error. */
+    pause(): Promise<void>;
+    /** `close()` is an idempotent operation, you can call it repeatedly without error. */
+    close(): Promise<void>;
+    /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
+    requestCamera(cameraPreset: CameraPreset): Promise<void>;
+    /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
+    requestCamera(deviceId: string): Promise<void>;
+    /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
+    requestCamera(deviceInfo: CameraInfo): Promise<void>;
+    /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
+    requestCamera(constraints: MediaTrackConstraints): Promise<void>;
+    /**
+     * If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally.
+     * @param notRequired Let browser choose use what camera.
+     * */
+    requestCamera(notRequired: null): Promise<void>;
+    /**
+     * If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally.
+     * @param resetToDefault Use SDK's dafault logic.
+     * */
+    requestCamera(resetToDefault: undefined): Promise<void>;
+    /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
+    requestCamera(camera: string | CameraInfo | MediaTrackConstraints): Promise<void>;
+    requestResolution(width: number, height?: number): Promise<void>;
+    requestResolution(widthHeightPair: [number, number] | number[]): Promise<void>;
+    requestResolution(constraints: {
+        width?: ConstrainULong;
+        height?: ConstrainULong;
+        aspectRatio?: ConstrainDouble;
+    }): Promise<void>;
+    requestResolution(notRequired: null): Promise<void>;
+    requestResolution(resetToDefault: undefined): Promise<void>;
+    /**
+     * Similar to `camera.track.applyConstraints`,
+     * but auto add constraints of original camera and original resolution.
+     * Primarily used for advanced camera settings like focusDistance, zoom, colorTemperature.
+     * Don't directly change camera or resolution by this API,
+     * use `requestCamera` and `requestResolution` instead.
+     * Set camera or resolution using `applyConstraints` will result in undefined behavior.
+    */
+    applyConstraints(constraints?: MediaTrackConstraints): Promise<void>;
+    /**
+     * @param config
+     * `x`/`y`/`width`/`height` is normally `0 ~ video.videoWidth` or `0 ~ video.videoHeight`,
+     * same as [drawImage](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage).
+     * If values contain decimals, it will be rounded.
+     * Note that the round method takes the effect of `x` into account when rounding `width` to minimize the cumulative error.
+     * The same logic applies to `height`.
+     */
+    getFrame(config?: {
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+        reusedContext?: CanvasRenderingContext2D;
+    }): HTMLCanvasElement;
+    /**
+     * @param regionBox width 0 ~ 1, height 0 ~ 1, center.x -0.5 ~ 0.5, center.y -0.5 ~ 0.5
+     * TODO: support unit pixel
+     */
+    setRegionBox(regionBox: {
+        width?: number;
+        height?: number;
+        unit?: 'view-size' | 'view-min';
+        center?: {
+            x: number;
+            y: number;
+        };
+        maskStyle?: Partial<CSSStyleDeclaration>;
+        borderStyle?: Partial<CSSStyleDeclaration>;
+        innerUi?: Node | NodeList | DocumentFragment | Node[] | string;
+    }): void;
+    /**
+     * Add a canvas dynamically keep with the same size of the video resolution, as a overlay.
+     * You can remove it by `camera.video.parentElement.removeChild(thatCanvas)` or `thatCanvas.remove()`.
+     * When you add multiple canvases, you can also use `camera.video.parentElement` to control stack order.
+     */
+    addCanvas(): HTMLCanvasElement;
+    _updateCanvasSize(): void;
+    _callOpenedListeners(): void;
+    /**
+     * Convert video x/y to absolute left/top in `document.body`.
+     * So you can easily add a overlay with absolute position.
+     * Processing multiple points at once has higher performance than calling multiple times.
+     */
+    videoXY2AbsoluteLT(points: {
+        x: number;
+        y: number;
+    }[]): {
+        left: number;
+        top: number;
+    }[];
+    /**
+     * Convert video x/y to fixed left/top in `document.body`.
+     * So you can easily add a overlay with fixed position.
+     * Processing multiple points at once has higher performance than calling multiple times.
+     */
+    videoXY2FixedLT(points: {
+        x: number;
+        y: number;
+    }[]): {
+        left: number;
+        top: number;
+    }[];
+    /**
+     * @param isConsiderRegionBox Default is `false`. Only consider the visible area in the region box.
+     * @param rounded Default is `false`. Controls whether the result should be rounded.
+     * Note that the round method takes the effect of `x` into account when rounding `width` to minimize the cumulative error.
+     * The same logic applies to `height`.
+     * @returns
+     * `x`/`width` is `0 ~ video.videoWidth`, `y`/`height` is `0 ~ video.videoHeight`.
+     */
+    getVisibleAreaInVideoXY(config?: {
+        isConsiderRegionBox?: boolean;
+        rounded?: boolean;
+    }): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+}
+type CameraStatus = 'closed' | 'opening' | 'opened' | 'paused' | 'closing';
+declare const ArrCameraPreset: readonly ["back", "front", "macro-back", "quick-back", "customized-video"];
+type CameraPreset = typeof ArrCameraPreset[number];
+
+
+    interface Camera {
+        correctAdvancedConstraint(constraints?: MediaTrackConstraints): MediaTrackConstraints;
+    }
+
+
+    interface Camera {
+        _softZoom: {
+            zoom: number;
+            center: {
+                x: number;
+                y: number;
+            };
+        };
+        get softZoom(): {
+            zoom: number;
+            center: {
+                x: number;
+                y: number;
+            };
+        };
+        _isMirrored: boolean;
+        get isMirrored(): boolean;
+        set isMirrored(value: boolean);
+        maxZoom4GestureWheel: number;
+        _lastZoomTime: number;
+        _mapZoomTouchs: Map<number, {
+            x: number;
+            y: number;
+        }>;
+        _gestureZoomListener: EventListener;
+        get enableGestureZoom(): boolean;
+        set enableGestureZoom(value: boolean);
+        _wheelZoomListener: EventListener;
+        get enableWheelZoom(): boolean;
+        set enableWheelZoom(value: boolean);
+        getZoomRange(): {
+            min: number;
+            max: number;
+        } | undefined;
+        setZoom(zoom: number): Promise<void>;
+        /**
+         * Js software-level zoom.
+         * It does not rely on camera device and camera driver support for zoom.
+         * @param center
+         * zoomed camera center in orignal frame.
+         * `x`: -0.5 ~ 0.5, `y`: -0.5 ~ 0.5.
+         * @param limit
+         * limit `zoom` >= 1.
+         * limit the center point position according to `zoom`,
+         * so zoomed frame is inside video boundary;
+         */
+        setSoftZoom(zoom: number, config?: {
+            center?: {
+                x: number;
+                y: number;
+            };
+            limit?: boolean;
+        }): void;
+        _changeZoomByWheel(ev: WheelEvent): void;
+        _changeZoomByTouch(ev: TouchEvent): void;
+        /** The `zoom` event is triggered when zoom updated via a touch gesture or mouse wheel. */
+        addEventListener(type: 'zoom', listener: (this: Camera, softZoom?: {
+            zoom: number;
+            center: {
+                x: number;
+                y: number;
+            };
+        }) => void | any): void;
+        removeEventListener(type: 'zoom', listener: (this: Camera, softZoom?: {
+            zoom: number;
+            center: {
+                x: number;
+                y: number;
+            };
+        }) => void | any): void;
+    }
+
+interface AdvancedFocusParameters {
+    minFocusDistanceLimit?: number;
+    maxFocusDistanceLimit?: number;
+    firstStepWaitDuration?: number;
+    coarseStepWaitDuration?: number;
+    switchStepWaitDuration?: number;
+    fineStepWaitDuration?: number;
+    maxStepCount?: number;
+    /** value < 0 means no never */
+    backToContinousDuration?: number;
+    /** The focus width and height, 0 ~ 1, represents the ratio of the length to the `Math.min(video.videoWidth, video.videoHeight)` */
+    focusWH?: number;
+    /** From far to near, 0 ~ 1. The closer to 1, the more sensitive but more slow. */
+    coarseTuneRate?: number;
+    /**
+     * 0 ~ 1.
+     * When the correct focus is closer, the far focus contrast data is unreliable
+     * and requires a certain degree of error tolerance.
+     * When closer to 1, it will be more sensitive to contrast changes and may also cause the focus to be too far.
+     * When closer to 0, there will be more error tolerance,
+     * and it may also cause the focus to be too close and the process to be too slow.
+     **/
+    coarseTuneTolerance?: number;
+    /** From near to far, 1 ~ 1.xx. The closer to 1, the more sensitive but more slow. */
+    fineTuneRate?: number;
+}
+declare namespace Camera {
+        function _getImageContrast(data: Uint8Array | Uint8ClampedArray, width: number, height: number): number;
+    }
+    interface Camera {
+        _enableTapToFocus: false | 'simple' | 'experimental-advanced';
+        _isFocusing: boolean;
+        _tapToFocusListner: EventListener;
+        _simpleFocus(): Promise<void>;
+        _advancedFocusParameters: AdvancedFocusParameters;
+        _advancedFocusTaskId: number;
+        _advancedFocus(center?: {
+            x: number;
+            y: number;
+        }, width?: number, height?: number): Promise<void>;
+        get enableTapToFocus(): false | "simple" | "experimental-advanced";
+        set enableTapToFocus(value: false | 'simple' | 'experimental-advanced');
+    }
+
+interface AutoTorchParameters {
+    shortDelay: number;
+    longDelay: number;
+    shortLongDelaySwitchCount: number;
+    /** 0 ~ 255 */
+    grayThreshold: number;
+    maxDarkCount: number;
+}
+
+    interface Camera {
+        get isSupportTorch(): boolean;
+        _isTorchOn: boolean | undefined;
+        /** `undefined` means in auto torch mode */
+        get isTorchOn(): boolean | undefined;
+        turnOnTorch(): Promise<void>;
+        turnOffTorch(): Promise<void>;
+        _autoTorchParameters: AutoTorchParameters;
+        /**
+         * Detect how dark the picture and turn on torch automatically.
+         * After camera open, it may take a few seconds for picture to be ready.
+         * So it's suggested not to `turnAutoTorch()` immediately.
+         * Waiting for 3 seconds may bring a better user experience.
+         **/
+        turnAutoTorch(): void;
+        /** The auto torch logic detected that the image was too dark and turn on the torch. */
+        addEventListener(type: 'torchAutoOn', listener: (this: Camera) => void | any): void;
+        removeEventListener(type: 'torchAutoOn', listener: (this: Camera) => void | any): void;
+    }
+
+
+    interface Camera {
+        _shouldCloseWhenHide: boolean;
+        _isDuringCloseWhenHide: boolean;
+        _isOpenBeforeHide: boolean;
+        _maxReopenTry4CloseWhenHide: number;
+        get shouldCloseWhenHide(): boolean;
+        set shouldCloseWhenHide(value: boolean);
+        _closeWhenHide(): Promise<void>;
+        _closeWhenHideListener: EventListener;
+    }
+declare namespace Camera {
+        function showFilePicker(inputOptions?: {
+            accept?: string;
+            multiple: boolean;
+            capture?: 'user' | 'environment' | '';
+            onchange?: (this: HTMLInputElement, ev: Event) => any;
+        }): Promise<File[]>;
+        function showFilePicker(inputOptions?: any): Promise<File[]>;
+    }
+
+/**
+ * Return `Element` if possible, otherwise return `DocumentFragment`.
+ */
+declare const stringToHtml: (str: string, config?: {
+    inlineScript2Blob?: boolean;
+    internalCss2Blob: boolean;
+    insertInternalCss2ExistedSheet?: boolean;
+}) => Node;
+
+declare class FramePipeline {
+    camera: Camera;
+    _ctx: CanvasRenderingContext2D;
+    _data: Uint8Array<ArrayBuffer>;
+    _dataTime: number;
+    _x: number;
+    _y: number;
+    _w: number;
+    _h: number;
+    _type: string;
+    maxTimeout: number;
+    _pipeTaskId: any;
+    isSaveOriginalRgba: boolean;
+    /**
+     * The `originalRgba` share `ArrayBuffer` with the `data` returned by `getData(..., type: 'rgba')`.
+     * So you should be careful when transferring `data` to other thread.
+     */
+    originalRgba: Uint8ClampedArray<ArrayBuffer>;
+    constructor(camera?: Camera);
+    _getData(): Uint8Array<ArrayBuffer>;
+    /**
+     * @param config
+     * Each parameter should be kept as stable as possible.
+     * If you need to switch between multiple parameters frequently, please create multiple `FramePipeline` instances.
+     *
+     * `x`, `y`, `width`, `height` will be rounded.
+     * Note that the round method takes the effect of `x` into account when rounding `width` to minimize the cumulative error.
+     * The same logic applies to `height`.
+     */
+    getData(config?: {
+        x?: number;
+        y?: number;
+        width?: number;
+        height?: number;
+        type?: 'rgba' | 'gray';
+    }): Uint8Array;
+}
+
+declare class Beep {
+    _stAudioFree: Set<unknown>;
+    _stAudioPlaying: Set<unknown>;
+    _timeLastPlay: number;
+    _bWarnedMaxTrack: boolean;
+    maxPlayingBeep: number;
+    beepSoundSource: string;
+    beep(): void;
+}
+/**
+ * The function will play the default beep sound.
+ * To play different beep sound, you need create another `Beep` instance.
+ **/
+declare const beep: () => void;
+declare const vibrate: (duration?: number) => void;
+
+declare const CameraEnhancerModule: {
+    getVersion(): string;
+};
+declare const CameraEnhancer: typeof Camera;
+type CameraEnhancer = Camera;
+declare const CameraView: typeof Camera;
+type CameraView = Camera;
+declare namespace Camera {
+        function createInstance(_?: any): Promise<CameraEnhancer>;
+        function testCameraAccess(): Promise<{
+            ok: boolean;
+            message?: string;
+        }>;
+        let defaultUIElementURL: string;
+        let onWarning: any;
+    }
+    interface Camera {
+        isCameraEnhancer: true;
+        disposed: boolean;
+        dispose(): void;
+        _cameraEnhancer: CameraEnhancer;
+        _cameraView: CameraView;
+        _dceLastDeviceId: any;
+        _dceLastResolution: any;
+        cameraOpenTimeout: any;
+        _bTryAnotherCameraWhenFailToOpen: boolean;
+        _bAutoSingleFrameModeWhenIosPwaFail: boolean;
+        _oriOpen(): Promise<void>;
+        open(): Promise<void | {
+            deviceId: string;
+            width: number;
+            height: number;
+        }>;
+        _oriUpdateCanvasSize(): void;
+        _oriAddCanvas(): HTMLCanvasElement;
+        getAllCameras(): Promise<{
+            deviceId: string;
+            label: string;
+        }[]>;
+        getAvailableResolutions(): Promise<{
+            width: number;
+            height: number;
+        }[]>;
+        getCameraState(): 'opening' | 'open' | 'closed';
+        getResolution(): {
+            width: number;
+            height: number;
+        };
+        getSelectedCamera(): {
+            deviceId: string;
+            label: string;
+        };
+        getVideoSettings(): MediaStreamConstraints;
+        _ifSaveLastUsedCamera: boolean;
+        get ifSaveLastUsedCamera(): boolean;
+        set ifSaveLastUsedCamera(value: boolean);
+        get ifSkipCameraInspection(): boolean;
+        set ifSkipCameraInspection(value: boolean);
+        isOpen(): boolean;
+        isPaused(): boolean;
+        resume(): Promise<void>;
+        selectCamera(device: string | {
+            deviceId: string;
+            label: string;
+        }): Promise<{
+            deviceId: string;
+            width: number;
+            height: number;
+        }>;
+        setResolution(resolution: {
+            width: number;
+            height: number;
+        }): Promise<{
+            deviceId: string;
+            width: number;
+            height: number;
+        }>;
+        updateVideoSettings(constraints: MediaStreamConstraints): Promise<void>;
+        _dceVideoSrc: string;
+        get videoSrc(): string;
+        set videoSrc(value: string | null);
+        _dceEnhancedFeatures: any;
+        _dceAutoZoomRange: {
+            min: number;
+            max: number;
+        };
+        disableEnhancedFeatures(feature: any): void;
+        enableEnhancedFeatures(feature: any): void;
+        getCameraSettings(): MediaTrackSettings;
+        getCapabilities(): MediaTrackCapabilities;
+        getColorTemperature(): number;
+        getExposureCompensation(): number;
+        getFrameRate(): number;
+        setColorTemperature(value: number): Promise<void>;
+        setExposureCompensation(value: number): Promise<void>;
+        setFrameRate(value: number): Promise<void>;
+        getZoomSettings(): {
+            factor: number;
+        };
+        _oriSetZoom(zoom: number): Promise<void>;
+        _dceZoom: number;
+        setZoom(settings: {
+            factor: number;
+        }): Promise<void>;
+        resetZoom(): void;
+        _dceFocusSettings: any;
+        getFocusSettings(): {
+            mode: string;
+        } | {
+            mode: 'manual';
+            distance: number;
+        } | {
+            mode: 'manual';
+            area: {
+                centerPoint: {
+                    x: string;
+                    y: string;
+                };
+                width?: string;
+                height?: string;
+            };
+        };
+        setFocus(settings: {
+            mode: string;
+        } | {
+            mode: 'manual';
+            distance: number;
+        } | {
+            mode: 'manual';
+            area: {
+                centerPoint: {
+                    x: string;
+                    y: string;
+                };
+                width?: string;
+                height?: string;
+            };
+        }): Promise<void>;
+        setAutoZoomRange(value: {
+            min: number;
+            max: number;
+        }): void;
+        getAutoZoomRange(): {
+            min: number;
+            max: number;
+        };
+        toggleMirroring(enable: boolean): void;
+        _framePipeline: FramePipeline;
+        fetchImage(): {
+            bytes: Uint8Array;
+            width: number;
+            height: number;
+            stride: number;
+            format: any;
+            toCanvas(): HTMLCanvasElement;
+        };
+        getImage(): {
+            bytes: Uint8Array;
+            width: number;
+            height: number;
+            stride: number;
+            format: any;
+            toCanvas(): HTMLCanvasElement;
+        };
+        _dceScanRegion: {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            isMeasuredInPercentage?: boolean;
+        } | {
+            left: number;
+            top: number;
+            right: number;
+            bottom: number;
+            isMeasuredInPercentage?: boolean;
+        };
+        getScanRegion(): {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            isMeasuredInPercentage?: boolean;
+        } | {
+            left: number;
+            top: number;
+            right: number;
+            bottom: number;
+            isMeasuredInPercentage?: boolean;
+        };
+        hasNextImageToFetch(): boolean;
+        isBufferEmpty(): boolean;
+        startFetching(): void;
+        _pixelFormat: number;
+        getPixelFormat(): number;
+        setPixelFormat(format: number): void;
+        _colourChannelUsageType: number;
+        setColourChannelUsageType(format: number): void;
+        getColourChannelUsageType(): number;
+        setScanRegion(region?: {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            isMeasuredInPercentage?: boolean;
+        } | {
+            left: number;
+            top: number;
+            right: number;
+            bottom: number;
+            isMeasuredInPercentage?: boolean;
+        }): void;
+        stopFetching(): void;
+        takePhoto(listener: (dceFrame: {
+            bytes: Uint8Array;
+            width: number;
+            height: number;
+            stride: number;
+            format: any;
+            toCanvas(): HTMLCanvasElement;
+        }) => void): Promise<{
+            bytes: Uint8Array;
+            width: number;
+            height: number;
+            stride: number;
+            format: any;
+            toCanvas(): HTMLCanvasElement;
+        }>;
+        addImageToBuffer: any;
+        clearBuffer: any;
+        getBufferOverflowProtectionMode: any;
+        getImageCount: any;
+        getImageFetchInterval: any;
+        getMaxImageCount: any;
+        hasImage: any;
+        setBufferOverflowProtectionMode: any;
+        setErrorListener: any;
+        setImageFetchInterval: any;
+        setMaxImageCount: any;
+        setNextImageToReturn: any;
+        _dceSettingsBeforeSingleFrameMode: any;
+        _singleFrameMode: "disabled" | "camera" | "image";
+        _singleFrameModeClickCallback: any;
+        _singleFrameModeResultForDcv: DCEFrame;
+        _singleFrameModeCvs: HTMLCanvasElement;
+        get singleFrameMode(): "disabled" | "camera" | "image";
+        set singleFrameMode(value: "disabled" | "camera" | "image");
+        setCameraView(view: CameraView): void;
+        getCameraView(): CameraView;
+        getVideoEl(): HTMLVideoElement;
+        convertToPageCoordinates(point: {
+            x: number;
+            y: number;
+        }): {
+            x: number;
+            y: number;
+        };
+        convertToClientCoordinates(point: {
+            x: number;
+            y: number;
+        }): {
+            x: number;
+            y: number;
+        };
+        convertToScanRegionCoordinates(point: {
+            x: number;
+            y: number;
+        }): {
+            x: number;
+            y: number;
+        };
+        convertToContainCoordinates(point: {
+            x: number;
+            y: number;
+        }): {
+            x: number;
+            y: number;
+        };
+        _dceEventListeners: {
+            [key: string]: Set<Function>;
+        };
+        on(eventName: string, listener: Function): void;
+        off(eventName: string, listener: Function): void;
+        _dceMNIsBeepBarcode: boolean;
+        _dceMNIsVibrateBarcode: boolean;
+        getUIElement(): HTMLElement;
+        setUIElement(ui: HTMLDivElement | string): Promise<void>;
+        getVideoElement(): HTMLVideoElement;
+        setVideoFit(fit: 'contain' | 'cover' | 'fill'): void;
+        getVideoFit(): 'contain' | 'cover' | 'fill';
+        getVisibleRegionOfVideo(options?: {
+            inPixels?: boolean;
+        }): {
+            x: number;
+            y: number;
+            width: number;
+            height: number;
+            isMeasuredInPercentage?: boolean;
+        };
+        _dceRegionMaskStyle: {
+            lineWidth: number;
+            strokeStyle: string;
+            fillStyle: string;
+        };
+        setScanRegionMaskStyle(style: {
+            lineWidth: number;
+            strokeStyle: string;
+            fillStyle: string;
+        }): void;
+        getScanRegionMaskStyle(): {
+            lineWidth: number;
+            strokeStyle: string;
+            fillStyle: string;
+        };
+        _dceRegionMaskVisible: boolean;
+        setScanRegionMaskVisible(visible: boolean): void;
+        isScanRegionMaskVisible(): boolean;
+        setScanLaserVisible(visible: boolean): void;
+        isScanLaserVisible(): boolean;
+        setPowerByMessageVisible(visible: boolean): void;
+        isPowerByMessageVisible(): boolean;
+        _dceTipDuration: number;
+        _dceTipMessage: string;
+        getTipConfig(): TipConfig;
+        setTipConfig(tipConfig: TipConfig): void;
+        setTipVisible(visible: boolean): void;
+        isTipVisible(): boolean;
+        updateTipMessage(message: string): void;
+        _drawingLayers: DrawingLayer[];
+        createDrawingLayer(): DrawingLayer;
+        getDrawingLayer(id: number): DrawingLayer;
+        getAllDrawingLayers(): DrawingLayer[];
+        clearUserDefinedDrawingLayers(): void;
+        deleteUserDefinedDrawingLayer(id: number): void;
+        clearAllInnerDrawingItems(_?: boolean): void;
+        _capturedResultReceiver: any;
+    }
+declare function _bufferToCanvas(uint8Array: Uint8Array, width: number, height: number, format: number): HTMLCanvasElement;
+declare class Feedback {
+    static _beepInstance: Beep;
+    static beep(): void;
+    static get beepSoundSource(): string;
+    static set beepSoundSource(value: string);
+    static vibrate(): void;
+    static vibrateDuration: number;
+}
+declare const DrawingStyleManager: {
+    STYLE_BLUE_STROKE: any;
+    STYLE_GREEN_STROKE: any;
+    STYLE_ORANGE_STROKE: any;
+    STYLE_YELLOW_STROKE: any;
+    STYLE_BLUE_STROKE_FILL: any;
+    STYLE_GREEN_STROKE_FILL: any;
+    STYLE_ORANGE_STROKE_FILL: any;
+    STYLE_YELLOW_STROKE_FILL: any;
+    STYLE_BLUE_STROKE_TRANSPARENT: any;
+    STYLE_GREEN_STROKE_TRANSPARENT: any;
+    STYLE_ORANGE_STROKE_TRANSPARENT: any;
+    STYLE_YELLOW_STROKE_TRANSPARENT: any;
+    createDrawingStyle(style: any): any;
+    getDrawingStyle(id: any): any;
+    getAllDrawingStyles(): any[];
+    updateDrawingStyle(id: any, style: any): void;
+};
+declare class DrawingLayer {
+    _visible: boolean;
+    _dce: CameraView;
+    _ctx: CanvasRenderingContext2D;
+    _defaultStyle: any;
+    _drawingItems: DrawingItem[];
+    _mode: 'editor' | 'viewer';
+    _editorView: any;
+    _renderTask: any;
+    _newSelectedDrawingItems: DrawingItem[];
+    _newDeselectedDrawingItems: DrawingItem[];
+    _selectionChangedTask: any;
+    _onSelectionChanged: (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void;
+    getId(): this;
+    isVisible(): boolean;
+    setVisible(value: boolean): void;
+    setDefaultStyle(drawingStyleId: any, _1?: any, _2?: any): void;
+    addDrawingItems(drawingItems: DrawingItem[]): void;
+    removeDrawingItems(drawingItems: DrawingItem[]): void;
+    setDrawingItems(drawingItems: DrawingItem[]): void;
+    getDrawingItems(filter?: (drawingItem: DrawingItem) => boolean): DrawingItem[];
+    hasDrawingItem(drawingItem: DrawingItem): boolean;
+    getSelectedDrawingItems(): any;
+    clearDrawingItems(): void;
+    _delayRenderAll(): void;
+    renderAll(): void;
+    getMode(): "editor" | "viewer";
+    setMode(mode: 'editor' | 'viewer'): Promise<void>;
+    _delaySelectionChanged(): void;
+    get onSelectionChanged(): (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void;
+    set onSelectionChanged(value: (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void);
+}
+/**
+ * Determines if a point is inside a quadrilateral.
+ * @param {number[]} point - [x, y] coordinates of the point.
+ * @param {number[][]} polygon - Array of points [[x0, y0], [x1, y1], [x2, y2], [x3, y3]].
+ * @returns {boolean} - True if the point is inside.
+ */
+declare function _isPointInPolygon(point: number[], polygon: number[][]): boolean;
+/**
+ * Calculates the shortest distance from a point to a line segment.
+ * @param {number[]} p - The point [x, y]
+ * @param {number[][]} segment - The segment [[x1, y1], [x2, y2]]
+ * @returns {number} The shortest distance
+ */
+declare function _distToSegment(p: number[], segment: number[][]): number;
+declare class DrawingItem {
+    coordinateBase: string;
+    drawingLayerId: any;
+    drawingStyleId: any;
+    mediaType: EnumDrawingItemMediaType;
+    _notes: Note[];
+    _bSelected: boolean;
+    _dceEventListeners: {
+        [key: string]: Set<Function>;
+    };
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    getState(): EnumDrawingItemState;
+    addNote(note: Note, replace?: boolean): void;
+    getNote(name: string): Note;
+    getNotes(): Note[];
+    hasNote(name: string): boolean;
+    updateNote(name: string, content: any, isMergeContent?: boolean): void;
+    deleteNote(name: string): void;
+    clearNotes(): void;
+    _delayRenderAll(): void;
+    _setSelected(value: boolean): void;
+    on(type: string, listener: Function): void;
+    off(type: string, listener: Function): void;
+}
+declare class LineDrawingItem extends DrawingItem {
+    line: {
+        startPoint: {
+            x: number;
+            y: number;
+        };
+        endPoint: {
+            x: number;
+            y: number;
+        };
+    };
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    constructor(line: {
+        startPoint: {
+            x: number;
+            y: number;
+        };
+        endPoint: {
+            x: number;
+            y: number;
+        };
+    }, drawingStyleId?: any);
+    getLine(): {
+        startPoint: {
+            x: number;
+            y: number;
+        };
+        endPoint: {
+            x: number;
+            y: number;
+        };
+    };
+    setLine(value: {
+        startPoint: {
+            x: number;
+            y: number;
+        };
+        endPoint: {
+            x: number;
+            y: number;
+        };
+    }): void;
+}
+declare class QuadDrawingItem extends DrawingItem {
+    quad: {
+        points: {
+            x: number;
+            y: number;
+        }[];
+    };
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    constructor(quad: {
+        points: {
+            x: number;
+            y: number;
+        }[];
+    }, drawingStyleId?: any);
+    getQuad(): {
+        points: {
+            x: number;
+            y: number;
+        }[];
+    };
+    setQuad(value: {
+        points: {
+            x: number;
+            y: number;
+        }[];
+    }): void;
+}
+declare class RectDrawingItem extends DrawingItem {
+    rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    constructor(rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }, drawingStyleId?: any);
+    getRect(): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    setRect(value: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }): void;
+}
+declare class TextDrawingItem extends DrawingItem {
+    text: string;
+    rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    constructor(text: string, rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }, drawingStyleId?: any);
+    getText(): string;
+    setText(value: string): void;
+    getTextRect(): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    setTextRect(value: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }): void;
+}
+declare class ImageDrawingItem extends DrawingItem {
+    image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
+    rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    maintainAspectRatio: boolean;
+    get _ps(): {
+        x: number;
+        y: number;
+    }[];
+    constructor(image: {
+        bytes: Uint8Array;
+        width: number;
+        height: number;
+        stride: number;
+        format: any;
+    } | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement, rect: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }, maintainAspectRatio: boolean, drawingStyleId?: any);
+    getImage(): HTMLVideoElement | HTMLCanvasElement | HTMLImageElement;
+    setImage(image: {
+        bytes: Uint8Array;
+        width: number;
+        height: number;
+        stride: number;
+        format: any;
+    } | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void;
+    getImageRect(): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    };
+    setImageRect(value: {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }): void;
+}
+
+declare enum EnumDrawingItemMediaType {
+    /**
+     * Represents a rectangle, a basic geometric shape with four sides where opposite sides are equal in length and it has four right angles.
+     */
+    DIMT_RECTANGLE = 1,
+    /**
+     * Represents any four-sided figure. This includes squares, rectangles, rhombuses, and more general forms that do not necessarily have right angles or equal sides.
+     */
+    DIMT_QUADRILATERAL = 2,
+    /**
+     * Represents a text element. This allows for the inclusion of textual content as a distinct drawing item within the graphic representation.
+     */
+    DIMT_TEXT = 4,
+    /**
+     * Represents an image. This enables embedding bitmap images within the drawing context.
+     */
+    DIMT_IMAGE = 16,
+    /**
+     * Represents a line segment. This is the simplest form of a drawing item, defined by two endpoints and the straight path connecting them.
+     */
+    DIMT_LINE = 64
+}
+declare enum EnumDrawingItemState {
+    /**
+     * DIS_DEFAULT: The default state of a drawing item. This state indicates that the drawing item is in its normal, unselected state.
+     */
+    DIS_DEFAULT = 1,
+    /**
+     * DIS_SELECTED: Indicates that the drawing item is currently selected. This state can trigger different behaviors or visual styles, such as highlighting the item to show it is active or the focus of user interaction.
+     */
+    DIS_SELECTED = 2
+}
+declare enum EnumEnhancedFeatures {
+    /**
+     * Enables auto-focus on areas likely to contain barcodes, assisting in their identification and interpretation.
+     */
+    EF_ENHANCED_FOCUS = 4,
+    /**
+     * Facilitates automatic zooming in on areas likely to contain barcodes, aiding in their detection and decoding.
+     */
+    EF_AUTO_ZOOM = 16,
+    /**
+     * Allows users to tap on a specific item or area in the video feed to focus on, simplifying the interaction for selecting or highlighting important elements.
+     */
+    EF_TAP_TO_FOCUS = 64
+}
+declare enum EnumPixelFormat {
+    GREY = "grey",
+    GREY32 = "grey32",
+    RGBA = "rgba",
+    RBGA = "rbga",
+    GRBA = "grba",
+    GBRA = "gbra",
+    BRGA = "brga",
+    BGRA = "bgra"
+}
+interface Resolution {
+    width: number;
+    height: number;
+}
+interface DCEFrame {
+    bytes: Uint8Array;
+    width: number;
+    height: number;
+    stride: number;
+    format: any;
+    toCanvas(): HTMLCanvasElement;
+}
+interface DrawingStyle {
+    fillStyle?: string;
+    lineWidth?: number;
+    paintMode?: string;
+    strokeStyle?: string;
+}
+interface PlayCallbackInfo {
+    deviceId: string;
+    width: number;
+    height: number;
+}
+interface VideoDeviceInfo {
+    deviceId: string;
+    label: string;
+}
+interface VideoFrameTag {
+    /** The unique identifier of the image. */
+    imageId: number;
+    /** The type of the image. */
+    type: any;
+    /** Indicates whether the video frame is cropped. */
+    isCropped: boolean;
+    /** The region based on which the original frame was cropped. If `isCropped` is false, the region covers the entire original image. */
+    cropRegion: any;
+    /** The original width of the video frame before any cropping. */
+    originalWidth: number;
+    /** The original height of the video frame before any cropping. */
+    originalHeight: number;
+    /** The current width of the video frame after cropping. */
+    currentWidth: number;
+    /** The current height of the video frame after cropping. */
+    currentHeight: number;
+    /** The time spent acquiring the frame, in milliseconds. */
+    timeSpent: number;
+    /** The timestamp marking the completion of the frame acquisition. */
+    timeStamp: number;
+}
+interface TipConfig {
+    /** The top left point of the tip message box. */
+    topLeftPoint?: any;
+    /** The width of the tip message box. */
+    width?: number;
+    /** The display duration of the tip in milliseconds. */
+    duration: number;
+    /** The base coordinate system used (e.g., "view" or "image"). */
+    coordinateBase?: "view" | "image";
+}
+interface Note {
+    /** The name of the note. */
+    name: string;
+    /** The content of the note, can be of any type. */
+    content: any;
+}
+
+export { Beep, Camera, CameraEnhancer, CameraEnhancerModule, CameraInfo, CameraPreset, CameraStatus, CameraView, CameraZsFunc, DCEFrame, DMMoreMediaTrackCapabilities, DrawingItem, DrawingLayer, DrawingStyle, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, EnumPixelFormat, Feedback, FramePipeline, ImageDrawingItem, LineDrawingItem, Note, PlayCallbackInfo, QuadDrawingItem, RectDrawingItem, Resolution, TextDrawingItem, TipConfig, VideoDeviceInfo, VideoFrameTag, _bufferToCanvas, _distToSegment, _isPointInPolygon, beep, stringToHtml, vibrate };
+

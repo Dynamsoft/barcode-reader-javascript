@@ -219,181 +219,607 @@
   </head>
   <body>
     <div id='content'>
-<h1 id="build-a-web-based-barcode-scanner-using-just-a-few-lines-of-javascript">Build a Web-Based Barcode Scanner Using Just a Few Lines of JavaScript</h1>
-<!-- Don't forget to add the TOC & update license section, which is useful for npm README.-->
+<h1 id="barcode-reader-for-your-website---foundational-api-guide">Barcode Reader for Your Website - Foundational API Guide</h1>
+<p><a href="https://www.dynamsoft.com/barcode-reader/sdk-javascript/">Dynamsoft Barcode Reader JavaScript Edition</a> (DBR-JS) is equipped with industry-leading algorithms for exceptional speed, accuracy and read rates in barcode reading. Using its well-designed API, you can turn your web page into a barcode scanner with just a few lines of code. Once the DBR-JS SDK gets integrated into your web page, your users can access a camera via the browser and read barcodes directly from its video input.</p>
+<!-- ![version](https://img.shields.io/npm/v/dynamsoft-barcode-reader.svg)
+![downloads](https://img.shields.io/npm/dm/dynamsoft-barcode-reader.svg)
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-barcode-reader.svg)
+
+![version](https://img.shields.io/npm/v/dynamsoft-javascript-barcode.svg)
+![downloads](https://img.shields.io/npm/dm/dynamsoft-javascript-barcode.svg)
+![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg) -->
+<p>In this guide, you will learn step by step on how to integrate the DBR-JS SDK into your website.</p>
+<p><span style="font-size:20px">Table of Contents</span></p>
 <ul>
-<li><a href="#build-a-web-based-barcode-scanner-using-just-a-few-lines-of-javascript">Build a Web-Based Barcode Scanner Using Just a Few Lines of JavaScript</a></li>
-<li><a href="#license">License</a></li>
-<li><a href="#quick-start-hello-world-example">Quick Start: Hello World Example</a><ul>
-<li><a href="#step-1-setting-up-the-html-and-including-the-barcode-scanner">Step 1: Setting up the HTML and Including the Barcode Scanner</a></li>
-<li><a href="#step-2-initializing-the-barcode-scanner">Step 2: Initializing the Barcode Scanner</a></li>
-<li><a href="#step-3-launching-the-barcode-scanner">Step 3: Launching the Barcode Scanner</a></li></ul></li>
+<li><a href="#barcode-reader-for-your-website---foundational-api-guide">Barcode Reader for Your Website - Foundational API Guide</a></li>
+<li><a href="#hello-world---simplest-implementation">Hello World - Simplest Implementation</a><ul>
+<li><a href="#understand-the-code">Understand the code</a></li>
+<li><a href="#about-the-code">About the code</a></li>
+<li><a href="#run-the-example">Run the example</a></li></ul></li>
+<li><a href="#preparing-the-sdk">Preparing the SDK</a><ul>
+<li><a href="#step-1-include-the-sdk">Step 1: Include the SDK</a></li>
+<li><a href="#step-2-prepare-the-sdk">Step 2: Prepare the SDK</a></li>
+<li><a href="#1-specify-the-license">1. Specify the license</a></li>
+<li><a href="#2-optional-specify-the-location-of-the-engine-files">2. [Optional] Specify the location of the "engine" files</a></li></ul></li>
+<li><a href="#using-the-sdk">Using the SDK</a><ul>
+<li><a href="#step-1-preload-the-module">Step 1: Preload the module</a></li>
+<li><a href="#step-2-create-a-capturevisionrouter-object">Step 2: Create a CaptureVisionRouter object</a></li>
+<li><a href="#step-3-connect-an-image-source">Step 3: Connect an image source</a></li>
+<li><a href="#step-4-register-a-result-receiver">Step 4: Register a result receiver</a></li>
+<li><a href="#step-5-start-process-video-frames">Step 5: Start process video frames</a></li></ul></li>
+<li><a href="#customizing-the-process">Customizing the process</a><ul>
+<li><a href="#1-adjust-the-preset-template-settings">1. Adjust the preset template settings</a></li>
+<li><a href="#11-change-barcode-settings">1.1. Change barcode settings</a></li>
+<li><a href="#12-retrieve-the-original-image">1.2. Retrieve the original image</a></li>
+<li><a href="#13-change-reading-frequency-to-save-power">1.3. Change reading frequency to save power</a></li>
+<li><a href="#14-specify-a-scan-region">1.4. Specify a scan region</a></li>
+<li><a href="#2-edit-the-preset-templates-directly">2. Edit the preset templates directly</a></li>
+<li><a href="#3-important-filter-the-results">3. [Important] Filter the results</a></li>
+<li><a href="#method-1-verify-results-across-multiple-frames">Method 1: Verify results across multiple frames</a></li>
+<li><a href="#method-2-eliminate-redundant-results-detected-within-a-short-time-frame">Method 2: Eliminate redundant results detected within a short time frame</a></li>
+<li><a href="#4-add-feedback">4. Add feedback</a></li></ul></li>
+<li><a href="#customizing-the-ui">Customizing the UI</a></li>
+<li><a href="#documentation">Documentation</a><ul>
+<li><a href="#api-reference">API Reference</a></li>
+<li><a href="#how-to-upgrade">How to Upgrade</a></li>
+<li><a href="#release-notes">Release Notes</a></li></ul></li>
 <li><a href="#next-steps">Next Steps</a></li>
 </ul>
-<p>This user guide provides a step-by-step walkthrough of a "Hello World" web application using the <code>BarcodeScanner</code> JavaScript Edition.</p>
-<p>The <code>BarcodeScanner</code> class offers the following features:</p>
-<ul>
-<li><p>High-level APIs that deliver core functionality with a single line of code.</p></li>
-<li><p>Pre-built UI components for fast and easy integration.</p></li>
-<li><p>Intuitive configuration objects that streamline both algorithm and UI setup.</p></li>
-</ul>
-<p>We recommend using this guide as a reference when creating your own application. If you are looking for a fully customizable barcode decoding library, you are welcome to use the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/index.html">Foundational APIs</a>. Before starting, ensure the <strong>basic requirements</strong> are met.</p>
-<!-- 
-Thanks to its simplified APIs and built-in UI for video streaming, you can implement basic scanning functionality with just one line of code:
-<pre><code class="hljs js language-js"><span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner().launch().then(<span class="hljs-function"><span class="hljs-params">result</span>=&gt;</span>alert(result.barcodeResults[<span class="hljs-number">0</span>].text));
-</code></pre>
-
-<p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/" title="Run via JSFiddle" style="text-decoration:none;">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
-  </a>
-</p> 
--->
+<h2 id="hello-world---simplest-implementation">Hello World - Simplest Implementation</h2>
+<p>Let's start with the "Hello World" example of the DBR-JS SDK which demonstrates how to use the minimum code to enable a web page to read barcodes from a live video stream.  </p>
+<p><strong>Basic Requirements</strong></p>
 <ul>
 <li>Internet connection</li>
 <li>A supported browser</li>
 <li>Camera access</li>
 </ul>
 <blockquote>
-  <p>[!TIP]<br />
-  Please refer to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/faq/system-requirement.html">system requirements</a> for more details.</p>
+  <p>Please refer to <a href="https://www.dynamsoft.com/faq/barcode-reader/web/capabilities/system-requirement.html">system requirements</a> for more details.</p>
 </blockquote>
-<h2 id="license">License</h2>
-<p>When getting started with Barcode Scanner, we recommend <a href="https://www.dynamsoft.com/customer/license/trialLicense/?product=dbr&utm_source=github&package=js">getting your own 30-day trial license</a></p>
-<!-- When getting started with Barcode Scanner, we recommend getting your own 30-day trial license.
-
- {% include trialLicense.html %} -->
-<h2 id="quick-start-hello-world-example">Quick Start: Hello World Example</h2>
+<h3 id="understand-the-code">Understand the code</h3>
+<p>The complete code of the "Hello World" example is shown below</p>
 <pre><code class="hljs html language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-      <span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner</span>
-      <span class="hljs-keyword">const</span> barcodeScanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
-        <span class="hljs-comment">// Please don&#x27;t forget to replace YOUR_LICENSE_KEY_HERE</span>
-        <span class="hljs-attr">license</span>: <span class="hljs-string">&quot;YOUR_LICENSE_KEY_HERE&quot;</span>,
-      });
-      (<span class="hljs-keyword">async</span> () =&gt; {
-        <span class="hljs-comment">// Launch the scanner and wait for the result</span>
-        <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> barcodeScanner.launch();
-        <span class="hljs-comment">// Display the first detected barcode&#x27;s text in an alert</span>
-        <span class="hljs-keyword">if</span> (result.barcodeResults.length) {
-            alert(result.barcodeResults[<span class="hljs-number">0</span>].text);
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;camera-view-container&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; height: 60vh&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;results&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+  Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
+  Dynamsoft.Core.CoreModule.loadWasm();
+  (<span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">let</span> cvRouter = <span class="hljs-keyword">await</span> Dynamsoft.CVR.CaptureVisionRouter.createInstance();
+
+    <span class="hljs-keyword">let</span> cameraView = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance();
+    <span class="hljs-keyword">let</span> cameraEnhancer = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraEnhancer.createInstance(cameraView);
+    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#camera-view-container&quot;</span>).append(cameraView.getUIElement());
+    cvRouter.setInput(cameraEnhancer);
+
+    <span class="hljs-keyword">const</span> resultsContainer = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#results&quot;</span>);
+    <span class="hljs-keyword">await</span> cvRouter.addResultReceiver({ <span class="hljs-attr">onDecodedBarcodesReceived</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (result.barcodeResultItems?.length) {
+        resultsContainer.textContent = <span class="hljs-string">&#x27;&#x27;</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> result.barcodeResultItems) {
+          resultsContainer.textContent += <span class="hljs-string">`<span class="hljs-subst">${item.formatString}</span>: <span class="hljs-subst">${item.text}</span>\n\n`</span>;
         }
-      })();
-    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+      }
+    }});
+
+    <span class="hljs-keyword">let</span> filter = <span class="hljs-keyword">new</span> Dynamsoft.Utility.MultiFrameResultCrossFilter();
+    filter.enableResultCrossVerification(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+    filter.enableResultDeduplication(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+    <span class="hljs-keyword">await</span> cvRouter.addResultFilter(filter);
+
+    <span class="hljs-keyword">await</span> cameraEnhancer.open();
+    <span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+  })();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.2.40/barcode-scanner-api-samples/scan-single-barcode/hello-world.html" title="Code in Github" style="text-decoration:none;">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.4.20/hello-world.html" title="Code in Github" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
   </a>
   &nbsp;
-  <a target="_blank" href="https://jsfiddle.net/DynamsoftTeam/gcqjf5r7/" title="Run via JSFiddle" style="text-decoration:none;">
+  <a target="_blank" href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/" title="Run via JSFiddle" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
   </a>
   &nbsp;
-  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/barcode-scanner-api-samples/scan-single-barcode/hello-world.html?ver=11.2.40&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/hello-world.html?ver=11.4.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
   </a>
 </p>
-<h3 id="step-1-setting-up-the-html-and-including-the-barcode-scanner">Step 1: Setting up the HTML and Including the Barcode Scanner</h3>
-<p>As outlined earlier, this guide will help you create a simple Hello World barcode scanning application using vanilla JavaScript. The full sample code is also available in the <a href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/tree/v11.2.40">GitHub repository</a>.</p>
-<p>The first step before writing the code is to include the SDK in your application. You can simply include the SDK by using the precompiled script.</p>
-<pre><code class="hljs html language-html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
-</code></pre>
-<p>In this example, we include the precompiled Barcode Scanner SDK script via public CDN in the body.</p>
+<!-- > Don't want to deal with too many details? You can get a quick start with the [BarcodeScanner >>](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/index.html)
+> ```js
+> // Scan instantly with a single line of code!
+> new Dynamsoft.BarcodeScanner().launch().then(result=>alert(result.barcodeResults[0].text));
+> ``` -->
+<hr />
+<h4 id="about-the-code">About the code</h4>
+<ul>
+<li><p><code>Dynamsoft.License.LicenseManager.initLicense()</code>: This method initializes the license for using the SDK in the application. Note that the string "<strong>DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9</strong>" used in this example points to an online license that requires a network connection to work. Read more on <a href="#1-specify-the-license">Specify the license</a>.</p></li>
+<li><p><code>Dynamsoft.Core.CoreModule.loadWasm()</code>: This is an optional code. Used to load wasm resources in advance, reducing latency between video playing and barcode decoding.</p></li>
+<li><p><code>Dynamsoft.CVR.CaptureVisionRouter.createInstance()</code>: This method creates a <code>CaptureVisionRouter</code> object <code>cvRouter</code> which controls the entire process in three steps:</p></li>
+<li><p><strong>Retrieve Images from the Image Source</strong></p>
+<ul>
+<li><code>cvRouter</code> connects to the image source through the <a href="https://www.dynamsoft.com/capture-vision/docs/core/architecture/input.html#image-source-adapter?lang=js">ImageSourceAdapter</a> interface with the method <code>setInput()</code>.<br />
+<code>js
+cvRouter.setInput(cameraEnhancer);
+</code><br />
+&gt; The image source in our case is a <a href="https://www.dynamsoft.com/camera-enhancer/docs/web/programming/javascript/user-guide/index.html">CameraEnhancer</a> object created with <code>Dynamsoft.DCE.CameraEnhancer.createInstance(cameraView)</code></li></ul></li>
+<li><p><strong>Coordinate Image-Processing Tasks</strong></p>
+<ul>
+<li>The coordination happens behind the scenes. <code>cvRouter</code> starts the process by specifying a preset template "ReadSingleBarcode" in the method <code>startCapturing()</code>.<br />
+<code>js
+cvRouter.startCapturing("ReadSingleBarcode");
+</code></li></ul></li>
+<li><p><strong>Dispatch Results to Listening Objects</strong></p>
+<ul>
+<li>The processing results are returned through the <a href="https://www.dynamsoft.com/capture-vision/docs/core/architecture/output.html#captured-result-receiver?lang=js">CapturedResultReceiver</a> interface. The <code>CapturedResultReceiver</code> object is registered to <code>cvRouter</code> via the method <code>addResultReceiver()</code>. For more information, please check out <a href="#step-4-register-a-result-receiver">Register a result receiver</a>.<br />
+<code>js
+cvRouter.addResultReceiver({/*The-CapturedResultReceiver-Object"*/});
+</code></li>
+<li>Also note that reading from video is extremely fast and there could be many duplicate results. We can use a <a href="#3-important-filter-the-results">filter</a> with result deduplication enabled to filter out the duplicate results. The object is registered to <code>cvRouter</code> via the method <code>addResultFilter()</code>.<br />
+<code>js
+cvRouter.addResultFilter(filter);
+</code></li></ul></li>
+</ul>
+<blockquote>
+  <p>Read more on <a href="https://www.dynamsoft.com/capture-vision/docs/core/architecture/#capture-vision-router">Capture Vision Router</a>.</p>
+</blockquote>
+<h3 id="run-the-example">Run the example</h3>
+<p>You can run the example deployed to <a href="https://demo.dynamsoft.com/Samples/DBR/JS/hello-world.html?ver=11.4.20&utm_source=github">the Dynamsoft Demo Server</a> or test it with <a href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/">JSFiddle code editor</a>. </p>
+<p>You will be asked to allow access to your camera, after which the video will be displayed on the page. After that, you can point the camera at a barcode to read it.</p>
+<p>When a barcode is decoded, you will see the result text show up under the video and the barcode location will be highlighted in the video feed.</p>
+<p>Alternatively, you can test locally by copying and pasting the code shown above into a local file (e.g. "hello-world.html") and opening it in your browser.</p>
+<blockquote>
+  <p><em>Secure Contexts</em>:</p>
+  <p>If you open the web page as <code>http://</code> , our SDK may not work correctly because the <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices: getUserMedia()</a> and other methods only work in <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts">secure contexts</a> (HTTPS, <code>localhost</code>, <code>127.0.0.1</code>, <code>file://</code>), in some or all supporting browsers.</p>
+  <p>Regarding configuring https on your server, these guides for <a href="https://nginx.org/en/docs/http/configuring_https_servers.html">nginx</a> / <a href="https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/">IIS</a> / <a href="https://dzone.com/articles/setting-ssl-tomcat-5-minutes">tomcat</a> / <a href="https://nodejs.org/docs/v0.4.1/api/tls.html">nodejs</a> might help.</p>
+  <p>If the test doesn't go as expected, you can <a href="https://www.dynamsoft.com/company/contact/?ver=11.4.20&utm_source=github&product=dbr&package=js">contact us</a>.</p>
+</blockquote>
+<h2 id="preparing-the-sdk">Preparing the SDK</h2>
+<h3 id="step-1-include-the-sdk">Step 1: Include the SDK</h3>
 <div class="multi-panel-switching-prefix"></div>
+<!-- 
+- [Use a public CDN](#useapubliccdn)
+- [Host the SDK yourself](#hostthesdkyourself) -->
 <div class="multi-panel-start"></div>
 <div class="multi-panel-title">Use a public CDN</div>
-<p>The simplest way to include the SDK is to use either the <a href="https://jsdelivr.com/"><strong>jsDelivr</strong></a> or <a href="https://unpkg.com/"><strong>UNPKG</strong></a> CDN.</p>
+<p>The simplest way to include the SDK is to use either the <a href="https://jsdelivr.com/">jsDelivr</a> or <a href="https://unpkg.com/">UNPKG</a> CDN. The "hello world" example above uses <strong>jsDelivr</strong>.</p>
 <ul>
 <li>jsDelivr</li>
 </ul>
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <ul>
 <li>UNPKG</li>
 </ul>
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<p>When using a framework such as <strong>React</strong>, <strong>Vue</strong> or <strong>Angular</strong>, we recommend adding the package as a dependency using a package manager such as <strong>npm</strong> or <strong>yarn</strong>:</p>
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.2.4000
+<!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+
+  However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
+<ul>
+<li>In frameworks like React, Vue and Angular, you may want to add the package as a dependency.</li>
+</ul>
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2000 -E
   <span class="hljs-comment"># or</span>
-  yarn add dynamsoft-barcode-reader-bundle@11.2.4000
+  yarn add dynamsoft-barcode-reader-bundle@11.4.2000 -E
 </code></pre>
-<p>When using package managers like <strong>npm</strong> or <strong>yarn</strong>, you likely need to specify the location of the engine files as a link to a CDN. Please see the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig">BarcodeScannerConfig API</a> for a code snippet on how to set the <code>engineResourcePaths</code>.</p>
+<p>NOTE that in frameworks, you need to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the location of the engine files</a>.</p>
 <div class="multi-panel-end"></div>
 <div class="multi-panel-start"></div>
 <div class="multi-panel-title">Host the SDK yourself</div>
-<p>Alternatively, you may choose to download the SDK and host the files on your own server or preferred CDN. This approach provides better control over versioning and availability.</p>
+<p>Besides using the public CDN, you can also download the SDK and host its files on your own server or a commercial CDN before including it in your application.</p>
 <ul>
 <li><p>From the website</p>
-<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.2.40&utm_source=github&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
-<p>The resources are located in the <code>./dist/</code> directory.</p></li>
+<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.4.20&utm_source=github&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
+<p>The resources are located at path <code>dynamsoft/distributables/&lt;pkg&gt;@&lt;version&gt;</code>.</p></li>
 <li><p>From npm</p></li>
 </ul>
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.2.4000
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2000 -E
 </code></pre>
-<p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You can copy it elsewhere and add <code>@&lt;version&gt;</code> tag.</p>
+<p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You must copy "dynamsoft-xxx" packages elsewhere and add <code>@&lt;version&gt;</code>. The <code>&lt;version&gt;</code> can be obtained from <code>package.json</code> of each package. Another thing to do is to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the engineResourcePaths</a> so that the SDK can correctly locate the resources.</p>
 <blockquote>
-  <p>[!IMPORTANT]<br />
-  Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
+  <p>Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
 </blockquote>
-<p>You can typically include the SDK like this:</p>
-<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.2.4000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<p>You can typically include SDK like this:</p>
+<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <div class="multi-panel-end"></div>
 <div class="multi-panel-switching-end"></div>
-<p>Barcode Scanner comes with a <strong>Ready-to-Use UI</strong>. When the Barcode Scanner launches, it creates a container which it populates with the <strong>Ready-to-Use UI</strong>.</p>
-<h3 id="step-2-initializing-the-barcode-scanner">Step 2: Initializing the Barcode Scanner</h3>
-<pre><code class="hljs js language-js"><span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner</span>
-<span class="hljs-keyword">const</span> barcodeScanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
-  <span class="hljs-comment">// Please don&#x27;t forget to replace YOUR_LICENSE_KEY_HERE</span>
-  <span class="hljs-attr">license</span>: <span class="hljs-string">&quot;YOUR_LICENSE_KEY_HERE&quot;</span>,
-});
-</code></pre>
-<p>This is the <strong>simplest</strong> way to initialize the Barcode Scanner. The configuration object must include a valid <strong>license</strong> key. Without it, the scanner will fail to launch and display an error. For help obtaining a license, see the <a href="#license">licensing</a> section.</p>
-<blockquote>
-  <p>[!TIP]<br />
-  By default, the <code>BarcodeScanner</code> scans a single barcode at a time. However, it also supports a <code>MULTI_UNIQUE</code> scanning mode, which continuously scans and accumulates unique results in real time. You can enable this mode by modifying the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html#barcodescannerconfig"><code>BarcodeScannerConfig</code></a> as follows:</p>
-</blockquote>
-<pre><code class="hljs js language-js"><span class="hljs-comment">// Initialize the Dynamsoft Barcode Scanner in MULTI_UNIQUE mode</span>
-<span class="hljs-keyword">const</span> barcodeScanner = <span class="hljs-keyword">new</span> Dynamsoft.BarcodeScanner({
-  <span class="hljs-attr">license</span>: <span class="hljs-string">&quot;YOUR_LICENSE_KEY_HERE&quot;</span>,
-  <span class="hljs-attr">scanMode</span>: Dynamsoft.EnumScanMode.SM_MULTI_UNIQUE,
-});
-</code></pre>
-<h3 id="step-3-launching-the-barcode-scanner">Step 3: Launching the Barcode Scanner</h3>
-<pre><code class="hljs js language-js">(<span class="hljs-keyword">async</span> () =&gt; {
-  <span class="hljs-comment">// Launch the scanner and wait for the result</span>
-  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> barcodeScanner.launch();
-  <span class="hljs-comment">// Display the first detected barcode&#x27;s text in an alert</span>
-  <span class="hljs-keyword">if</span> (result.barcodeResults.length) {
-      alert(result.barcodeResults[<span class="hljs-number">0</span>].text);
-  }
-})();
-</code></pre>
-<p>Now that the Barcode Scanner has been initialized and configured, it is ready to be launched! Upon launch, the Barcode Scanner presents the main <strong><code>BarcodeScannerView</code></strong> UI in its container on the page, and is ready to start scanning. By default, we use the <code>SINGLE</code> scanning mode, which means only one decoding result will be included in the final result. In the code above, we directly alerted the successfully decoded barcode text on the page.</p>
-<blockquote>
-  <p>[!NOTE]<br />
-  In the Hello World sample, after a successful decoding process, the scanner closes and the user is met with an empty page. In order to open the scanner again, the user must refresh the page. You may choose to implement a more user-friendly behavior in a production environment, such as presenting the user with an option to re-open the Barcode Scanner upon closing it.</p>
-  <p>[!TIP]<br />
-  When running performance benchmarks, make sure to disable the console, avoid using <code>console.log()</code>, and run in non-debug mode whenever possible. This ensures that your benchmark results reflect true performance without interference from logging or debugging overhead.</p>
-  <h2 id="next-steps">Next Steps</h2>
-</blockquote>
-<p>Now that you've implemented the basic functionality, here are some recommended next steps to further explore the capabilities of the Barcode Scanner:</p>
+<p><em>Note</em>:</p>
+<ul>
+<li>Certain legacy web application servers may lack support for the <code>application/wasm</code> mimetype for .wasm files. To address this, you have two options:</li>
+</ul>
 <ol>
-<li>Learn how to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/barcode-scanner-customization.html">Customize the Barcode Scanner</a></li>
-<li>Check out the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html?ver=11.2.4000">Official Samples and Demo</a></li>
-<li>Learn about the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/barcode-scanner.html?ver=11.2.4000">APIs of BarcodeScanner</a></li>
+<li>Upgrade your web application server to one that supports the <code>application/wasm</code> mimetype.</li>
+<li>Manually define the mimetype on your server. You can refer to the guides for <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings">apache</a> / <a href="https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap">IIS</a> / <a href="https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types">nginx</a>.</li>
+</ol>
+<ul>
+<li>To work properly, the SDK requires a few engine files, which are relatively large and may take quite a few seconds to download. We recommend that you set a longer cache time for these engine files, to maximize the performance of your web application.</li>
+</ul>
+<pre><code>hljs   <span class="hljs-keyword">Cache</span><span class="hljs-params">-Control</span>: <span class="hljs-keyword">max</span><span class="hljs-params">-age</span>=<span class="hljs-number">31536000</span>
+</code></pre>
+<p>Reference: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>.</p>
+<h3 id="step-2-prepare-the-sdk">Step 2: Prepare the SDK</h3>
+<p>Before using the SDK, you need to configure a few things.</p>
+<h4 id="1-specify-the-license">1. Specify the license</h4>
+<p>To enable the SDK's functionality, you must provide a valid license. Utilize the API function initLicense to set your license key.</p>
+<pre><code class="hljs javascript language-javascript">Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
+</code></pre>
+<p>As previously stated, the key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" serves as a test license valid for 24 hours, applicable to any newly authorized browser. To test the SDK further, you can request a 30-day free trial license via the <a href="https://www.dynamsoft.com/customer/license/trialLicense?ver=11.4.20&utm_source=github&product=dbr&package=js" target="_blank">Request a Trial License</a> link.</p>
+<blockquote>
+  <p>Upon registering a Dynamsoft account and obtaining the SDK package from the official website, Dynamsoft will automatically create a 30-day free trial license and embed the corresponding license key into all the provided SDK samples.</p>
+</blockquote>
+<h4 id="2-optional-specify-the-location-of-the-engine-files">2. [Optional] Specify the location of the "engine" files</h4>
+<p>This step is generally necessary when utilizing frameworks such as Angular, React, Vue, or when managing the hosting of resource files yourself.</p>
+<p>The purpose is to tell the SDK where to find the engine files (*.worker.js, *.wasm.js and *.wasm, etc.).</p>
+<pre><code class="hljs ts language-ts"><span class="hljs-comment">// in framework</span>
+<span class="hljs-keyword">import</span> { CoreModule } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;dynamsoft-barcode-reader-bundle&quot;</span>;
+CoreModule.engineResourcePaths.rootDirectory = <span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/&quot;</span>;
+</code></pre>
+<pre><code class="hljs js language-js"><span class="hljs-comment">// in pure js</span>
+Dynamsoft.Core.CoreModule.engineResourcePaths.rootDirectory = <span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/&quot;</span>;
+</code></pre>
+<p>These code uses the jsDelivr CDN as an example, feel free to change it to your own location.</p>
+<h2 id="using-the-sdk">Using the SDK</h2>
+<h3 id="step-1-preload-the-module">Step 1: Preload the module</h3>
+<p>The image processing logic is encapsulated within .wasm library files, and these files may require some time for downloading. To enhance the speed, we advise utilizing the following method to preload the libraries.</p>
+<pre><code class="hljs js language-js"><span class="hljs-comment">// Preload the .wasm files</span>
+Dynamsoft.Core.CoreModule.loadWasm();
+</code></pre>
+<h3 id="step-2-create-a-capturevisionrouter-object">Step 2: Create a CaptureVisionRouter object</h3>
+<p>To use the SDK, we first create a <code>CaptureVisionRouter</code> object.</p>
+<pre><code class="hljs javascript language-javascript">Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
+
+<span class="hljs-keyword">let</span> cvRouter = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">try</span> {
+    cvRouter = <span class="hljs-keyword">await</span> Dynamsoft.CVR.CaptureVisionRouter.createInstance();
+} <span class="hljs-keyword">catch</span> (ex) {
+    <span class="hljs-built_in">console</span>.error(ex);
+}
+</code></pre>
+<p><em>Tip</em>:</p>
+<p>When creating a <code>CaptureVisionRouter</code> object within a function which may be called more than once, it's best to use a "helper" variable to avoid double creation such as <code>pCvRouter</code> in the following code:</p>
+<pre><code class="hljs javascript language-javascript">Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
+
+<span class="hljs-keyword">let</span> pCvRouter = <span class="hljs-literal">null</span>; <span class="hljs-comment">// The helper variable which is a promise of cvRouter</span>
+<span class="hljs-keyword">let</span> cvRouter = <span class="hljs-literal">null</span>;
+
+<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;btn-scan&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">try</span> {
+        cvRouter = <span class="hljs-keyword">await</span> (pCvRouter = pCvRouter || Dynamsoft.CVR.CaptureVisionRouter.createInstance());
+    } <span class="hljs-keyword">catch</span> (ex) {
+        <span class="hljs-built_in">console</span>.error(ex);
+    }
+});
+</code></pre>
+<h3 id="step-3-connect-an-image-source">Step 3: Connect an image source</h3>
+<p>The <code>CaptureVisionRouter</code> object, denoted as <code>cvRouter</code>, is responsible for handling images provided by an image source. In our scenario, we aim to detect barcodes directly from a live video stream. To facilitate this, we initialize a <code>CameraEnhancer</code> object, identified as <code>cameraEnhancer</code>, which is specifically designed to capture image frames from the video feed and subsequently forward them to <code>cvRouter</code>.</p>
+<p>To enable video streaming on the webpage, we create a <code>CameraView</code> object referred to as <code>cameraView</code>, which is then passed to <code>cameraEnhancer</code>, and its content is displayed on the webpage.</p>
+<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;camera-view-container&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; height: 100vh&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> cameraView = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance();
+<span class="hljs-keyword">let</span> cameraEnhancer = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraEnhancer.createInstance(cameraView);
+<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#camera-view-container&quot;</span>).append(cameraView.getUIElement());
+cvRouter.setInput(cameraEnhancer);
+</code></pre>
+<h3 id="step-4-register-a-result-receiver">Step 4: Register a result receiver</h3>
+<p>Once the image processing is complete, the results are sent to all the registered <code>CapturedResultReceiver</code> objects. Each <code>CapturedResultReceiver</code> object may encompass one or multiple callback functions associated with various result types. This time we use <code>onDecodedBarcodesReceived</code>:</p>
+<!--In our particular case, our focus is on identifying barcodes within the images, so it's sufficient to define the callback function `onDecodedBarcodesReceived`:-->
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">const</span> resultsContainer = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#results&quot;</span>);
+<span class="hljs-keyword">const</span> resultReceiver = <span class="hljs-keyword">new</span> Dynamsoft.CVR.CapturedResultReceiver();
+resultReceiver.onDecodedBarcodesReceived  = <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (result.barcodeResultItems?.length) {
+    resultsContainer.textContent = <span class="hljs-string">&#x27;&#x27;</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> result.barcodeResultItems) {
+      <span class="hljs-comment">// In this example, the barcode results are displayed on the page below the video.</span>
+      resultsContainer.textContent += <span class="hljs-string">`<span class="hljs-subst">${item.formatString}</span>: <span class="hljs-subst">${item.text}</span>\n\n`</span>;
+    }
+  }
+};
+<span class="hljs-keyword">await</span> cvRouter.addResultReceiver(resultReceiver);
+</code></pre>
+<p>You can also write code like this. It is the same.</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">const</span> resultsContainer = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#results&quot;</span>);
+<span class="hljs-keyword">await</span> cvRouter.addResultReceiver({ <span class="hljs-attr">onDecodedBarcodesReceived</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (result.barcodeResultItems?.length) {
+    resultsContainer.textContent = <span class="hljs-string">&#x27;&#x27;</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> result.barcodeResultItems) {
+      <span class="hljs-comment">// In this example, the barcode results are displayed on the page below the video.</span>
+      resultsContainer.textContent += <span class="hljs-string">`<span class="hljs-subst">${item.formatString}</span>: <span class="hljs-subst">${item.text}</span>\n\n`</span>;
+    }
+  }
+}});
+</code></pre>
+<p>Check out <a href="https://www.dynamsoft.com/capture-vision/docs/web/programming/javascript/api-reference/capture-vision-router/captured-result-receiver.html">CapturedResultReceiver</a> for more information.</p>
+<h3 id="step-5-start-process-video-frames">Step 5: Start process video frames</h3>
+<p>With the setup now complete, we can proceed to process the images in two straightforward steps:</p>
+<ol>
+<li>Initiate the image source to commence image acquisition. In our scenario, we invoke the <code>open()</code> method on <code>cameraEnhancer</code> to initiate video streaming and simultaneously initiate the collection of images. These collected images will be dispatched to <code>cvRouter</code> as per its request.</li>
+<li>Define a preset template to commence image processing. In our case, we utilize the "ReadSingleBarcode" template, specifically tailored for processing images containing a single barcode.</li>
+</ol>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">await</span> cameraEnhancer.open();
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+<p><em>Note</em>:</p>
+<ul>
+<li><code>cvRouter</code> is engineered to consistently request images from the image source.</li>
+<li>Various preset templates are at your disposal for barcode reading:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Template Name</th>
+<th>Function Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReadBarcodes_Default</strong></td>
+<td>Scans multiple barcodes by default setting.</td>
+</tr>
+<tr>
+<td><strong>ReadSingleBarcode</strong></td>
+<td>Quickly scans a single barcode.</td>
+</tr>
+<tr>
+<td><strong>ReadBarcodes_SpeedFirst</strong></td>
+<td>Prioritizes speed in scanning multiple barcodes.</td>
+</tr>
+<tr>
+<td><strong>ReadBarcodes_ReadRateFirst</strong></td>
+<td>Maximizes the number of barcodes read.</td>
+</tr>
+<tr>
+<td><strong>ReadBarcodes_Balance</strong></td>
+<td>Balances speed and quantity in reading multiple barcodes.</td>
+</tr>
+<tr>
+<td><strong>ReadDenseBarcodes</strong></td>
+<td>Specialized in reading barcodes with high information density.</td>
+</tr>
+<tr>
+<td><strong>ReadDistantBarcodes</strong></td>
+<td>Capable of reading barcodes from extended distances.</td>
+</tr>
+</tbody>
+</table>
+<p>Read more on the <a href="https://www.dynamsoft.com/capture-vision/docs/web/programming/javascript/api-reference/capture-vision-router/preset-templates.html">preset CaptureVisionTemplates</a>.</p>
+<h2 id="customizing-the-process">Customizing the process</h2>
+<h3 id="1-adjust-the-preset-template-settings">1. Adjust the preset template settings</h3>
+<p>When making adjustments to some basic tasks, we often only need to modify <a href="https://www.dynamsoft.com/capture-vision/docs/web/programming/javascript/api-reference/capture-vision-router/interfaces/simplified-capture-vision-settings.html">SimplifiedCaptureVisionSettings</a>.</p>
+<h4 id="11-change-barcode-settings">1.1. Change barcode settings</h4>
+<p>The preset templates can be updated to meet different requirements. For example, the following code limits the barcode format to QR code.</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.barcodeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+<p>For a list of adjustable barcode settings, check out <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/interfaces/simplified-barcode-reader-settings.html">SimplifiedBarcodeReaderSettings</a> and <a href="https://www.dynamsoft.com/capture-vision/docs/core/enums/barcode-reader/barcode-format.html?lang=js&product=dbr">EnumBarcodeFormat</a>.</p>
+<h4 id="12-retrieve-the-original-image">1.2. Retrieve the original image</h4>
+<p>Additionally, we have the option to modify the template to retrieve the original image containing the barcode.</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.outputOriginalImage = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+<p>Limit the barcode format to QR code, and retrieve the original image containing the barcode, at the same time.</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.outputOriginalImage = <span class="hljs-literal">true</span>;
+settings.barcodeSettings.barcodeFormatIds = Dynamsoft.DBR.EnumBarcodeFormat.BF_QR_CODE;
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+<p>Please be aware that it is necessary to update the <code>CapturedResultReceiver</code> object to obtain the original image. For instance:</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">const</span> EnumCRIT = Dynamsoft.Core.EnumCapturedResultItemType; <span class="hljs-comment">// Enum for captured result item types.</span>
+<span class="hljs-comment">// Create a result receiver to handle the results.</span>
+<span class="hljs-keyword">await</span> cvRouter.addResultReceiver({
+  <span class="hljs-comment">// This function is called when any capture result is received.</span>
+  <span class="hljs-attr">onCapturedResultReceived</span>: <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+    <span class="hljs-comment">//Check for barcode results</span>
+    <span class="hljs-keyword">let</span> barcodeResultItems = result.items.filter(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item.type === EnumCRIT.CRIT_BARCODE);
+    <span class="hljs-keyword">if</span> (barcodeResultItems.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">let</span> image = result.items.filter(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> item.type === EnumCRIT.CRIT_ORIGINAL_IMAGE)[<span class="hljs-number">0</span>]?.imageData; <span class="hljs-comment">// Retrieve the original image.</span>
+      <span class="hljs-keyword">if</span> (image) <span class="hljs-built_in">document</span>.body.appendChild(image.toCanvas()); <span class="hljs-comment">// Append the image to DOM.</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item <span class="hljs-keyword">of</span> barcodeResultItems) {
+        <span class="hljs-comment">// Print each barcode result to the console.</span>
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Barcode: <span class="hljs-subst">${item.text}</span>, Format: <span class="hljs-subst">${item.formatString}</span>`</span>);
+      }
+    }
+  },
+});
+</code></pre>
+<h4 id="13-change-reading-frequency-to-save-power">1.3. Change reading frequency to save power</h4>
+<p>The SDK is initially configured to process images sequentially without any breaks. Although this setup maximizes performance, it can lead to elevated power consumption, potentially causing the device to overheat. In many cases, it's possible to reduce the reading speed while still satisfying business requirements. The following code snippet illustrates how to adjust the SDK to process an image every 500 milliseconds:</p>
+<blockquote>
+  <p>Please bear in mind that in the following code, if an image's processing time is shorter than 500 milliseconds, the SDK will wait for the full 500 milliseconds before proceeding to process the next image. Conversely, if an image's processing time exceeds 500 milliseconds, the subsequent image will be processed immediately upon completion.</p>
+</blockquote>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.minImageCaptureInterval = <span class="hljs-number">500</span>;
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+<h4 id="14-specify-a-scan-region">1.4. Specify a scan region</h4>
+<p>We can specify a scan region to allow the SDK to process only part of the image, improving processing speed. The code snippet below demonstrates how to do this using the <code>cameraEnhancer</code> image source.</p>
+<pre><code class="hljs javascript language-javascript">cameraEnhancer = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraEnhancer.createInstance(cameraView);
+<span class="hljs-comment">// In this example, we set the scan region to cover the central 25% of the image.</span>
+cameraEnhancer.setScanRegion({
+  <span class="hljs-attr">x</span>: <span class="hljs-number">25</span>,
+  <span class="hljs-attr">y</span>: <span class="hljs-number">25</span>,
+  <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+  <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  <span class="hljs-attr">isMeasuredInPercentage</span>: <span class="hljs-literal">true</span>,
+});
+</code></pre>
+<p><em>Note</em>:</p>
+<ol>
+<li>By configuring the region at the image source, images are cropped before processing, removing the need to adjust any further processing settings.</li>
+<li><code>cameraEnhancer</code> enhances interactivity by overlaying a mask on the video, clearly marking the scanning region.</li>
+</ol>
+<p><em>See Also</em>:</p>
+<p><a href="https://www.dynamsoft.com/camera-enhancer/docs/web/programming/javascript/api-reference/acquisition.html#setscanregion">CameraEnhancer::setScanRegion</a></p>
+<!-- Since DCE is always used, no need to use this approach
+
+
+You can use the parameter `roi` (region of interest) together with the parameter `roiMeasuredInPercentage` to configure the SDK to only read a specific region on the image frames. For example, the following code limits the reading in the center 25%( = 50% * 50%) of the image frames:
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.roiMeasuredInPercentage = <span class="hljs-literal">true</span>;
+settings.roi.points = [
+  { <span class="hljs-attr">x</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">25</span> },
+  { <span class="hljs-attr">x</span>: <span class="hljs-number">75</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">25</span> },
+  { <span class="hljs-attr">x</span>: <span class="hljs-number">75</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">75</span> },
+  { <span class="hljs-attr">x</span>: <span class="hljs-number">25</span>, <span class="hljs-attr">y</span>: <span class="hljs-number">75</span> },
+];
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre> -->
+<!--
+* Specify the maximum time allowed for processing each image
+
+You can set the maximum time allowed for processing a single image with the property `timeout`.
+
+> Please be aware that the SDK will cease processing an image if its processing time exceeds the duration specified by the `timeout` parameter. It should not be confused with the previously discussed parameter, `minImageCaptureInterval`.
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">let</span> settings = <span class="hljs-keyword">await</span> cvRouter.getSimplifiedSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+settings.timeout = <span class="hljs-number">500</span>;
+<span class="hljs-keyword">await</span> cvRouter.updateSettings(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>, settings);
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>);
+</code></pre>
+-->
+<h3 id="2-edit-the-preset-templates-directly">2. Edit the preset templates directly</h3>
+<p>The preset templates have many more settings that can be customized to suit your use case best. If you <a href="https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/">download the SDK from Dynamsoft website</a>, you can find the templates under</p>
+<ul>
+<li>"/dynamsoft-barcode-reader-js-11.4.2000/dist/templates/"</li>
+</ul>
+<p>Upon completing the template editing, you can invoke the <code>initSettings</code> method and provide it with the template path as an argument.</p>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">await</span> cvRouter.initSettings(<span class="hljs-string">&quot;PATH-TO-THE-FILE&quot;</span>); <span class="hljs-comment">// E.g. &quot;https://your-website/ReadSingleBarcode.json&quot;)</span>
+<span class="hljs-keyword">await</span> cvRouter.startCapturing(<span class="hljs-string">&quot;ReadSingleBarcode&quot;</span>); <span class="hljs-comment">// Make sure the name matches one of the CaptureVisionTemplates in the template JSON file.</span>
+</code></pre>
+<h3 id="3-important-filter-the-results">3. [Important] Filter the results</h3>
+<p>When processing video frames, the same barcode is often detected multiple times. To improve the user experience, we can use the <a href="https://www.dynamsoft.com/capture-vision/docs/web/programming/javascript/api-reference/utility/multi-frame-result-cross-filter.html">MultiFrameResultCrossFilter</a> object. This object provides two methods for handling duplicate detections, which can be used independently or together, depending on what best suits your application needs:</p>
+<h4 id="method-1-verify-results-across-multiple-frames">Method 1: Verify results across multiple frames</h4>
+<pre><code class="hljs js language-js"><span class="hljs-keyword">let</span> filter = <span class="hljs-keyword">new</span> Dynamsoft.Utility.MultiFrameResultCrossFilter();
+filter.enableResultCrossVerification(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">await</span> cvRouter.addResultFilter(filter);
+</code></pre>
+<p><em>Note</em>:</p>
+<ul>
+<li><code>enableResultCrossVerification</code> was designed to cross-validate the outcomes across various frames in a video streaming scenario, enhancing the reliability of the final results. This validation is particularly crucial for barcodes with limited error correction capabilities, such as 1D codes.</li>
+</ul>
+<h4 id="method-2-eliminate-redundant-results-detected-within-a-short-time-frame">Method 2: Eliminate redundant results detected within a short time frame</h4>
+<pre><code class="hljs js language-js"><span class="hljs-keyword">let</span> filter = <span class="hljs-keyword">new</span> Dynamsoft.Utility.MultiFrameResultCrossFilter();
+filter.enableResultDeduplication(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">await</span> cvRouter.addResultFilter(filter);
+</code></pre>
+<p><em>Note</em>:</p>
+<ul>
+<li><code>enableResultDeduplication</code> was designed to prevent high usage in video streaming scenarios, addressing the repetitive processing of the same code within a short period of time.</li>
+</ul>
+<p>Initially, the filter is set to forget a result 3 seconds after it is first received. During this time frame, if an identical result appears, it is ignored.</p>
+<blockquote>
+  <p>It's important to know that in version 9.x or earlier, the occurrence of an identical result would reset the timer, thus reinitiating the 3-second count at that point. However, in version 10.2.10 and later, an identical result no longer resets the timer but is instead disregarded, and the duration count continues uninterrupted.</p>
+</blockquote>
+<p>Under certain circumstances, this duration can be extended with the method <code>setDuplicateForgetTime()</code>.</p>
+<pre><code class="hljs js language-js"><span class="hljs-keyword">let</span> filter = <span class="hljs-keyword">new</span> Dynamsoft.Utility.MultiFrameResultCrossFilter();
+filter.setDuplicateForgetTime(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-number">5000</span>); <span class="hljs-comment">// Extend the duration to 5 seconds.</span>
+<span class="hljs-keyword">await</span> cvRouter.addResultFilter(filter);
+</code></pre>
+<p>You can also enable both options at the same time:</p>
+<pre><code class="hljs js language-js"><span class="hljs-keyword">let</span> filter = <span class="hljs-keyword">new</span> Dynamsoft.Utility.MultiFrameResultCrossFilter();
+filter.enableResultCrossVerification(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+filter.enableResultDeduplication(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-literal">true</span>);
+filter.setDuplicateForgetTime(<span class="hljs-string">&quot;barcode&quot;</span>, <span class="hljs-number">5000</span>);
+<span class="hljs-keyword">await</span> cvRouter.addResultFilter(filter);
+</code></pre>
+<h3 id="4-add-feedback">4. Add feedback</h3>
+<p>When a barcode is detected within the video stream, its position is immediately displayed within the video. Furthermore, utilizing the "Dynamsoft Camera Enhancer" SDK, we can introduce feedback mechanisms, such as emitting a "beep" sound or triggering a "vibration".</p>
+<p>The following code snippet adds a "beep" sound for when a barcode is found:</p>
+<pre><code class="hljs js language-js"><span class="hljs-keyword">const</span> resultReceiver = <span class="hljs-keyword">new</span> Dynamsoft.CVR.CapturedResultReceiver();
+resultReceiver.onDecodedBarcodesReceived = <span class="hljs-function">(<span class="hljs-params">result</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (result.barcodeResultItems.length &gt; <span class="hljs-number">0</span>) {
+    Dynamsoft.DCE.Feedback.beep();
+  }
+};
+<span class="hljs-keyword">await</span> cvRouter.addResultReceiver(resultReceiver);
+</code></pre>
+<h2 id="customizing-the-ui">Customizing the UI</h2>
+<pre><code class="hljs javascript language-javascript"><span class="hljs-comment">// Create a CameraView instance with default settings</span>
+<span class="hljs-keyword">let</span> cameraView = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance();
+<span class="hljs-comment">// Create a CameraView instance with a specified XML file path, typically a local or remote URL</span>
+<span class="hljs-keyword">let</span> cameraView1 = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance(<span class="hljs-string">&#x27;@engineResourcePath/dce.ui.v5.xml&#x27;</span>);
+<span class="hljs-comment">// Create a CameraView instance within a specified DOM element</span>
+<span class="hljs-keyword">let</span> cameraView2 = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance(<span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;my-ui&#x27;</span>));
+<span class="hljs-comment">// Create a CameraView instance using a custom UI file path</span>
+<span class="hljs-keyword">let</span> cameraView3 = <span class="hljs-keyword">await</span> Dynamsoft.DCE.CameraView.createInstance(<span class="hljs-string">&#x27;url/to/my/ui.xml&#x27;</span>);
+
+<span class="hljs-comment">// Get the UI element associated with the cameraView instance</span>
+<span class="hljs-keyword">let</span> uiElement = cameraView.getUIElement();
+<span class="hljs-comment">// Remove the camera selection dropdown from the CameraView&#x27;s UI element</span>
+uiElement.querySelector(<span class="hljs-string">&#x27;.dce-sel-camera&#x27;</span>).remove();
+<span class="hljs-comment">// Remove the resolution selection dropdown from the CameraView&#x27;s UI element</span>
+uiElement.querySelector(<span class="hljs-string">&#x27;.dce-sel-resolution&#x27;</span>).remove();
+</code></pre>
+<p>The UI is part of the auxiliary SDK "Dynamsoft Camera Enhancer", read more on how to <a href="https://www.dynamsoft.com/barcode-reader/docs/core/programming/features/ui-customization-js.html?lang=js">customize the UI</a>.</p>
+<h2 id="documentation">Documentation</h2>
+<h3 id="api-reference">API Reference</h3>
+<p>You can check out the detailed documentation about the APIs of the SDK at<br />
+<a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2000">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2000</a>.</p>
+<!--  Compatibility is basically not an issue. Pls remove to another place
+
+## System Requirements
+
+DBR requires the following features to work:
+
+- Secure context (HTTPS deployment)
+
+  When deploying your application / website for production, make sure to serve it via a secure HTTPS connection. This is required for two reasons
+
+  - Access to the camera video stream is only granted in a security context. Most browsers impose this restriction.
+  > Some browsers like Chrome may grant the access for `http://127.0.0.1` and `http://localhost` or even for pages opened directly from the local disk (`file:///...`). This can be helpful for temporary development and test.
+
+  - Dynamsoft License requires a secure context to work.
+
+- `WebAssembly`, `Blob`, `URL`/`createObjectURL`, `Web Workers`
+
+  The above four features are required for the SDK to work.
+
+- `MediaDevices`/`getUserMedia`
+
+  This API is required for in-browser video streaming.
+
+- `getSettings`
+
+  This API inspects the video input which is a `MediaStreamTrack` object about its constrainable properties.
+
+The following table is a list of supported browsers based on the above requirements:
+
+  | Browser Name |     Version      |
+  | :----------: | :--------------: |
+  |    Chrome    | v88+<sup>1</sup> |
+  |   Firefox    | v68+<sup>1</sup> |
+  |     Edge     |       v79+       |
+  |    Safari    |       v14+       |
+
+  <sup>1</sup> devices running iOS needs to be on iOS 14.3+ for camera video streaming to work in Chrome, Firefox or other Apps using webviews.
+
+Apart from the browsers, the operating systems may impose some limitations of their own that could restrict the use of the SDK. Browser compatibility ultimately depends on whether the browser on that particular operating system supports the features listed above.
+
+-->
+<h3 id="how-to-upgrade">How to Upgrade</h3>
+<p>If you want to upgrade the SDK from an old version to a newer one, please see <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/migrate-from-v10/index.html">how to upgrade</a>.</p>
+<h3 id="release-notes">Release Notes</h3>
+<p>Learn about what are included in each release at <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/release-notes/index.html">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/release-notes/index.html</a>.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Now that you have got the SDK integrated, you can choose to move forward in the following directions</p>
+<ol>
+<li>Learn how to <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/user-guide/use-in-framework.html">Use in Framework</a></li>
+<li>Check out the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/samples-demos/index.html">Official Samples and Demo</a></li>
+<li>Learn about the <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/index.html">APIs of the SDK</a></li>
 </ol>
     </div>
   </body>
