@@ -108,10 +108,7 @@
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": [
-                    "Code128Decoder",
-                    "EAN13Decoder"
-                  ]
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS",
@@ -166,10 +163,7 @@
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": [
-                    "Code128Decoder",
-                    "EAN13Decoder"
-                  ]
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS",
@@ -204,7 +198,8 @@
                   "Mode": "LM_CONNECTED_BLOCKS"
                 },
                 {
-                  "Mode": "LM_NEURAL_NETWORK"
+                  "Mode": "LM_NEURAL_NETWORK",
+                  "ModelNameArray": ["OneDLocalization","DataMatrixQRCodeLocalization"]
                 }
               ],
               "Stage": "SST_LOCALIZE_CANDIDATE_BARCODES"
@@ -227,7 +222,8 @@
                   "Mode": "DM_DIRECT_BINARIZATION"
                 },
                 {
-                  "Mode": "DM_NEURAL_NETWORK"
+                  "Mode": "DM_NEURAL_NETWORK",
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS"
@@ -282,10 +278,7 @@
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": [
-                    "Code128Decoder",
-                    "EAN13Decoder"
-                  ]
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS",
@@ -394,10 +387,7 @@
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": [
-                    "Code128Decoder",
-                    "EAN13Decoder"
-                  ]
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS",
@@ -465,10 +455,7 @@
                 },
                 {
                   "Mode": "DM_NEURAL_NETWORK",
-                  "ModelNameArray": [
-                    "Code128Decoder",
-                    "EAN13Decoder"
-                  ]
+                  "ModelNameArray": ["EAN13Decoder", "Code128Decoder", "Code39ITFDecoder"]
                 },
                 {
                   "Mode": "DM_DEEP_ANALYSIS",
