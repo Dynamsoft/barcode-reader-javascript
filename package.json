@@ -1,6 +1,6 @@
 {
   "name": "dynamsoft-barcode-reader-bundle",
-  "version": "11.4.2000",
+  "version": "11.4.2001",
   "description": "Dynamsoft Barcode Reader JS is a recognition SDK which enables you to embed barcode reading functionality in your web, desktop, and mobile applications. With a few lines of JavaScript code, you can develop a robust application to scan a linear barcode, QR Code, DaraMatrix, PDF417, and Aztec Code.",
   "main": "dist/dbr.bundle.js",
   "module": "dist/dbr.bundle.esm.js",
@@ -38,7 +38,7 @@
     "updateLink:npm": "updateLink --source=npm",
     "updateLink:zip": "updateLink --source=zip",
     "updateLink:github": "updateLink --source=github",
-    "update:prod": "updatePackage --package=dynamsoft-barcode-reader-bundle --version=auto --env=production --tag=latest && npm pkg delete devDependencies",
+    "update:prod": "updatePackage --package=dynamsoft-barcode-reader-bundle --version=auto --env=production --tag=latest",
     "update:beta": "updatePackage --package=dynamsoft-barcode-reader-bundle --version=auto --env=beta --tag=beta",
     "update:iv": "updatePackage --package=dynamsoft-barcode-reader-bundle --version=auto --env=internalVersion --tag=iv",
     "update:dev": "updatePackage --package=dynamsoft-barcode-reader-bundle --version=auto --env=development --tag=latest",
@@ -71,6 +71,32 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@dynamsoft/dm-camera": "5.0.0-dev-20260424104800",
+    "@dynamsoft/dynamsoft-barcode-reader": "11.4.20-dev-20260417175846",
+    "@dynamsoft/dynamsoft-capture-vision-router": "3.4.20-dev-20260423155104",
+    "@dynamsoft/dynamsoft-code-parser": "3.4.20-dev-20260415104120",
+    "@dynamsoft/dynamsoft-license": "4.4.20-dev-20260415104056",
+    "@dynamsoft/dynamsoft-utility": "2.4.20-dev-20260415104100",
+    "@dynamsoft/rd2-scripts": "0.1.52",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@scannerproxy/curscript-path": "^2.0.6",
+    "@scannerproxy/dlsjs": "3.0.39",
+    "@types/node": "^22.15.3",
+    "dynamsoft-core": "npm:@dynamsoft/dynamsoft-core@4.4.20-dev-20260415104041",
+    "mutable-promise": "^1.1.15",
+    "rollup": "^3.29.3",
+    "rollup-plugin-dts": "^6.1.0",
+    "terser": "^5.43.0",
+    "tslib": "^2.6.2",
+    "typescript": "^4.9.5"
   },
   "overrides": {
     "dynamsoft-core": "$dynamsoft-core"

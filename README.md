@@ -70,7 +70,7 @@ The complete code of the "Hello World" example is shown below
 <body>
 <div id="camera-view-container" style="width: 100%; height: 60vh"></div>
 <textarea id="results" style="width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto" disabled></textarea>
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js"></script>
 <script>
   Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
   Dynamsoft.Core.CoreModule.loadWasm();
@@ -192,19 +192,19 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js"></script>
   ```
 
 - UNPKG
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js"></script>
   ```
 
 <!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 
   ```html
-  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js"></script>
+  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js"></script>
   ```
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
@@ -212,9 +212,9 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - In frameworks like React, Vue and Angular, you may want to add the package as a dependency.
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.4.2000 -E
+  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
   # or
-  yarn add dynamsoft-barcode-reader-bundle@11.4.2000 -E
+  yarn add dynamsoft-barcode-reader-bundle@11.4.2001 -E
   ```
 
   NOTE that in frameworks, you need to [specify the location of the engine files](#2-optional-specify-the-location-of-the-engine-files).
@@ -234,7 +234,7 @@ Besides using the public CDN, you can also download the SDK and host its files o
 - From npm
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.4.2000 -E
+  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
   ```
 
   The resources are located at the path `node_modules/<pkg>`, without `@<version>`. You must copy "dynamsoft-xxx" packages elsewhere and add `@<version>`. The `<version>` can be obtained from `package.json` of each package. Another thing to do is to [specify the engineResourcePaths](#2-optional-specify-the-location-of-the-engine-files) so that the SDK can correctly locate the resources.
@@ -243,7 +243,7 @@ Besides using the public CDN, you can also download the SDK and host its files o
 You can typically include SDK like this:
 
 ```html
-<script src="path/to/dynamsoft-barcode-reader-bundle@11.4.2000/dist/dbr.bundle.js"></script>
+<script src="path/to/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js"></script>
 ```
 <div class="multi-panel-end"></div>
 
@@ -562,7 +562,7 @@ await cvRouter.startCapturing("ReadSingleBarcode");
 
 The preset templates have many more settings that can be customized to suit your use case best. If you [download the SDK from Dynamsoft website](https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/), you can find the templates under
 
-* "/dynamsoft-barcode-reader-js-11.4.2000/dist/templates/"
+* "/dynamsoft-barcode-reader-js-11.4.2001/dist/templates/"
 
 Upon completing the template editing, you can invoke the `initSettings` method and provide it with the template path as an argument.
 
@@ -664,7 +664,7 @@ The UI is part of the auxiliary SDK "Dynamsoft Camera Enhancer", read more on ho
 ### API Reference
 
 You can check out the detailed documentation about the APIs of the SDK at
-[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2000](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2000).
+[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001).
 
 <!--  Compatibility is basically not an issue. Pls remove to another place
 
