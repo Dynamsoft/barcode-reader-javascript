@@ -247,11 +247,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;camera-view-container&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; height: 60vh&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;results&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
-<<<<<<< HEAD
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-=======
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
->>>>>>> _dev
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
   Dynamsoft.Core.CoreModule.loadWasm();
@@ -359,41 +355,24 @@ cvRouter.addResultFilter(filter);
 <ul>
 <li>jsDelivr</li>
 </ul>
-<<<<<<< HEAD
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-=======
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
->>>>>>> _dev
 </code></pre>
 <ul>
 <li>UNPKG</li>
 </ul>
-<<<<<<< HEAD
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-=======
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
->>>>>>> _dev
 </code></pre>
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
 <ul>
 <li>In frameworks like React, Vue and Angular, you may want to add the package as a dependency.</li>
 </ul>
-<<<<<<< HEAD
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
-  <span class="hljs-comment"># or</span>
-  yarn add dynamsoft-barcode-reader-bundle@11.4.2001 -E
-=======
 <pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
   <span class="hljs-comment"># or</span>
   yarn add dynamsoft-barcode-reader-bundle@11.4.3000 -E
->>>>>>> _dev
 </code></pre>
 <p>NOTE that in frameworks, you need to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the location of the engine files</a>.</p>
 <div class="multi-panel-end"></div>
@@ -406,22 +385,14 @@ cvRouter.addResultFilter(filter);
 <p>The resources are located at path <code>dynamsoft-barcode-reader-js-{version-number}/dist/</code>.</p></li>
 <li><p>From npm</p></li>
 </ul>
-<<<<<<< HEAD
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
-=======
 <pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
->>>>>>> _dev
 </code></pre>
 <p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You must copy "dynamsoft-xxx" packages elsewhere and add <code>@&lt;version&gt;</code>. The <code>&lt;version&gt;</code> can be obtained from <code>package.json</code> of each package. Another thing to do is to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the engineResourcePaths</a> so that the SDK can correctly locate the resources.</p>
 <blockquote>
   <p>Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
 </blockquote>
 <p>You can typically include SDK like this:</p>
-<<<<<<< HEAD
-<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-=======
 <pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
->>>>>>> _dev
 </code></pre>
 <div class="multi-panel-end"></div>
 <div class="multi-panel-switching-end"></div>
@@ -687,11 +658,7 @@ settings.timeout = <span class="hljs-number">500</span>;
 <h3 id="2-edit-the-preset-templates-directly">2. Edit the preset templates directly</h3>
 <p>The preset templates have many more settings that can be customized to suit your use case best. If you <a href="https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/">download the SDK from Dynamsoft website</a>, you can find the templates under</p>
 <ul>
-<<<<<<< HEAD
-<li>"/dynamsoft-barcode-reader-js-11.4.2001/dist/templates/"</li>
-=======
 <li>"/dynamsoft-barcode-reader-js-11.4.3000/dist/templates/"</li>
->>>>>>> _dev
 </ul>
 <p>Upon completing the template editing, you can invoke the <code>initSettings</code> method and provide it with the template path as an argument.</p>
 <pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">await</span> cvRouter.initSettings(<span class="hljs-string">&quot;PATH-TO-THE-FILE&quot;</span>); <span class="hljs-comment">// E.g. &quot;https://your-website/ReadSingleBarcode.json&quot;)</span>
@@ -765,11 +732,7 @@ uiElement.querySelector(<span class="hljs-string">&#x27;.dce-sel-resolution&#x27
 <h2 id="documentation">Documentation</h2>
 <h3 id="api-reference">API Reference</h3>
 <p>You can check out the detailed documentation about the APIs of the SDK at<br />
-<<<<<<< HEAD
-<a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001</a>.</p>
-=======
 <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000</a>.</p>
->>>>>>> _dev
 <!--  Compatibility is basically not an issue. Pls remove to another place
 
 ## System Requirements
