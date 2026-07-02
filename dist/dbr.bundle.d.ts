@@ -1265,7 +1265,8 @@ declare const productNameMap: {
     readonly dcvBundle: "dynamsoft-capture-vision-bundle";
 };
 
-export { Arc, AuxiliaryRegionElement, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, CoreModule, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceAdapter, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, blobToDsImage, checkIsLink, compareVersion, createImageData, d, doOrWaitAsyncDependency, e, encodeBMP, getNextTaskID, handleEngineResourcePaths, imagePtrToUint8Array, innerVersions, isArc, isContour, isDSImageData, isDSRect, isDsImageKeyValue, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, resolveDsImageData, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+export { CoreModule, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, ImageSourceAdapter, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, blobToDsImage, checkIsLink, compareVersion, createImageData, d, doOrWaitAsyncDependency, e, encodeBMP, getNextTaskID, handleEngineResourcePaths, imagePtrToUint8Array, innerVersions, isArc, isContour, isDSImageData, isDSRect, isDsImageKeyValue, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, resolveDsImageData, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
+export type { Arc, AuxiliaryRegionElement, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources };
 
 
 
@@ -1806,7 +1807,8 @@ declare enum EnumPresetTemplate {
     PT_RECOGNIZE_UPPERCASE_LETTERS = "RecognizeUppercaseLetters"
 }
 
-export { CaptureVisionRouter, CaptureVisionRouterModule, CapturedResult, CapturedResultFilter, CapturedResultReceiver, EnumImageSourceState, EnumPresetTemplate, ImageSourceStateListener, IntermediateResultReceiver, RawImageResultItem, SimplifiedCaptureVisionSettings };
+export { CaptureVisionRouter, CaptureVisionRouterModule, CapturedResultReceiver, EnumImageSourceState, EnumPresetTemplate, IntermediateResultReceiver };
+export type { CapturedResult, CapturedResultFilter, ImageSourceStateListener, RawImageResultItem, SimplifiedCaptureVisionSettings };
 
 
 declare class BarcodeReaderModule {
@@ -2434,7 +2436,8 @@ interface ParsedResult extends CapturedResultBase {
     parsedResultItems: Array<ParsedResultItem>;
 }
 
-export { CodeParser, CodeParserModule, EnumCodeType, EnumMappingStatus, EnumValidationStatus, ParsedResult, ParsedResultItem };
+export { CodeParser, CodeParserModule, EnumCodeType, EnumMappingStatus, EnumValidationStatus };
+export type { ParsedResult, ParsedResultItem };
 
 
 declare class DocumentNormalizerModule {
@@ -2574,7 +2577,8 @@ interface SimplifiedDocumentNormalizerSettings {
     expectedDocumentsCount: number;
 }
 
-export { CandidateQuadEdgesUnit, CornersUnit, DeskewedImageElement, DeskewedImageResultItem, DeskewedImageUnit, DetectedQuadElement, DetectedQuadResultItem, DetectedQuadsUnit, DocumentNormalizerModule, EnhancedImageElement, EnhancedImageResultItem, EnhancedImageUnit, EnumImageColourMode, LogicLinesUnit, LongLinesUnit, ProcessedDocumentResult, SimplifiedDocumentNormalizerSettings };
+export { DocumentNormalizerModule, EnumImageColourMode };
+export type { CandidateQuadEdgesUnit, CornersUnit, DeskewedImageElement, DeskewedImageResultItem, DeskewedImageUnit, DetectedQuadElement, DetectedQuadResultItem, DetectedQuadsUnit, EnhancedImageElement, EnhancedImageResultItem, EnhancedImageUnit, LogicLinesUnit, LongLinesUnit, ProcessedDocumentResult, SimplifiedDocumentNormalizerSettings };
 
 
 declare class LabelRecognizerModule {
@@ -2788,7 +2792,8 @@ interface RecognizedTextLinesUnit extends IntermediateResultUnit {
     recognizedTextLines: Array<RecognizedTextLineElement>;
 }
 
-export { BufferedCharacterItem, BufferedCharacterItemSet, CharacterCluster, CharacterResult, EnumRawTextLineStatus, LabelRecognizerModule, LocalizedTextLineElement, LocalizedTextLinesUnit, RawTextLine, RawTextLinesUnit, RecognizedTextLineElement, RecognizedTextLinesResult, RecognizedTextLinesUnit, SimplifiedLabelRecognizerSettings, TextLineResultItem, utilsFuncs };
+export { EnumRawTextLineStatus, LabelRecognizerModule, utilsFuncs };
+export type { BufferedCharacterItem, BufferedCharacterItemSet, CharacterCluster, CharacterResult, LocalizedTextLineElement, LocalizedTextLinesUnit, RawTextLine, RawTextLinesUnit, RecognizedTextLineElement, RecognizedTextLinesResult, RecognizedTextLinesUnit, SimplifiedLabelRecognizerSettings, TextLineResultItem };
 
 declare class LicenseModule {
     /**
@@ -2851,7 +2856,8 @@ interface InitConfig {
     pv?: any;
 }
 
-export { InitConfig, LicenseManager, LicenseModule };
+export { LicenseManager, LicenseModule };
+export type { InitConfig };
 
 
 
@@ -3142,7 +3148,8 @@ declare class ImageProcessor {
     static cropAndDeskewImage(image: Blob | DSImageData, roi: Quadrilateral, dstWidth?: number, dstHeight?: number, padding?: number): Promise<DSImageData>;
 }
 
-export { CBarcodeResultItem, CDecodedBarcodeElement, CEdge, CLocalizedBarcodeElement, CQuadrilateral, CapturedResultMap, CrossVerificationCriteria, EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule, resultItemTypeString };
+export { EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule };
+export type { CBarcodeResultItem, CDecodedBarcodeElement, CEdge, CLocalizedBarcodeElement, CQuadrilateral, CapturedResultMap, CrossVerificationCriteria, resultItemTypeString };
 
 
 
