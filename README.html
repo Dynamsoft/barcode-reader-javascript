@@ -229,42 +229,6 @@
 ![downloads](https://img.shields.io/npm/dm/dynamsoft-javascript-barcode.svg)
 ![jsdelivr](https://img.shields.io/jsdelivr/npm/hm/dynamsoft-javascript-barcode.svg) -->
 <p>In this guide, you will learn step by step on how to integrate the DBR-JS SDK into your website.</p>
-<p><span style="font-size:20px">Table of Contents</span></p>
-<ul>
-<li><a href="#barcode-reader-for-your-website---foundational-api-guide">Barcode Reader for Your Website - Foundational API Guide</a></li>
-<li><a href="#hello-world---simplest-implementation">Hello World - Simplest Implementation</a><ul>
-<li><a href="#understand-the-code">Understand the code</a></li>
-<li><a href="#about-the-code">About the code</a></li>
-<li><a href="#run-the-example">Run the example</a></li></ul></li>
-<li><a href="#preparing-the-sdk">Preparing the SDK</a><ul>
-<li><a href="#step-1-include-the-sdk">Step 1: Include the SDK</a></li>
-<li><a href="#step-2-prepare-the-sdk">Step 2: Prepare the SDK</a></li>
-<li><a href="#1-specify-the-license">1. Specify the license</a></li>
-<li><a href="#2-optional-specify-the-location-of-the-engine-files">2. [Optional] Specify the location of the "engine" files</a></li></ul></li>
-<li><a href="#using-the-sdk">Using the SDK</a><ul>
-<li><a href="#step-1-preload-the-module">Step 1: Preload the module</a></li>
-<li><a href="#step-2-create-a-capturevisionrouter-object">Step 2: Create a CaptureVisionRouter object</a></li>
-<li><a href="#step-3-connect-an-image-source">Step 3: Connect an image source</a></li>
-<li><a href="#step-4-register-a-result-receiver">Step 4: Register a result receiver</a></li>
-<li><a href="#step-5-start-process-video-frames">Step 5: Start process video frames</a></li></ul></li>
-<li><a href="#customizing-the-process">Customizing the process</a><ul>
-<li><a href="#1-adjust-the-preset-template-settings">1. Adjust the preset template settings</a></li>
-<li><a href="#11-change-barcode-settings">1.1. Change barcode settings</a></li>
-<li><a href="#12-retrieve-the-original-image">1.2. Retrieve the original image</a></li>
-<li><a href="#13-change-reading-frequency-to-save-power">1.3. Change reading frequency to save power</a></li>
-<li><a href="#14-specify-a-scan-region">1.4. Specify a scan region</a></li>
-<li><a href="#2-edit-the-preset-templates-directly">2. Edit the preset templates directly</a></li>
-<li><a href="#3-important-filter-the-results">3. [Important] Filter the results</a></li>
-<li><a href="#method-1-verify-results-across-multiple-frames">Method 1: Verify results across multiple frames</a></li>
-<li><a href="#method-2-eliminate-redundant-results-detected-within-a-short-time-frame">Method 2: Eliminate redundant results detected within a short time frame</a></li>
-<li><a href="#4-add-feedback">4. Add feedback</a></li></ul></li>
-<li><a href="#customizing-the-ui">Customizing the UI</a></li>
-<li><a href="#documentation">Documentation</a><ul>
-<li><a href="#api-reference">API Reference</a></li>
-<li><a href="#how-to-upgrade">How to Upgrade</a></li>
-<li><a href="#release-notes">Release Notes</a></li></ul></li>
-<li><a href="#next-steps">Next Steps</a></li>
-</ul>
 <h2 id="hello-world---simplest-implementation">Hello World - Simplest Implementation</h2>
 <p>Let's start with the "Hello World" example of the DBR-JS SDK which demonstrates how to use the minimum code to enable a web page to read barcodes from a live video stream.  </p>
 <p><strong>Basic Requirements</strong></p>
@@ -283,7 +247,11 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;camera-view-container&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; height: 60vh&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;results&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
+<<<<<<< HEAD
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+=======
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+>>>>>>> _dev
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
   Dynamsoft.Core.CoreModule.loadWasm();
@@ -318,7 +286,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.4.20/hello-world.html" title="Code in Github" style="text-decoration:none;">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.4.20/basics/hello-world.html" title="Code in Github" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
   </a>
   &nbsp;
@@ -326,7 +294,7 @@
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
   </a>
   &nbsp;
-  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/hello-world.html?ver=11.4.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
   </a>
 </p>
@@ -369,7 +337,7 @@ cvRouter.addResultFilter(filter);
   <p>Read more on <a href="https://www.dynamsoft.com/capture-vision/docs/core/architecture/#capture-vision-router">Capture Vision Router</a>.</p>
 </blockquote>
 <h3 id="run-the-example">Run the example</h3>
-<p>You can run the example deployed to <a href="https://demo.dynamsoft.com/Samples/DBR/JS/hello-world.html?ver=11.4.20&utm_source=github">the Dynamsoft Demo Server</a> or test it with <a href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/">JSFiddle code editor</a>. </p>
+<p>You can run the example deployed to <a href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=github">the Dynamsoft Demo Server</a> or test it with <a href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/">JSFiddle code editor</a>. </p>
 <p>You will be asked to allow access to your camera, after which the video will be displayed on the page. After that, you can point the camera at a barcode to read it.</p>
 <p>When a barcode is decoded, you will see the result text show up under the video and the barcode location will be highlighted in the video feed.</p>
 <p>Alternatively, you can test locally by copying and pasting the code shown above into a local file (e.g. "hello-world.html") and opening it in your browser.</p>
@@ -391,24 +359,41 @@ cvRouter.addResultFilter(filter);
 <ul>
 <li>jsDelivr</li>
 </ul>
+<<<<<<< HEAD
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+=======
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+>>>>>>> _dev
 </code></pre>
 <ul>
 <li>UNPKG</li>
 </ul>
+<<<<<<< HEAD
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 <pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+=======
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+<!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+>>>>>>> _dev
 </code></pre>
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
 <ul>
 <li>In frameworks like React, Vue and Angular, you may want to add the package as a dependency.</li>
 </ul>
+<<<<<<< HEAD
 <pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
   <span class="hljs-comment"># or</span>
   yarn add dynamsoft-barcode-reader-bundle@11.4.2001 -E
+=======
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
+  <span class="hljs-comment"># or</span>
+  yarn add dynamsoft-barcode-reader-bundle@11.4.3000 -E
+>>>>>>> _dev
 </code></pre>
 <p>NOTE that in frameworks, you need to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the location of the engine files</a>.</p>
 <div class="multi-panel-end"></div>
@@ -418,17 +403,25 @@ cvRouter.addResultFilter(filter);
 <ul>
 <li><p>From the website</p>
 <p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.4.20&utm_source=github&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
-<p>The resources are located at path <code>dynamsoft/distributables/&lt;pkg&gt;@&lt;version&gt;</code>.</p></li>
+<p>The resources are located at path <code>dynamsoft-barcode-reader-js-{version-number}/dist/</code>.</p></li>
 <li><p>From npm</p></li>
 </ul>
+<<<<<<< HEAD
 <pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
+=======
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
+>>>>>>> _dev
 </code></pre>
 <p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You must copy "dynamsoft-xxx" packages elsewhere and add <code>@&lt;version&gt;</code>. The <code>&lt;version&gt;</code> can be obtained from <code>package.json</code> of each package. Another thing to do is to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the engineResourcePaths</a> so that the SDK can correctly locate the resources.</p>
 <blockquote>
   <p>Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
 </blockquote>
 <p>You can typically include SDK like this:</p>
+<<<<<<< HEAD
 <pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+=======
+<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+>>>>>>> _dev
 </code></pre>
 <div class="multi-panel-end"></div>
 <div class="multi-panel-switching-end"></div>
@@ -694,7 +687,11 @@ settings.timeout = <span class="hljs-number">500</span>;
 <h3 id="2-edit-the-preset-templates-directly">2. Edit the preset templates directly</h3>
 <p>The preset templates have many more settings that can be customized to suit your use case best. If you <a href="https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/">download the SDK from Dynamsoft website</a>, you can find the templates under</p>
 <ul>
+<<<<<<< HEAD
 <li>"/dynamsoft-barcode-reader-js-11.4.2001/dist/templates/"</li>
+=======
+<li>"/dynamsoft-barcode-reader-js-11.4.3000/dist/templates/"</li>
+>>>>>>> _dev
 </ul>
 <p>Upon completing the template editing, you can invoke the <code>initSettings</code> method and provide it with the template path as an argument.</p>
 <pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">await</span> cvRouter.initSettings(<span class="hljs-string">&quot;PATH-TO-THE-FILE&quot;</span>); <span class="hljs-comment">// E.g. &quot;https://your-website/ReadSingleBarcode.json&quot;)</span>
@@ -768,7 +765,11 @@ uiElement.querySelector(<span class="hljs-string">&#x27;.dce-sel-resolution&#x27
 <h2 id="documentation">Documentation</h2>
 <h3 id="api-reference">API Reference</h3>
 <p>You can check out the detailed documentation about the APIs of the SDK at<br />
+<<<<<<< HEAD
 <a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001</a>.</p>
+=======
+<a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000</a>.</p>
+>>>>>>> _dev
 <!--  Compatibility is basically not an issue. Pls remove to another place
 
 ## System Requirements
