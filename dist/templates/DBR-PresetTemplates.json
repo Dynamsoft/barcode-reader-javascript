@@ -474,16 +474,22 @@
   ],
   "CaptureVisionTemplates": [
     {
+      "Name": "Default",
+      "MaxParallelTasks": 2
+    },
+    {
       "ImageROIProcessingNameArray": [
         "roi-read-barcodes"
       ],
-      "Name": "ReadBarcodes_Default"
+      "Name": "ReadBarcodes_Default",
+      "MaxParallelTasks": 2
     },
     {
       "ImageROIProcessingNameArray": [
         "roi-read-barcodes-speed-first"
       ],
       "Name": "ReadBarcodes_SpeedFirst",
+      "MaxParallelTasks": 2,
       "Timeout": 500
     },
     {
@@ -491,6 +497,7 @@
         "roi-read-barcodes-read-rate"
       ],
       "Name": "ReadBarcodes_ReadRateFirst",
+      "MaxParallelTasks": 2,
       "Timeout": 100000
     },
     {
@@ -498,6 +505,7 @@
         "roi-read-single-barcode"
       ],
       "Name": "ReadSingleBarcode",
+      "MaxParallelTasks": 2,
       "Timeout": 500
     },
     {
@@ -505,6 +513,7 @@
         "roi-read-barcodes-balance"
       ],
       "Name": "ReadBarcodes_Balance",
+      "MaxParallelTasks": 2,
       "Timeout": 100000
     },
     {
@@ -512,6 +521,7 @@
         "roi-read-barcodes-dense"
       ],
       "Name": "ReadDenseBarcodes",
+      "MaxParallelTasks": 2,
       "Timeout": 100000
     },
     {
@@ -519,6 +529,7 @@
         "roi-read-barcodes-distant"
       ],
       "Name": "ReadDistantBarcodes",
+      "MaxParallelTasks": 2,
       "Timeout": 100000
     }
   ],
