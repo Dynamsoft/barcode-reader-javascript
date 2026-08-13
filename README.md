@@ -34,7 +34,7 @@ The complete code of the "Hello World" example is shown below
 <body>
 <div id="camera-view-container" style="width: 100%; height: 60vh"></div>
 <textarea id="results" style="width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto" disabled></textarea>
-<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.6.2000/dist/dbr.bundle.js"></script>
 <script>
   Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
   Dynamsoft.Core.CoreModule.loadWasm();
@@ -70,7 +70,7 @@ The complete code of the "Hello World" example is shown below
 ```
 
 <p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.4.20/basics/hello-world.html" title="Code in Github" style="text-decoration:none;">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.6.20/basics/hello-world.html" title="Code in Github" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
   </a>
   &nbsp;
@@ -78,7 +78,7 @@ The complete code of the "Hello World" example is shown below
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
   </a>
   &nbsp;
-  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.6.20&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
   </a>
 </p>
@@ -123,7 +123,7 @@ The complete code of the "Hello World" example is shown below
 
 ### Run the example
 
-You can run the example deployed to [the Dynamsoft Demo Server](https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=github) or test it with [JSFiddle code editor](https://jsfiddle.net/DynamsoftTeam/csm2f9wb/). 
+You can run the example deployed to [the Dynamsoft Demo Server](https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.6.20&utm_source=github) or test it with [JSFiddle code editor](https://jsfiddle.net/DynamsoftTeam/csm2f9wb/). 
 
 You will be asked to allow access to your camera, after which the video will be displayed on the page. After that, you can point the camera at a barcode to read it.
 
@@ -133,11 +133,11 @@ Alternatively, you can test locally by copying and pasting the code shown above 
 
 > *Secure Contexts*:
 >
-> If you open the web page as `http://` , our SDK may not work correctly because the [MediaDevices: getUserMedia()](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) and other methods only work in [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) (HTTPS, `localhost`, `127.0.0.1`, `file://`), in some or all supporting browsers.
+> If you open the web page as `http://`, our SDK may not work correctly because the [MediaDevices: getUserMedia()](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) and other methods only work in [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) (HTTPS, `localhost`, `127.0.0.1`, `file://`), in some or all supporting browsers.
 >
 > Regarding configuring https on your server, these guides for [nginx](https://nginx.org/en/docs/http/configuring_https_servers.html) / [IIS](https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/) / [tomcat](https://dzone.com/articles/setting-ssl-tomcat-5-minutes) / [nodejs](https://nodejs.org/docs/v0.4.1/api/tls.html) might help.
 >
-> If the test doesn't go as expected, you can [contact us](https://www.dynamsoft.com/company/contact/?ver=11.4.20&utm_source=github&product=dbr&package=js).
+> If the test doesn't go as expected, you can [contact us](https://www.dynamsoft.com/company/contact/?ver=11.6.20&utm_source=github&product=dbr&package=js).
 
 ## Preparing the SDK
 
@@ -156,19 +156,19 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - jsDelivr
 
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.6.2000/dist/dbr.bundle.js"></script>
   ```
 
 - UNPKG
 
   ```html
-  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js"></script>
+  <script src="https://unpkg.com/dynamsoft-barcode-reader-bundle@11.6.2000/dist/dbr.bundle.js"></script>
   ```
 
 <!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
 
   ```html
-  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js"></script>
+  <script src="https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.6.2000/dist/dbr.bundle.js"></script>
   ```
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
@@ -176,9 +176,9 @@ The simplest way to include the SDK is to use either the [jsDelivr](https://jsde
 - In frameworks like React, Vue and Angular, you may want to add the package as a dependency.
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
+  npm i dynamsoft-barcode-reader-bundle@11.6.2000 -E
   # or
-  yarn add dynamsoft-barcode-reader-bundle@11.4.3000 -E
+  yarn add dynamsoft-barcode-reader-bundle@11.6.2000 -E
   ```
 
   NOTE that in frameworks, you need to [specify the location of the engine files](#2-optional-specify-the-location-of-the-engine-files).
@@ -191,14 +191,14 @@ Besides using the public CDN, you can also download the SDK and host its files o
 
 - From the website
 
-  [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.4.20&utm_source=github&product=dbr&package=js)
+  [Download Dynamsoft Barcode Reader JavaScript Package](https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.6.20&utm_source=github&product=dbr&package=js)
 
-  The resources are located at path `dynamsoft-barcode-reader-js-{version-number}/dist/`.
+  The resources are located at the path `dynamsoft-barcode-reader-js-{version-number}/dist/`.
 
 - From npm
 
   ```sh
-  npm i dynamsoft-barcode-reader-bundle@11.4.3000 -E
+  npm i dynamsoft-barcode-reader-bundle@11.6.2000 -E
   ```
 
   The resources are located at the path `node_modules/<pkg>`, without `@<version>`. You must copy "dynamsoft-xxx" packages elsewhere and add `@<version>`. The `<version>` can be obtained from `package.json` of each package. Another thing to do is to [specify the engineResourcePaths](#2-optional-specify-the-location-of-the-engine-files) so that the SDK can correctly locate the resources.
@@ -207,7 +207,7 @@ Besides using the public CDN, you can also download the SDK and host its files o
 You can typically include SDK like this:
 
 ```html
-<script src="path/to/dynamsoft-barcode-reader-bundle@11.4.3000/dist/dbr.bundle.js"></script>
+<script src="path/to/dynamsoft-barcode-reader-bundle@11.6.2000/dist/dbr.bundle.js"></script>
 ```
 <div class="multi-panel-end"></div>
 
@@ -215,9 +215,9 @@ You can typically include SDK like this:
 
 *Note*:
 
-* Certain legacy web application servers may lack support for the `application/wasm` mimetype for .wasm files. To address this, you have two options:
-  1. Upgrade your web application server to one that supports the `application/wasm` mimetype.
-  2. Manually define the mimetype on your server. You can refer to the guides for [apache](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings) / [IIS](https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap) / [nginx](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types).
+* Certain legacy web application servers may lack support for the `application/wasm` MIME type for .wasm files. To address this, you have two options:
+  1. Upgrade your web application server to one that supports the `application/wasm` MIME type.
+  2. Manually define the MIME type on your server. You can refer to the guides for [apache](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings) / [IIS](https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap) / [nginx](https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types).
 
 * To work properly, the SDK requires a few engine files, which are relatively large and may take quite a few seconds to download. We recommend that you set a longer cache time for these engine files, to maximize the performance of your web application.
 
@@ -239,26 +239,26 @@ To enable the SDK's functionality, you must provide a valid license. Utilize the
 Dynamsoft.License.LicenseManager.initLicense("DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9");
 ```
 
-As previously stated, the key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" serves as a test license valid for 24 hours, applicable to any newly authorized browser. To test the SDK further, you can request a 30-day free trial license via the <a href="https://www.dynamsoft.com/customer/license/trialLicense?ver=11.4.20&utm_source=github&product=dbr&package=js" target="_blank">Request a Trial License</a> link.
+As previously stated, the key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" serves as a test license valid for 24 hours, applicable to any newly authorized browser. To test the SDK further, you can request a 30-day free trial license via the <a href="https://www.dynamsoft.com/customer/license/trialLicense?ver=11.6.20&utm_source=github&product=dbr&package=js" target="_blank">Request a Trial License</a> link.
 
 > Upon registering a Dynamsoft account and obtaining the SDK package from the official website, Dynamsoft will automatically create a 30-day free trial license and embed the corresponding license key into all the provided SDK samples.
 
 #### 2. [Optional] Specify the location of the "engine" files
 
-This step is generally necessary when utilizing frameworks such as Angular, React, Vue, or when managing the hosting of resource files yourself.
+This step is optional and is only necessary if you need to specify a custom location for the engine files, such as when hosting these resources yourself or when your project's build setup does not automatically resolve them from the default location.
 
 The purpose is to tell the SDK where to find the engine files (\*.worker.js, \*.wasm.js and \*.wasm, etc.).
 
 ```ts
-// in framework
+// In an ES Module
 import { CoreModule } from "dynamsoft-barcode-reader-bundle";
 CoreModule.engineResourcePaths.rootDirectory = "https://cdn.jsdelivr.net/npm/";
 ```
 ```js
-// in pure js
+// Using the global namespace
 Dynamsoft.Core.CoreModule.engineResourcePaths.rootDirectory = "https://cdn.jsdelivr.net/npm/";
 ```
-These code uses the jsDelivr CDN as an example, feel free to change it to your own location.
+This code uses the jsDelivr CDN as an example, feel free to change it to your own location.
 
 ## Using the SDK
 
@@ -526,7 +526,7 @@ await cvRouter.startCapturing("ReadSingleBarcode");
 
 The preset templates have many more settings that can be customized to suit your use case best. If you [download the SDK from Dynamsoft website](https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/), you can find the templates under
 
-* "/dynamsoft-barcode-reader-js-11.4.3000/dist/templates/"
+* "/dynamsoft-barcode-reader-js-11.6.2000/dist/templates/"
 
 Upon completing the template editing, you can invoke the `initSettings` method and provide it with the template path as an argument.
 
@@ -628,7 +628,7 @@ The UI is part of the auxiliary SDK "Dynamsoft Camera Enhancer", read more on ho
 ### API Reference
 
 You can check out the detailed documentation about the APIs of the SDK at
-[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.3000).
+[https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.6.2000](https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.6.2000).
 
 <!--  Compatibility is basically not an issue. Pls remove to another place
 
@@ -641,7 +641,7 @@ DBR requires the following features to work:
   When deploying your application / website for production, make sure to serve it via a secure HTTPS connection. This is required for two reasons
   
   - Access to the camera video stream is only granted in a security context. Most browsers impose this restriction.
-  > Some browsers like Chrome may grant the access for `http://127.0.0.1` and `http://localhost` or even for pages opened directly from the local disk (`file:///...`). This can be helpful for temporary development and test.
+  > Some browsers like Chrome may grant access for `http://127.0.0.1` and `http://localhost` or even for pages opened directly from the local disk (`file:///...`). This can be helpful for temporary development and testing.
   
   - Dynamsoft License requires a secure context to work.
 

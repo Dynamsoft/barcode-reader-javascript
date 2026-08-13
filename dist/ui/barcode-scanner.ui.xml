@@ -83,7 +83,7 @@
       </svg>
       <svg class="btn-close"
         id="closed" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="26" height="26" viewBox="0 0 24 24">
+        width="26" height="26" viewBox="-0.25 -0.25 24.5 24.5">
         <g id="Group_2681" data-name="Group 2681">
           <path id="Path_8292" data-name="Path 8292"
             d="M12,0h0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0m0,1.914A10.086,10.086,0,1,1,1.914,12,10.1,10.1,0,0,1,12,1.914"
@@ -236,11 +236,11 @@
       <div class="result-count">x1</div>
       <div class="delete-icon">
         <svg id="delete" class="icon" xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16"
+          xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="-0.25 -0.25 16.5 16.5"
           style="vertical-align: middle;">
           <defs>
             <clipPath id="clip-path">
-              <rect id="Rectangle_2735" data-name="Rectangle 2735" width="16" height="16"
+              <rect id="Rectangle_2735" data-name="Rectangle 2735" x="-0.25" y="-0.25" width="16.5" height="16.5"
                 fill="#aaa" />
             </clipPath>
           </defs>

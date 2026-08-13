@@ -302,15 +302,20 @@ declare enum EnumImageTagType {
 }
 
 declare enum EnumPDFReadingMode {
-    /** Outputs vector data found in the PDFs.*/
+    /**
+     * Deprecated. Covered by PDFRM_MULTIMODAL.
+     */
     PDFRM_VECTOR = 1,
-    /** The default value.
-     * Outputs raster data found in the PDFs.
-     * Depending on the argument Resolution,
-     * the SDK may rasterize the PDF pages.
-     * Check the template for available argument settings.*/
+    /**
+     * Renders the entire page as a bitmap regardless of object type.
+     */
     PDFRM_RASTER = 2,
-    PDFRM_REV = -2147483648
+    /**
+     * Extracts multimodal information from a PDF, including vector graphics,
+     * text content, and embedded images, which can be used for subsequent
+     * tasks such as barcode reading, text recognition, and document analysis.
+     */
+    PDFRM_MULTIMODAL = 3
 }
 
 declare enum EnumRasterDataSource {
@@ -508,6 +513,26 @@ declare enum EnumModuleName {
     MN_DYNAMSOFT_CAPTURE_VISION_STD = "std"
 }
 
+/**
+ * Specifies how a numeric value should be interpreted relative to a reference dimension.
+ * * Used wherever a numeric parameter (e.g. spacing, ROI coordinates) can be expressed
+ * either as an absolute pixel count or as a proportion of a reference size.
+ */
+declare enum EnumMeasureUnit {
+    MU_PIXEL = 0,// The value is an absolute pixel count.
+    MU_PERCENTAGE = 1
+}
+
+declare enum EnumWasmType {
+    BASELINE = "baseline",
+    ML = "ml",
+    ML_SIMD = "ml-simd",
+    ML_SIMD_PTHREAD = "ml-simd-pthread",
+    ML_SIMD_WITH_PDF = "ml-simd-with-pdf",
+    ML_SIMD_PTHREAD_WITH_PDF = "ml-simd-pthread-with-pdf",
+    AUTO = "auto"
+}
+
 type WorkerAutoResources = {
     [key in EnumModuleName]?: {
         js?: boolean;
@@ -579,9 +604,8 @@ interface WasmVersions {
 interface MapController {
     [key: string]: ((body: any, taskID: number, instanceID?: number) => void);
 }
-type WasmType = "baseline" | "ml" | "ml-simd" | "ml-simd-pthread" | "auto";
 interface WasmLoadOptions {
-    wasmType?: WasmType;
+    wasmType?: EnumWasmType;
     pthreadPoolSize?: number;
 }
 type MimeType = "image/png" | "image/jpeg" | "image/bmp";
@@ -729,9 +753,9 @@ interface ImageSourceErrorListener {
 }
 
 interface PDFReadingParameter {
-    mode: EnumPDFReadingMode;
-    dpi: number;
-    rasterDataSource: EnumRasterDataSource;
+    mode?: EnumPDFReadingMode;
+    dpi?: number;
+    rasterDataSource?: EnumRasterDataSource;
 }
 
 interface Quadrilateral {
@@ -949,30 +973,22 @@ interface AuxiliaryRegionElement extends RegionObjectElement {
     confidence: number;
 }
 
-declare const mapAsyncDependency: {
-    [key: string]: any;
-};
-declare const waitAsyncDependency: (depName: string | string[]) => Promise<void>;
-declare const doOrWaitAsyncDependency: (depName: string | string[], asyncFunc: () => Promise<void>) => Promise<void>;
 declare const imagePtrToUint8Array: (data: {
     ptr: number;
     length: number;
-}) => Promise<Uint8Array>;
+}) => Promise<Uint8Array<ArrayBufferLike>>;
 declare const resolveDsImageData: (point: number) => Promise<DSImageData>;
 declare let worker: Worker;
 declare const getNextTaskID: () => number;
 declare const mapTaskCallBack: {
     [key: string]: (body: any) => void;
 };
-declare let onLog: (message: string) => void | undefined;
-declare const setOnLog: (value: typeof onLog) => void;
 declare let bDebug: boolean;
 declare const setBDebug: (value: boolean) => void;
 declare const innerVersions: InnerVersions;
 declare const mapPackageRegister: {
     [key: string]: any;
 };
-declare const workerAutoResources: WorkerAutoResources;
 declare class CoreModule {
     static get engineResourcePaths(): EngineResourcePaths;
     static set engineResourcePaths(value: EngineResourcePaths);
@@ -982,8 +998,7 @@ declare class CoreModule {
     static get bSupportIRTModule(): number;
     private static _versions;
     static get versions(): any;
-    static get _onLog(): (message: string) => void;
-    static set _onLog(value: (message: string) => void);
+    static _onLog: (message: string) => void;
     static get _bDebug(): boolean;
     static set _bDebug(value: boolean);
     static _bundleEnv: "DCV" | "DBR";
@@ -991,14 +1006,14 @@ declare class CoreModule {
     private static _wasmLoadOptions;
     static get wasmLoadOptions(): WasmLoadOptions;
     static set wasmLoadOptions(options: WasmLoadOptions);
-    static loadedWasmType: Exclude<WasmType, "auto">;
+    static loadedWasmType: Exclude<EnumWasmType, "auto">;
     /**
      * Initiates the loading process for the .wasm file(s) corresponding to the specified module(s).
      * If a module relies on other modules, the other modules will be loaded as well.
      *
      * @returns A promise that resolves when the resources have been successfully released. It does not provide any value upon resolution.
      */
-    static isModuleLoaded(name?: string): boolean;
+    static isModuleLoaded(): boolean;
     static loadWasm(): Promise<void>;
     /**
      * An event that fires during the loading of a WebAssembly module (.wasm).
@@ -1227,9 +1242,9 @@ declare const isQuad: (value: any) => value is Quadrilateral;
 declare const isRect: (value: any) => value is Rect;
 
 declare const requestResource: (url: string, type: "text" | "blob" | "arraybuffer", callbacks?: {
-    loadstartCallback?: () => any;
-    progressCallback?: (pe: any) => any;
-    loadendCallback?: () => any;
+    loadstartCallback?: (xhr: XMLHttpRequest) => any;
+    progressCallback?: (pe: any, xhr: XMLHttpRequest) => any;
+    loadendCallback?: (xhr: XMLHttpRequest) => any;
 }) => Promise<any>;
 declare const checkIsLink: (str: string) => boolean;
 declare const compareVersion: (strV1: string, strV2: string) => number;
@@ -1265,8 +1280,8 @@ declare const productNameMap: {
     readonly dcvBundle: "dynamsoft-capture-vision-bundle";
 };
 
-export { CoreModule, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, ImageSourceAdapter, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, blobToDsImage, checkIsLink, compareVersion, createImageData, d, doOrWaitAsyncDependency, e, encodeBMP, getNextTaskID, handleEngineResourcePaths, imagePtrToUint8Array, innerVersions, isArc, isContour, isDSImageData, isDSRect, isDsImageKeyValue, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapAsyncDependency, mapPackageRegister, mapTaskCallBack, onLog, productNameMap, requestResource, resolveDsImageData, setBDebug, setOnLog, waitAsyncDependency, worker, workerAutoResources };
-export type { Arc, AuxiliaryRegionElement, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmType, WasmVersions, WorkerAutoResources };
+export { CoreModule, EnumBufferOverflowProtectionMode, EnumCapturedResultItemType, EnumColourChannelUsageType, EnumCornerType, EnumCrossVerificationStatus, EnumErrorCode, EnumGrayscaleEnhancementMode, EnumGrayscaleTransformationMode, EnumImageCaptureDistanceMode, EnumImageFileFormat, EnumImagePixelFormat, EnumImageTagType, EnumIntermediateResultUnitType, EnumMeasureUnit, EnumModuleName, EnumPDFReadingMode, EnumRasterDataSource, EnumRegionObjectElementType, EnumSectionType, EnumWasmType, ImageSourceAdapter, _saveToFile, _toBlob, _toCanvas, _toImage, bDebug, blobToDsImage, checkIsLink, compareVersion, createImageData, d, e, encodeBMP, getNextTaskID, handleEngineResourcePaths, imagePtrToUint8Array, innerVersions, isArc, isContour, isDSImageData, isDSRect, isDsImageKeyValue, isImageTag, isLineSegment, isObject, isOriginalDsImageData, isPoint, isPolygon, isQuad, isRect, isSimdSupported, mapPackageRegister, mapTaskCallBack, productNameMap, requestResource, resolveDsImageData, setBDebug, worker };
+export type { Arc, AuxiliaryRegionElement, BinaryImageUnit, CapturedResultBase, CapturedResultItem, ColourImageUnit, Contour, ContoursUnit, Corner, DSFile, DSImageData, DSRect, DwtInfo, Edge, EngineResourcePaths, EnhancedGrayscaleImageUnit, ErrorInfo, FileImageTag, GrayscaleImageUnit, ImageSourceErrorListener, ImageTag, InnerVersions, IntermediateResult, IntermediateResultExtraInfo, IntermediateResultUnit, LineSegment, LineSegmentsUnit, MapController, MimeType, ObservationParameters, OriginalImageResultItem, PDFReadingParameter, PathInfo, Point, Polygon, PostMessageBody, PredetectedRegionElement, PredetectedRegionsUnit, Quadrilateral, Rect, RegionObjectElement, ScaledColourImageUnit, ShortLinesUnit, TextRemovedBinaryImageUnit, TextZone, TextZonesUnit, TextureDetectionResultUnit, TextureRemovedBinaryImageUnit, TextureRemovedGrayscaleImageUnit, TransformedGrayscaleImageUnit, Warning, WasmLoadOptions, WasmVersions, WorkerAutoResources };
 
 
 
@@ -1431,6 +1446,10 @@ interface SimplifiedCaptureVisionSettings {
      */
     timeout: number;
     /**
+     * Specifies the maximum number of parallel tasks that can be used for image capture and recognition.
+     */
+    maxParallelTasks: number;
+    /**
      * Specifies the shortest time span, in milliseconds, that must elapse between two successive image captures. Opting for a higher interval decreases capture frequency, which can lower the system's processing load and conserve energy. On the other hand, a smaller interval value increases the frequency of image captures, enhancing the system's responsiveness.
      * @remarks Handling of Special Values:
      * 0 (The default setting): Adopting this value means the image source queues up the next image for immediate availability once processing of the current image is finished, facilitating continuous, uninterrupted image processing.
@@ -1440,14 +1459,6 @@ interface SimplifiedCaptureVisionSettings {
      * Specifies the basic settings for the barcode reader module. It is of type `SimplifiedBarcodeReaderSettings`.
      */
     barcodeSettings: SimplifiedBarcodeReaderSettings;
-    /**
-     * Specifies the basic settings for the document normalizer module. It is of type `SimplifiedDocumentNormalizerSettings`.
-     */
-    documentSettings: SimplifiedDocumentNormalizerSettings;
-    /**
-     * Specifies the basic settings for the label recognizer module. It is of type `SimplifiedLabelRecognizerSettings`.
-     */
-    labelSettings: SimplifiedLabelRecognizerSettings;
 }
 
 interface CapturedResultFilter {
@@ -1458,6 +1469,11 @@ interface CapturedResultFilter {
     onParsedResultsReceived?: (result: ParsedResult) => void;
     getFilteredResultItemTypes(): number;
 }
+
+type PDFOptions = {
+    pages?: number[];
+    dpi?: number;
+};
 
 declare class CaptureVisionRouter {
     #private;
@@ -1494,7 +1510,6 @@ declare class CaptureVisionRouter {
     private _minImageCaptureInterval;
     private _averageProcessintTimeArray;
     private _averageFetchImageTimeArray;
-    private _currentSettings;
     private _averageTime;
     private _dynamsoft;
     private _enhancedFeaturesIrr;
@@ -1608,6 +1623,24 @@ declare class CaptureVisionRouter {
      * @returns A promise that resolves with a `CapturedResult` object which contains the derived information from the image processed.
      */
     capture(imageOrFile: Blob | string | DSImageData | HTMLImageElement | HTMLVideoElement | HTMLCanvasElement, templateName?: string): Promise<CapturedResult>;
+    /**
+     * Captures multiple pages from a PDF file and returns the extracted content for each specified page.
+     *
+     * This method processes a PDF document and extracts data from one or more pages using the
+     * PDFRM_MULTIMODAL capture mode. The extracted content is returned as an array of results,
+     * one per requested page.
+     *
+     * @param file - The PDF file to process. Can be provided as a Blob object or a file path string.
+     * @param templateName - The name of the template to use for extraction.
+     * @param options - Optional configuration parameters for the capture operation.
+     * @param options.pages - An array of page numbers (0-indexed) to extract. If empty or omitted,
+     *                        all pages in the document will be processed.
+     * @param options.dpi - The DPI (dots per inch) resolution for rendering. Defaults to 300.
+     *
+     * @returns A Promise that resolves to an array of CapturedResult objects, where each object
+     *          corresponds to the extracted data from a single page in the order specified.
+    */
+    captureMultiPages(file: Blob | string, templateName?: string, options?: PDFOptions): Promise<CapturedResult[]>;
     private _captureDsimage;
     private _captureUrl;
     private _captureBase64;
@@ -1687,6 +1720,8 @@ declare class CaptureVisionRouter {
         models: string[];
         specss: string[];
     }>;
+    static disposeCvrWasm(instanceID: number): void;
+    static _fr4DisposeCvrWasm: FinalizationRegistry<number>;
     /**
      * Releases all resources used by the `CaptureVisionRouter` instance.
      *
@@ -2580,6 +2615,15 @@ interface SimplifiedDocumentNormalizerSettings {
 export { DocumentNormalizerModule, EnumImageColourMode };
 export type { CandidateQuadEdgesUnit, CornersUnit, DeskewedImageElement, DeskewedImageResultItem, DeskewedImageUnit, DetectedQuadElement, DetectedQuadResultItem, DetectedQuadsUnit, EnhancedImageElement, EnhancedImageResultItem, EnhancedImageUnit, LogicLinesUnit, LongLinesUnit, ProcessedDocumentResult, SimplifiedDocumentNormalizerSettings };
 
+declare class ImageProcessingModule {
+    /**
+     * Returns the version of the image processing module.
+     */
+    static getVersion(): string;
+}
+
+export { ImageProcessingModule };
+
 
 declare class LabelRecognizerModule {
     #private;
@@ -2743,7 +2787,10 @@ interface BufferedCharacterItem {
     /** The image data of the buffered character. */
     imageData: DSImageData;
     /**  An array of features, each feature object contains feature id and value of the buffered character.*/
-    features: Map<number, number>;
+    features: Array<{
+        id: number;
+        value: number;
+    }>;
 }
 
 interface CharacterCluster {
@@ -2828,7 +2875,7 @@ declare class LicenseManager {
     */
     static initLicense(license: string, options?: {
         executeNow: boolean;
-    } | boolean): void | Promise<void>;
+    } | boolean): Promise<void>;
     /**
      * The following methods should be called before `initLicense`.
      */
@@ -3035,7 +3082,7 @@ declare class ImageIO {
      *
      * @returns A promise that resolves with an object containing the image data as a Uint8Array and the file format.
      */
-    static saveToMemory(image: Blob, fileFormat: string): Promise<number>;
+    static saveToMemory(image: Blob, fileFormat?: string): Promise<number>;
     /**
      * This method reads an image from a Base64-encoded string. The image format is automatically detected based on the content of the string.
      *
@@ -3052,7 +3099,7 @@ declare class ImageIO {
      *
      * @returns A promise that resolves with a Base64-encoded string representing the image.
      */
-    static saveToBase64String(image: Blob | DSImageData, fileFormat: string): Promise<string>;
+    static saveToBase64String(image: Blob | DSImageData, fileFormat?: string): Promise<string>;
 }
 
 declare class ImageDrawer {
@@ -3148,8 +3195,121 @@ declare class ImageProcessor {
     static cropAndDeskewImage(image: Blob | DSImageData, roi: Quadrilateral, dstWidth?: number, dstHeight?: number, padding?: number): Promise<DSImageData>;
 }
 
-export { EnumFilterType, ImageDrawer, ImageIO, ImageProcessor, MultiFrameResultCrossFilter, UtilityModule };
-export type { CBarcodeResultItem, CDecodedBarcodeElement, CEdge, CLocalizedBarcodeElement, CQuadrilateral, CapturedResultMap, CrossVerificationCriteria, resultItemTypeString };
+/**
+ * Strategy for the layout engine to organize quadrilaterals.
+ */
+declare enum EnumLayoutPattern {
+    LP_UNKNOWN = 0,// Algorithm automatically detects the best layout pattern.
+    LP_LINES = 1,// Elements are organized into sequential lines (rows or columns).
+    LP_MATRIX = 2
+}
+
+/**
+ * Configuration for a specific orientation axis.
+ * Axis 0 is primary, axis 1 is secondary.
+ */
+interface LayoutAxis {
+    /** Expected number of elements along this axis. -1 means auto-detect. */
+    elementCount: number;
+    /** Whether the layout uses an offset / staggered pattern. */
+    isStaggered: boolean;
+    /** Target angle in [0, 180]. -1 means auto-detect. */
+    angle: number;
+    /** Whether equal spacing is enforced along this axis. */
+    isEqualSpacing: boolean;
+    /**
+     * Spacing between elements along this axis.
+     * -1 means auto-detect.
+     */
+    spacing: number;
+    /** Interpretation of the spacing value. */
+    spacingUnit: EnumMeasureUnit;
+}
+
+/**
+ * Input parameters to guide layout analysis.
+ */
+interface LayoutAnalysisParameter {
+    /** Desired layout pattern. LP_UNKNOWN means auto-detect. */
+    pattern: EnumLayoutPattern;
+    /** Configuration for primary and secondary axes. */
+    axes: [LayoutAxis, LayoutAxis];
+    /**
+     * Width of the source image in pixels.
+     * 0 means no boundary check.
+     */
+    inputImageWidth: number;
+    /**
+     * Height of the source image in pixels.
+     * 0 means no boundary check.
+     */
+    inputImageHeight: number;
+}
+
+/**
+ * Origin of the element.
+ */
+declare enum EnumLayoutElementSource {
+    LES_NONE = 0,// No element exists at this logical grid position (used for alignment in non-uniform rows).
+    LES_INPUT = 1,// Element is provided from the original input array.
+    LES_INFERRED = 2
+}
+
+/**
+ * Represents an element in the analyzed layout.
+ */
+interface LayoutElement {
+    /** Geometric coordinates of the element. */
+    quad: Quadrilateral;
+    /** Origin of this element. */
+    source: EnumLayoutElementSource;
+}
+
+/**
+ * Comprehensive results of layout analysis.
+ */
+interface LayoutAnalysisResult {
+    /** Newly generated quadrilaterals. */
+    inferredQuads: Array<Quadrilateral>;
+    /** Number of rows in the logical grid. */
+    rowCount: number;
+    /** Maximum number of columns across all rows. */
+    colCount: number;
+    /**
+     * 2D layout grid.
+     * In line mode, shorter rows can be padded with LES_NONE elements.
+     */
+    elements: Array<Array<LayoutElement>>;
+    /** Actual layout pattern detected by the engine. */
+    detectedPattern: EnumLayoutPattern;
+    /**
+      * Error information.
+      * errorCode indicates the execution result.
+      * errorString provides a human-readable description.
+      * For successful execution, errorCode should be 0 and
+      * errorString may be empty.
+      */
+    errorInfo: ErrorInfo;
+}
+
+/**
+ * High-performance layout analysis engine.
+ */
+declare class LayoutAnalyzer {
+    /**
+     * Performs layout analysis on the input quadrilaterals.
+     *
+     * @param inputQuads Input quadrilaterals.
+     * @param parameter Optional analysis constraints.
+     * @returns A promise that resolves with the analysis result.
+     */
+    static analyze(inputQuads: Array<Quadrilateral>, parameter?: LayoutAnalysisParameter): Promise<LayoutAnalysisResult>;
+}
+
+export { EnumFilterType, EnumLayoutElementSource, EnumLayoutPattern, ImageDrawer, ImageIO, ImageProcessor, LayoutAnalyzer, MultiFrameResultCrossFilter, UtilityModule };
+export type { CBarcodeResultItem, CDecodedBarcodeElement, CEdge, CLocalizedBarcodeElement, CQuadrilateral, CapturedResultMap, CrossVerificationCriteria, LayoutAnalysisParameter, LayoutAnalysisResult, LayoutAxis, LayoutElement, resultItemTypeString };
+
+
 
 
 
@@ -3305,6 +3465,7 @@ interface Camera {
 }
 declare class Camera {
     static _cameraNameMatcher: string[][];
+    static _currentOpenedCamera: Camera | null;
     static _mapDeviceInfo: {
         [deviceId: string]: CameraInfo;
     };
@@ -3312,25 +3473,25 @@ declare class Camera {
     _video: HTMLVideoElement;
     _coreInnerLayer: HTMLElement;
     _coreOuterLayer: HTMLElement;
-    _regionBoxWrapper: HTMLElement;
-    _regionBoxMask: HTMLElement;
-    _regionBoxBorder: HTMLElement;
+    _regionBoxWrapper?: HTMLElement | null;
+    _regionBoxMask?: HTMLElement | null;
+    _regionBoxBorder?: HTMLElement | null;
     _objectFit: 'contain' | 'cover' | 'fill';
     _uiInlineScript2Blob: boolean;
     _uiInternalCss2Blob: boolean;
     _uiInternalCss2ExistedSheet: boolean;
     _ui?: HTMLElement;
-    _pOpen: Promise<void> & {
+    _pOpen?: (Promise<void> & {
         isPending: boolean;
         resolve: () => void;
         reject: () => void;
-    };
+    }) | null;
     _getUserMediaTimeout: number;
     _paused: boolean;
     _shouldClose: boolean;
     _cameraChangedWhenPaused: boolean;
-    _requestedCamera: CameraPreset | MediaTrackConstraints;
-    _requestedResolution: MediaTrackConstraints;
+    _requestedCamera: CameraPreset | MediaTrackConstraints | null;
+    _requestedResolution: MediaTrackConstraints | null;
     _regionBox: {
         width?: number;
         height?: number;
@@ -3352,6 +3513,8 @@ declare class Camera {
     static _countEnsureResolution: number;
     static _videoPlayTimeout: number;
     static _bReopenWhenChangeResolution: boolean;
+    _bTryAnotherCameraWhenFailToOpen: boolean;
+    _constraints4Fallback: MediaTrackConstraints | true;
     static _arrConstructors: CameraZsFunc[];
     static _arrOnOpen: CameraZsFunc[];
     static _arrBeforeClose: CameraZsFunc[];
@@ -3376,6 +3539,9 @@ declare class Camera {
      * If `value` is a falsy value, `coreShell` is used as `ui`.
      **/
     set ui(value: HTMLElement | DocumentFragment | string | undefined);
+    /**
+     * "closed" | "opening" | "opened" | "paused" | "closing"
+     */
     get status(): CameraStatus;
     get requestedCamera(): "back" | "front" | "macro-back" | "quick-back" | "customized-video" | MediaTrackConstraints;
     get requestedResolution(): {
@@ -3400,7 +3566,7 @@ declare class Camera {
         borderStyle?: Partial<CSSStyleDeclaration>;
         innerUi?: Node | NodeList;
     };
-    onOpened: (camera: Camera) => void | any;
+    onOpened?: (camera: Camera) => void | any;
     static hasCamera(): Promise<boolean>;
     static hasMacroCamera(): Promise<boolean>;
     static hasFrontCamera(): Promise<boolean>;
@@ -3434,7 +3600,7 @@ declare class Camera {
      * */
     requestCamera(resetToDefault: undefined): Promise<void>;
     /** If call `requestCamera()` when the camera is `opened`, it will call `close()` then re`open()` Internally. */
-    requestCamera(camera: string | CameraInfo | MediaTrackConstraints): Promise<void>;
+    requestCamera(camera: string | CameraInfo | MediaTrackConstraints | null | undefined): Promise<void>;
     requestResolution(width: number, height?: number): Promise<void>;
     requestResolution(widthHeightPair: [number, number] | number[]): Promise<void>;
     requestResolution(constraints: {
@@ -3444,6 +3610,7 @@ declare class Camera {
     }): Promise<void>;
     requestResolution(notRequired: null): Promise<void>;
     requestResolution(resetToDefault: undefined): Promise<void>;
+    requestResolution(arg1: any, arg2?: any): Promise<void>;
     /**
      * Similar to `camera.track.applyConstraints`,
      * but auto add constraints of original camera and original resolution.
@@ -3568,10 +3735,10 @@ type CameraPreset = typeof ArrCameraPreset[number];
             x: number;
             y: number;
         }>;
-        _gestureZoomListener: EventListener;
+        _gestureZoomListener: ((this: HTMLElement, ev: TouchEvent) => any) | null;
         get enableGestureZoom(): boolean;
         set enableGestureZoom(value: boolean);
-        _wheelZoomListener: EventListener;
+        _wheelZoomListener: ((this: HTMLElement, ev: WheelEvent) => any) | null;
         get enableWheelZoom(): boolean;
         set enableWheelZoom(value: boolean);
         getZoomRange(): {
@@ -3600,14 +3767,14 @@ type CameraPreset = typeof ArrCameraPreset[number];
         _changeZoomByWheel(ev: WheelEvent): void;
         _changeZoomByTouch(ev: TouchEvent): void;
         /** The `zoom` event is triggered when zoom updated via a touch gesture or mouse wheel. */
-        addEventListener(type: 'zoom', listener: (this: Camera, softZoom?: {
+        addEventListener(type: 'zoom', listener: (this: Camera, softZoom: {
             zoom: number;
             center: {
                 x: number;
                 y: number;
             };
         }) => void | any): void;
-        removeEventListener(type: 'zoom', listener: (this: Camera, softZoom?: {
+        removeEventListener(type: 'zoom', listener: (this: Camera, softZoom: {
             zoom: number;
             center: {
                 x: number;
@@ -3617,19 +3784,19 @@ type CameraPreset = typeof ArrCameraPreset[number];
     }
 
 interface AdvancedFocusParameters {
-    minFocusDistanceLimit?: number;
-    maxFocusDistanceLimit?: number;
-    firstStepWaitDuration?: number;
-    coarseStepWaitDuration?: number;
-    switchStepWaitDuration?: number;
-    fineStepWaitDuration?: number;
-    maxStepCount?: number;
+    minFocusDistanceLimit: number;
+    maxFocusDistanceLimit: number;
+    firstStepWaitDuration: number;
+    coarseStepWaitDuration: number;
+    switchStepWaitDuration: number;
+    fineStepWaitDuration: number;
+    maxStepCount: number;
     /** value < 0 means no never */
-    backToContinousDuration?: number;
+    backToContinousDuration: number;
     /** The focus width and height, 0 ~ 1, represents the ratio of the length to the `Math.min(video.videoWidth, video.videoHeight)` */
-    focusWH?: number;
+    focusWH: number;
     /** From far to near, 0 ~ 1. The closer to 1, the more sensitive but more slow. */
-    coarseTuneRate?: number;
+    coarseTuneRate: number;
     /**
      * 0 ~ 1.
      * When the correct focus is closer, the far focus contrast data is unreliable
@@ -3638,9 +3805,9 @@ interface AdvancedFocusParameters {
      * When closer to 0, there will be more error tolerance,
      * and it may also cause the focus to be too close and the process to be too slow.
      **/
-    coarseTuneTolerance?: number;
+    coarseTuneTolerance: number;
     /** From near to far, 1 ~ 1.xx. The closer to 1, the more sensitive but more slow. */
-    fineTuneRate?: number;
+    fineTuneRate: number;
 }
 declare namespace Camera {
         function _getImageContrast(data: Uint8Array | Uint8ClampedArray, width: number, height: number): number;
@@ -3648,7 +3815,7 @@ declare namespace Camera {
     interface Camera {
         _enableTapToFocus: false | 'simple' | 'experimental-advanced';
         _isFocusing: boolean;
-        _tapToFocusListner: EventListener;
+        _tapToFocusListner: ((this: HTMLElement, ev: PointerEvent) => any) | null;
         _simpleFocus(): Promise<void>;
         _advancedFocusParameters: AdvancedFocusParameters;
         _advancedFocusTaskId: number;
@@ -3698,7 +3865,29 @@ interface AutoTorchParameters {
         get shouldCloseWhenHide(): boolean;
         set shouldCloseWhenHide(value: boolean);
         _closeWhenHide(): Promise<void>;
-        _closeWhenHideListener: EventListener;
+        _closeWhenHideListener: EventListener | null;
+        _bindCloseWhenHide(): void;
+        _unbindCloseWhenHide(): void;
+    }
+declare namespace Camera {
+        let _id4CloseWhenNotInDOM: number;
+        let _stMSBNotInDOMCamera: Set<Camera>;
+    }
+    interface Camera {
+        _id4CloseWhenNotInDOM: number;
+        _shouldCloseWhenNotInDOM: boolean;
+        _bClosedBecauseOfNotInDOM: boolean;
+        /**
+         * After turn on `shouldCloseWhenNotInDOM`:
+         * 1. Once a camera insert into DOM, if the camera leave DOM, it auto close.
+         * 2. Once a mediaStream-binded camera insert into DOM, or a already in DOM camera is opened,
+         *    we call this camera as A,
+         *    Other cameras who is not in DOM and created before A, will be closed.
+         */
+        get shouldCloseWhenNotInDOM(): boolean;
+        set shouldCloseWhenNotInDOM(value: boolean);
+        _updateMo4CloseWhenNotInDOM(): void;
+        _mo4CloseWhenNotInDOM: MutationObserver | null;
     }
 declare namespace Camera {
         function showFilePicker(inputOptions?: {
@@ -3708,6 +3897,15 @@ declare namespace Camera {
             onchange?: (this: HTMLInputElement, ev: Event) => any;
         }): Promise<File[]>;
         function showFilePicker(inputOptions?: any): Promise<File[]>;
+        let filePicker2CanvasMaxWH: number;
+        function showFilePicker2Canvas(inputOptions?: {
+            accept?: string;
+            multiple: boolean;
+            capture?: 'user' | 'environment' | '';
+            onchange?: (this: HTMLInputElement, ev: Event) => any;
+            canvasMaxWH?: number;
+        }): Promise<HTMLCanvasElement[]>;
+        function showFilePicker2Canvas(inputOptions?: any): Promise<HTMLCanvasElement[]>;
     }
 
 /**
@@ -3720,15 +3918,15 @@ declare const stringToHtml: (str: string, config?: {
 }) => Node;
 
 declare class FramePipeline {
-    camera: Camera;
+    camera?: Camera;
     _ctx: CanvasRenderingContext2D;
-    _data: Uint8Array<ArrayBuffer>;
+    _data?: Uint8Array<ArrayBuffer> | null;
     _dataTime: number;
-    _x: number;
-    _y: number;
-    _w: number;
-    _h: number;
-    _type: string;
+    _x?: number;
+    _y?: number;
+    _w?: number;
+    _h?: number;
+    _type?: 'rgba' | 'gray' | 'r' | 'g' | 'b';
     maxTimeout: number;
     _pipeTaskId: any;
     isSaveOriginalRgba: boolean;
@@ -3736,7 +3934,7 @@ declare class FramePipeline {
      * The `originalRgba` share `ArrayBuffer` with the `data` returned by `getData(..., type: 'rgba')`.
      * So you should be careful when transferring `data` to other thread.
      */
-    originalRgba: Uint8ClampedArray<ArrayBuffer>;
+    originalRgba?: Uint8ClampedArray<ArrayBuffer> | null;
     constructor(camera?: Camera);
     _getData(): Uint8Array<ArrayBuffer>;
     /**
@@ -3753,13 +3951,13 @@ declare class FramePipeline {
         y?: number;
         width?: number;
         height?: number;
-        type?: 'rgba' | 'gray';
-    }): Uint8Array;
+        type?: 'rgba' | 'gray' | 'r' | 'g' | 'b';
+    }): Uint8Array | null;
 }
 
 declare class Beep {
-    _stAudioFree: Set<unknown>;
-    _stAudioPlaying: Set<unknown>;
+    _stAudioFree: Set<HTMLAudioElement>;
+    _stAudioPlaying: Set<HTMLAudioElement>;
     _timeLastPlay: number;
     _bWarnedMaxTrack: boolean;
     maxPlayingBeep: number;
@@ -3798,7 +3996,6 @@ declare namespace Camera {
         _dceLastDeviceId: any;
         _dceLastResolution: any;
         cameraOpenTimeout: any;
-        _bTryAnotherCameraWhenFailToOpen: boolean;
         _bAutoSingleFrameModeWhenIosPwaFail: boolean;
         _oriOpen(): Promise<void>;
         open(): Promise<void | {
@@ -4016,10 +4213,13 @@ declare namespace Camera {
         _dceSettingsBeforeSingleFrameMode: any;
         _singleFrameMode: "disabled" | "camera" | "image";
         _singleFrameModeClickCallback: any;
-        _singleFrameModeResultForDcv: DCEFrame;
-        _singleFrameModeCvs: HTMLCanvasElement;
+        _singleFrameModeResultForDcv: DCEFrame | null;
+        _singleFrameModeCvs: HTMLCanvasElement | null;
+        _singleFrameModeUIAutoFitRO: ResizeObserver | undefined;
         get singleFrameMode(): "disabled" | "camera" | "image";
         set singleFrameMode(value: "disabled" | "camera" | "image");
+        _singleFrameModeObjectFit: 'contain' | 'cover' | 'fill';
+        _singleFrameModeUpdateObjectFit(): void;
         setCameraView(view: CameraView): void;
         getCameraView(): CameraView;
         getVideoEl(): HTMLVideoElement;
@@ -4145,11 +4345,12 @@ declare class DrawingLayer {
     _drawingItems: DrawingItem[];
     _mode: 'editor' | 'viewer';
     _editorView: any;
+    _extraEditorView: any;
     _renderTask: any;
     _newSelectedDrawingItems: DrawingItem[];
     _newDeselectedDrawingItems: DrawingItem[];
     _selectionChangedTask: any;
-    _onSelectionChanged: (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void;
+    _onSelectionChanged?: (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void;
     getId(): this;
     isVisible(): boolean;
     setVisible(value: boolean): void;
@@ -4166,8 +4367,8 @@ declare class DrawingLayer {
     getMode(): "editor" | "viewer";
     setMode(mode: 'editor' | 'viewer'): Promise<void>;
     _delaySelectionChanged(): void;
-    get onSelectionChanged(): (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void;
-    set onSelectionChanged(value: (newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void);
+    get onSelectionChanged(): ((newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void) | undefined;
+    set onSelectionChanged(value: ((newSelectedDrawingItems: DrawingItem[], newDeselectedDrawingItems: DrawingItem[]) => void) | undefined);
 }
 /**
  * Determines if a point is inside a quadrilateral.
@@ -4199,7 +4400,7 @@ declare class DrawingItem {
     }[];
     getState(): EnumDrawingItemState;
     addNote(note: Note, replace?: boolean): void;
-    getNote(name: string): Note;
+    getNote(name: string): Note | null;
     getNotes(): Note[];
     hasNote(name: string): boolean;
     updateNote(name: string, content: any, isMergeContent?: boolean): void;
@@ -4518,5 +4719,6 @@ interface Note {
     content: any;
 }
 
-export { Beep, Camera, CameraEnhancer, CameraEnhancerModule, CameraInfo, CameraPreset, CameraStatus, CameraView, CameraZsFunc, DCEFrame, DMMoreMediaTrackCapabilities, DrawingItem, DrawingLayer, DrawingStyle, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, EnumPixelFormat, Feedback, FramePipeline, ImageDrawingItem, LineDrawingItem, Note, PlayCallbackInfo, QuadDrawingItem, RectDrawingItem, Resolution, TextDrawingItem, TipConfig, VideoDeviceInfo, VideoFrameTag, _bufferToCanvas, _distToSegment, _isPointInPolygon, beep, stringToHtml, vibrate };
+export { Beep, Camera, CameraEnhancer, CameraEnhancerModule, CameraView, DrawingItem, DrawingLayer, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, EnumPixelFormat, Feedback, FramePipeline, ImageDrawingItem, LineDrawingItem, QuadDrawingItem, RectDrawingItem, TextDrawingItem, _bufferToCanvas, _distToSegment, _isPointInPolygon, beep, stringToHtml, vibrate };
+export type { CameraInfo, CameraPreset, CameraStatus, CameraZsFunc, DCEFrame, DMMoreMediaTrackCapabilities, DrawingStyle, Note, PlayCallbackInfo, Resolution, TipConfig, VideoDeviceInfo, VideoFrameTag };
 
