@@ -998,6 +998,7 @@ declare class CoreModule {
     static get bSupportIRTModule(): number;
     private static _versions;
     static get versions(): any;
+    static _isNoOnnx: boolean;
     static _onLog: (message: string) => void;
     static get _bDebug(): boolean;
     static set _bDebug(value: boolean);
@@ -1479,7 +1480,6 @@ declare class CaptureVisionRouter {
     #private;
     static _onLog: (message: string) => void;
     static _defaultTemplate: string;
-    private static _isNoOnnx;
     /**
      * The maximum length of the longer side of the image to be processed. The default value is 2048 pixels in mobile devices and 4096 pixels in desktop browser.
      */
