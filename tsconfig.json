@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "esnext",
+    //"lib": ["DOM","ES2015"],
+    "rootDir": "./src",
+    "strict": false,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": false,
+    "declaration": true,
+    "declarationMap": false,
+    "declarationDir": "./dist/types",
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "ignoreDeprecations": "6.0",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "~~exclude": [
+    "node_modules/**"
+  ]
+}
