@@ -247,7 +247,7 @@
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;camera-view-container&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; height: 60vh&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;results&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width: 100%; min-height: 10vh; font-size: 3vmin; overflow: auto&quot;</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.6.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
   Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
   Dynamsoft.Core.CoreModule.loadWasm();
@@ -282,7 +282,7 @@
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
 <p align="center" style="text-align:center; white-space: normal; ">
-  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.4.20/basics/hello-world.html" title="Code in Github" style="text-decoration:none;">
+  <a target="_blank" href="https://github.com/Dynamsoft/barcode-reader-javascript-samples/blob/v11.6.30/basics/hello-world.html" title="Code in Github" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg" alt="Code in Github" width="20" height="20" style="width:20px;height:20px;">
   </a>
   &nbsp;
@@ -290,7 +290,7 @@
     <img src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/jsfiddle.svg" alt="Run via JSFiddle" width="20" height="20" style="width:20px;height:20px;" >
   </a>
   &nbsp;
-  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=guide" title="Run in Dynamsoft" style="text-decoration:none;">
+  <a target="_blank" href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.6.30&utm_source=github" title="Run in Dynamsoft" style="text-decoration:none;">
     <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/svgs/solid/circle-play.svg" alt="Run in Dynamsoft" width="20" height="20" style="width:20px;height:20px;">
   </a>
 </p>
@@ -333,15 +333,15 @@ cvRouter.addResultFilter(filter);
   <p>Read more on <a href="https://www.dynamsoft.com/capture-vision/docs/core/architecture/#capture-vision-router">Capture Vision Router</a>.</p>
 </blockquote>
 <h3 id="run-the-example">Run the example</h3>
-<p>You can run the example deployed to <a href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.4.20&utm_source=guide">the Dynamsoft Demo Server</a> or test it with <a href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/">JSFiddle code editor</a>. </p>
+<p>You can run the example deployed to <a href="https://demo.dynamsoft.com/Samples/DBR/JS/basics/hello-world.html?ver=11.6.30&utm_source=github">the Dynamsoft Demo Server</a> or test it with <a href="https://jsfiddle.net/DynamsoftTeam/csm2f9wb/">JSFiddle code editor</a>. </p>
 <p>You will be asked to allow access to your camera, after which the video will be displayed on the page. After that, you can point the camera at a barcode to read it.</p>
 <p>When a barcode is decoded, you will see the result text show up under the video and the barcode location will be highlighted in the video feed.</p>
 <p>Alternatively, you can test locally by copying and pasting the code shown above into a local file (e.g. "hello-world.html") and opening it in your browser.</p>
 <blockquote>
   <p><em>Secure Contexts</em>:</p>
-  <p>If you open the web page as <code>http://</code> , our SDK may not work correctly because the <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices: getUserMedia()</a> and other methods only work in <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts">secure contexts</a> (HTTPS, <code>localhost</code>, <code>127.0.0.1</code>, <code>file://</code>), in some or all supporting browsers.</p>
+  <p>If you open the web page as <code>http://</code>, our SDK may not work correctly because the <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia">MediaDevices: getUserMedia()</a> and other methods only work in <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts">secure contexts</a> (HTTPS, <code>localhost</code>, <code>127.0.0.1</code>, <code>file://</code>), in some or all supporting browsers.</p>
   <p>Regarding configuring https on your server, these guides for <a href="https://nginx.org/en/docs/http/configuring_https_servers.html">nginx</a> / <a href="https://aboutssl.org/how-to-create-a-self-signed-certificate-in-iis/">IIS</a> / <a href="https://dzone.com/articles/setting-ssl-tomcat-5-minutes">tomcat</a> / <a href="https://nodejs.org/docs/v0.4.1/api/tls.html">nodejs</a> might help.</p>
-  <p>If the test doesn't go as expected, you can <a href="https://www.dynamsoft.com/company/contact/?ver=11.4.20&utm_source=guide&product=dbr&package=js">contact us</a>.</p>
+  <p>If the test doesn't go as expected, you can <a href="https://www.dynamsoft.com/company/contact/?ver=11.6.30&utm_source=github&product=dbr&package=js">contact us</a>.</p>
 </blockquote>
 <h2 id="preparing-the-sdk">Preparing the SDK</h2>
 <h3 id="step-1-include-the-sdk">Step 1: Include the SDK</h3>
@@ -355,24 +355,24 @@ cvRouter.addResultFilter(filter);
 <ul>
 <li>jsDelivr</li>
 </ul>
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/dynamsoft-barcode-reader-bundle@11.6.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <ul>
 <li>UNPKG</li>
 </ul>
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/dynamsoft-barcode-reader-bundle@11.6.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <!-- - In some rare cases (such as some restricted areas), you might not be able to access the CDN. If this happens, you can use the following files for the test.
-<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://download2.dynamsoft.com/packages/dynamsoft-barcode-reader-bundle@11.6.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 
   However, please **DO NOT** use `download2.dynamsoft.com` resources in a production application as they are for temporary testing purposes only. Instead, you can try hosting the SDK yourself. -->
 <ul>
 <li>In frameworks like React, Vue and Angular, you may want to add the package as a dependency.</li>
 </ul>
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.6.3000 -E
   <span class="hljs-comment"># or</span>
-  yarn add dynamsoft-barcode-reader-bundle@11.4.2001 -E
+  yarn add dynamsoft-barcode-reader-bundle@11.6.3000 -E
 </code></pre>
 <p>NOTE that in frameworks, you need to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the location of the engine files</a>.</p>
 <div class="multi-panel-end"></div>
@@ -381,28 +381,28 @@ cvRouter.addResultFilter(filter);
 <p>Besides using the public CDN, you can also download the SDK and host its files on your own server or a commercial CDN before including it in your application.</p>
 <ul>
 <li><p>From the website</p>
-<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.4.20&utm_source=guide&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
-<p>The resources are located at path <code>dynamsoft-barcode-reader-js-{version-number}/dist/</code>.</p></li>
+<p><a href="https://www.dynamsoft.com/barcode-reader/downloads/?ver=11.6.30&utm_source=github&product=dbr&package=js">Download Dynamsoft Barcode Reader JavaScript Package</a></p>
+<p>The resources are located at the path <code>dynamsoft-barcode-reader-js-{version-number}/dist/</code>.</p></li>
 <li><p>From npm</p></li>
 </ul>
-<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.4.2001 -E
+<pre><code class="hljs sh language-sh">  npm i dynamsoft-barcode-reader-bundle@11.6.3000 -E
 </code></pre>
 <p>The resources are located at the path <code>node_modules/&lt;pkg&gt;</code>, without <code>@&lt;version&gt;</code>. You must copy "dynamsoft-xxx" packages elsewhere and add <code>@&lt;version&gt;</code>. The <code>&lt;version&gt;</code> can be obtained from <code>package.json</code> of each package. Another thing to do is to <a href="#2-optional-specify-the-location-of-the-engine-files">specify the engineResourcePaths</a> so that the SDK can correctly locate the resources.</p>
 <blockquote>
   <p>Since "node<em>modules" is reserved for Node.js dependencies, and in our case the package is used only as static resources, we recommend either renaming the "node</em>modules" folder or moving the "dynamsoft-" packages to a dedicated folder for static resources in your project to facilitate self-hosting.</p>
 </blockquote>
 <p>You can typically include SDK like this:</p>
-<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.4.2001/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<pre><code class="hljs html language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;path/to/dynamsoft-barcode-reader-bundle@11.6.3000/dist/dbr.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <div class="multi-panel-end"></div>
 <div class="multi-panel-switching-end"></div>
 <p><em>Note</em>:</p>
 <ul>
-<li>Certain legacy web application servers may lack support for the <code>application/wasm</code> mimetype for .wasm files. To address this, you have two options:</li>
+<li>Certain legacy web application servers may lack support for the <code>application/wasm</code> MIME type for .wasm files. To address this, you have two options:</li>
 </ul>
 <ol>
-<li>Upgrade your web application server to one that supports the <code>application/wasm</code> mimetype.</li>
-<li>Manually define the mimetype on your server. You can refer to the guides for <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings">apache</a> / <a href="https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap">IIS</a> / <a href="https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types">nginx</a>.</li>
+<li>Upgrade your web application server to one that supports the <code>application/wasm</code> MIME type.</li>
+<li>Manually define the MIME type on your server. You can refer to the guides for <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Apache_Configuration_htaccess#media_types_and_character_encodings">apache</a> / <a href="https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap">IIS</a> / <a href="https://www.nginx.com/resources/wiki/start/topics/examples/full/#mime-types">nginx</a>.</li>
 </ol>
 <ul>
 <li>To work properly, the SDK requires a few engine files, which are relatively large and may take quite a few seconds to download. We recommend that you set a longer cache time for these engine files, to maximize the performance of your web application.</li>
@@ -416,21 +416,21 @@ cvRouter.addResultFilter(filter);
 <p>To enable the SDK's functionality, you must provide a valid license. Utilize the API function initLicense to set your license key.</p>
 <pre><code class="hljs javascript language-javascript">Dynamsoft.License.LicenseManager.initLicense(<span class="hljs-string">&quot;DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9&quot;</span>);
 </code></pre>
-<p>As previously stated, the key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" serves as a test license valid for 24 hours, applicable to any newly authorized browser. To test the SDK further, you can request a 30-day free trial license via the <a href="https://www.dynamsoft.com/customer/license/trialLicense?ver=11.4.20&utm_source=guide&product=dbr&package=js" target="_blank">Request a Trial License</a> link.</p>
+<p>As previously stated, the key "DLS2eyJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSJ9" serves as a test license valid for 24 hours, applicable to any newly authorized browser. To test the SDK further, you can request a 30-day free trial license via the <a href="https://www.dynamsoft.com/customer/license/trialLicense?ver=11.6.30&utm_source=github&product=dbr&package=js" target="_blank">Request a Trial License</a> link.</p>
 <blockquote>
   <p>Upon registering a Dynamsoft account and obtaining the SDK package from the official website, Dynamsoft will automatically create a 30-day free trial license and embed the corresponding license key into all the provided SDK samples.</p>
 </blockquote>
 <h4 id="2-optional-specify-the-location-of-the-engine-files">2. [Optional] Specify the location of the "engine" files</h4>
-<p>This step is generally necessary when utilizing frameworks such as Angular, React, Vue, or when managing the hosting of resource files yourself.</p>
+<p>This step is optional and is only necessary if you need to specify a custom location for the engine files, such as when hosting these resources yourself or when your project's build setup does not automatically resolve them from the default location.</p>
 <p>The purpose is to tell the SDK where to find the engine files (*.worker.js, *.wasm.js and *.wasm, etc.).</p>
-<pre><code class="hljs ts language-ts"><span class="hljs-comment">// in framework</span>
+<pre><code class="hljs ts language-ts"><span class="hljs-comment">// In an ES Module</span>
 <span class="hljs-keyword">import</span> { CoreModule } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;dynamsoft-barcode-reader-bundle&quot;</span>;
 CoreModule.engineResourcePaths.rootDirectory = <span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/&quot;</span>;
 </code></pre>
-<pre><code class="hljs js language-js"><span class="hljs-comment">// in pure js</span>
+<pre><code class="hljs js language-js"><span class="hljs-comment">// Using the global namespace</span>
 Dynamsoft.Core.CoreModule.engineResourcePaths.rootDirectory = <span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/&quot;</span>;
 </code></pre>
-<p>These code uses the jsDelivr CDN as an example, feel free to change it to your own location.</p>
+<p>This code uses the jsDelivr CDN as an example, feel free to change it to your own location.</p>
 <h2 id="using-the-sdk">Using the SDK</h2>
 <h3 id="step-1-preload-the-module">Step 1: Preload the module</h3>
 <p>The image processing logic is encapsulated within .wasm library files, and these files may require some time for downloading. To enhance the speed, we advise utilizing the following method to preload the libraries.</p>
@@ -658,7 +658,7 @@ settings.timeout = <span class="hljs-number">500</span>;
 <h3 id="2-edit-the-preset-templates-directly">2. Edit the preset templates directly</h3>
 <p>The preset templates have many more settings that can be customized to suit your use case best. If you <a href="https://www.dynamsoft.com/barcode-reader/downloads/1000003-confirmation/">download the SDK from Dynamsoft website</a>, you can find the templates under</p>
 <ul>
-<li>"/dynamsoft-barcode-reader-js-11.4.2001/dist/templates/"</li>
+<li>"/dynamsoft-barcode-reader-js-11.6.3000/dist/templates/"</li>
 </ul>
 <p>Upon completing the template editing, you can invoke the <code>initSettings</code> method and provide it with the template path as an argument.</p>
 <pre><code class="hljs javascript language-javascript"><span class="hljs-keyword">await</span> cvRouter.initSettings(<span class="hljs-string">&quot;PATH-TO-THE-FILE&quot;</span>); <span class="hljs-comment">// E.g. &quot;https://your-website/ReadSingleBarcode.json&quot;)</span>
@@ -732,7 +732,7 @@ uiElement.querySelector(<span class="hljs-string">&#x27;.dce-sel-resolution&#x27
 <h2 id="documentation">Documentation</h2>
 <h3 id="api-reference">API Reference</h3>
 <p>You can check out the detailed documentation about the APIs of the SDK at<br />
-<a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.4.2001</a>.</p>
+<a href="https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.6.3000">https://www.dynamsoft.com/barcode-reader/docs/web/programming/javascript/api-reference/?ver=11.6.3000</a>.</p>
 <!--  Compatibility is basically not an issue. Pls remove to another place
 
 ## System Requirements
@@ -744,7 +744,7 @@ DBR requires the following features to work:
   When deploying your application / website for production, make sure to serve it via a secure HTTPS connection. This is required for two reasons
 
   - Access to the camera video stream is only granted in a security context. Most browsers impose this restriction.
-  > Some browsers like Chrome may grant the access for `http://127.0.0.1` and `http://localhost` or even for pages opened directly from the local disk (`file:///...`). This can be helpful for temporary development and test.
+  > Some browsers like Chrome may grant access for `http://127.0.0.1` and `http://localhost` or even for pages opened directly from the local disk (`file:///...`). This can be helpful for temporary development and testing.
 
   - Dynamsoft License requires a secure context to work.
 
