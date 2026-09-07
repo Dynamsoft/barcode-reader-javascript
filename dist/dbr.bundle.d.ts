@@ -3434,6 +3434,7 @@ declare class BarcodeScanner {
 
 export { BarcodeScanner, EnumResultStatus, EnumScanMode, isPathConfig };
 export type { BarcodeScanResult, BarcodeScannerConfig, CacheKeys, ResultStatus, ToolbarButtonConfig, UtilizedTemplateNames };
+
 interface CameraInfo extends InputDeviceInfo {
     trackLabel: string;
     capabilities: DMMoreMediaTrackCapabilities;
@@ -3515,6 +3516,15 @@ declare class Camera {
     static _bReopenWhenChangeResolution: boolean;
     _bTryAnotherCameraWhenFailToOpen: boolean;
     _constraints4Fallback: MediaTrackConstraints | true;
+    static _dynamsoftExports: any;
+    /**
+     * In the UI definition file, you can import SDK variables through this interface.
+     */
+    dynamsoftExports: any;
+    /**
+     * You can use this interface to share variables between business logic and UI definition files.
+     */
+    uiContext: any;
     static _arrConstructors: CameraZsFunc[];
     static _arrOnOpen: CameraZsFunc[];
     static _arrBeforeClose: CameraZsFunc[];
@@ -3539,6 +3549,12 @@ declare class Camera {
      * If `value` is a falsy value, `coreShell` is used as `ui`.
      **/
     set ui(value: HTMLElement | DocumentFragment | string | undefined);
+    /**
+     * Compare to `camera.ui = xxx`,
+     * 1. accept url string as value
+     * 2. accept nested tag `<UIInclude src='xxx'>`
+     */
+    setUIAsync(value: HTMLElement | DocumentFragment | string | undefined): Promise<void>;
     /**
      * "closed" | "opening" | "opened" | "paused" | "closing"
      */
@@ -3916,6 +3932,18 @@ declare const stringToHtml: (str: string, config?: {
     internalCss2Blob: boolean;
     insertInternalCss2ExistedSheet?: boolean;
 }) => Node;
+/**
+ * Return `Element` if possible, otherwise return `DocumentFragment`.
+ *
+ * Compare to `stringToHtml`,
+ * 1. accept url string as value
+ * 2. accept nested tag `<UIInclude src='xxx'>`
+ */
+declare const toHtmlAsync: (value: HTMLElement | DocumentFragment | string, config?: {
+    inlineScript2Blob?: boolean;
+    internalCss2Blob: boolean;
+    insertInternalCss2ExistedSheet?: boolean;
+}) => Promise<Node>;
 
 declare class FramePipeline {
     camera?: Camera;
@@ -4164,11 +4192,11 @@ declare namespace Camera {
         isBufferEmpty(): boolean;
         startFetching(): void;
         _pixelFormat: number;
-        getPixelFormat(): number;
-        setPixelFormat(format: number): void;
+        getPixelFormat(): EnumImagePixelFormat;
+        setPixelFormat(format: EnumImagePixelFormat): void;
         _colourChannelUsageType: number;
-        setColourChannelUsageType(format: number): void;
-        getColourChannelUsageType(): number;
+        setColourChannelUsageType(format: EnumColourChannelUsageType): void;
+        getColourChannelUsageType(): EnumColourChannelUsageType;
         setScanRegion(region?: {
             x: number;
             y: number;
@@ -4575,7 +4603,7 @@ declare class ImageDrawingItem extends DrawingItem {
         width: number;
         height: number;
     }, maintainAspectRatio: boolean, drawingStyleId?: any);
-    getImage(): HTMLVideoElement | HTMLCanvasElement | HTMLImageElement;
+    getImage(): HTMLCanvasElement | HTMLImageElement | HTMLVideoElement;
     setImage(image: {
         bytes: Uint8Array;
         width: number;
@@ -4643,16 +4671,6 @@ declare enum EnumEnhancedFeatures {
      */
     EF_TAP_TO_FOCUS = 64
 }
-declare enum EnumPixelFormat {
-    GREY = "grey",
-    GREY32 = "grey32",
-    RGBA = "rgba",
-    RBGA = "rbga",
-    GRBA = "grba",
-    GBRA = "gbra",
-    BRGA = "brga",
-    BGRA = "bgra"
-}
 interface Resolution {
     width: number;
     height: number;
@@ -4719,6 +4737,6 @@ interface Note {
     content: any;
 }
 
-export { Beep, Camera, CameraEnhancer, CameraEnhancerModule, CameraView, DrawingItem, DrawingLayer, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, EnumPixelFormat, Feedback, FramePipeline, ImageDrawingItem, LineDrawingItem, QuadDrawingItem, RectDrawingItem, TextDrawingItem, _bufferToCanvas, _distToSegment, _isPointInPolygon, beep, stringToHtml, vibrate };
+export { Beep, Camera, CameraEnhancer, CameraEnhancerModule, CameraView, DrawingItem, DrawingLayer, DrawingStyleManager, EnumDrawingItemMediaType, EnumDrawingItemState, EnumEnhancedFeatures, Feedback, FramePipeline, ImageDrawingItem, LineDrawingItem, QuadDrawingItem, RectDrawingItem, TextDrawingItem, _bufferToCanvas, _distToSegment, _isPointInPolygon, beep, stringToHtml, toHtmlAsync, vibrate };
 export type { CameraInfo, CameraPreset, CameraStatus, CameraZsFunc, DCEFrame, DMMoreMediaTrackCapabilities, DrawingStyle, Note, PlayCallbackInfo, Resolution, TipConfig, VideoDeviceInfo, VideoFrameTag };
 
