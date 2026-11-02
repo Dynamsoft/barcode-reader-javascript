@@ -1,4 +1,8 @@
-
+<!--
+  This file is essentially an **HTML** file; you can use any valid HTML syntax.
+  You can click on the XML icon in the bottom right corner of VS Code to switch to HTML mode highlighting.
+  Document: https://www.dynamsoft.com/barcode-reader/docs/core/programming/features/ui-customization-js.html?lang=js
+-->
 <div style="position:relative;width:100%;height:100%;min-width:100px;min-height:100px;background:#000;font-family:Arial,Helvetica,sans-serif;pointer-events:none;user-select:none;">
   <div class="dm-camera-core-container" style="width:100%;height:100%;pointer-events:initial;"></div>
   <div class="dm-camera-mn-torch" title="torch" style="display:none;">
@@ -173,7 +177,7 @@ C92.9,14.1,92.8,14.1,92.7,14.1z" />
     <div class="dm-camera-mn-camera-and-resolution-bar"></div>
     <div class="dm-camera-mn-resolutions">
       <div class="dm-camera-mn-resolution-option" data-width="640" data-height="480">480P</div>
-      <div class="dm-camera-mn-resolution-option" data-width="1080" data-height="720">720P</div>
+      <div class="dm-camera-mn-resolution-option" data-width="1280" data-height="720">720P</div>
       <div class="dm-camera-mn-resolution-option" data-width="1920" data-height="1080">1080P</div>
       <div class="dm-camera-mn-resolution-option" data-width="2560" data-height="1440">2K</div>
       <div class="dm-camera-mn-resolution-option" data-width="3840" data-height="2160">4K</div>
@@ -267,9 +271,9 @@ C92.9,14.1,92.8,14.1,92.7,14.1z" />
     const elTorchAuto = ui.querySelector('.dm-camera-mn-torch-auto');
     const elTorchOn = ui.querySelector('.dm-camera-mn-torch-on');
     const elTorchOff = ui.querySelector('.dm-camera-mn-torch-off');
-    if(elTorchAuto){ elTorchAuto.style.display = undefined == camera.isTorchOn ? '' : 'none'; }
-    if(elTorchOn){ elTorchOn.style.display = true == camera.isTorchOn ? '' : 'none'; }
-    if(elTorchOff){ elTorchOff.style.display = false == camera.isTorchOn ? '' : 'none'; }
+    if(elTorchAuto){ elTorchAuto.style.display = undefined === camera.isTorchOn ? '' : 'none'; }
+    if(elTorchOn){ elTorchOn.style.display = true === camera.isTorchOn ? '' : 'none'; }
+    if(elTorchOff){ elTorchOff.style.display = false === camera.isTorchOn ? '' : 'none'; }
 
     // You need to bind the events yourself to determine when `beep()` and `vibrate()` are triggered;
     // the SDK includes built-in, callable versions of both functions.
@@ -394,10 +398,16 @@ C92.9,14.1,92.8,14.1,92.7,14.1z" />
       if(option = target.closest('.dm-camera-mn-camera-option')){
         // change camera
         if(option.hasAttribute('selected')){ return; }
-        await camera.requestCamera(option.getAttribute('data-device-id'));
+        const requestedDeviceId = option.getAttribute('data-device-id');
+        await camera.requestCamera(requestedDeviceId);
         // if remove usb camera, camera status can be 'paused'
         // anyway, if not 'opened', reopen it
         if('opened' !== camera.status){ await camera.open(); }
+        const cc = camera.currentCamera;
+        if(cc?.deviceId && cc.deviceId != requestedDeviceId){
+          const showCamName = cc.trackLabel || cc.label || cc.deviceId;
+          funcShowToast(`Fallback to ${showCamName}`);
+        }
       }else if(option = target.closest('.dm-camera-mn-resolution-option')){
         // change resolution
         if(option.hasAttribute('selected')){ return; }
